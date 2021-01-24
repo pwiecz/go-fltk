@@ -1,0 +1,54 @@
+#include "widget.h"
+
+#include <cstdint>
+
+#include <Fl/Fl_Widget.H>
+
+#include "enumerations.h"
+
+
+void go_fltk_Widget_set_box(Fl_Widget *w, int box) {
+  w->box((Fl_Boxtype)box);
+}
+void go_fltk_Widget_set_callback(Fl_Widget *w, void* id) {
+  w->callback(callback_handler, id);
+}
+void go_fltk_Widget_set_labelfont(Fl_Widget *w, int font) {
+  w->labelfont((Fl_Font)font);
+}
+void go_fltk_Widget_set_labelsize(Fl_Widget *w, int size) {
+  w->labelsize(size);
+}
+void go_fltk_Widget_set_labeltype(Fl_Widget *w, int type) {
+  w->labeltype((Fl_Labeltype)type);
+}
+int go_fltk_Widget_x(Fl_Widget *w) {
+  return w->x();
+}
+int go_fltk_Widget_y(Fl_Widget *w) {
+  return w->y();
+}
+int go_fltk_Widget_w(Fl_Widget *w) {
+  return w->w();
+}
+int go_fltk_Widget_h(Fl_Widget *w) {
+  return w->h();
+}
+void go_fltk_Widget_set_align(Fl_Widget *w, unsigned int align) {
+  w->align((Fl_Align)align);
+}
+void go_fltk_Widget_measure_label(Fl_Widget *w, int *ww, int *hh) {
+  w->measure_label(*ww, *hh);
+}
+void go_fltk_Widget_set_position(Fl_Widget *w, int x, int y) {
+  w->resize(x, y, w->w(), w->h());
+}
+void go_fltk_Widget_redraw(Fl_Widget *w) { 
+  w->redraw();
+}
+void go_fltk_Widget_deactivate(Fl_Widget* w) {
+  w->deactivate();
+}
+void go_fltk_Widget_activate(Fl_Widget* w) {
+  w->activate();
+}

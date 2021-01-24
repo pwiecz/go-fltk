@@ -1,0 +1,27 @@
+#pragma once
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+  typedef struct Fl_Widget Fl_Widget;
+
+  extern void go_fltk_Widget_set_box(Fl_Widget *w, int box);
+  extern void go_fltk_Widget_set_labelfont(Fl_Widget *w, int font);
+  extern void go_fltk_Widget_set_labelsize(Fl_Widget *w, int size);
+  extern void go_fltk_Widget_set_labeltype(Fl_Widget *w, int type);
+  extern void go_fltk_Widget_set_callback(Fl_Widget *w, void* id);
+  extern int go_fltk_Widget_x(Fl_Widget *w);
+  extern int go_fltk_Widget_y(Fl_Widget *w);
+  extern int go_fltk_Widget_w(Fl_Widget *w);
+  extern int go_fltk_Widget_h(Fl_Widget *w);
+  extern void go_fltk_Widget_set_align(Fl_Widget* w, unsigned int align);
+  extern void go_fltk_Widget_measure_label(Fl_Widget* w, int* ww, int *hh);
+  extern void go_fltk_Widget_set_position(Fl_Widget* w, int x, int y);
+  extern void go_fltk_Widget_redraw(Fl_Widget* w);
+  extern void go_fltk_Widget_deactivate(Fl_Widget* w);
+  extern void go_fltk_Widget_activate(Fl_Widget* w);
+
+#ifdef __cplusplus
+}
+#endif
