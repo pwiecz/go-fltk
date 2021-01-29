@@ -8,7 +8,7 @@ import "C"
 import "unsafe"
 
 type menu struct {
-	Widget
+	widget
 }
 
 func (m *menu) Add(label string, callback func()) int {

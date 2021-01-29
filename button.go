@@ -7,7 +7,7 @@ import "C"
 import "unsafe"
 
 type Button struct {
-	Widget
+	widget
 }
 
 func NewButton(x, y, w, h int, text ...string) *Button {

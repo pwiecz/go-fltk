@@ -8,7 +8,7 @@ import "C"
 import "unsafe"
 
 type Input struct {
-	Widget
+	widget
 }
 
 func NewInput(x, y, w, h int, text ...string) *Input {

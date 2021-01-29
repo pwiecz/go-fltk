@@ -7,7 +7,7 @@ import "C"
 import "unsafe"
 
 type Progress struct {
-	Widget
+	widget
 }
 
 func NewProgress(x, y, w, h int, text ...string) *Progress {

@@ -7,7 +7,7 @@ import "C"
 import "unsafe"
 
 type Box struct {
-	Widget
+	widget
 }
 
 func NewBox(boxType BoxType, x, y, w, h int, text ...string) *Box {

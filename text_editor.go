@@ -7,7 +7,7 @@ import "C"
 import "unsafe"
 
 type TextEditor struct {
-     Widget
+     widget
 }
 
 func NewTextEditor(x, y, w, h int, text... string) *TextEditor {

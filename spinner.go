@@ -9,7 +9,7 @@ import "C"
 import "unsafe"
 
 type Spinner struct {
-	Widget
+	widget
 }
 
 func NewSpinner(x, y, w, h int, text ...string) *Spinner {

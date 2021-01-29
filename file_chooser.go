@@ -8,7 +8,7 @@ import "C"
 import "unsafe"
 
 type FileChooser struct {
-	Widget
+	widget
 	pathname, pattern, title *C.char
 	destroyCallbackId        uintptr
 }
