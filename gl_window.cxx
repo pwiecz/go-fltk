@@ -12,7 +12,6 @@ public:
     , m_drawFunId(drawFunId) {
     mode(FL_OPENGL3 | FL_MULTISAMPLE);
   }
-
   void draw() final {
     _go_callbackHandler(m_drawFunId);
   }

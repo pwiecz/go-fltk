@@ -11,7 +11,7 @@ extern "C" {
 
   typedef struct Fl_File_Chooser Fl_File_Chooser;
 
-  extern Fl_File_Chooser* go_fltk_new_FileChooser(const char* pathname, const char* pattern, int type, const char* title);
+  extern Fl_File_Chooser* go_fltk_new_FileChooser(const char* pathname, const char* pattern, int type, const char* title, void* destroyCallbackId);
 
   extern void go_fltk_FileChooser_preview(Fl_File_Chooser* fileChooser, int enable);
 

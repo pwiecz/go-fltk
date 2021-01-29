@@ -18,9 +18,14 @@ extern "C" {
   extern void go_fltk_Widget_set_align(Fl_Widget* w, unsigned int align);
   extern void go_fltk_Widget_measure_label(Fl_Widget* w, int* ww, int *hh);
   extern void go_fltk_Widget_set_position(Fl_Widget* w, int x, int y);
+  extern void go_fltk_Widget_resize(Fl_Widget* w, int x, int y, int width, int height);
   extern void go_fltk_Widget_redraw(Fl_Widget* w);
   extern void go_fltk_Widget_deactivate(Fl_Widget* w);
   extern void go_fltk_Widget_activate(Fl_Widget* w);
+  extern void go_fltk_Widget_set_type(Fl_Widget* w, unsigned char type);
+  extern void go_fltk_Widget_show(Fl_Widget* w);
+  extern void go_fltk_Widget_hide(Fl_Widget* w);
+  extern void go_fltk_Widget_set_selection_color(Fl_Widget* w, unsigned int color);
 
 #ifdef __cplusplus
 }

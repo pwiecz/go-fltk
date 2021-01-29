@@ -28,3 +28,6 @@ int go_fltk_event_dy() { return Fl::event_dy(); }
 int go_fltk_event_key() { return Fl::event_key(); }
 int go_fltk_event_state() { return Fl::event_state(); }
 
+void go_fltk_copy(const char* data, int len, int destination) {
+  Fl::copy(data, len, destination);
+}

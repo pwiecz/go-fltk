@@ -29,6 +29,15 @@ void go_fltk_Table_set_row_count(Fl_Table* t, int rowCount) {
 void go_fltk_Table_set_column_count(Fl_Table* t, int columnCount) {
   t->cols(columnCount);
 }
+void go_fltk_Table_set_column_width(Fl_Table* t, int column, int width) {
+  t->col_width(column, width);
+}
+void go_fltk_Table_set_column_header(Fl_Table* t, int header) {
+  t->col_header(header);
+}
+void go_fltk_Table_set_column_resize(Fl_Table* t, int resize) {
+  t->col_resize(resize);
+}
 
 const int go_FL_CONTEXT_NONE = Fl_Table::CONTEXT_NONE;
 const int go_FL_CONTEXT_STARTPAGE = Fl_Table::CONTEXT_STARTPAGE;

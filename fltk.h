@@ -17,6 +17,8 @@ extern "C" {
   extern int go_fltk_event_key();
   extern int go_fltk_event_state();
 
+  extern void go_fltk_copy(const char* data, int len, int destination);
+
 #ifdef __cplusplus
 }
 #endif

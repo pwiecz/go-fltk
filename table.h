@@ -11,6 +11,9 @@ extern "C" {
 
   extern void go_fltk_Table_set_row_count(Fl_Table* t, int rowCount);
   extern void go_fltk_Table_set_column_count(Fl_Table* t, int columnCount);
+  extern void go_fltk_Table_set_column_width(Fl_Table* t, int column, int width);
+  extern void go_fltk_Table_set_column_header(Fl_Table* t, int header);
+  extern void go_fltk_Table_set_column_resize(Fl_Table* t, int resize);
 
   extern const int go_FL_CONTEXT_NONE;
   extern const int go_FL_CONTEXT_STARTPAGE;

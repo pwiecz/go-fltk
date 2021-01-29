@@ -1,6 +1,7 @@
 package fltk
 
 /*
+#include <stdlib.h>
 #include "input.h"
 */
 import "C"
@@ -20,7 +21,9 @@ func (i *Input) Value() string {
 	return C.GoString(C.go_fltk_Input_value((*C.Fl_Input)(i.ptr)))
 }
 func (i *Input) SetValue(value string) bool {
-	return C.go_fltk_Input_set_value((*C.Fl_Input)(i.ptr), C.CString(value)) != C.int(0)
+	valueStr := C.CString(value)
+	defer C.free(unsafe.Pointer(valueStr))
+	return C.go_fltk_Input_set_value((*C.Fl_Input)(i.ptr), valueStr) != C.int(0)
 }
 func (i *Input) Resize(x int, y int, w int, h int) {
 	C.go_fltk_Input_resize((*C.Fl_Input)(i.ptr), C.int(x), C.int(y), C.int(w), C.int(h))

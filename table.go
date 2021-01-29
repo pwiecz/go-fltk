@@ -16,6 +16,21 @@ func (t *table) SetRowCount(rowCount int) {
 func (t *table) SetColumnCount(columnCount int) {
 	C.go_fltk_Table_set_column_count((*C.Fl_Table)(t.ptr), C.int(columnCount))
 }
+func (t *table) SetColumnWidth(column, width int) {
+	C.go_fltk_Table_set_column_width((*C.Fl_Table)(t.ptr), C.int(column), C.int(width))
+}
+func (t *table) EnableColumnHeaders() {
+	C.go_fltk_Table_set_column_header((*C.Fl_Table)(t.ptr), C.int(1))
+}
+func (t *table) DisableColumnHeaders() {
+	C.go_fltk_Table_set_column_header((*C.Fl_Table)(t.ptr), C.int(0))
+}
+func (t *table) AllowColumnResizing() {
+	C.go_fltk_Table_set_column_resize((*C.Fl_Table)(t.ptr), C.int(1))
+}
+func (t *table) DisallowColumnResizing() {
+	C.go_fltk_Table_set_column_resize((*C.Fl_Table)(t.ptr), C.int(0))
+}
 
 type TableRow struct {
 	table

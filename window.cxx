@@ -12,6 +12,6 @@ void go_fltk_Window_show(Fl_Window *w) {
 }
 
 void go_fltk_Window_set_label(Fl_Window *w, const char *label) {
-  w->label(label);
+  w->copy_label(label);
 }
 

@@ -35,8 +35,6 @@ func initWidget(w Widgety, p unsafe.Pointer) *Widget {
 //func NewWidget(x, y, w, h int, text... string) *Widget {
 //	return initWidget(&Widget{}, unsafe.Pointer(C.go_fltk_new_Widget(C.int(x), C.int(y), C.int(w), C.int(h), cStringOpt(text))))
 //}
-func (w *Widget) String() string { return fmt.Sprintf("Widget: %q", unsafe.Pointer(w.ptr)) }
-
 func (w *Widget) SetCallback(f func()) {
 	if w.callbackId > 0 {
 		globalCallbackMap.unregister(w.callbackId)
@@ -63,6 +61,15 @@ func (w *Widget) MeasureLabel() (int, int) {
 	return int(ww), int(hh)
 }
 func (w *Widget) SetPosition(x, y int) { C.go_fltk_Widget_set_position(w.ptr, C.int(x), C.int(y)) }
-func (w *Widget) Redraw()              { C.go_fltk_Widget_redraw(w.ptr) }
-func (w *Widget) Deactivate()          { C.go_fltk_Widget_deactivate(w.ptr) }
-func (w *Widget) Activate()            { C.go_fltk_Widget_activate(w.ptr) }
+func (w *Widget) Resize(x, y, width, height int) {
+	C.go_fltk_Widget_resize(w.ptr, C.int(x), C.int(y), C.int(width), C.int(height))
+}
+func (w *Widget) Redraw()                  { C.go_fltk_Widget_redraw(w.ptr) }
+func (w *Widget) Deactivate()              { C.go_fltk_Widget_deactivate(w.ptr) }
+func (w *Widget) Activate()                { C.go_fltk_Widget_activate(w.ptr) }
+func (w *Widget) SetType(widgetType uint8) { C.go_fltk_Widget_set_type(w.ptr, C.uchar(widgetType)) }
+func (w *Widget) Show()                    { C.go_fltk_Widget_show(w.ptr) }
+func (w *Widget) Hide()                    { C.go_fltk_Widget_hide(w.ptr) }
+func (w *Widget) SetSelectionColor(color uint) {
+	C.go_fltk_Widget_set_selection_color(w.ptr, C.uint(color))
+}

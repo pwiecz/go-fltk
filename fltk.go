@@ -1,7 +1,7 @@
 package fltk
 
 /*
-#cgo linux LDFLAGS: /usr/lib/x86_64-linux-gnu/libfltk_gl.a -lGLU -lGL /usr/lib/x86_64-linux-gnu/libfltk.a -lXrender -lXcursor -lXfixes -lXext -lXft -lfontconfig -lXinerama -lpthread -ldl -lm  -lX11
+#cgo linux LDFLAGS: /usr/lib/x86_64-linux-gnu/libfltk_gl.a -lGLU -lGL /usr/lib/x86_64-linux-gnu/libfltk.a -lXrender -lXcursor -lXfixes -lXext -lXft -lfontconfig -lXinerama -lpthread -ldl -lm -lX11
 
 #include "fltk.h"
 */
@@ -62,4 +62,8 @@ func _go_awakeHandler(id unsafe.Pointer) {
 func Awake(fn func()) {
 	awakeId := globalAwakeMap.register(fn)
 	C.go_fltk_awake(unsafe.Pointer(awakeId))
+}
+
+func CopyToClipboard(text string) {
+	C.go_fltk_copy(C.CString(text), C.int(len(text)), 1 /* destination: clipboard */)
 }
