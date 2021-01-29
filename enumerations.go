@@ -151,8 +151,6 @@ func (m *callbackMap) invoke(id uintptr) {
 
 var globalCallbackMap = newCallbackMap()
 
-func emptyCallback() {}
-
 //export _go_callbackHandler
 func _go_callbackHandler(id unsafe.Pointer) {
 	globalCallbackMap.invoke(uintptr(id))

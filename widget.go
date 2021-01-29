@@ -9,7 +9,6 @@ import "unsafe"
 type widget struct {
 	ptr        *C.Fl_Widget
 	callbackId uintptr
-	callback   func()
 }
 
 type Widget interface {
@@ -33,11 +32,6 @@ func (w *widget) SetBox(box BoxType)           { C.go_fltk_Widget_set_box(w.ptr,
 func (w *widget) SetLabelFont(font Font)       { C.go_fltk_Widget_set_labelfont(w.ptr, C.int(font)) }
 func (w *widget) SetLabelSize(size int)        { C.go_fltk_Widget_set_labelsize(w.ptr, C.int(size)) }
 func (w *widget) SetLabelType(ltype LabelType) { C.go_fltk_Widget_set_labeltype(w.ptr, C.int(ltype)) }
-func (w *widget) HandleCallback() {
-	if w.callback != nil {
-		w.callback()
-	}
-}
 func (w *widget) X() int               { return int(C.go_fltk_Widget_x(w.ptr)) }
 func (w *widget) Y() int               { return int(C.go_fltk_Widget_y(w.ptr)) }
 func (w *widget) W() int               { return int(C.go_fltk_Widget_w(w.ptr)) }
