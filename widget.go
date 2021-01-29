@@ -4,16 +4,12 @@ package fltk
 #include "widget.h"
 */
 import "C"
-import (
-	"fmt"
-	"unsafe"
-)
+import "unsafe"
 
-var widgets map[*C.Fl_Widget]Widgety
+var widgets = make(map[*C.Fl_Widget]Widgety)
 
 type Widgety interface {
 	GetWidget() *Widget
-	String() string
 }
 
 type Widget struct {
@@ -22,9 +18,6 @@ type Widget struct {
 	callback   func()
 }
 
-func init() {
-	widgets = map[*C.Fl_Widget]Widgety{}
-}
 func initWidget(w Widgety, p unsafe.Pointer) *Widget {
 	w.GetWidget().ptr = (*C.Fl_Widget)(p)
 	w.GetWidget().callback = emptyCallback
@@ -35,6 +28,7 @@ func initWidget(w Widgety, p unsafe.Pointer) *Widget {
 //func NewWidget(x, y, w, h int, text... string) *Widget {
 //	return initWidget(&Widget{}, unsafe.Pointer(C.go_fltk_new_Widget(C.int(x), C.int(y), C.int(w), C.int(h), cStringOpt(text))))
 //}
+
 func (w *Widget) SetCallback(f func()) {
 	if w.callbackId > 0 {
 		globalCallbackMap.unregister(w.callbackId)
