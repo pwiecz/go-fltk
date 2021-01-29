@@ -12,11 +12,11 @@ type widget struct {
 }
 
 type Widget interface {
-	GetWidget() *widget
+	getWidget() *widget
 }
 
 func initWidget(w Widget, p unsafe.Pointer) {
-	w.GetWidget().ptr = (*C.Fl_Widget)(p)
+	w.getWidget().ptr = (*C.Fl_Widget)(p)
 }
 
 func (w *widget) SetCallback(f func()) {
@@ -27,7 +27,7 @@ func (w *widget) SetCallback(f func()) {
 	C.go_fltk_Widget_set_callback(w.ptr, unsafe.Pointer(w.callbackId))
 }
 
-func (w *widget) GetWidget() *widget           { return w }
+func (w *widget) getWidget() *widget           { return w }
 func (w *widget) SetBox(box BoxType)           { C.go_fltk_Widget_set_box(w.ptr, C.int(box)) }
 func (w *widget) SetLabelFont(font Font)       { C.go_fltk_Widget_set_labelfont(w.ptr, C.int(font)) }
 func (w *widget) SetLabelSize(size int)        { C.go_fltk_Widget_set_labelsize(w.ptr, C.int(size)) }

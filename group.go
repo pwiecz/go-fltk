@@ -18,7 +18,7 @@ func NewGroup(x, y, w, h int, text ...string) *Group {
 
 func (g *Group) Begin()       { C.go_fltk_Group_begin((*C.Fl_Group)(g.ptr)) }
 func (g *Group) End()         { C.go_fltk_Group_end((*C.Fl_Group)(g.ptr)) }
-func (g *Group) Add(w Widget) { C.go_fltk_Group_add((*C.Fl_Group)(g.ptr), w.GetWidget().ptr) }
+func (g *Group) Add(w Widget) { C.go_fltk_Group_add((*C.Fl_Group)(g.ptr), w.getWidget().ptr) }
 func (g *Group) Resizable(w Widget) {
-	C.go_fltk_Group_resizable((*C.Fl_Group)(g.ptr), w.GetWidget().ptr)
+	C.go_fltk_Group_resizable((*C.Fl_Group)(g.ptr), w.getWidget().ptr)
 }
