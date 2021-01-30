@@ -64,6 +64,15 @@ void go_fltk_Widget_show(Fl_Widget* w) {
 void go_fltk_Widget_hide(Fl_Widget* w) {
   w->hide();
 }
+unsigned int go_fltk_Widget_selection_color(Fl_Widget* w) {
+  return w->selection_color();
+}
 void go_fltk_Widget_set_selection_color(Fl_Widget* w, unsigned int color) {
   w->selection_color(color);
+}
+void go_fltk_Widget_set_color(Fl_Widget* w, unsigned int color) {
+  w->color(color);
+}
+void go_fltk_Widget_set_label(Fl_Widget* w, const char* label) {
+  w->copy_label(label);
 }

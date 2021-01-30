@@ -23,3 +23,28 @@ func (m *menu) SetValue(value int) {
 func (m *menu) Value() int {
 	return int(C.go_fltk_Menu_value((*C.Fl_Menu_)(m.ptr)))
 }
+
+type MenuButton struct {
+	menu
+}
+
+func NewMenuButton(x, y, w, h int, text ...string) *MenuButton {
+	m := &MenuButton{}
+	initWidget(m, unsafe.Pointer(C.go_fltk_new_MenuButton(C.int(x), C.int(y), C.int(w), C.int(h), cStringOpt(text))))
+	return m
+}
+
+type MenuType int
+
+var (
+	POPUP1   = MenuType(C.go_FL_POPUP1)
+	POPUP2   = MenuType(C.go_FL_POPUP2)
+	POPUP12  = MenuType(C.go_FL_POPUP12)
+	POPUP3   = MenuType(C.go_FL_POPUP3)
+	POPUP13  = MenuType(C.go_FL_POPUP13)
+	POPUP23  = MenuType(C.go_FL_POPUP23)
+	POPUP123 = MenuType(C.go_FL_POPUP123)
+)
+func (m *MenuButton) SetType(menuType MenuType) {
+	C.go_fltk_MenuButton_set_type((*C.Fl_Menu_Button)(m.ptr), C.int(menuType))
+}

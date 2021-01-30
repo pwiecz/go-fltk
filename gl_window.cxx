@@ -18,7 +18,7 @@ public:
 
   int handle(int event) final {
     if (m_eventHandlerId >= 0) {
-      const int ret = _go_glWindowEventHandler(m_eventHandlerId, event);
+      const int ret = _go_eventHandler(m_eventHandlerId, event);
       if (ret != 0) {
 	return ret;
       }
@@ -26,7 +26,7 @@ public:
     return Fl_Gl_Window::handle(event);
   }
 
-  void set_event_handler_id(int handlerId) {
+  void set_event_handler(int handlerId) {
     m_eventHandlerId = handlerId;
   }
 private:
@@ -45,5 +45,5 @@ char go_fltk_Gl_Window_valid(Fl_Gl_Window* w) {
   return w->valid(); 
 }
 void go_fltk_Gl_Window_set_event_handler(Fl_Gl_Window* w, int handlerId) {
-  ((GGlWindow*)w)->set_event_handler_id(handlerId);
+  ((GGlWindow*)w)->set_event_handler(handlerId);
 }

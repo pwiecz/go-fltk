@@ -155,3 +155,35 @@ var globalCallbackMap = newCallbackMap()
 func _go_callbackHandler(id unsafe.Pointer) {
 	globalCallbackMap.invoke(uintptr(id))
 }
+
+type eventHandlerMap struct {
+	eventHandlerMap map[int]func(Event) bool
+	id              int
+}
+
+func newEventHandlerMap() *eventHandlerMap {
+	return &eventHandlerMap{
+		eventHandlerMap: make(map[int]func(Event) bool),
+	}
+}
+func (m *eventHandlerMap) register(fn func(Event) bool) int {
+	m.id++
+	m.eventHandlerMap[m.id] = fn
+	return m.id
+}
+func (m *eventHandlerMap) unregister(id int) {
+	delete(m.eventHandlerMap, id)
+}
+func (m *eventHandlerMap) invoke(id int, event Event) bool {
+	return m.eventHandlerMap[id](event)
+}
+
+var globalEventHandlerMap = newEventHandlerMap()
+
+//export _go_eventHandler
+func _go_eventHandler(handlerId C.int, event C.int) C.int {
+	if globalEventHandlerMap.invoke(int(handlerId), Event(event)) {
+		return 1
+	}
+	return 0
+}

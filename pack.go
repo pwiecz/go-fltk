@@ -7,7 +7,7 @@ import "C"
 import "unsafe"
 
 type Pack struct {
-     Group
+	Group
 }
 
 func NewPack(x, y, w, h int, text ...string) *Pack {
@@ -17,9 +17,9 @@ func NewPack(x, y, w, h int, text ...string) *Pack {
 }
 
 type PackType uint8
-	
+
 var (
-	VERTICAL = PackType(C.go_FL_PACK_VERTICAL)
+	VERTICAL   = PackType(C.go_FL_PACK_VERTICAL)
 	HORIZONTAL = PackType(C.go_FL_PACK_HORIZONTAL)
 )
 
@@ -27,5 +27,5 @@ func (p *Pack) SetType(packType PackType) {
 	p.widget.SetType(uint8(packType))
 }
 func (p *Pack) SetSpacing(spacing int) {
-	C.go_fltk_Pack_set_spacing((*C.Fl_Pack)(p.ptr), C.int(spacing));
+	C.go_fltk_Pack_set_spacing((*C.Fl_Pack)(p.ptr), C.int(spacing))
 }

@@ -8,6 +8,7 @@ import "unsafe"
 
 type table struct {
 	Group
+	drawCellCallbackId int
 }
 
 func (t *table) SetRowCount(rowCount int) {
@@ -34,6 +35,7 @@ func (t *table) DisallowColumnResizing() {
 
 type TableRow struct {
 	table
+	eventHandler int
 }
 
 type tableCallbackMap struct {
@@ -55,6 +57,9 @@ func (m *tableCallbackMap) unregister(id int) {
 	delete(m.callbackMap, id)
 }
 func (m *tableCallbackMap) invoke(id int, context TableContext, r, c, x, y, w, h int) {
+	if id == 0 {
+		return
+	}
 	m.callbackMap[id](context, r, c, x, y, w, h)
 }
 
@@ -73,11 +78,43 @@ var (
 	ContextRCResize  = TableContext(C.go_FL_CONTEXT_RC_RESIZE)
 )
 
-func NewTableRow(x, y, w, h int, drawFun func(TableContext, int, int, int, int, int, int)) *TableRow {
+func NewTableRow(x, y, w, h int) *TableRow {
 	i := &TableRow{}
-	drawFunId := globalTableCallbackMap.register(drawFun)
-	initWidget(i, unsafe.Pointer(C.go_fltk_new_TableRow(C.int(x), C.int(y), C.int(w), C.int(h), C.int(drawFunId))))
+	initWidget(i, unsafe.Pointer(C.go_fltk_new_TableRow(C.int(x), C.int(y), C.int(w), C.int(h))))
 	return i
+}
+
+func (t *TableRow) IsRowSelected(row int) bool {
+	if C.go_fltk_TableRow_row_selected((*C.GTableRow)(t.ptr), C.int(row)) != 0 {
+		return true
+	}
+	return false
+}
+func (t *TableRow) SetDrawCellCallback(callback func(TableContext, int, int, int, int, int, int)) {
+	if t.drawCellCallbackId > 0 {
+		globalTableCallbackMap.unregister(t.drawCellCallbackId)
+	}
+	t.drawCellCallbackId = globalTableCallbackMap.register(callback)
+	C.go_fltk_TableRow_set_draw_cell_callback((*C.GTableRow)(t.ptr), C.int(t.drawCellCallbackId))
+}
+func (t *TableRow) SetEventHandler(handler func(Event) bool) {
+	if t.eventHandler >= 0 {
+		globalEventHandlerMap.unregister(t.eventHandler)
+	}
+	t.eventHandler = globalEventHandlerMap.register(handler)
+	C.go_fltk_TableRow_set_event_handler((*C.GTableRow)(t.ptr), C.int(t.eventHandler))
+}
+
+type RowSelectMode int
+
+var (
+	SelectNone   = RowSelectMode(C.go_FL_SELECT_NONE)
+	SelectSingle = RowSelectMode(C.go_FL_SELECT_SINGLE)
+	SelectMulti  = RowSelectMode(C.go_FL_SELECT_MULTI)
+)
+
+func (t *TableRow) SetType(tableType RowSelectMode) {
+	C.go_fltk_TableRow_set_type((*C.GTableRow)(t.ptr), C.int(tableType))
 }
 
 //export _go_drawTableHandler
