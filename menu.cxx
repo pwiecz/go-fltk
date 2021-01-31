@@ -26,6 +26,9 @@ Fl_Menu_Button* go_fltk_new_MenuButton(int x, int y, int w, int h, const char* t
 void go_fltk_MenuButton_set_type(Fl_Menu_Button* m, int menuType) {
   m->type(menuType);
 }
+void go_fltk_MenuButton_popup(Fl_Menu_Button* m) {
+  m->popup();
+}
 
 const int go_FL_POPUP1 = Fl_Menu_Button::POPUP1;
 const int go_FL_POPUP2 = Fl_Menu_Button::POPUP2;

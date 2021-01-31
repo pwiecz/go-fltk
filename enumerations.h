@@ -94,16 +94,14 @@ extern "C" {
   extern const int go_FL_DND_LEAVE;
   extern const int go_FL_DND_RELEASE;
 
-  extern const int go_FL_SHIFT;
-  extern const int go_FL_CAPS_LOCK;
-  extern const int go_FL_CTRL;
-  extern const int go_FL_ALT;
-  extern const int go_FL_NUM_LOCK;
-  extern const int go_FL_META;
-  extern const int go_FL_SCROLL_LOCK;
-  extern const int go_FL_BUTTON1;
-  extern const int go_FL_BUTTON2;
-  extern const int go_FL_BUTTON3;
+  extern const int go_FL_WHEN_NEVER;
+  extern const int go_FL_WHEN_CHANGED;
+  extern const int go_FL_WHEN_NOT_CHANGED;
+  extern const int go_FL_WHEN_RELEASE;
+  extern const int go_FL_WHEN_RELEASE_ALWAYS;
+  extern const int go_FL_WHEN_ENTER_KEY;
+  extern const int go_FL_WHEN_ENTER_KEY_ALWAYS;
+  extern const int go_FL_WHEN_ENTER_KEY_CHANGED;
 
   extern void callback_handler(Fl_Widget *w, void* data);
 

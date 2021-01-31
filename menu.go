@@ -48,3 +48,6 @@ var (
 func (m *MenuButton) SetType(menuType MenuType) {
 	C.go_fltk_MenuButton_set_type((*C.Fl_Menu_Button)(m.ptr), C.int(menuType))
 }
+func (m *MenuButton) Popup() {
+	C.go_fltk_MenuButton_popup((*C.Fl_Menu_Button)(m.ptr))
+}

@@ -114,17 +114,17 @@ var (
 	DND_RELEASE    = Event(C.go_FL_DND_RELEASE)
 )
 
+type CallbackCondition int
+
 var (
-	SHIFT       = int(C.go_FL_SHIFT)
-	CAPS_LOCK   = int(C.go_FL_CAPS_LOCK)
-	CTRL        = int(C.go_FL_CTRL)
-	ALT         = int(C.go_FL_ALT)
-	NUM_LOCK    = int(C.go_FL_NUM_LOCK)
-	META        = int(C.go_FL_META)
-	SCROLL_LOCK = int(C.go_FL_SCROLL_LOCK)
-	BUTTON1     = int(C.go_FL_BUTTON1)
-	BUTTON2     = int(C.go_FL_BUTTON2)
-	BUTTON3     = int(C.go_FL_BUTTON3)
+	WhenNever           = CallbackCondition(C.go_FL_WHEN_NEVER)
+	WhenChanged         = CallbackCondition(C.go_FL_WHEN_CHANGED)
+	WhenNotChanged      = CallbackCondition(C.go_FL_WHEN_NOT_CHANGED)
+	WhenRelease         = CallbackCondition(C.go_FL_WHEN_RELEASE)
+	WhenReleaseAlways   = CallbackCondition(C.go_FL_WHEN_RELEASE_ALWAYS)
+	WhenEnterKey        = CallbackCondition(C.go_FL_WHEN_ENTER_KEY)
+	WhenEnterKeyAlways  = CallbackCondition(C.go_FL_WHEN_ENTER_KEY_ALWAYS)
+	WhenEnterKeyChanged = CallbackCondition(C.go_FL_WHEN_ENTER_KEY_CHANGED)
 )
 
 type callbackMap struct {

@@ -27,6 +27,9 @@ func (w *widget) SetCallback(f func()) {
 	w.callbackId = globalCallbackMap.register(f)
 	C.go_fltk_Widget_set_callback(w.ptr, unsafe.Pointer(w.callbackId))
 }
+func (w *widget) SetCallbackCondition(when CallbackCondition) {
+	C.go_fltk_Widget_when(w.ptr, C.int(when))
+}
 
 func (w *widget) getWidget() *widget           { return w }
 func (w *widget) SetBox(box BoxType)           { C.go_fltk_Widget_set_box(w.ptr, C.int(box)) }
@@ -40,7 +43,6 @@ func (w *widget) H() int                       { return int(C.go_fltk_Widget_h(w
 func (w *widget) SetAlign(align Align)         { C.go_fltk_Widget_set_align(w.ptr, C.uint(align)) }
 func (w *widget) MeasureLabel() (int, int) {
 	var width, height C.int
-	width = 0
 	C.go_fltk_Widget_measure_label(w.ptr, &width, &height)
 	return int(width), int(height)
 }

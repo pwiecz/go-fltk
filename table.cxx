@@ -51,6 +51,12 @@ void go_fltk_TableRow_set_event_handler(GTableRow* t, int eventHandler) {
 void go_fltk_TableRow_set_type(GTableRow* t, int type) {
   t->type((Fl_Table_Row::TableRowSelectMode)type);
 }
+void go_fltk_TableRow_select_all_rows(GTableRow* t, int flag) {
+  t->select_all_rows(flag);
+}
+void go_fltk_TableRow_select_row(GTableRow* t, int row, int flag) {
+  t->select_row(row, flag);
+}
 void go_fltk_Table_set_row_count(Fl_Table* t, int rowCount) {
   t->rows(rowCount);
 }
@@ -66,6 +72,15 @@ void go_fltk_Table_set_column_header(Fl_Table* t, int header) {
 void go_fltk_Table_set_column_resize(Fl_Table* t, int resize) {
   t->col_resize(resize);
 }
+int go_fltk_Table_callback_row(Fl_Table* t) {
+  return t->callback_row();
+}
+int go_fltk_Table_callback_context(Fl_Table* t) {
+  return t->callback_context();
+}
+void go_fltk_Table_get_selection(Fl_Table* t, int* top, int* left, int* bottom, int* right) {
+  t->get_selection(*top, *left, *bottom, *right);
+}
 
 const int go_FL_CONTEXT_NONE = (int)Fl_Table::CONTEXT_NONE;
 const int go_FL_CONTEXT_STARTPAGE = (int)Fl_Table::CONTEXT_STARTPAGE;
@@ -79,3 +94,7 @@ const int go_FL_CONTEXT_RC_RESIZE = (int)Fl_Table::CONTEXT_RC_RESIZE;
 const int go_FL_SELECT_NONE = (int)Fl_Table_Row::SELECT_NONE;
 const int go_FL_SELECT_SINGLE = (int)Fl_Table_Row::SELECT_SINGLE;
 const int go_FL_SELECT_MULTI = (int)Fl_Table_Row::SELECT_MULTI;
+
+const int go_FL_DESELECT = 0;
+const int go_FL_SELECT = 1;
+const int go_FL_TOGGLE_SELECTION = 2;

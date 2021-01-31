@@ -6,8 +6,10 @@ package fltk
 #include "fltk.h"
 */
 import "C"
-import "unsafe"
-import "sync"
+import (
+	"sync"
+	"unsafe"
+)
 
 func Run() int {
 	return int(C.go_fltk_run())

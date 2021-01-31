@@ -11,6 +11,7 @@ extern "C" {
   extern void go_fltk_Widget_set_labelsize(Fl_Widget *w, int size);
   extern void go_fltk_Widget_set_labeltype(Fl_Widget *w, int type);
   extern void go_fltk_Widget_set_callback(Fl_Widget *w, void* id);
+  extern void go_fltk_Widget_when(Fl_Widget* w, int when);
   extern int go_fltk_Widget_x(Fl_Widget *w);
   extern int go_fltk_Widget_y(Fl_Widget *w);
   extern int go_fltk_Widget_w(Fl_Widget *w);

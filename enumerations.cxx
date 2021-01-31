@@ -98,17 +98,14 @@ const int go_FL_DND_DRAG = FL_DND_DRAG;
 const int go_FL_DND_LEAVE = FL_DND_LEAVE;
 const int go_FL_DND_RELEASE = FL_DND_RELEASE;
 
-const int go_FL_SHIFT = FL_SHIFT;
-const int go_FL_CAPS_LOCK = FL_CAPS_LOCK;
-const int go_FL_CTRL = FL_CTRL;
-const int go_FL_ALT = FL_ALT;
-const int go_FL_NUM_LOCK = FL_NUM_LOCK;
-const int go_FL_META = FL_META;
-const int go_FL_SCROLL_LOCK = FL_SCROLL_LOCK;
-const int go_FL_BUTTON1 = FL_BUTTON1;
-const int go_FL_BUTTON2 = FL_BUTTON2;
-const int go_FL_BUTTON3 = FL_BUTTON3;
-
+const int go_FL_WHEN_NEVER = FL_WHEN_NEVER;
+const int go_FL_WHEN_CHANGED = FL_WHEN_CHANGED;
+const int go_FL_WHEN_NOT_CHANGED = FL_WHEN_NOT_CHANGED;
+const int go_FL_WHEN_RELEASE = FL_WHEN_RELEASE;
+const int go_FL_WHEN_RELEASE_ALWAYS = FL_WHEN_RELEASE_ALWAYS;
+const int go_FL_WHEN_ENTER_KEY = FL_WHEN_ENTER_KEY;
+const int go_FL_WHEN_ENTER_KEY_ALWAYS = FL_WHEN_ENTER_KEY_ALWAYS;
+const int go_FL_WHEN_ENTER_KEY_CHANGED = FL_WHEN_ENTER_KEY_CHANGED;
 
 void callback_handler(Fl_Widget *w, void* data) {
   _go_callbackHandler(data);

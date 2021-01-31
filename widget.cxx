@@ -13,6 +13,9 @@ void go_fltk_Widget_set_box(Fl_Widget *w, int box) {
 void go_fltk_Widget_set_callback(Fl_Widget *w, void* id) {
   w->callback(callback_handler, id);
 }
+void go_fltk_Widget_when(Fl_Widget* w, int when) {
+  w->when(when);
+}
 void go_fltk_Widget_set_labelfont(Fl_Widget *w, int font) {
   w->labelfont((Fl_Font)font);
 }

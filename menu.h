@@ -13,6 +13,7 @@ extern "C" {
 
   extern Fl_Menu_Button* go_fltk_new_MenuButton(int x, int y, int w, int h, const char* text);
   extern void go_fltk_MenuButton_set_type(Fl_Menu_Button* m, int type);
+  extern void go_fltk_MenuButton_popup(Fl_Menu_Button* m);
 
   extern const int go_FL_POPUP1;
   extern const int go_FL_POPUP2;

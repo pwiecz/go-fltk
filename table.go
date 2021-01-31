@@ -32,6 +32,17 @@ func (t *table) AllowColumnResizing() {
 func (t *table) DisallowColumnResizing() {
 	C.go_fltk_Table_set_column_resize((*C.Fl_Table)(t.ptr), C.int(0))
 }
+func (t *table) CallbackRow() int {
+	return int(C.go_fltk_Table_callback_row((*C.Fl_Table)(t.ptr)))
+}
+func (t *table) CallbackContext() TableContext {
+	return TableContext(C.go_fltk_Table_callback_context((*C.Fl_Table)(t.ptr)))
+}
+func (t *table) Selection() (int, int, int, int) {
+	var top, left, bottom, right C.int
+	C.go_fltk_Table_get_selection((*C.Fl_Table)(t.ptr), &top, &left, &bottom, &right)
+	return int(top), int(left), int(bottom), int(right)
+}
 
 type TableRow struct {
 	table
@@ -103,6 +114,21 @@ func (t *TableRow) SetEventHandler(handler func(Event) bool) {
 	}
 	t.eventHandler = globalEventHandlerMap.register(handler)
 	C.go_fltk_TableRow_set_event_handler((*C.GTableRow)(t.ptr), C.int(t.eventHandler))
+}
+
+type SelectionFlag int
+
+var (
+	Deselect        = SelectionFlag(C.go_FL_DESELECT)
+	Select          = SelectionFlag(C.go_FL_SELECT)
+	ToggleSelection = SelectionFlag(C.go_FL_TOGGLE_SELECTION)
+)
+
+func (t *TableRow) SelectAllRows(flag SelectionFlag) {
+	C.go_fltk_TableRow_select_all_rows((*C.GTableRow)(t.ptr), C.int(flag))
+}
+func (t *TableRow) SelectRow(row int, flag SelectionFlag) {
+	C.go_fltk_TableRow_select_row((*C.GTableRow)(t.ptr), C.int(row), C.int(flag))
 }
 
 type RowSelectMode int

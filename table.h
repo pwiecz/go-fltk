@@ -14,10 +14,15 @@ extern "C" {
   extern void go_fltk_Table_set_column_width(Fl_Table* t, int column, int width);
   extern void go_fltk_Table_set_column_header(Fl_Table* t, int header);
   extern void go_fltk_Table_set_column_resize(Fl_Table* t, int resize);
+  extern int go_fltk_Table_callback_row(Fl_Table* t);
+  extern int go_fltk_Table_callback_context(Fl_Table* t);
+  extern void go_fltk_Table_get_selection(Fl_Table* t, int* top, int* left, int* bottom, int* right);
   extern int go_fltk_TableRow_row_selected(GTableRow* t, int row);
   extern void go_fltk_TableRow_set_draw_cell_callback(GTableRow* t, int drawCellCallback);
   extern void go_fltk_TableRow_set_event_handler(GTableRow* t, int eventHandler);
   extern void go_fltk_TableRow_set_type(GTableRow* t, int tableType);
+  extern void go_fltk_TableRow_select_all_rows(GTableRow* t, int flag);
+  extern void go_fltk_TableRow_select_row(GTableRow* t, int row, int flag);
 
   extern const int go_FL_CONTEXT_NONE;
   extern const int go_FL_CONTEXT_STARTPAGE;
@@ -31,6 +36,10 @@ extern "C" {
   extern const int go_FL_SELECT_NONE;
   extern const int go_FL_SELECT_SINGLE;
   extern const int go_FL_SELECT_MULTI;
+
+  extern const int go_FL_DESELECT;
+  extern const int go_FL_SELECT;
+  extern const int go_FL_TOGGLE_SELECTION;
 
 #ifdef __cplusplus
 }
