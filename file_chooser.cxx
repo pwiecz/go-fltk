@@ -18,7 +18,6 @@ public:
     , m_destroyCallbackId(destroyCallbackId) {}
 
   ~GFileChooser() {
-    fprintf(stderr, "destroying filechooser");
     _go_callbackHandler(m_destroyCallbackId);
   }
 
