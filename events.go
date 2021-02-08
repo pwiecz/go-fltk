@@ -35,6 +35,9 @@ func EventDY() int {
 func EventKey() int {
 	return int(C.go_fltk_event_key())
 }
+func EventIsClick() bool {
+	return C.go_fltk_event_is_click() != 0
+}
 
 var (
 	SHIFT       = int(C.go_FL_SHIFT)

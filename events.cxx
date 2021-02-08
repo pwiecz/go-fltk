@@ -25,4 +25,5 @@ int go_fltk_event_y() { return Fl::event_y(); }
 int go_fltk_event_dx() { return Fl::event_dx(); }
 int go_fltk_event_dy() { return Fl::event_dy(); }
 int go_fltk_event_key() { return Fl::event_key(); }
+int go_fltk_event_is_click() { return Fl::event_is_click(); }
 int go_fltk_event_state() { return Fl::event_state(); }
