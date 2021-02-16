@@ -1,8 +1,8 @@
 package fltk
 
 /*
-#cgo linux LDFLAGS: /usr/lib/x86_64-linux-gnu/libfltk_gl.a -lGLU -lGL /usr/lib/x86_64-linux-gnu/libfltk.a -lXrender -lXcursor -lXfixes -lXext -lXft -lfontconfig -lXinerama -lpthread -ldl -lm -lX11
-
+#cgo amd64,linux LDFLAGS: /usr/lib/x86_64-linux-gnu/libfltk_gl.a -lGLU -lGL /usr/lib/x86_64-linux-gnu/libfltk.a -lXrender -lXcursor -lXfixes -lXext -lXft -lfontconfig -lXinerama -lpthread -ldl -lm -lX11
+#cgo amd64,windows LDFLAGS: -L. -lfltk_forms -lfltk_images -lfltk_gl -lfltk_png -lfltk_z -lfltk_jpeg -lfltk -lgdi32 -lglu32 -lopengl32 -lole32 -lcomctl32 -luuid
 #include "fltk.h"
 */
 import "C"
