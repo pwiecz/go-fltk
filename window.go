@@ -17,7 +17,6 @@ func NewWindow(w, h int) *Window {
 	return win
 }
 
-//func (w *Window) Destroy() {C.go_fltk_Window_destroy(w.ptr)}
 func (w *Window) Show() { C.go_fltk_Window_show((*C.Fl_Window)(w.ptr)) }
 func (w *Window) SetLabel(label string) {
 	labelStr := C.CString(label)

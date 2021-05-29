@@ -7,6 +7,9 @@
 #include "enumerations.h"
 
 
+void go_fltk_Widget_destroy(Fl_Widget *w) {
+  delete w;
+}
 void go_fltk_Widget_set_box(Fl_Widget *w, int box) {
   w->box((Fl_Boxtype)box);
 }

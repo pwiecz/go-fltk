@@ -22,31 +22,14 @@ int go_fltk_Menu_value(Fl_Menu_ *m) {
   return m->value();
 }
 
-class GMenuButton : public Fl_Menu_Button {
-public:
-  GMenuButton(int x, int y, int w, int h, const char* text, void* destroyCallbackId)
-    : Fl_Menu_Button(x, y, w, h, text)
-    , m_destroyCallbackId(destroyCallbackId) {}
-
-  ~GMenuButton() {
-    _go_callbackHandler(m_destroyCallbackId);
-  }
-
-private:
-  void * const m_destroyCallbackId;
-};
-
-GMenuButton* go_fltk_new_MenuButton(int x, int y, int w, int h, const char* text, void* destroyCallback) {
-  return new GMenuButton(x, y, w, h, text, destroyCallback);
+Fl_Menu_Button* go_fltk_new_MenuButton(int x, int y, int w, int h, const char* text) {
+  return new Fl_Menu_Button(x, y, w, h, text);
 }
-void go_fltk_MenuButton_set_type(GMenuButton* m, int menuType) {
+void go_fltk_MenuButton_set_type(Fl_Menu_Button* m, int menuType) {
   m->type(menuType);
 }
-void go_fltk_MenuButton_popup(GMenuButton* m) {
+void go_fltk_MenuButton_popup(Fl_Menu_Button* m) {
   m->popup();
-}
-void go_fltk_MenuButton_destroy(GMenuButton* m) {
-  delete m;
 }
 
 const int go_FL_POPUP1 = Fl_Menu_Button::POPUP1;

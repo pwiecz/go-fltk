@@ -6,6 +6,7 @@ extern "C" {
 
   typedef struct Fl_Widget Fl_Widget;
 
+  extern void go_fltk_Widget_destroy(Fl_Widget *w);
   extern void go_fltk_Widget_set_box(Fl_Widget *w, int box);
   extern void go_fltk_Widget_set_labelfont(Fl_Widget *w, int font);
   extern void go_fltk_Widget_set_labelsize(Fl_Widget *w, int size);

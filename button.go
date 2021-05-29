@@ -11,9 +11,9 @@ type Button struct {
 }
 
 func NewButton(x, y, w, h int, text ...string) *Button {
-	i := &Button{}
-	initWidget(i, unsafe.Pointer(C.go_fltk_new_Button(C.int(x), C.int(y), C.int(w), C.int(h), cStringOpt(text))))
-	return i
+	b := &Button{}
+	initWidget(b, unsafe.Pointer(C.go_fltk_new_Button(C.int(x), C.int(y), C.int(w), C.int(h), cStringOpt(text))))
+	return b
 }
 
 func (b *Button) Value() bool {

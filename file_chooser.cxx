@@ -11,26 +11,38 @@ const int go_FL_CREATE = Fl_File_Chooser::CREATE;
 const int go_FL_DIRECTORY = Fl_File_Chooser::DIRECTORY;
 
 
-class GFileChooser : public Fl_File_Chooser {
-public:
-  GFileChooser(const char* message, const char* pattern, int type, const char* title, void* destroyCallbackId)
-    : Fl_File_Chooser(message, pattern, type, title)
-    , m_destroyCallbackId(destroyCallbackId) {}
+Fl_File_Chooser *go_fltk_new_FileChooser(const char* message, const char* pattern, int type, const char* title) {
+  return new Fl_File_Chooser(message, pattern, type, title);
+}
 
-  ~GFileChooser() {
-    _go_callbackHandler(m_destroyCallbackId);
-  }
+void go_fltk_FileChooser_destroy(Fl_File_Chooser* fileChooser) {
+  delete fileChooser;
+}
 
-private:
-  void * const m_destroyCallbackId;
-};
+static void filechooser_callback_handler(Fl_File_Chooser* fc, void* data) {
+  _go_callbackHandler(data);
+}
 
-Fl_File_Chooser *go_fltk_new_FileChooser(const char* message, const char* pattern, int type, const char* title, void* destroyCallbackId) {
-  return new GFileChooser(message, pattern, type, title, destroyCallbackId);
+void go_fltk_FileChooser_set_callback(Fl_File_Chooser* fileChooser, void* id) {
+  fileChooser->callback(filechooser_callback_handler, id);
+}
+
+void go_fltk_FileChooser_show(Fl_File_Chooser* fileChooser) {
+  fileChooser->show();
+}
+int go_fltk_FileChooser_shown(Fl_File_Chooser* fileChooser) {
+  return fileChooser->shown();
 }
 
 void go_fltk_FileChooser_preview(Fl_File_Chooser* fileChooser, int enable) {
   fileChooser->preview(enable);
+}
+
+int go_fltk_FileChooser_count(Fl_File_Chooser* fileChooser) {
+  return fileChooser->count();
+}
+const char* go_fltk_FileChooser_value(Fl_File_Chooser* fileChooser, int position) {
+  return fileChooser->value(position);
 }
 
 char* go_fltk_file_chooser(const char* message, const char* pattern, const char* initialFilename, int relative) {

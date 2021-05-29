@@ -95,6 +95,12 @@ func NewTableRow(x, y, w, h int) *TableRow {
 	return i
 }
 
+func (t *TableRow) Destroy() {
+	if t.drawCellCallbackId > 0 {
+		globalTableCallbackMap.unregister(t.drawCellCallbackId)
+	}
+	t.table.Destroy()
+}
 func (t *TableRow) IsRowSelected(row int) bool {
 	return C.go_fltk_TableRow_row_selected((*C.GTableRow)(t.ptr), C.int(row)) != 0
 }
