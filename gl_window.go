@@ -9,6 +9,7 @@ import "unsafe"
 type GlWindow struct {
 	Window
 	drawFunId uintptr
+	resizeHandlerId uintptr
 	eventHandler int
 }
 
@@ -21,6 +22,9 @@ func NewGlWindow(x, y, w, h int, drawFun func()) *GlWindow {
 
 func (w *GlWindow) Destroy() {
 	globalCallbackMap.unregister(w.drawFunId)
+	if w.resizeHandlerId > 0 {
+		globalCallbackMap.unregister(w.resizeHandlerId)
+	}
 	if w.eventHandler > 0 {
 		globalEventHandlerMap.unregister(w.eventHandler)
 	}
@@ -38,4 +42,12 @@ func (w *GlWindow) SetEventHandler(handler func(Event) bool) {
 	}
 	w.eventHandler = globalEventHandlerMap.register(handler)
 	C.go_fltk_Gl_Window_set_event_handler((*C.Fl_Gl_Window)(w.ptr), C.int(w.eventHandler))
+}
+
+func (w *GlWindow) SetResizeHandler(handler func()) {
+	if w.resizeHandlerId > 0 {
+		globalCallbackMap.unregister(w.resizeHandlerId)
+	}
+	w.resizeHandlerId = globalCallbackMap.register(handler)
+	C.go_fltk_Gl_Window_set_resize_handler((*C.Fl_Gl_Window)(w.ptr), unsafe.Pointer(w.resizeHandlerId))
 }

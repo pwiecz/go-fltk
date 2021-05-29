@@ -11,6 +11,7 @@ extern "C" {
   extern char go_fltk_Gl_Window_context_valid(Fl_Gl_Window* w);
   extern char go_fltk_Gl_Window_valid(Fl_Gl_Window* w);
   extern void go_fltk_Gl_Window_set_event_handler(Fl_Gl_Window* w, int handlerId);
+  extern void go_fltk_Gl_Window_set_resize_handler(Fl_Gl_Window* w, void* handlerId);
 
 #ifdef __cplusplus
 }

@@ -25,13 +25,25 @@ public:
     }
     return Fl_Gl_Window::handle(event);
   }
+  
+  void resize(int x, int y, int w, int h) final {
+    Fl_Gl_Window::resize(x, y, w, h);
+    if (m_resizeHandlerId != nullptr) {
+      _go_callbackHandler(m_resizeHandlerId);
+    }
+  }
 
   void set_event_handler(int handlerId) {
     m_eventHandlerId = handlerId;
   }
+
+  void set_resize_handler(void* resizeHandlerId) {
+    m_resizeHandlerId = resizeHandlerId;
+  }
 private:
   void* const m_drawFunId;
   int m_eventHandlerId = -1;
+  void* m_resizeHandlerId = nullptr;
 };
 
 
@@ -46,4 +58,7 @@ char go_fltk_Gl_Window_valid(Fl_Gl_Window* w) {
 }
 void go_fltk_Gl_Window_set_event_handler(Fl_Gl_Window* w, int handlerId) {
   ((GGlWindow*)w)->set_event_handler(handlerId);
+}
+void go_fltk_Gl_Window_set_resize_handler(Fl_Gl_Window* w, void* handlerId) {
+  ((GGlWindow*)w)->set_resize_handler(handlerId);
 }

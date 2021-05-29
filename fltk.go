@@ -72,3 +72,13 @@ func CopyToClipboard(text string) {
 	defer C.free(unsafe.Pointer(textStr))
 	C.go_fltk_copy(textStr, C.int(len(text)), 1 /* destination: clipboard */)
 }
+func ScreenWorkArea(screenNum int) (int, int, int, int) {
+	var x, y, w, h C.int
+	C.go_fltk_screen_work_area(&x, &y, &w, &h, C.int(screenNum))
+	return int(x), int(y), int(w), int(h)
+}
+func ScreenDPI(screenNum int) (float32, float32) {
+	var w, h C.float
+	C.go_fltk_screen_dpi(&w, &h, C.int(screenNum))
+	return float32(w), float32(h)
+}

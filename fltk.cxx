@@ -23,3 +23,10 @@ int go_fltk_awake(void *id) {
 void go_fltk_copy(const char* data, int len, int destination) {
   Fl::copy(data, len, destination);
 }
+
+void go_fltk_screen_work_area(int *x, int *y, int *w, int *h, int n) {
+  Fl::screen_work_area(*x, *y, *w, *h, n);
+}
+void go_fltk_screen_dpi(float *w, float *h, int n) {
+  Fl::screen_dpi(*w, *h, n);
+}

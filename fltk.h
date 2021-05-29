@@ -11,6 +11,9 @@ extern "C" {
 
   extern void go_fltk_copy(const char* data, int len, int destination);
 
+  extern void go_fltk_screen_work_area(int *x, int *y, int *w, int *h, int n);
+  extern void go_fltk_screen_dpi(float *w, float *h, int n);
+
 #ifdef __cplusplus
 }
 #endif
