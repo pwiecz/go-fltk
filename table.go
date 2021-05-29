@@ -96,10 +96,7 @@ func NewTableRow(x, y, w, h int) *TableRow {
 }
 
 func (t *TableRow) IsRowSelected(row int) bool {
-	if C.go_fltk_TableRow_row_selected((*C.GTableRow)(t.ptr), C.int(row)) != 0 {
-		return true
-	}
-	return false
+	return C.go_fltk_TableRow_row_selected((*C.GTableRow)(t.ptr), C.int(row)) != 0
 }
 func (t *TableRow) SetDrawCellCallback(callback func(TableContext, int, int, int, int, int, int)) {
 	if t.drawCellCallbackId > 0 {
