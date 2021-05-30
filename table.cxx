@@ -31,9 +31,21 @@ public:
     return Fl_Table_Row::handle(event);
   }
 
+  void set_resize_handler(void* resizeHandlerId) {
+    m_resizeHandlerId = resizeHandlerId;
+  }
+
+  void resize(int x, int y, int w, int h) final {
+    Fl_Table_Row::resize(x, y, w, h);
+    if (m_resizeHandlerId != nullptr) {
+      _go_callbackHandler(m_resizeHandlerId);
+    }
+  }
+
 private:
   int m_drawFunId = 0;
   int m_eventHandlerId = 0;
+  void* m_resizeHandlerId = nullptr;
 };
 
 GTableRow *go_fltk_new_TableRow(int x, int y, int w, int h) {
@@ -80,6 +92,9 @@ int go_fltk_Table_callback_context(Fl_Table* t) {
 }
 void go_fltk_Table_get_selection(Fl_Table* t, int* top, int* left, int* bottom, int* right) {
   t->get_selection(*top, *left, *bottom, *right);
+}
+void go_fltk_TableRow_set_resize_handler(GTableRow* t, void* handlerId) {
+  t->set_resize_handler(handlerId);
 }
 
 const int go_FL_CONTEXT_NONE = (int)Fl_Table::CONTEXT_NONE;

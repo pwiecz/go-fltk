@@ -47,18 +47,18 @@ private:
 };
 
 
-Fl_Gl_Window *go_fltk_new_GlWindow(int x, int y, int w, int h, void* drawFunId) {
+GGlWindow *go_fltk_new_GlWindow(int x, int y, int w, int h, void* drawFunId) {
   return new GGlWindow(x, y, w, h, drawFunId);
 }
-char go_fltk_Gl_Window_context_valid(Fl_Gl_Window* w) { 
+char go_fltk_Gl_Window_context_valid(GGlWindow* w) { 
   return w->context_valid(); 
 }
-char go_fltk_Gl_Window_valid(Fl_Gl_Window* w) {
+char go_fltk_Gl_Window_valid(GGlWindow* w) {
   return w->valid(); 
 }
-void go_fltk_Gl_Window_set_event_handler(Fl_Gl_Window* w, int handlerId) {
+void go_fltk_Gl_Window_set_event_handler(GGlWindow* w, int handlerId) {
   ((GGlWindow*)w)->set_event_handler(handlerId);
 }
-void go_fltk_Gl_Window_set_resize_handler(Fl_Gl_Window* w, void* handlerId) {
-  ((GGlWindow*)w)->set_resize_handler(handlerId);
+void go_fltk_Gl_Window_set_resize_handler(GGlWindow* w, void* handlerId) {
+  w->set_resize_handler(handlerId);
 }

@@ -23,6 +23,7 @@ extern "C" {
   extern void go_fltk_TableRow_set_type(GTableRow* t, int tableType);
   extern void go_fltk_TableRow_select_all_rows(GTableRow* t, int flag);
   extern void go_fltk_TableRow_select_row(GTableRow* t, int row, int flag);
+  extern void go_fltk_TableRow_set_resize_handler(GTableRow* t, void* handlerId);
 
   extern const int go_FL_CONTEXT_NONE;
   extern const int go_FL_CONTEXT_STARTPAGE;

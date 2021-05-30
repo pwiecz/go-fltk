@@ -4,11 +4,12 @@ package fltk
 #include "table.h"
 */
 import "C"
-import "unsafe"
+import (
+	"unsafe"
+)
 
 type table struct {
 	Group
-	drawCellCallbackId int
 }
 
 func (t *table) SetRowCount(rowCount int) {
@@ -46,7 +47,9 @@ func (t *table) Selection() (int, int, int, int) {
 
 type TableRow struct {
 	table
-	eventHandler int
+	eventHandler       int
+	resizeHandlerId    uintptr
+	drawCellCallbackId int
 }
 
 type tableCallbackMap struct {
@@ -99,6 +102,12 @@ func (t *TableRow) Destroy() {
 	if t.drawCellCallbackId > 0 {
 		globalTableCallbackMap.unregister(t.drawCellCallbackId)
 	}
+	if t.resizeHandlerId > 0 {
+		globalCallbackMap.unregister(t.resizeHandlerId)
+	}
+	if t.eventHandler > 0 {
+		globalEventHandlerMap.unregister(t.eventHandler)
+	}
 	t.table.Destroy()
 }
 func (t *TableRow) IsRowSelected(row int) bool {
@@ -117,6 +126,13 @@ func (t *TableRow) SetEventHandler(handler func(Event) bool) {
 	}
 	t.eventHandler = globalEventHandlerMap.register(handler)
 	C.go_fltk_TableRow_set_event_handler((*C.GTableRow)(t.ptr), C.int(t.eventHandler))
+}
+func (t *TableRow) SetResizeHandler(handler func()) {
+	if t.resizeHandlerId > 0 {
+		globalCallbackMap.unregister(t.resizeHandlerId)
+	}
+	t.resizeHandlerId = globalCallbackMap.register(handler)
+	C.go_fltk_TableRow_set_resize_handler((*C.GTableRow)(t.ptr), unsafe.Pointer(t.resizeHandlerId))
 }
 
 type SelectionFlag int

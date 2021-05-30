@@ -31,17 +31,17 @@ func (w *GlWindow) Destroy() {
 	w.Window.Destroy()
 }
 func (w *GlWindow) ContextValid() bool {
-	return int(C.go_fltk_Gl_Window_context_valid((*C.Fl_Gl_Window)(w.ptr))) != 0
+	return int(C.go_fltk_Gl_Window_context_valid((*C.GGlWindow)(w.ptr))) != 0
 }
 func (w *GlWindow) Valid() bool {
-	return int(C.go_fltk_Gl_Window_valid((*C.Fl_Gl_Window)(w.ptr))) != 0
+	return int(C.go_fltk_Gl_Window_valid((*C.GGlWindow)(w.ptr))) != 0
 }
 func (w *GlWindow) SetEventHandler(handler func(Event) bool) {
 	if w.eventHandler > 0 {
 		globalEventHandlerMap.unregister(w.eventHandler)
 	}
 	w.eventHandler = globalEventHandlerMap.register(handler)
-	C.go_fltk_Gl_Window_set_event_handler((*C.Fl_Gl_Window)(w.ptr), C.int(w.eventHandler))
+	C.go_fltk_Gl_Window_set_event_handler((*C.GGlWindow)(w.ptr), C.int(w.eventHandler))
 }
 
 func (w *GlWindow) SetResizeHandler(handler func()) {
@@ -49,5 +49,5 @@ func (w *GlWindow) SetResizeHandler(handler func()) {
 		globalCallbackMap.unregister(w.resizeHandlerId)
 	}
 	w.resizeHandlerId = globalCallbackMap.register(handler)
-	C.go_fltk_Gl_Window_set_resize_handler((*C.Fl_Gl_Window)(w.ptr), unsafe.Pointer(w.resizeHandlerId))
+	C.go_fltk_Gl_Window_set_resize_handler((*C.GGlWindow)(w.ptr), unsafe.Pointer(w.resizeHandlerId))
 }
