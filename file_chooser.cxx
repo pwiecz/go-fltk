@@ -27,6 +27,20 @@ void go_fltk_FileChooser_set_callback(Fl_File_Chooser* fileChooser, void* id) {
   fileChooser->callback(filechooser_callback_handler, id);
 }
 
+void go_fltk_FileChooser_popup(Fl_File_Chooser* fileChooser) {
+  // Copy of popup() functions from fl_file_dir.cxx from Fltk source code.
+  fileChooser->show();
+
+  // deactivate Fl::grab(), because it is incompatible with modal windows
+  Fl_Window* g = Fl::grab();
+  if (g) Fl::grab(0);
+
+  while (fileChooser->shown())
+    Fl::wait();
+
+  if (g) // regrab the previous popup menu, if there was one
+    Fl::grab(g);
+}
 void go_fltk_FileChooser_show(Fl_File_Chooser* fileChooser) {
   fileChooser->show();
 }

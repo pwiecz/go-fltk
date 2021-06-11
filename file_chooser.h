@@ -15,6 +15,7 @@ extern "C" {
 
   extern void go_fltk_FileChooser_destroy(Fl_File_Chooser* fileChooser);
   extern void go_fltk_FileChooser_set_callback(Fl_File_Chooser* fileChooser, void* id);
+  extern void go_fltk_FileChooser_popup(Fl_File_Chooser* fileChooser);
   extern void go_fltk_FileChooser_show(Fl_File_Chooser* fileChooser);
   extern int go_fltk_FileChooser_shown(Fl_File_Chooser* fileChooser);
   extern void go_fltk_FileChooser_preview(Fl_File_Chooser* fileChooser, int enable);

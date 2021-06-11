@@ -51,6 +51,9 @@ func (c *FileChooser) SetCallback(callback func()) {
 func (c *FileChooser) Show() {
 	C.go_fltk_FileChooser_show((*C.Fl_File_Chooser)(c.ptr))
 }
+func (c *FileChooser) Popup() {
+	C.go_fltk_FileChooser_popup((*C.Fl_File_Chooser)(c.ptr))
+}
 func (c *FileChooser) Shown() bool {
 	return C.go_fltk_FileChooser_shown(c.ptr) != C.int(0)
 }
