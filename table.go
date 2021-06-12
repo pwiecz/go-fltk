@@ -44,6 +44,14 @@ func (t *table) Selection() (int, int, int, int) {
 	C.go_fltk_Table_get_selection((*C.Fl_Table)(t.ptr), &top, &left, &bottom, &right)
 	return int(top), int(left), int(bottom), int(right)
 }
+func (t *table) VisibleCells() (int, int, int, int) {
+	var top, bottom, left, right C.int
+	C.go_fltk_Table_visible_cells((*C.Fl_Table)(t.ptr), &top, &bottom, &left, &right)
+	return int(top), int(left), int(bottom), int(right)
+}
+func (t *table) SetTopRow(row int) {
+	C.go_fltk_Table_set_top_row((*C.Fl_Table)(t.ptr), C.int(row))
+}
 
 type TableRow struct {
 	table

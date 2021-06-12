@@ -93,6 +93,13 @@ int go_fltk_Table_callback_context(Fl_Table* t) {
 void go_fltk_Table_get_selection(Fl_Table* t, int* top, int* left, int* bottom, int* right) {
   t->get_selection(*top, *left, *bottom, *right);
 }
+void go_fltk_Table_visible_cells(Fl_Table* t, int* top, int* bottom, int* left, int* right) {
+  t->visible_cells(*top, *bottom, *left, *right);
+}
+void go_fltk_Table_set_top_row(Fl_Table* t, int row) {
+  t->top_row(row);
+}
+
 void go_fltk_TableRow_set_resize_handler(GTableRow* t, void* handlerId) {
   t->set_resize_handler(handlerId);
 }
