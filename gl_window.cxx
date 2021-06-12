@@ -1,6 +1,6 @@
 #include "gl_window.h"
 
-#include <Fl/Fl_Gl_Window.H>
+#include <FL/Fl_Gl_Window.H>
 
 #include "_cgo_export.h"
 

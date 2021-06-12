@@ -1,6 +1,6 @@
 #include "file_chooser.h"
 
-#include <Fl/Fl_File_Chooser.H>
+#include <FL/Fl_File_Chooser.H>
 
 #include "_cgo_export.h"
 

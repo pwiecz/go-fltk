@@ -1,6 +1,6 @@
 #include "spinner.h"
 
-#include <Fl/Fl_Spinner.H>
+#include <FL/Fl_Spinner.H>
 
 Fl_Spinner* go_fltk_new_Spinner(int x, int y, int w, int h, const char* label) {
   return new Fl_Spinner(x, y, w, h, label);

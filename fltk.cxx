@@ -1,6 +1,6 @@
 #include "fltk.h"
 
-#include "Fl/Fl.H"
+#include "FL/Fl.H"
 
 #include "_cgo_export.h"
 

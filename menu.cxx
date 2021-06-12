@@ -2,8 +2,8 @@
 
 #include <cstdint>
 
-#include <Fl/Fl_Menu_.H>
-#include <Fl/Fl_Menu_Button.H>
+#include <FL/Fl_Menu_.H>
+#include <FL/Fl_Menu_Button.H>
 
 #include "enumerations.h"
 

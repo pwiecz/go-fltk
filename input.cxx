@@ -1,6 +1,6 @@
 #include "input.h"
 
-#include <Fl/Fl_Input.H>
+#include <FL/Fl_Input.H>
 
 
 const unsigned char go_FL_FLOAT_INPUT = 1;

@@ -2,7 +2,7 @@
 
 #include <cstdint>
 
-#include <Fl/Enumerations.H>
+#include <FL/Enumerations.H>
 
 #include "_cgo_export.h"
 

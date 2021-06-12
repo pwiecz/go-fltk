@@ -1,7 +1,7 @@
 #include "drawings.h"
 
 #include <FL/fl_draw.H>
-#include <Fl/Enumerations.H>
+#include <FL/Enumerations.H>
 
 
 void go_fltk_color(unsigned int color) {

@@ -2,7 +2,7 @@
 
 #include <cstdint>
 
-#include <Fl/Fl_Widget.H>
+#include <FL/Fl_Widget.H>
 
 #include "enumerations.h"
 

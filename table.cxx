@@ -1,6 +1,6 @@
 #include "table.h"
 
-#include <Fl/Fl_Table_Row.H>
+#include <FL/Fl_Table_Row.H>
 
 #include "_cgo_export.h"
 

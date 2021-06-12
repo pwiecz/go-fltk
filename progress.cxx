@@ -1,6 +1,6 @@
 #include "progress.h"
 
-#include <Fl/Fl_Progress.H>
+#include <FL/Fl_Progress.H>
 
 Fl_Progress* go_fltk_new_Progress(int x, int y, int w, int h, const char *label) {
   return new Fl_Progress(x, y, w, h, label);

@@ -1,6 +1,6 @@
 #include "check_button.h"
 
-#include "Fl/Fl_Check_Button.H"
+#include "FL/Fl_Check_Button.H"
 
 
 Fl_Check_Button *go_fltk_new_Check_Button(int x, int y, int w, int h, const char *label) {
