@@ -22,6 +22,10 @@ int go_fltk_Menu_value(Fl_Menu_ *m) {
   return m->value();
 }
 
+int go_fltk_Menu_size(Fl_Menu_ *m) {
+  return m->size();
+}
+
 Fl_Menu_Button* go_fltk_new_MenuButton(int x, int y, int w, int h, const char* text) {
   return new Fl_Menu_Button(x, y, w, h, text);
 }

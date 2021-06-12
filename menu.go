@@ -25,6 +25,9 @@ func (m *menu) SetValue(value int) {
 func (m *menu) Value() int {
 	return int(C.go_fltk_Menu_value((*C.Fl_Menu_)(m.ptr)))
 }
+func (m *menu) Size() int {
+	return int(C.go_fltk_Menu_size((*C.Fl_Menu_)(m.ptr)))
+}
 
 type MenuButton struct {
 	menu
