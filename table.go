@@ -140,7 +140,7 @@ func (t *TableRow) SetResizeHandler(handler func()) {
 		globalCallbackMap.unregister(t.resizeHandlerId)
 	}
 	t.resizeHandlerId = globalCallbackMap.register(handler)
-	C.go_fltk_TableRow_set_resize_handler((*C.GTableRow)(t.ptr), unsafe.Pointer(t.resizeHandlerId))
+	C.go_fltk_TableRow_set_resize_handler((*C.GTableRow)(t.ptr), C.uintptr_t(t.resizeHandlerId))
 }
 
 type SelectionFlag int

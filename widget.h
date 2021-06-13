@@ -1,5 +1,8 @@
 #pragma once
 
+#include <stdint.h>
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -11,7 +14,7 @@ extern "C" {
   extern void go_fltk_Widget_set_labelfont(Fl_Widget *w, int font);
   extern void go_fltk_Widget_set_labelsize(Fl_Widget *w, int size);
   extern void go_fltk_Widget_set_labeltype(Fl_Widget *w, int type);
-  extern void go_fltk_Widget_set_callback(Fl_Widget *w, void* id);
+  extern void go_fltk_Widget_set_callback(Fl_Widget *w, uintptr_t id);
   extern void go_fltk_Widget_when(Fl_Widget* w, int when);
   extern int go_fltk_Widget_x(Fl_Widget *w);
   extern int go_fltk_Widget_y(Fl_Widget *w);

@@ -16,7 +16,7 @@ type GlWindow struct {
 func NewGlWindow(x, y, w, h int, drawFun func()) *GlWindow {
 	win := &GlWindow{eventHandler: -1}
 	win.drawFunId = globalCallbackMap.register(drawFun)
-	initWidget(win, unsafe.Pointer(C.go_fltk_new_GlWindow(C.int(x), C.int(y), C.int(w), C.int(h), unsafe.Pointer(win.drawFunId))))
+	initWidget(win, unsafe.Pointer(C.go_fltk_new_GlWindow(C.int(x), C.int(y), C.int(w), C.int(h), C.uintptr_t(win.drawFunId))))
 	return win
 }
 
@@ -49,5 +49,5 @@ func (w *GlWindow) SetResizeHandler(handler func()) {
 		globalCallbackMap.unregister(w.resizeHandlerId)
 	}
 	w.resizeHandlerId = globalCallbackMap.register(handler)
-	C.go_fltk_Gl_Window_set_resize_handler((*C.GGlWindow)(w.ptr), unsafe.Pointer(w.resizeHandlerId))
+	C.go_fltk_Gl_Window_set_resize_handler((*C.GGlWindow)(w.ptr), C.uintptr_t(w.resizeHandlerId))
 }

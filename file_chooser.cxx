@@ -20,11 +20,11 @@ void go_fltk_FileChooser_destroy(Fl_File_Chooser* fileChooser) {
 }
 
 static void filechooser_callback_handler(Fl_File_Chooser* fc, void* data) {
-  _go_callbackHandler(data);
+  _go_callbackHandler((uintptr_t)data);
 }
 
-void go_fltk_FileChooser_set_callback(Fl_File_Chooser* fileChooser, void* id) {
-  fileChooser->callback(filechooser_callback_handler, id);
+void go_fltk_FileChooser_set_callback(Fl_File_Chooser* fileChooser, uintptr_t id) {
+  fileChooser->callback(filechooser_callback_handler, (void*)id);
 }
 
 void go_fltk_FileChooser_popup(Fl_File_Chooser* fileChooser) {

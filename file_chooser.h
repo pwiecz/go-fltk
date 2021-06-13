@@ -1,5 +1,8 @@
 #pragma once
 
+#include <stdint.h>
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -14,7 +17,7 @@ extern "C" {
   extern Fl_File_Chooser* go_fltk_new_FileChooser(const char* pathname, const char* pattern, int type, const char* title);
 
   extern void go_fltk_FileChooser_destroy(Fl_File_Chooser* fileChooser);
-  extern void go_fltk_FileChooser_set_callback(Fl_File_Chooser* fileChooser, void* id);
+  extern void go_fltk_FileChooser_set_callback(Fl_File_Chooser* fileChooser, uintptr_t id);
   extern void go_fltk_FileChooser_popup(Fl_File_Chooser* fileChooser);
   extern void go_fltk_FileChooser_show(Fl_File_Chooser* fileChooser);
   extern int go_fltk_FileChooser_shown(Fl_File_Chooser* fileChooser);

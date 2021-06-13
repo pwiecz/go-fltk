@@ -46,7 +46,7 @@ func (c *FileChooser) SetCallback(callback func()) {
 		globalCallbackMap.unregister(c.callbackId)
 	}
 	c.callbackId = globalCallbackMap.register(callback)
-	C.go_fltk_FileChooser_set_callback(c.ptr, unsafe.Pointer(c.callbackId))
+	C.go_fltk_FileChooser_set_callback(c.ptr, C.uintptr_t(c.callbackId))
 }
 func (c *FileChooser) Show() {
 	C.go_fltk_FileChooser_show((*C.Fl_File_Chooser)(c.ptr))

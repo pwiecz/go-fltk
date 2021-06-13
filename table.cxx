@@ -31,13 +31,13 @@ public:
     return Fl_Table_Row::handle(event);
   }
 
-  void set_resize_handler(void* resizeHandlerId) {
+  void set_resize_handler(uintptr_t resizeHandlerId) {
     m_resizeHandlerId = resizeHandlerId;
   }
 
   void resize(int x, int y, int w, int h) final {
     Fl_Table_Row::resize(x, y, w, h);
-    if (m_resizeHandlerId != nullptr) {
+    if (m_resizeHandlerId != 0) {
       _go_callbackHandler(m_resizeHandlerId);
     }
   }
@@ -45,7 +45,7 @@ public:
 private:
   int m_drawFunId = 0;
   int m_eventHandlerId = 0;
-  void* m_resizeHandlerId = nullptr;
+  uintptr_t m_resizeHandlerId = 0;
 };
 
 GTableRow *go_fltk_new_TableRow(int x, int y, int w, int h) {
@@ -100,7 +100,7 @@ void go_fltk_Table_set_top_row(Fl_Table* t, int row) {
   t->top_row(row);
 }
 
-void go_fltk_TableRow_set_resize_handler(GTableRow* t, void* handlerId) {
+void go_fltk_TableRow_set_resize_handler(GTableRow* t, uintptr_t handlerId) {
   t->set_resize_handler(handlerId);
 }
 

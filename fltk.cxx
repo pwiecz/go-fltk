@@ -4,6 +4,7 @@
 
 #include "_cgo_export.h"
 
+
 static void lock() { Fl::lock(); }
 
 static void unlock() {
@@ -14,10 +15,10 @@ static void unlock() {
 int go_fltk_run() { return Fl::run(); }
 int go_fltk_lock() { return Fl::lock(); }
 void awake_handler(void *data) {
-  _go_awakeHandler(data);
+  _go_awakeHandler(uintptr_t(data));
 }
-int go_fltk_awake(void *id) {
-  return Fl::awake(awake_handler, id);
+int go_fltk_awake(uintptr_t id) {
+  return Fl::awake(awake_handler, (void*)id);
 }
 
 void go_fltk_copy(const char* data, int len, int destination) {
@@ -29,4 +30,13 @@ void go_fltk_screen_work_area(int *x, int *y, int *w, int *h, int n) {
 }
 void go_fltk_screen_dpi(float *w, float *h, int n) {
   Fl::screen_dpi(*w, *h, n);
+}
+int go_fltk_screen_count() {
+  return Fl::screen_count();
+}
+float go_fltk_screen_scale(int screenNum) {
+  return Fl::screen_scale(screenNum);
+}
+void go_fltk_set_screen_scale(int screenNum, float scale) {
+  Fl::screen_scale(screenNum, scale);
 }

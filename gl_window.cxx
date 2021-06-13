@@ -7,7 +7,7 @@
 
 class GGlWindow : public Fl_Gl_Window {
 public:
-  GGlWindow(int x, int y, int w, int h, void* drawFunId)
+  GGlWindow(int x, int y, int w, int h, uintptr_t drawFunId)
     : Fl_Gl_Window(x, y, w, h)
     , m_drawFunId(drawFunId) {
     mode(FL_OPENGL3 | FL_MULTISAMPLE);
@@ -28,7 +28,7 @@ public:
   
   void resize(int x, int y, int w, int h) final {
     Fl_Gl_Window::resize(x, y, w, h);
-    if (m_resizeHandlerId != nullptr) {
+    if (m_resizeHandlerId != 0) {
       _go_callbackHandler(m_resizeHandlerId);
     }
   }
@@ -37,17 +37,17 @@ public:
     m_eventHandlerId = handlerId;
   }
 
-  void set_resize_handler(void* resizeHandlerId) {
+  void set_resize_handler(uintptr_t resizeHandlerId) {
     m_resizeHandlerId = resizeHandlerId;
   }
 private:
-  void* const m_drawFunId;
+  uintptr_t const m_drawFunId;
   int m_eventHandlerId = -1;
-  void* m_resizeHandlerId = nullptr;
+  uintptr_t m_resizeHandlerId = 0;
 };
 
 
-GGlWindow *go_fltk_new_GlWindow(int x, int y, int w, int h, void* drawFunId) {
+GGlWindow *go_fltk_new_GlWindow(int x, int y, int w, int h, uintptr_t drawFunId) {
   return new GGlWindow(x, y, w, h, drawFunId);
 }
 char go_fltk_Gl_Window_context_valid(GGlWindow* w) { 
@@ -59,6 +59,6 @@ char go_fltk_Gl_Window_valid(GGlWindow* w) {
 void go_fltk_Gl_Window_set_event_handler(GGlWindow* w, int handlerId) {
   ((GGlWindow*)w)->set_event_handler(handlerId);
 }
-void go_fltk_Gl_Window_set_resize_handler(GGlWindow* w, void* handlerId) {
+void go_fltk_Gl_Window_set_resize_handler(GGlWindow* w, uintptr_t handlerId) {
   w->set_resize_handler(handlerId);
 }

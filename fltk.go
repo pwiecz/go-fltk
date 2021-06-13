@@ -59,13 +59,13 @@ func (m *awakeMap) invoke(id uintptr) {
 }
 
 //export _go_awakeHandler
-func _go_awakeHandler(id unsafe.Pointer) {
+func _go_awakeHandler(id C.uintptr_t) {
 	globalAwakeMap.invoke(uintptr(id))
 }
 
 func Awake(fn func()) {
 	awakeId := globalAwakeMap.register(fn)
-	C.go_fltk_awake(unsafe.Pointer(awakeId))
+	C.go_fltk_awake(C.uintptr_t(awakeId))
 }
 
 func CopyToClipboard(text string) {
@@ -82,4 +82,13 @@ func ScreenDPI(screenNum int) (float32, float32) {
 	var w, h C.float
 	C.go_fltk_screen_dpi(&w, &h, C.int(screenNum))
 	return float32(w), float32(h)
+}
+func ScreenCount() int {
+	return int(C.go_fltk_screen_count())
+}
+func ScreenScale(screenNum int) float32 {
+	return float32(C.go_fltk_screen_scale(C.int(screenNum)))
+}
+func SetScreenScale(screenNum int, scale float32) {
+	C.go_fltk_set_screen_scale(C.int(screenNum), C.float(scale))
 }

@@ -25,7 +25,7 @@ func (w *widget) SetCallback(f func()) {
 		globalCallbackMap.unregister(w.callbackId)
 	}
 	w.callbackId = globalCallbackMap.register(f)
-	C.go_fltk_Widget_set_callback(w.ptr, unsafe.Pointer(w.callbackId))
+	C.go_fltk_Widget_set_callback(w.ptr, C.uintptr_t(w.callbackId))
 }
 func (w *widget) SetCallbackCondition(when CallbackCondition) {
 	C.go_fltk_Widget_when(w.ptr, C.int(when))

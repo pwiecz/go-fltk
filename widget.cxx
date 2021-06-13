@@ -1,7 +1,5 @@
 #include "widget.h"
 
-#include <cstdint>
-
 #include <FL/Fl_Widget.H>
 
 #include "enumerations.h"
@@ -13,8 +11,8 @@ void go_fltk_Widget_destroy(Fl_Widget *w) {
 void go_fltk_Widget_set_box(Fl_Widget *w, int box) {
   w->box((Fl_Boxtype)box);
 }
-void go_fltk_Widget_set_callback(Fl_Widget *w, void* id) {
-  w->callback(callback_handler, id);
+void go_fltk_Widget_set_callback(Fl_Widget *w, uintptr_t id) {
+  w->callback(callback_handler, (void*)id);
 }
 void go_fltk_Widget_when(Fl_Widget* w, int when) {
   w->when(when);

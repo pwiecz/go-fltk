@@ -4,7 +4,6 @@ package fltk
 #include "enumerations.h"
 */
 import "C"
-import "unsafe"
 
 type Align uint
 
@@ -152,8 +151,8 @@ func (m *callbackMap) invoke(id uintptr) {
 var globalCallbackMap = newCallbackMap()
 
 //export _go_callbackHandler
-func _go_callbackHandler(id unsafe.Pointer) {
-	globalCallbackMap.invoke(uintptr(id))
+func _go_callbackHandler(id uintptr) {
+	globalCallbackMap.invoke(id)
 }
 
 type eventHandlerMap struct {
