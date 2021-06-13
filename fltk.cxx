@@ -40,3 +40,6 @@ float go_fltk_screen_scale(int screenNum) {
 void go_fltk_set_screen_scale(int screenNum, float scale) {
   Fl::screen_scale(screenNum, scale);
 }
+void go_fltk_set_keyboard_screen_scaling(int value) {
+  Fl::keyboard_screen_scaling(value);
+}

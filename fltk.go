@@ -92,3 +92,10 @@ func ScreenScale(screenNum int) float32 {
 func SetScreenScale(screenNum int, scale float32) {
 	C.go_fltk_set_screen_scale(C.int(screenNum), C.float(scale))
 }
+func SetKeyboardScreenScaling(value bool) {
+	if value {
+		C.go_fltk_set_keyboard_screen_scaling(C.int(1))
+	} else {
+		C.go_fltk_set_keyboard_screen_scaling(C.int(0))
+	}
+}

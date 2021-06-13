@@ -19,7 +19,7 @@ extern "C" {
   extern int go_fltk_screen_count();
   extern float go_fltk_screen_scale(int screenNum);
   extern void go_fltk_set_screen_scale(int screenNum, float scale);
-
+  extern void go_fltk_set_keyboard_screen_scaling(int value);
 #ifdef __cplusplus
 }
 #endif
