@@ -80,7 +80,9 @@ func (m *tableCallbackMap) invoke(id int, context TableContext, r, c, x, y, w, h
 	if id == 0 {
 		return
 	}
-	m.callbackMap[id](context, r, c, x, y, w, h)
+	if callback, ok := m.callbackMap[id]; ok && callback != nil {
+		callback(context, r, c, x, y, w, h)
+	}
 }
 
 var globalTableCallbackMap = newTableCallbackMap()

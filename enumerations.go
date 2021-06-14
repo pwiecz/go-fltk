@@ -145,7 +145,9 @@ func (m *callbackMap) unregister(id uintptr) {
 	delete(m.callbackMap, id)
 }
 func (m *callbackMap) invoke(id uintptr) {
-	m.callbackMap[id]()
+	if callback, ok := m.callbackMap[id]; ok && callback != nil {
+		callback()
+	}
 }
 
 var globalCallbackMap = newCallbackMap()
@@ -174,7 +176,10 @@ func (m *eventHandlerMap) unregister(id int) {
 	delete(m.eventHandlerMap, id)
 }
 func (m *eventHandlerMap) invoke(id int, event Event) bool {
-	return m.eventHandlerMap[id](event)
+	if handler, ok := m.eventHandlerMap[id]; ok && handler != nil {
+		return handler(event)
+	}
+	return false
 }
 
 var globalEventHandlerMap = newEventHandlerMap()
