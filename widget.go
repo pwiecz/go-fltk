@@ -36,7 +36,10 @@ func (w *widget) Destroy() {
 	if w.callbackId > 0 {
 		globalCallbackMap.unregister(w.callbackId)
 	}
-	C.go_fltk_Widget_destroy(w.ptr)
+	w.callbackId = 0
+	if w.ptr != nil {
+		C.go_fltk_delete_widget(w.ptr)
+	}
 	w.ptr = nil
 }
 

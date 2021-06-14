@@ -8,9 +8,9 @@ import "unsafe"
 
 type GlWindow struct {
 	Window
-	drawFunId uintptr
+	drawFunId       uintptr
 	resizeHandlerId uintptr
-	eventHandler int
+	eventHandler    int
 }
 
 func NewGlWindow(x, y, w, h int, drawFun func()) *GlWindow {
@@ -21,13 +21,18 @@ func NewGlWindow(x, y, w, h int, drawFun func()) *GlWindow {
 }
 
 func (w *GlWindow) Destroy() {
-	globalCallbackMap.unregister(w.drawFunId)
+	if w.drawFunId > 0 {
+		globalCallbackMap.unregister(w.drawFunId)
+	}
+	w.drawFunId = 0
 	if w.resizeHandlerId > 0 {
 		globalCallbackMap.unregister(w.resizeHandlerId)
 	}
+	w.resizeHandlerId = 0
 	if w.eventHandler > 0 {
 		globalEventHandlerMap.unregister(w.eventHandler)
 	}
+	w.eventHandler = 0
 	w.Window.Destroy()
 }
 func (w *GlWindow) ContextValid() bool {

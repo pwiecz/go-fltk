@@ -1,12 +1,13 @@
 #include "widget.h"
 
+#include <FL/Fl.H>
 #include <FL/Fl_Widget.H>
 
 #include "enumerations.h"
 
 
-void go_fltk_Widget_destroy(Fl_Widget *w) {
-  delete w;
+void go_fltk_delete_widget(Fl_Widget *w) {
+  Fl::delete_widget(w);
 }
 void go_fltk_Widget_set_box(Fl_Widget *w, int box) {
   w->box((Fl_Boxtype)box);

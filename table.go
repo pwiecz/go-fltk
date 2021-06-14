@@ -4,9 +4,7 @@ package fltk
 #include "table.h"
 */
 import "C"
-import (
-	"unsafe"
-)
+import "unsafe"
 
 type table struct {
 	Group
@@ -110,12 +108,15 @@ func (t *TableRow) Destroy() {
 	if t.drawCellCallbackId > 0 {
 		globalTableCallbackMap.unregister(t.drawCellCallbackId)
 	}
+	t.drawCellCallbackId = 0
 	if t.resizeHandlerId > 0 {
 		globalCallbackMap.unregister(t.resizeHandlerId)
 	}
+	t.resizeHandlerId = 0
 	if t.eventHandler > 0 {
 		globalEventHandlerMap.unregister(t.eventHandler)
 	}
+	t.eventHandler = 0
 	t.table.Destroy()
 }
 func (t *TableRow) IsRowSelected(row int) bool {

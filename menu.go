@@ -5,9 +5,7 @@ package fltk
 #include "menu.h"
 */
 import "C"
-import (
-	"unsafe"
-)
+import "unsafe"
 
 type menu struct {
 	widget
@@ -63,6 +61,7 @@ func (m *MenuButton) Destroy() {
 	for _, itemCallbackId := range m.itemCallbacks {
 		globalCallbackMap.unregister(itemCallbackId)
 	}
+	m.itemCallbacks = m.itemCallbacks[:0]
 	m.menu.Destroy()
 }
 func (m *MenuButton) Add(label string, callback func()) int {
