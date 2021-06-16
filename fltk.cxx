@@ -14,6 +14,8 @@ static void unlock() {
 
 int go_fltk_run() { return Fl::run(); }
 int go_fltk_lock() { return Fl::lock(); }
+void go_fltk_unlock() { Fl::unlock(); }
+
 void awake_handler(void *data) {
   _go_awakeHandler(uintptr_t(data));
 }

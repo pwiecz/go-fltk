@@ -9,6 +9,7 @@ extern "C" {
 
   extern int go_fltk_run();
   extern int go_fltk_lock();
+  extern void go_fltk_unlock();
 
   extern int go_fltk_awake(uintptr_t id);
 

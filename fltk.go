@@ -16,8 +16,11 @@ import (
 func Run() int {
 	return int(C.go_fltk_run())
 }
-func Lock() int {
-	return int(C.go_fltk_lock())
+func Lock() bool {
+	return C.go_fltk_lock() == 0
+}
+func Unlock() {
+	C.go_fltk_unlock()
 }
 
 func cStringOpt(s []string) *C.char {
@@ -63,9 +66,9 @@ func _go_awakeHandler(id C.uintptr_t) {
 	globalAwakeMap.invoke(uintptr(id))
 }
 
-func Awake(fn func()) {
+func Awake(fn func()) bool {
 	awakeId := globalAwakeMap.register(fn)
-	C.go_fltk_awake(C.uintptr_t(awakeId))
+	return C.go_fltk_awake(C.uintptr_t(awakeId)) == 0
 }
 
 func CopyToClipboard(text string) {
@@ -94,8 +97,8 @@ func SetScreenScale(screenNum int, scale float32) {
 }
 func SetKeyboardScreenScaling(value bool) {
 	if value {
-		C.go_fltk_set_keyboard_screen_scaling(C.int(1))
+		C.go_fltk_set_keyboard_screen_scaling(1)
 	} else {
-		C.go_fltk_set_keyboard_screen_scaling(C.int(0))
+		C.go_fltk_set_keyboard_screen_scaling(0)
 	}
 }

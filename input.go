@@ -23,7 +23,7 @@ func (i *Input) Value() string {
 func (i *Input) SetValue(value string) bool {
 	valueStr := C.CString(value)
 	defer C.free(unsafe.Pointer(valueStr))
-	return C.go_fltk_Input_set_value((*C.Fl_Input)(i.ptr), valueStr) != C.int(0)
+	return C.go_fltk_Input_set_value((*C.Fl_Input)(i.ptr), valueStr) != 0
 }
 func (i *Input) Resize(x int, y int, w int, h int) {
 	C.go_fltk_Input_resize((*C.Fl_Input)(i.ptr), C.int(x), C.int(y), C.int(w), C.int(h))

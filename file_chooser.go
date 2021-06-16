@@ -55,13 +55,13 @@ func (c *FileChooser) Popup() {
 	C.go_fltk_FileChooser_popup((*C.Fl_File_Chooser)(c.ptr))
 }
 func (c *FileChooser) Shown() bool {
-	return C.go_fltk_FileChooser_shown(c.ptr) != C.int(0)
+	return C.go_fltk_FileChooser_shown(c.ptr) != 0
 }
 func (c *FileChooser) SetPreview(enable bool) {
 	if enable {
-		C.go_fltk_FileChooser_preview(c.ptr, C.int(1))
+		C.go_fltk_FileChooser_preview(c.ptr, 1)
 	} else {
-		C.go_fltk_FileChooser_preview(c.ptr, C.int(0))
+		C.go_fltk_FileChooser_preview(c.ptr, 0)
 	}
 }
 func (c *FileChooser) Selection() []string {
