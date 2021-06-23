@@ -103,6 +103,8 @@ extern "C" {
   extern const int go_FL_WHEN_ENTER_KEY_ALWAYS;
   extern const int go_FL_WHEN_ENTER_KEY_CHANGED;
 
+  extern const int go_FL_ESCAPE;
+
   extern void callback_handler(Fl_Widget *w, void* data);
 
 #ifdef __cplusplus

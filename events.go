@@ -13,6 +13,10 @@ var (
 	RightMouse  = MouseButton(C.go_FL_RIGHT_MOUSE)
 )
 
+func EventType() Event {
+	return Event(C.go_fltk_event())
+}
+
 func EventButton() MouseButton {
 	return MouseButton(C.go_fltk_event_button())
 }

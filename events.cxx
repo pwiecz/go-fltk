@@ -18,6 +18,7 @@ const int go_FL_BUTTON1 = FL_BUTTON1;
 const int go_FL_BUTTON2 = FL_BUTTON2;
 const int go_FL_BUTTON3 = FL_BUTTON3;
 
+int go_fltk_event() { return Fl::event(); }
 int go_fltk_event_button() { return Fl::event_button(); }
 int go_fltk_event_button1() { return Fl::event_button1(); }
 int go_fltk_event_x() { return Fl::event_x(); }

@@ -19,6 +19,7 @@ extern "C" {
   extern const int go_FL_BUTTON2;
   extern const int go_FL_BUTTON3;
 
+  extern int go_fltk_event();
   extern int go_fltk_event_button();
   extern int go_fltk_event_button1();
   extern int go_fltk_event_x();

@@ -191,3 +191,7 @@ func _go_eventHandler(handlerId C.int, event C.int) C.int {
 	}
 	return 0
 }
+
+var (
+	ESCAPE = int(C.go_FL_ESCAPE)
+)

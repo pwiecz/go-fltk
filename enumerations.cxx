@@ -107,6 +107,8 @@ const int go_FL_WHEN_ENTER_KEY = FL_WHEN_ENTER_KEY;
 const int go_FL_WHEN_ENTER_KEY_ALWAYS = FL_WHEN_ENTER_KEY_ALWAYS;
 const int go_FL_WHEN_ENTER_KEY_CHANGED = FL_WHEN_ENTER_KEY_CHANGED;
 
+const int go_FL_ESCAPE = FL_Escape;
+
 void callback_handler(Fl_Widget *w, void* data) {
   _go_callbackHandler((uintptr_t)data);
 }
