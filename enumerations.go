@@ -126,6 +126,22 @@ var (
 	WhenEnterKeyChanged = CallbackCondition(C.go_FL_WHEN_ENTER_KEY_CHANGED)
 )
 
+var (
+	RGB = int(C.go_FL_RGB)
+	INDEX = int(C.go_FL_INDEX)
+	SINGLE = int(C.go_FL_SINGLE)
+	DOUBLE = int(C.go_FL_DOUBLE)
+	ACCUM = int(C.go_FL_ACCUM)
+	ALPHA = int(C.go_FL_ALPHA)
+	DEPTH = int(C.go_FL_DEPTH)
+	STENCIL = int(C.go_FL_STENCIL)
+	RGB8 = int(C.go_FL_RGB8)
+	MULTISAMPLE = int(C.go_FL_MULTISAMPLE)
+	STEREO = int(C.go_FL_STEREO)
+	FAKE_SINGLE = int(C.go_FL_FAKE_SINGLE)
+	OPENGL3 = int(C.go_FL_OPENGL3)
+)
+
 type callbackMap struct {
 	callbackMap map[uintptr]func()
 	id          uintptr

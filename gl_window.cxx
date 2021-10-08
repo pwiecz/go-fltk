@@ -62,3 +62,6 @@ void go_fltk_Gl_Window_set_event_handler(GGlWindow* w, int handlerId) {
 void go_fltk_Gl_Window_set_resize_handler(GGlWindow* w, uintptr_t handlerId) {
   w->set_resize_handler(handlerId);
 }
+void go_fltk_Gl_Window_set_mode(GGlWindow* w, int m) {
+  w->mode(m);
+}

@@ -109,6 +109,20 @@ const int go_FL_WHEN_ENTER_KEY_CHANGED = FL_WHEN_ENTER_KEY_CHANGED;
 
 const int go_FL_ESCAPE = FL_Escape;
 
+const int go_FL_RGB = FL_RGB;
+const int go_FL_INDEX = FL_INDEX;
+const int go_FL_SINGLE = FL_SINGLE;
+const int go_FL_DOUBLE = FL_DOUBLE;
+const int go_FL_ACCUM = FL_ACCUM;
+const int go_FL_ALPHA = FL_ALPHA;
+const int go_FL_DEPTH = FL_DEPTH;
+const int go_FL_STENCIL = FL_STENCIL;
+const int go_FL_RGB8 = FL_RGB8;
+const int go_FL_MULTISAMPLE = FL_MULTISAMPLE;
+const int go_FL_STEREO = FL_STEREO;
+const int go_FL_FAKE_SINGLE = FL_FAKE_SINGLE;
+const int go_FL_OPENGL3 = FL_OPENGL3;
+
 void callback_handler(Fl_Widget *w, void* data) {
   _go_callbackHandler((uintptr_t)data);
 }

@@ -7,10 +7,10 @@
 extern "C" {
 #endif
 
-  extern const int go_FL_SINGLE;
-  extern const int go_FL_MULTI;
-  extern const int go_FL_CREATE;
-  extern const int go_FL_DIRECTORY;
+  extern const int go_FL_FileChooser_SINGLE;
+  extern const int go_FL_FileChooser_MULTI;
+  extern const int go_FL_FileChooser_CREATE;
+  extern const int go_FL_FileChooser_DIRECTORY;
 
   typedef struct Fl_File_Chooser Fl_File_Chooser;
 

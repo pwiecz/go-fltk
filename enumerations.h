@@ -105,6 +105,20 @@ extern "C" {
 
   extern const int go_FL_ESCAPE;
 
+  extern const int go_FL_RGB;
+  extern const int go_FL_INDEX;
+  extern const int go_FL_SINGLE;
+  extern const int go_FL_DOUBLE;
+  extern const int go_FL_ACCUM;
+  extern const int go_FL_ALPHA;
+  extern const int go_FL_DEPTH;
+  extern const int go_FL_STENCIL;
+  extern const int go_FL_RGB8;
+  extern const int go_FL_MULTISAMPLE;
+  extern const int go_FL_STEREO;
+  extern const int go_FL_FAKE_SINGLE;
+  extern const int go_FL_OPENGL3;
+
   extern void callback_handler(Fl_Widget *w, void* data);
 
 #ifdef __cplusplus

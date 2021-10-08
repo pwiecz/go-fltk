@@ -16,10 +16,10 @@ type FileChooser struct {
 type FileChooserType int
 
 var (
-	SINGLE    = FileChooserType(C.go_FL_SINGLE)
-	MULTI     = FileChooserType(C.go_FL_MULTI)
-	CREATE    = FileChooserType(C.go_FL_CREATE)
-	DIRECTORY = FileChooserType(C.go_FL_DIRECTORY)
+	FileChooser_SINGLE    = FileChooserType(C.go_FL_FileChooser_SINGLE)
+	FileChooser_MULTI     = FileChooserType(C.go_FL_FileChooser_MULTI)
+	FileChooser_CREATE    = FileChooserType(C.go_FL_FileChooser_CREATE)
+	FileChooser_DIRECTORY = FileChooserType(C.go_FL_FileChooser_DIRECTORY)
 )
 
 func NewFileChooser(pathname, pattern string, fctype FileChooserType, title string) *FileChooser {

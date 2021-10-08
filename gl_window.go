@@ -56,3 +56,6 @@ func (w *GlWindow) SetResizeHandler(handler func()) {
 	w.resizeHandlerId = globalCallbackMap.register(handler)
 	C.go_fltk_Gl_Window_set_resize_handler((*C.GGlWindow)(w.ptr), C.uintptr_t(w.resizeHandlerId))
 }
+func (w *GlWindow) SetMode(mode int) {
+	C.go_fltk_Gl_Window_set_mode((*C.GGlWindow)(w.ptr), C.int(mode))
+}
