@@ -70,6 +70,9 @@ func Awake(fn func()) bool {
 	awakeId := globalAwakeMap.register(fn)
 	return C.go_fltk_awake(C.uintptr_t(awakeId)) == 0
 }
+func AwakeNullMessage() {
+	C.go_fltk_awake_null_message()
+}
 
 func CopyToClipboard(text string) {
 	textStr := C.CString(text)

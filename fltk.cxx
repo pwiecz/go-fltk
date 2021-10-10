@@ -19,6 +19,9 @@ void go_fltk_unlock() { Fl::unlock(); }
 void awake_handler(void *data) {
   _go_awakeHandler(uintptr_t(data));
 }
+void go_fltk_awake_null_message() {
+  Fl::awake();
+}
 int go_fltk_awake(uintptr_t id) {
   return Fl::awake(awake_handler, (void*)id);
 }
