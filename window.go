@@ -17,6 +17,9 @@ func NewWindow(w, h int) *Window {
 	return win
 }
 
+func (w *Window) IsShown() bool {
+	return C.go_fltk_Window_shown((*C.Fl_Window)(w.ptr)) != 0
+}
 func (w *Window) Show() { C.go_fltk_Window_show((*C.Fl_Window)(w.ptr)) }
 func (w *Window) SetLabel(label string) {
 	labelStr := C.CString(label)

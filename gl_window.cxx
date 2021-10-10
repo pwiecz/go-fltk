@@ -50,11 +50,17 @@ private:
 GGlWindow *go_fltk_new_GlWindow(int x, int y, int w, int h, uintptr_t drawFunId) {
   return new GGlWindow(x, y, w, h, drawFunId);
 }
+void go_fltk_Gl_Window_make_current(GGlWindow* w) {
+  w->make_current();
+}
 char go_fltk_Gl_Window_context_valid(GGlWindow* w) { 
   return w->context_valid(); 
 }
 char go_fltk_Gl_Window_valid(GGlWindow* w) {
   return w->valid(); 
+}
+int go_fltk_Gl_Window_can_do(GGlWindow* w) {
+  return w->can_do();
 }
 void go_fltk_Gl_Window_set_event_handler(GGlWindow* w, int handlerId) {
   ((GGlWindow*)w)->set_event_handler(handlerId);

@@ -7,6 +7,10 @@ Fl_Window *go_fltk_new_Window(int w, int h) {
   return new Fl_Window(w, h);
 }
 
+int go_fltk_Window_shown(Fl_Window *w) {
+  return w->shown();
+}
+
 void go_fltk_Window_show(Fl_Window *w) {
   w->show();
 }
