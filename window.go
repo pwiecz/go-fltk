@@ -21,6 +21,12 @@ func (w *Window) IsShown() bool {
 	return C.go_fltk_Window_shown((*C.Fl_Window)(w.ptr)) != 0
 }
 func (w *Window) Show() { C.go_fltk_Window_show((*C.Fl_Window)(w.ptr)) }
+func (w *Window) XRoot() int {
+	return int(C.go_fltk_Window_x_root((*C.Fl_Window)(w.ptr)))
+}
+func (w *Window) YRoot() int {
+	return int(C.go_fltk_Window_y_root((*C.Fl_Window)(w.ptr)))
+}
 func (w *Window) SetLabel(label string) {
 	labelStr := C.CString(label)
 	defer C.free(unsafe.Pointer(labelStr))

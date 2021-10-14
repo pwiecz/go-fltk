@@ -15,6 +15,14 @@ void go_fltk_Window_show(Fl_Window *w) {
   w->show();
 }
 
+int go_fltk_Window_x_root(Fl_Window* w) {
+  return w->x_root();
+}
+
+int go_fltk_Window_y_root(Fl_Window* w) {
+  return w->y_root();
+}
+
 void go_fltk_Window_set_label(Fl_Window *w, const char *label) {
   w->copy_label(label);
 }

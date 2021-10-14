@@ -39,10 +39,10 @@ func (w *GlWindow) Destroy() {
 	w.Window.Destroy()
 }
 func (w *GlWindow) ContextValid() bool {
-	return int(C.go_fltk_Gl_Window_context_valid((*C.GGlWindow)(w.ptr))) != 0
+	return C.go_fltk_Gl_Window_context_valid((*C.GGlWindow)(w.ptr)) != 0
 }
 func (w *GlWindow) Valid() bool {
-	return int(C.go_fltk_Gl_Window_valid((*C.GGlWindow)(w.ptr))) != 0
+	return C.go_fltk_Gl_Window_valid((*C.GGlWindow)(w.ptr)) != 0
 }
 func (w *GlWindow) CanDo() bool {
 	return C.go_fltk_Gl_Window_can_do((*C.GGlWindow)(w.ptr)) != 0

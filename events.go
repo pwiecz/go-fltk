@@ -30,6 +30,12 @@ func EventX() int {
 func EventY() int {
 	return int(C.go_fltk_event_y())
 }
+func EventXRoot() int {
+	return int(C.go_fltk_event_x_root())
+}
+func EventYRoot() int {
+	return int(C.go_fltk_event_y_root())
+}
 func EventDX() int {
 	return int(C.go_fltk_event_dx())
 }
