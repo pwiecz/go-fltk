@@ -11,6 +11,8 @@ extern "C" {
   extern int go_fltk_lock();
   extern void go_fltk_unlock();
 
+  extern void go_fltk_init_styles(void);
+
   extern void go_fltk_awake_null_message();
   extern int go_fltk_awake(uintptr_t id);
 

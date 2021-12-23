@@ -27,6 +27,12 @@ void go_fltk_Widget_set_labelsize(Fl_Widget *w, int size) {
 void go_fltk_Widget_set_labeltype(Fl_Widget *w, int type) {
   w->labeltype((Fl_Labeltype)type);
 }
+void go_fltk_Widget_set_labelcolor(Fl_Widget *w, unsigned int tcol) {
+  w->labelcolor(tcol);
+}
+void go_fltk_Widget_clear_visible_focus(Fl_Widget *w) {
+  w->clear_visible_focus();
+}
 int go_fltk_Widget_x(Fl_Widget *w) {
   return w->x();
 }
