@@ -50,6 +50,7 @@ var (
 	EMBOSSED_FRAME = BoxType(C.go_FL_EMBOSSED_FRAME)
 	BORDER_BOX     = BoxType(C.go_FL_BORDER_BOX)
 	BORDER_FRAME   = BoxType(C.go_FL_BORDER_FRAME)
+	OFLAT_BOX      = BoxType(29)
 )
 
 type Font int
