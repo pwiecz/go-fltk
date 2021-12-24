@@ -50,6 +50,7 @@ var (
 	EMBOSSED_FRAME = BoxType(C.go_FL_EMBOSSED_FRAME)
 	BORDER_BOX     = BoxType(C.go_FL_BORDER_BOX)
 	BORDER_FRAME   = BoxType(C.go_FL_BORDER_FRAME)
+	OFLAT_BOX      = BoxType(29)
 )
 
 type Font int
@@ -127,19 +128,19 @@ var (
 )
 
 var (
-	RGB = int(C.go_FL_RGB)
-	INDEX = int(C.go_FL_INDEX)
-	SINGLE = int(C.go_FL_SINGLE)
-	DOUBLE = int(C.go_FL_DOUBLE)
-	ACCUM = int(C.go_FL_ACCUM)
-	ALPHA = int(C.go_FL_ALPHA)
-	DEPTH = int(C.go_FL_DEPTH)
-	STENCIL = int(C.go_FL_STENCIL)
-	RGB8 = int(C.go_FL_RGB8)
+	RGB         = int(C.go_FL_RGB)
+	INDEX       = int(C.go_FL_INDEX)
+	SINGLE      = int(C.go_FL_SINGLE)
+	DOUBLE      = int(C.go_FL_DOUBLE)
+	ACCUM       = int(C.go_FL_ACCUM)
+	ALPHA       = int(C.go_FL_ALPHA)
+	DEPTH       = int(C.go_FL_DEPTH)
+	STENCIL     = int(C.go_FL_STENCIL)
+	RGB8        = int(C.go_FL_RGB8)
 	MULTISAMPLE = int(C.go_FL_MULTISAMPLE)
-	STEREO = int(C.go_FL_STEREO)
+	STEREO      = int(C.go_FL_STEREO)
 	FAKE_SINGLE = int(C.go_FL_FAKE_SINGLE)
-	OPENGL3 = int(C.go_FL_OPENGL3)
+	OPENGL3     = int(C.go_FL_OPENGL3)
 )
 
 type callbackMap struct {

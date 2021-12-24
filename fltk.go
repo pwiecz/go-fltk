@@ -2,7 +2,7 @@ package fltk
 
 /*
 #cgo CPPFLAGS: -I${SRCDIR}/include
-#cgo amd64,linux LDFLAGS: ${SRCDIR}/lib/linux/x64/libfltk_gl.a -lGLU -lGL ${SRCDIR}/lib/linux/x64/libfltk.a -lXrender -lXcursor -lXfixes -lXext -lXft -lfontconfig -lXinerama -lpthread -ldl -lm -lX11 
+#cgo amd64,linux LDFLAGS: ${SRCDIR}/lib/linux/x64/libfltk_gl.a -lGLU -lGL ${SRCDIR}/lib/linux/x64/libfltk.a -lXrender -lXcursor -lXfixes -lXext -lXft -lfontconfig -lXinerama -lpthread -ldl -lm -lX11
 #cgo amd64,windows LDFLAGS: -L${SRCDIR}/lib/windows/x64 -lfltk_gl -lglu32 -lopengl32 -lfltk -lgdiplus -lgdi32 -luser32 -lole32 -lcomctl32 -luuid -lws2_32
 #include <stdlib.h>
 #include "fltk.h"
@@ -21,6 +21,10 @@ func Lock() bool {
 }
 func Unlock() {
 	C.go_fltk_unlock()
+}
+
+func InitStyles() {
+	C.go_fltk_init_styles()
 }
 
 func cStringOpt(s []string) *C.char {

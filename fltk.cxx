@@ -12,6 +12,26 @@ static void unlock() {
   Fl::unlock();
 }
 
+void go_fltk_init_styles(void) {
+    fl_define_FL_ROUND_UP_BOX();
+    fl_define_FL_SHADOW_BOX();
+    fl_define_FL_ROUNDED_BOX();
+    fl_define_FL_RFLAT_BOX();
+    fl_define_FL_RSHADOW_BOX();
+    fl_define_FL_DIAMOND_BOX();
+    fl_define_FL_OVAL_BOX();
+    fl_define_FL_PLASTIC_UP_BOX();
+    fl_define_FL_GTK_UP_BOX();
+    fl_define_FL_GLEAM_UP_BOX();
+    fl_define_FL_SHADOW_LABEL();
+    fl_define_FL_ENGRAVED_LABEL();
+    fl_define_FL_EMBOSSED_LABEL();
+    fl_define_FL_MULTI_LABEL();
+    fl_define_FL_ICON_LABEL();
+    fl_define_FL_IMAGE_LABEL();
+    Fl::use_high_res_GL(1);
+}
+
 int go_fltk_run() { return Fl::run(); }
 int go_fltk_lock() { return Fl::lock(); }
 void go_fltk_unlock() { Fl::unlock(); }
