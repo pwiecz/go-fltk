@@ -28,6 +28,12 @@ func InitStyles() {
 	C.go_fltk_init_styles()
 }
 
+func SetScheme(scheme string) int {
+	schemestr := C.CString(scheme)
+	defer C.free(unsafe.Pointer(schemestr))
+	return int(C.go_fltk_set_scheme(schemestr))
+}
+
 func cStringOpt(s []string) *C.char {
 	if len(s) == 0 {
 		return (*C.char)(nil)

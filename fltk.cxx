@@ -32,6 +32,10 @@ void go_fltk_init_styles(void) {
     Fl::use_high_res_GL(1);
 }
 
+extern int go_fltk_set_scheme(const char *scheme) {
+  return Fl::scheme(scheme);
+}
+
 int go_fltk_run() { return Fl::run(); }
 int go_fltk_lock() { return Fl::lock(); }
 void go_fltk_unlock() { Fl::unlock(); }
