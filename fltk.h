@@ -12,6 +12,7 @@ extern "C" {
   extern void go_fltk_unlock();
 
   extern void go_fltk_init_styles(void);
+  extern int go_fltk_set_scheme(const char *scheme);
 
   extern void go_fltk_awake_null_message();
   extern int go_fltk_awake(uintptr_t id);
