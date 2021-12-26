@@ -81,3 +81,4 @@ func (w *widget) SetLabel(label string) {
 	defer C.free(unsafe.Pointer(labelStr))
 	C.go_fltk_Widget_set_label(w.ptr, labelStr)
 }
+func (w *widget) SetImage(i Image) { C.go_fltk_Widget_set_image(w.ptr, i.getImage().ptr) }

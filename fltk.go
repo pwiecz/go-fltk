@@ -2,9 +2,9 @@ package fltk
 
 /*
 #cgo CPPFLAGS: -I${SRCDIR}/include
-#cgo amd64,linux LDFLAGS: ${SRCDIR}/lib/linux/x64/libfltk_gl.a -lGLU -lGL ${SRCDIR}/lib/linux/x64/libfltk.a -lXrender -lXcursor -lXfixes -lXext -lXft -lfontconfig -lXinerama -lpthread -ldl -lm -lX11
-#cgo amd64,windows LDFLAGS: -L${SRCDIR}/lib/windows/x64 -lfltk_gl -lglu32 -lopengl32 -lfltk -lgdiplus -lgdi32 -luser32 -lole32 -lcomctl32 -luuid -lws2_32
-#cgo amd64,darwin LDFLAGS: ${SRCDIR}/lib/macos/x64/libfltk_gl.a ${SRCDIR}/lib/macos/x64/libfltk.a -framework Cocoa -framework OpenGL -framework ApplicationServices -framework Carbon
+#cgo amd64,linux LDFLAGS: ${SRCDIR}/lib/linux/x64/libfltk.a ${SRCDIR}/lib/linux/x64/libfltk_images.a ${SRCDIR}/lib/linux/x64/libfltk_z.a ${SRCDIR}/lib/linux/x64/libfltk_jpeg.a ${SRCDIR}/lib/linux/x64/libfltk_png.a ${SRCDIR}/lib/linux/x64/libfltk_gl.a -lGLU -lGL -lXrender -lXcursor -lXfixes -lXext -lXft -lfontconfig -lXinerama -lpthread -ldl -lm -lX11
+#cgo amd64,windows LDFLAGS: -L${SRCDIR}/lib/windows/x64 -lfltk -lfltk_images -lfltk_z -lfltk_png -lfltk_jpeg -lfltk_gl -lglu32 -lopengl32 -lgdiplus -lgdi32 -luser32 -lole32 -lcomctl32 -luuid -lws2_32
+#cgo amd64,darwin LDFLAGS: ${SRCDIR}/lib/macos/x64/libfltk.a ${SRCDIR}/lib/macos/x64/libfltk_images.a ${SRCDIR}/lib/macos/x64/libfltk_z.a ${SRCDIR}/lib/macos/x64/libfltk_jpeg.a ${SRCDIR}/lib/macos/x64/libfltk_png.a ${SRCDIR}/lib/macos/x64/libfltk_gl.a -framework Cocoa -framework OpenGL -framework ApplicationServices -framework Carbon
 #include <stdlib.h>
 #include "fltk.h"
 */
@@ -26,6 +26,10 @@ func Unlock() {
 
 func InitStyles() {
 	C.go_fltk_init_styles()
+}
+
+func RegisterImages() {
+	C.go_fltk_register_images()
 }
 
 func SetScheme(scheme string) int {
