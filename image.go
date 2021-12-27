@@ -197,5 +197,8 @@ func NewSharedImageLoad(path string) (*SharedImage, error) {
 	defer C.free(unsafe.Pointer(fileStr))
 	img := &SharedImage{}
 	initImage(img, unsafe.Pointer(C.go_fltk_shared_image_load(fileStr)))
+	if img.ptr == nil {
+		return nil, errors.New("Shared Image initialization error")
+	}
 	return img, image_error(img.fail())
 }
