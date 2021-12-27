@@ -1,6 +1,7 @@
 #include "image.h"
 
 #include <FL/Fl_Image.H>
+#include <FL/Fl_BMP_Image.H>
 #include <FL/Fl_SVG_Image.H>  
 #include <FL/Fl_PNG_Image.H>  
 #include <FL/Fl_JPEG_Image.H> 
@@ -65,12 +66,32 @@ Fl_PNG_Image *go_fltk_png_image_load(const char *file) {
     return new Fl_PNG_Image(file);
 }
 
+Fl_PNG_Image *go_fltk_png_image_data(const unsigned char *data, int size) {
+    return new Fl_PNG_Image(NULL, data, size);
+}
+
 Fl_JPEG_Image *go_fltk_jpg_image_load(const char *file) {
     return new Fl_JPEG_Image(file);
 }
 
+Fl_JPEG_Image *go_fltk_jpg_image_data(const unsigned char *data) {
+    return new Fl_JPEG_Image(NULL, data);
+}
+
+Fl_BMP_Image *go_fltk_bmp_image_load(const char *file) {
+    return new Fl_BMP_Image(file);
+}
+
+Fl_BMP_Image *go_fltk_bmp_image_data(const unsigned char *data, long size) {
+    return new Fl_BMP_Image(NULL, data, size);
+}
+
 Fl_Shared_Image *go_fltk_shared_image_load(const char *file) {
     return Fl_Shared_Image::get(file, 0, 0);
+}
+
+void go_fltk_register_images(void) {
+  fl_register_images();
 }
 
 Fl_RGB_Image *go_fltk_rgb_image_data(const unsigned char *bits, int W, int H, int depth, int ld) {

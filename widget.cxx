@@ -93,3 +93,4 @@ void go_fltk_Widget_set_image(Fl_Widget* w, Fl_Image *i) {
 void go_fltk_Widget_set_deimage(Fl_Widget* w, Fl_Image *i) {
   w->deimage(i);
 }
+

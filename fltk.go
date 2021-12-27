@@ -28,10 +28,6 @@ func InitStyles() {
 	C.go_fltk_init_styles()
 }
 
-func RegisterImages() {
-	C.go_fltk_register_images()
-}
-
 func SetScheme(scheme string) int {
 	schemestr := C.CString(scheme)
 	defer C.free(unsafe.Pointer(schemestr))

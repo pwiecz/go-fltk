@@ -36,11 +36,6 @@ extern int go_fltk_set_scheme(const char *scheme) {
   return Fl::scheme(scheme);
 }
 
-extern void fl_register_images();
-void go_fltk_register_images(void) {
-  fl_register_images();
-}
-
 int go_fltk_run() { return Fl::run(); }
 int go_fltk_lock() { return Fl::lock(); }
 void go_fltk_unlock() { Fl::unlock(); }

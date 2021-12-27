@@ -11,6 +11,7 @@ extern "C" {
     typedef struct Fl_SVG_Image Fl_SVG_Image;
     typedef struct Fl_PNG_Image Fl_PNG_Image;
     typedef struct Fl_JPEG_Image Fl_JPEG_Image;
+    typedef struct Fl_BMP_Image Fl_BMP_Image;
     typedef struct Fl_Shared_Image Fl_Shared_Image;
     typedef struct Fl_RGB_Image Fl_RGB_Image;
 
@@ -33,9 +34,15 @@ extern "C" {
     extern Fl_SVG_Image *go_fltk_svg_image_load(const char *file);
     extern Fl_SVG_Image *go_fltk_svg_image_data(const char *data);
     extern Fl_PNG_Image *go_fltk_png_image_load(const char *file);
+    extern Fl_PNG_Image *go_fltk_png_image_data(const unsigned char *data, int size);
     extern Fl_JPEG_Image *go_fltk_jpg_image_load(const char *file);
+    extern Fl_JPEG_Image *go_fltk_jpg_image_data(const unsigned char *data);
+    extern Fl_BMP_Image *go_fltk_bmp_image_load(const char *file);
+    extern Fl_BMP_Image *go_fltk_bmp_image_data(const unsigned char *data, long size);
     extern Fl_Shared_Image *go_fltk_shared_image_load(const char *file);
     extern Fl_RGB_Image *go_fltk_rgb_image_data(const unsigned char *bits, int W, int H, int depth, int ld);
+
+    extern void go_fltk_register_images(void);
 
 #ifdef __cplusplus
 }

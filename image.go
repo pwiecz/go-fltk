@@ -86,7 +86,7 @@ type SvgImage struct {
 	image
 }
 
-func SvgImageLoad(path string) (*SvgImage, error) {
+func NewSvgImageLoad(path string) (*SvgImage, error) {
 	fileStr := C.CString(path)
 	defer C.free(unsafe.Pointer(fileStr))
 	img := &SvgImage{}
@@ -94,7 +94,7 @@ func SvgImageLoad(path string) (*SvgImage, error) {
 	return img, image_error(img.fail())
 }
 
-func SvgImageString(str string) (*SvgImage, error) {
+func NewSvgImageFromString(str string) (*SvgImage, error) {
 	imagestr := C.CString(str)
 	defer C.free(unsafe.Pointer(imagestr))
 	img := &SvgImage{}
@@ -106,7 +106,7 @@ type PngImage struct {
 	image
 }
 
-func PngImageLoad(path string) (*PngImage, error) {
+func NewPngImageLoad(path string) (*PngImage, error) {
 	fileStr := C.CString(path)
 	defer C.free(unsafe.Pointer(fileStr))
 	img := &PngImage{}
@@ -114,11 +114,20 @@ func PngImageLoad(path string) (*PngImage, error) {
 	return img, image_error(img.fail())
 }
 
+func NewPngImageFromData(data []uint8) (*PngImage, error) {
+	buf := (*C.uchar)(unsafe.Pointer(&data[0]))
+
+	img := &PngImage{}
+
+	initImage(img, unsafe.Pointer(C.go_fltk_png_image_data(buf, C.int(len(data)))))
+	return img, image_error(img.fail())
+}
+
 type JpegImage struct {
 	image
 }
 
-func JpegImageLoad(path string) (*JpegImage, error) {
+func NewJpegImageLoad(path string) (*JpegImage, error) {
 	fileStr := C.CString(path)
 	defer C.free(unsafe.Pointer(fileStr))
 	img := &JpegImage{}
@@ -126,11 +135,41 @@ func JpegImageLoad(path string) (*JpegImage, error) {
 	return img, image_error(img.fail())
 }
 
+func NewJpegImageFromData(data []uint8) (*JpegImage, error) {
+	buf := (*C.uchar)(unsafe.Pointer(&data[0]))
+
+	img := &JpegImage{}
+
+	initImage(img, unsafe.Pointer(C.go_fltk_jpg_image_data(buf)))
+	return img, image_error(img.fail())
+}
+
+type BmpImage struct {
+	image
+}
+
+func NewBmpImageLoad(path string) (*BmpImage, error) {
+	fileStr := C.CString(path)
+	defer C.free(unsafe.Pointer(fileStr))
+	img := &BmpImage{}
+	initImage(img, unsafe.Pointer(C.go_fltk_bmp_image_load(fileStr)))
+	return img, image_error(img.fail())
+}
+
+func NewBmpImageFromData(data []uint8) (*BmpImage, error) {
+	buf := (*C.uchar)(unsafe.Pointer(&data[0]))
+
+	img := &BmpImage{}
+
+	initImage(img, unsafe.Pointer(C.go_fltk_bmp_image_data(buf, C.long(len(data)))))
+	return img, image_error(img.fail())
+}
+
 type RgbImage struct {
 	image
 }
 
-func RgbImageData(data []uint8, w, h, depth int) (*RgbImage, error) {
+func NewRgbImage(data []uint8, w, h, depth int) (*RgbImage, error) {
 	buf := (*C.uchar)(unsafe.Pointer(&data[0]))
 
 	img := &RgbImage{}
@@ -143,7 +182,17 @@ type SharedImage struct {
 	image
 }
 
-func SharedImageLoad(path string) (*SharedImage, error) {
+var shared_init bool
+
+func register_images() {
+	C.go_fltk_register_images()
+}
+
+func NewSharedImageLoad(path string) (*SharedImage, error) {
+	if !shared_init {
+		register_images()
+		shared_init = true
+	}
 	fileStr := C.CString(path)
 	defer C.free(unsafe.Pointer(fileStr))
 	img := &SharedImage{}

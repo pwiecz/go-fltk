@@ -4,10 +4,10 @@ A simple wrapper around FLTK 1.4 library, which is a lightweight GUI library whi
 
 ## Requirements
 In addition to Go, you will also need a C++11 compiler. The FLTK libraries are bundled with the repo for x86_64 Linux, MacOS and Windows (mingw64).
-You also need system libs which are normally available on operating systems with graphical user interfaces:
+You also need some system libs which are normally available on operating systems with a graphical user interfaces:
 - Windows: No external dependencies (for mingw64)
 - MacOS: No external dependencies
-- Linux: You need the X11 libs:
+- Linux: You need:
     - x11
     - Xrender
     - Xcursor
@@ -48,7 +48,7 @@ FLTk offers 4 builtin schemes:
 - plastic
 These can be set using `fltk.SetScheme("gtk+")` for example.
 
-FLTK also allows custom styling your widgets:
+FLTK also allows custom styling of your widgets:
 ```go
 package main
 
@@ -101,4 +101,38 @@ func main() {
 
 ![image](https://user-images.githubusercontent.com/37966791/147374840-2d993522-fc86-46fc-9e95-2b3391d31013.png)
 
-The label attributes can be seen [here](https://www.fltk.org/doc-1.3/common.html#common_labels)
+Label attributes can be seen [here](https://www.fltk.org/doc-1.3/common.html#common_labels)
+
+## Image support
+FLTK supports vector and raster graphics, via several image types:
+- SvgImage
+- RgbImage
+- JpegImage
+- PngImage
+- BmpImage
+- SharedImage
+
+Some of these can be instantiated from an image file or from data:
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/pwiecz/go-fltk"
+)
+
+func main() {
+	win := fltk.NewWindow(400, 300)
+	box := fltk.NewBox(fltk.FLAT_BOX, 0, 0, 400, 300, "")
+	image, err := fltk.NewJpegImageLoad("image.jpg")
+	if err != nil {
+		fmt.Printf("An error occured: %s\n", err)
+	} else {
+		box.SetImage(image)
+	}
+	win.End()
+	win.Show()
+	fltk.Run()
+}
+```
