@@ -87,3 +87,10 @@ void go_fltk_Widget_set_color(Fl_Widget* w, unsigned int color) {
 void go_fltk_Widget_set_label(Fl_Widget* w, const char* label) {
   w->copy_label(label);
 }
+void go_fltk_Widget_set_image(Fl_Widget* w, Fl_Image *i) {
+  w->image(i);
+}
+void go_fltk_Widget_set_deimage(Fl_Widget* w, Fl_Image *i) {
+  w->deimage(i);
+}
+

@@ -8,6 +8,7 @@ extern "C" {
 #endif
 
   typedef struct Fl_Widget Fl_Widget;
+  typedef struct Fl_Image Fl_Image;
 
   extern void go_fltk_delete_widget(Fl_Widget *w);
   extern void go_fltk_Widget_set_box(Fl_Widget *w, int box);
@@ -36,6 +37,8 @@ extern "C" {
   extern void go_fltk_Widget_set_selection_color(Fl_Widget* w, unsigned int color);
   extern void go_fltk_Widget_set_color(Fl_Widget* w, unsigned int color);
   extern void go_fltk_Widget_set_label(Fl_Widget* w, const char* label);
+  extern void go_fltk_Widget_set_image(Fl_Widget* w, Fl_Image *i);
+  extern void go_fltk_Widget_set_deimage(Fl_Widget* w, Fl_Image *i);
 
 #ifdef __cplusplus
 }
