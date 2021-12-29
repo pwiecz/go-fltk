@@ -50,7 +50,8 @@ var (
 	EMBOSSED_FRAME = BoxType(C.go_FL_EMBOSSED_FRAME)
 	BORDER_BOX     = BoxType(C.go_FL_BORDER_BOX)
 	BORDER_FRAME   = BoxType(C.go_FL_BORDER_FRAME)
-	OFLAT_BOX      = BoxType(29)
+	RFLAT_BOX      = BoxType(C.go_FL_RFLAT_BOX)
+	OFLAT_BOX      = BoxType(C.go_FL_OFLAT_BOX)
 )
 
 type Font int
@@ -141,6 +142,37 @@ var (
 	STEREO      = int(C.go_FL_STEREO)
 	FAKE_SINGLE = int(C.go_FL_FAKE_SINGLE)
 	OPENGL3     = int(C.go_FL_OPENGL3)
+)
+
+type Color uint
+
+var (
+	FOREGROUND_COLOR  = Color(C.go_FL_FOREGROUND_COLOR)
+	BACKGROUND2_COLOR = Color(C.go_FL_BACKGROUND2_COLOR)
+	INACTIVE_COLOR    = Color(C.go_FL_INACTIVE_COLOR)
+	SELECTION_COLOR   = Color(C.go_FL_SELECTION_COLOR)
+	GRAY0             = Color(C.go_FL_GRAY0)
+	DARK3             = Color(C.go_FL_DARK3)
+	DARK2             = Color(C.go_FL_DARK2)
+	DARK1             = Color(C.go_FL_DARK1)
+	BACKGROUND_COLOR  = Color(C.go_FL_BACKGROUND_COLOR)
+	LIGHT1            = Color(C.go_FL_LIGHT1)
+	LIGHT2            = Color(C.go_FL_LIGHT2)
+	LIGHT3            = Color(C.go_FL_LIGHT3)
+	BLACK             = Color(C.go_FL_BLACK)
+	RED               = Color(C.go_FL_RED)
+	GREEN             = Color(C.go_FL_GREEN)
+	YELLOW            = Color(C.go_FL_YELLOW)
+	BLUE              = Color(C.go_FL_BLUE)
+	MAGENTA           = Color(C.go_FL_MAGENTA)
+	CYAN              = Color(C.go_FL_CYAN)
+	DARK_RED          = Color(C.go_FL_DARK_RED)
+	DARK_GREEN        = Color(C.go_FL_DARK_GREEN)
+	DARK_YELLOW       = Color(C.go_FL_DARK_YELLOW)
+	DARK_BLUE         = Color(C.go_FL_DARK_BLUE)
+	DARK_MAGENTA      = Color(C.go_FL_DARK_MAGENTA)
+	DARK_CYAN         = Color(C.go_FL_DARK_CYAN)
+	WHITE             = Color(C.go_FL_WHITE)
 )
 
 type callbackMap struct {

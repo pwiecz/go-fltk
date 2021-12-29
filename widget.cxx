@@ -93,4 +93,31 @@ void go_fltk_Widget_set_image(Fl_Widget* w, Fl_Image *i) {
 void go_fltk_Widget_set_deimage(Fl_Widget* w, Fl_Image *i) {
   w->deimage(i);
 }
+int go_fltk_Widget_box(Fl_Widget *w) { 
+    return w->box();
+}
+unsigned int go_fltk_Widget_labelcolor(Fl_Widget *w) { 
+    return w->labelcolor();
+}
+unsigned int go_fltk_Widget_color(Fl_Widget *w) { 
+    return w->color();
+}
+const char *go_fltk_Widget_label(Fl_Widget *w) { 
+    return w->label();
+}
+unsigned int go_fltk_Widget_align(Fl_Widget* w) { 
+    return w->align();
+}
+unsigned char go_fltk_Widget_type(Fl_Widget* w) { 
+    return w->type();
+}
+int go_fltk_Widget_labelfont(Fl_Widget *w) {
+    return w->labelfont();
+}
+int go_fltk_Widget_labelsize(Fl_Widget *w) {
+    return w->labelsize();
+}
+int go_fltk_Widget_labeltype(Fl_Widget *w) {
+    return w->labeltype();
+}
 

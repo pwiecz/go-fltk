@@ -47,7 +47,7 @@ func (w *widget) SetBox(box BoxType)           { C.go_fltk_Widget_set_box(w.ptr,
 func (w *widget) SetLabelFont(font Font)       { C.go_fltk_Widget_set_labelfont(w.ptr, C.int(font)) }
 func (w *widget) SetLabelSize(size int)        { C.go_fltk_Widget_set_labelsize(w.ptr, C.int(size)) }
 func (w *widget) SetLabelType(ltype LabelType) { C.go_fltk_Widget_set_labeltype(w.ptr, C.int(ltype)) }
-func (w *widget) SetLabelColor(col uint)       { C.go_fltk_Widget_set_labelcolor(w.ptr, C.uint(col)) }
+func (w *widget) SetLabelColor(col Color)      { C.go_fltk_Widget_set_labelcolor(w.ptr, C.uint(col)) }
 func (w *widget) ClearVisibleFocus()           { C.go_fltk_Widget_clear_visible_focus(w.ptr) }
 func (w *widget) X() int                       { return int(C.go_fltk_Widget_x(w.ptr)) }
 func (w *widget) Y() int                       { return int(C.go_fltk_Widget_y(w.ptr)) }
@@ -69,11 +69,11 @@ func (w *widget) Activate()                { C.go_fltk_Widget_activate(w.ptr) }
 func (w *widget) SetType(widgetType uint8) { C.go_fltk_Widget_set_type(w.ptr, C.uchar(widgetType)) }
 func (w *widget) Show()                    { C.go_fltk_Widget_show(w.ptr) }
 func (w *widget) Hide()                    { C.go_fltk_Widget_hide(w.ptr) }
-func (w *widget) SelectionColor() uint     { return uint(C.go_fltk_Widget_selection_color(w.ptr)) }
-func (w *widget) SetSelectionColor(color uint) {
+func (w *widget) SelectionColor() Color    { return Color(C.go_fltk_Widget_selection_color(w.ptr)) }
+func (w *widget) SetSelectionColor(color Color) {
 	C.go_fltk_Widget_set_selection_color(w.ptr, C.uint(color))
 }
-func (w *widget) SetColor(color uint) {
+func (w *widget) SetColor(color Color) {
 	C.go_fltk_Widget_set_color(w.ptr, C.uint(color))
 }
 func (w *widget) SetLabel(label string) {
@@ -83,3 +83,16 @@ func (w *widget) SetLabel(label string) {
 }
 func (w *widget) SetImage(i Image)   { C.go_fltk_Widget_set_image(w.ptr, i.getImage().ptr) }
 func (w *widget) SetDeimage(i Image) { C.go_fltk_Widget_set_deimage(w.ptr, i.getImage().ptr) }
+func (w *widget) Box() BoxType       { return BoxType(C.go_fltk_Widget_box(w.ptr)) }
+func (w *widget) LabelColor() Color  { return Color(C.go_fltk_Widget_labelcolor(w.ptr)) }
+func (w *widget) Align() Align       { return Align(C.go_fltk_Widget_align(w.ptr)) }
+func (w *widget) Type() uint8        { return uint8(C.go_fltk_Widget_type(w.ptr)) }
+func (w *widget) Label() string {
+	return C.GoString(C.go_fltk_Widget_label(w.ptr))
+}
+func (w *widget) Color() Color {
+	return Color(C.go_fltk_Widget_color(w.ptr))
+}
+func (w *widget) LabelFont() Font      { return Font(C.go_fltk_Widget_labelfont(w.ptr)) }
+func (w *widget) LabelSize() int       { return int(C.go_fltk_Widget_labelsize(w.ptr)) }
+func (w *widget) LabelType() LabelType { return LabelType(C.go_fltk_Widget_labeltype(w.ptr)) }

@@ -34,6 +34,22 @@ func SetScheme(scheme string) int {
 	return int(C.go_fltk_set_scheme(schemestr))
 }
 
+func SetBackgroundColor(r, g, b uint8) {
+	C.go_fltk_set_background_color(C.uchar(r), C.uchar(g), C.uchar(b))
+}
+
+func SetBackground2Color(r, g, b uint8) {
+	C.go_fltk_set_background2_color(C.uchar(r), C.uchar(g), C.uchar(b))
+}
+
+func SetForegroundColor(r, g, b uint8) {
+	C.go_fltk_set_foreground_color(C.uchar(r), C.uchar(g), C.uchar(b))
+}
+
+func SetColor(col Color, r, g, b uint8) {
+	C.go_fltk_set_color(C.uint(col), C.uchar(r), C.uchar(g), C.uchar(b))
+}
+
 func cStringOpt(s []string) *C.char {
 	if len(s) == 0 {
 		return (*C.char)(nil)

@@ -39,6 +39,15 @@ extern "C" {
   extern void go_fltk_Widget_set_label(Fl_Widget* w, const char* label);
   extern void go_fltk_Widget_set_image(Fl_Widget* w, Fl_Image *i);
   extern void go_fltk_Widget_set_deimage(Fl_Widget* w, Fl_Image *i);
+  extern int go_fltk_Widget_box(Fl_Widget *w);
+  extern const char *go_fltk_Widget_label(Fl_Widget *w);
+  extern unsigned char go_fltk_Widget_type(Fl_Widget* w);
+  extern unsigned int go_fltk_Widget_color(Fl_Widget *w);
+  extern unsigned int go_fltk_Widget_labelcolor(Fl_Widget *w);
+  extern unsigned int go_fltk_Widget_align(Fl_Widget* w);
+  extern int go_fltk_Widget_labelfont(Fl_Widget *w);
+  extern int go_fltk_Widget_labelsize(Fl_Widget *w);
+  extern int go_fltk_Widget_labeltype(Fl_Widget *w);
 
 #ifdef __cplusplus
 }

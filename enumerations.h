@@ -20,6 +20,8 @@ extern "C" {
   extern const int go_FL_EMBOSSED_FRAME;
   extern const int go_FL_BORDER_BOX;
   extern const int go_FL_BORDER_FRAME;
+  extern const int go_FL_OFLAT_BOX;
+  extern const int go_FL_RFLAT_BOX;
 
   extern const unsigned int go_FL_ALIGN_CENTER;
   extern const unsigned int go_FL_ALIGN_TOP;
@@ -118,6 +120,33 @@ extern "C" {
   extern const int go_FL_STEREO;
   extern const int go_FL_FAKE_SINGLE;
   extern const int go_FL_OPENGL3;
+
+  extern const unsigned int go_FL_FOREGROUND_COLOR;
+  extern const unsigned int go_FL_BACKGROUND2_COLOR;        
+  extern const unsigned int go_FL_INACTIVE_COLOR;
+  extern const unsigned int go_FL_SELECTION_COLOR;
+  extern const unsigned int go_FL_GRAY0;
+  extern const unsigned int go_FL_DARK3;
+  extern const unsigned int go_FL_DARK2;
+  extern const unsigned int go_FL_DARK1;
+  extern const unsigned int go_FL_BACKGROUND_COLOR;
+  extern const unsigned int go_FL_LIGHT1;
+  extern const unsigned int go_FL_LIGHT2;
+  extern const unsigned int go_FL_LIGHT3;
+  extern const unsigned int go_FL_BLACK;
+  extern const unsigned int go_FL_RED;
+  extern const unsigned int go_FL_GREEN;
+  extern const unsigned int go_FL_YELLOW;
+  extern const unsigned int go_FL_BLUE;
+  extern const unsigned int go_FL_MAGENTA;
+  extern const unsigned int go_FL_CYAN;
+  extern const unsigned int go_FL_DARK_RED;
+  extern const unsigned int go_FL_DARK_GREEN;
+  extern const unsigned int go_FL_DARK_YELLOW;
+  extern const unsigned int go_FL_DARK_BLUE;
+  extern const unsigned int go_FL_DARK_MAGENTA;
+  extern const unsigned int go_FL_DARK_CYAN;
+  extern const unsigned int go_FL_WHITE;
 
   extern void callback_handler(Fl_Widget *w, void* data);
 
