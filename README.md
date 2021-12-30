@@ -70,11 +70,11 @@ func main() {
 	curr := 0
 	fltk.InitStyles()
 	win := fltk.NewWindow(WIDTH, HEIGHT)
-	win.SetLabel("Flutter-like")
-	win.SetColor(0xffffff00)
+	win.SetLabel("g-like")
+	win.SetColor(fltk.WHITE)
 	bar := fltk.NewBox(fltk.FLAT_BOX, 0, 0, WIDTH, 60, "    FLTK App!")
 	bar.SetAlign(fltk.ALIGN_INSIDE | fltk.ALIGN_LEFT)
-	bar.SetLabelColor(255) // this uses the index into the color map
+	bar.SetLabelColor(255) // this uses the index into the color map, here it's white
 	bar.SetColor(BLUE)
 	bar.SetLabelSize(22)
 	text := fltk.NewBox(fltk.NO_BOX, 250, 180, 100, 40, "You have pushed the button this many times:")

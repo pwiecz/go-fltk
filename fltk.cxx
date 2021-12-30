@@ -32,8 +32,24 @@ void go_fltk_init_styles(void) {
     Fl::use_high_res_GL(1);
 }
 
-extern int go_fltk_set_scheme(const char *scheme) {
+int go_fltk_set_scheme(const char *scheme) {
   return Fl::scheme(scheme);
+}
+
+void go_fltk_set_background_color(unsigned char r, unsigned char g, unsigned char b) {
+    Fl::background(r, g, b);
+}
+
+void go_fltk_set_background2_color(unsigned char r, unsigned char g, unsigned char b) {
+    Fl::background2(r, g, b);
+}
+
+void go_fltk_set_foreground_color(unsigned char r, unsigned char g, unsigned char b) {
+    Fl::foreground(r, g, b);
+}
+
+void go_fltk_set_color(unsigned int col, unsigned char r, unsigned char g, unsigned char b) {
+    Fl::set_color((Fl_Color)col, r, g, b);
 }
 
 int go_fltk_run() { return Fl::run(); }

@@ -13,6 +13,10 @@ extern "C" {
 
   extern void go_fltk_init_styles(void);
   extern int go_fltk_set_scheme(const char *scheme);
+  extern void go_fltk_set_background_color(unsigned char r, unsigned char g, unsigned char b);
+  extern void go_fltk_set_background2_color(unsigned char r, unsigned char g, unsigned char b);
+  extern void go_fltk_set_foreground_color(unsigned char r, unsigned char g, unsigned char b);
+  extern void go_fltk_set_color(unsigned int col, unsigned char r, unsigned char g, unsigned char b);
 
   extern void go_fltk_awake_null_message();
   extern int go_fltk_awake(uintptr_t id);
