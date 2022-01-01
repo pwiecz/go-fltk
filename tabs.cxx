@@ -1,6 +1,6 @@
 #include "tabs.h"
 
-#include "FL/Fl_Tabs.H"
+#include <FL/Fl_Tabs.H>
 
 
 Fl_Tabs *go_fltk_new_Tabs(int x, int y, int w, int h, const char *label) {

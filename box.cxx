@@ -1,6 +1,6 @@
 #include "box.h"
 
-#include "FL/Fl_Box.H"
+#include <FL/Fl_Box.H>
 
 
 Fl_Box *go_fltk_new_Box(int boxType, int x, int y, int w, int h, const char *label) {

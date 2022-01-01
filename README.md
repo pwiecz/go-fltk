@@ -70,7 +70,7 @@ func main() {
 	curr := 0
 	fltk.InitStyles()
 	win := fltk.NewWindow(WIDTH, HEIGHT)
-	win.SetLabel("g-like")
+	win.SetLabel("Flutter-like")
 	win.SetColor(fltk.WHITE)
 	bar := fltk.NewBox(fltk.FLAT_BOX, 0, 0, WIDTH, 60, "    FLTK App!")
 	bar.SetAlign(fltk.ALIGN_INSIDE | fltk.ALIGN_LEFT)

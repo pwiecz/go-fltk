@@ -1,6 +1,6 @@
 #include "group.h"
 
-#include "FL/Fl_Group.H"
+#include <FL/Fl_Group.H>
 
 
 Fl_Group *go_fltk_new_Group(int x, int y, int w, int h, const char *label) {

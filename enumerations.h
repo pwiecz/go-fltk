@@ -64,6 +64,7 @@ extern "C" {
   extern const unsigned int go_FL_ALIGN_TOP;
   extern const unsigned int go_FL_ALIGN_BOTTOM;
   extern const unsigned int go_FL_ALIGN_LEFT;
+  extern const unsigned int go_FL_ALIGN_RIGHT;
   extern const unsigned int go_FL_ALIGN_INSIDE;
   extern const unsigned int go_FL_ALIGN_TEXT_OVER_IMAGE;
   extern const unsigned int go_FL_ALIGN_IMAGE_OVER_TEXT;
