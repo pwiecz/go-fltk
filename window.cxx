@@ -1,10 +1,11 @@
 #include "window.h"
 
-#include "FL/Fl_Window.H"
+#include <FL/Fl_Window.H>
+#include <FL/Fl_Double_Window.H>
 
 
 Fl_Window *go_fltk_new_Window(int w, int h) {
-  return new Fl_Window(w, h);
+  return new Fl_Double_Window(w, h);
 }
 
 int go_fltk_Window_shown(Fl_Window *w) {

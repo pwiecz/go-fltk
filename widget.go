@@ -96,3 +96,8 @@ func (w *widget) Color() Color {
 func (w *widget) LabelFont() Font      { return Font(C.go_fltk_Widget_labelfont(w.ptr)) }
 func (w *widget) LabelSize() int       { return int(C.go_fltk_Widget_labelsize(w.ptr)) }
 func (w *widget) LabelType() LabelType { return LabelType(C.go_fltk_Widget_labeltype(w.ptr)) }
+func (w *widget) Parent() *Group {
+	ptr := C.go_fltk_Widget_parent(w.ptr)
+	wid := widget{(*C.Fl_Widget)(ptr), 0}
+	return &Group{wid}
+}

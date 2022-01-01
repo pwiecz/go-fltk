@@ -68,6 +68,7 @@ const unsigned int go_FL_ALIGN_CENTER = (unsigned int)FL_ALIGN_CENTER;
 const unsigned int go_FL_ALIGN_TOP = (unsigned int)FL_ALIGN_TOP;
 const unsigned int go_FL_ALIGN_BOTTOM = (unsigned int)FL_ALIGN_BOTTOM;
 const unsigned int go_FL_ALIGN_LEFT = (unsigned int)FL_ALIGN_LEFT;
+const unsigned int go_FL_ALIGN_RIGHT = (unsigned int)FL_ALIGN_RIGHT;
 const unsigned int go_FL_ALIGN_INSIDE = (unsigned int)FL_ALIGN_INSIDE;
 const unsigned int go_FL_ALIGN_TEXT_OVER_IMAGE = (unsigned int)FL_ALIGN_TEXT_OVER_IMAGE;
 const unsigned int go_FL_ALIGN_IMAGE_OVER_TEXT = (unsigned int)FL_ALIGN_IMAGE_OVER_TEXT;

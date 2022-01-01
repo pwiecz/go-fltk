@@ -8,6 +8,7 @@ extern "C" {
 #endif
 
   typedef struct Fl_Widget Fl_Widget;
+  typedef struct Fl_Group Fl_Group;
   typedef struct Fl_Image Fl_Image;
 
   extern void go_fltk_delete_widget(Fl_Widget *w);
@@ -48,6 +49,7 @@ extern "C" {
   extern int go_fltk_Widget_labelfont(Fl_Widget *w);
   extern int go_fltk_Widget_labelsize(Fl_Widget *w);
   extern int go_fltk_Widget_labeltype(Fl_Widget *w);
+  extern Fl_Group *go_fltk_Widget_parent(Fl_Widget *w);
 
 #ifdef __cplusplus
 }

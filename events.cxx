@@ -1,6 +1,6 @@
 #include "events.h"
 
-#include "FL/Fl.H"
+#include <FL/Fl.H>
 
 
 const int go_FL_LEFT_MOUSE = FL_LEFT_MOUSE;

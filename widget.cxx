@@ -120,4 +120,6 @@ int go_fltk_Widget_labelsize(Fl_Widget *w) {
 int go_fltk_Widget_labeltype(Fl_Widget *w) {
     return w->labeltype();
 }
-
+Fl_Group *go_fltk_Widget_parent(Fl_Widget *w) {
+    return w->parent();
+}

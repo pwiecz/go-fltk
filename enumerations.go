@@ -12,6 +12,7 @@ var (
 	ALIGN_TOP                = Align(C.go_FL_ALIGN_TOP)
 	ALIGN_BOTTOM             = Align(C.go_FL_ALIGN_BOTTOM)
 	ALIGN_LEFT               = Align(C.go_FL_ALIGN_LEFT)
+	ALIGN_RIGHT              = Align(C.go_FL_ALIGN_RIGHT)
 	ALIGN_INSIDE             = Align(C.go_FL_ALIGN_INSIDE)
 	ALIGN_TEXT_OVER_IMAGE    = Align(C.go_FL_ALIGN_TEXT_OVER_IMAGE)
 	ALIGN_IMAGE_OVER_TEXT    = Align(C.go_FL_ALIGN_IMAGE_OVER_TEXT)
