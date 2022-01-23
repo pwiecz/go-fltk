@@ -37,7 +37,6 @@ func (m *menu) Size() int {
 type MenuButton struct {
 	menu
 	itemCallbacks     []uintptr
-	destroyCallbackId uintptr
 }
 
 func NewMenuButton(x, y, w, h int, text ...string) *MenuButton {
