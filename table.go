@@ -4,7 +4,10 @@ package fltk
 #include "table.h"
 */
 import "C"
-import "unsafe"
+import (
+	"errors"
+	"unsafe"
+)
 
 type table struct {
 	Group
@@ -13,11 +16,32 @@ type table struct {
 func (t *table) SetRowCount(rowCount int) {
 	C.go_fltk_Table_set_row_count((*C.Fl_Table)(t.ptr), C.int(rowCount))
 }
+func (t *table) SetRowHeight(row, height int) {
+	C.go_fltk_Table_set_row_height((*C.Fl_Table)(t.ptr), C.int(row), C.int(height))
+}
+func (t *table) SetRowHeightAll(height int) {
+	C.go_fltk_Table_set_row_height_all((*C.Fl_Table)(t.ptr), C.int(height))
+}
+func (t *table) EnableRowHeaders() {
+	C.go_fltk_Table_set_row_header((*C.Fl_Table)(t.ptr), 1)
+}
+func (t *table) DisableRowHeaders() {
+	C.go_fltk_Table_set_row_header((*C.Fl_Table)(t.ptr), 0)
+}
+func (t *table) AllowRowResizing() {
+	C.go_fltk_Table_set_row_resize((*C.Fl_Table)(t.ptr), 1)
+}
+func (t *table) DisallowRowResizing() {
+	C.go_fltk_Table_set_row_resize((*C.Fl_Table)(t.ptr), 0)
+}
 func (t *table) SetColumnCount(columnCount int) {
 	C.go_fltk_Table_set_column_count((*C.Fl_Table)(t.ptr), C.int(columnCount))
 }
 func (t *table) SetColumnWidth(column, width int) {
 	C.go_fltk_Table_set_column_width((*C.Fl_Table)(t.ptr), C.int(column), C.int(width))
+}
+func (t *table) SetColumnWidthAll(width int) {
+	C.go_fltk_Table_set_column_width_all((*C.Fl_Table)(t.ptr), C.int(width))
 }
 func (t *table) EnableColumnHeaders() {
 	C.go_fltk_Table_set_column_header((*C.Fl_Table)(t.ptr), 1)
@@ -159,6 +183,15 @@ func (t *TableRow) SelectAllRows(flag SelectionFlag) {
 }
 func (t *TableRow) SelectRow(row int, flag SelectionFlag) {
 	C.go_fltk_TableRow_select_row((*C.GTableRow)(t.ptr), C.int(row), C.int(flag))
+}
+func (t *TableRow) FindCell(ctx TableContext, row int, col int) (int, int, int, int, error) {
+	var x, y, w, h C.int
+	ret := C.go_fltk_TableRow_find_cell((*C.GTableRow)(t.ptr), C.int(ctx), C.int(row), C.int(col), &x, &y, &w, &h)
+	err := errors.New("No cell was found")
+	if ret == 0 {
+		err = nil
+	}
+	return int(x), int(y), int(w), int(h), err
 }
 
 type RowSelectMode int

@@ -13,8 +13,13 @@ extern "C" {
   extern GTableRow* go_fltk_new_TableRow(int x, int y, int w, int h);
 
   extern void go_fltk_Table_set_row_count(Fl_Table* t, int rowCount);
+  extern void go_fltk_Table_set_row_height(Fl_Table* t, int row, int height);
+  extern void go_fltk_Table_set_row_height_all(Fl_Table* t, int height);
+  extern void go_fltk_Table_set_row_header(Fl_Table* t, int header);
+  extern void go_fltk_Table_set_row_resize(Fl_Table* t, int resize);
   extern void go_fltk_Table_set_column_count(Fl_Table* t, int columnCount);
   extern void go_fltk_Table_set_column_width(Fl_Table* t, int column, int width);
+  extern void go_fltk_Table_set_column_width_all(Fl_Table* t, int width);
   extern void go_fltk_Table_set_column_header(Fl_Table* t, int header);
   extern void go_fltk_Table_set_column_resize(Fl_Table* t, int resize);
   extern int go_fltk_Table_callback_row(Fl_Table* t);
@@ -29,6 +34,7 @@ extern "C" {
   extern void go_fltk_TableRow_select_all_rows(GTableRow* t, int flag);
   extern void go_fltk_TableRow_select_row(GTableRow* t, int row, int flag);
   extern void go_fltk_TableRow_set_resize_handler(GTableRow* t, uintptr_t handlerId);
+  extern int go_fltk_TableRow_find_cell(GTableRow* t, int ctx, int row, int col, int *x, int *y, int *w, int *h);
 
   extern const int go_FL_CONTEXT_NONE;
   extern const int go_FL_CONTEXT_STARTPAGE;
