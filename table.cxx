@@ -42,6 +42,13 @@ public:
     }
   }
 
+  int find_cell_(int ctx, int r, int c, int *x, int *y, int *w, int *h) {
+    int X = 0, Y = 0, W = 0, H = 0;
+    int ret = this->find_cell((Fl_Table::TableContext)ctx, r, c, X, Y, W, H);
+    *x = X, *y = Y, *w = W, *h = H;
+    return ret;
+  }
+
 private:
   int m_drawFunId = 0;
   int m_eventHandlerId = 0;
@@ -69,14 +76,32 @@ void go_fltk_TableRow_select_all_rows(GTableRow* t, int flag) {
 void go_fltk_TableRow_select_row(GTableRow* t, int row, int flag) {
   t->select_row(row, flag);
 }
+int go_fltk_TableRow_find_cell(GTableRow* t, int ctx, int r, int c, int *x, int *y, int *w, int *h) {
+  return t->find_cell_(ctx, r, c, x, y, w, h);
+}
 void go_fltk_Table_set_row_count(Fl_Table* t, int rowCount) {
   t->rows(rowCount);
+}
+void go_fltk_Table_set_row_height(Fl_Table* t, int row, int height) {
+  t->row_height(row, height);
+}
+void go_fltk_Table_set_row_height_all(Fl_Table* t, int height) {
+  t->row_height_all(height);
+}
+void go_fltk_Table_set_row_header(Fl_Table* t, int header) {
+  t->row_header(header);
+}
+void go_fltk_Table_set_row_resize(Fl_Table* t, int resize) {
+  t->row_resize(resize);
 }
 void go_fltk_Table_set_column_count(Fl_Table* t, int columnCount) {
   t->cols(columnCount);
 }
 void go_fltk_Table_set_column_width(Fl_Table* t, int column, int width) {
   t->col_width(column, width);
+}
+void go_fltk_Table_set_column_width_all(Fl_Table* t, int width) {
+  t->col_width_all(width);
 }
 void go_fltk_Table_set_column_header(Fl_Table* t, int header) {
   t->col_header(header);

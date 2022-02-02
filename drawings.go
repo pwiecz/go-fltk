@@ -21,3 +21,7 @@ func DrawBox(boxType BoxType, x, y, w, h int, color Color) {
 	C.go_fltk_draw_box(
 		C.int(boxType), C.int(x), C.int(y), C.int(w), C.int(h), C.uint(color))
 }
+
+func SetDrawFont(font Font, size int) {
+	C.go_fltk_set_draw_font(C.int(font), C.int(size))
+}
