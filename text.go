@@ -46,6 +46,11 @@ func (t *TextDisplay) SetBuffer(buf *TextBuffer) {
 	C.go_fltk_TextDisplay_set_buffer((*C.Fl_Text_Display)(t.ptr), buf.ptr)
 }
 
+
+func (t *TextDisplay) SetWrapMode(wrap int, wrapMargin int) {
+	C.go_fltk_TextDisplay_set_wrap_mode((*C.Fl_Text_Display)(t.ptr), C.int(wrap), C.int(wrapMargin))
+}
+
 func (t *TextDisplay) Buffer() *TextBuffer {
 	ptr := C.go_fltk_TextDisplay_buffer((*C.Fl_Text_Display)(t.ptr))
 	return &TextBuffer{ptr}
