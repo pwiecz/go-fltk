@@ -124,6 +124,15 @@ var (
 	NO_LABEL     = LabelType(C.go_FL_NO_LABEL)
 )
 
+type WrapMode int
+
+const (
+    WRAP_NONE      = 0
+    WRAP_AT_COLUMN = 1
+    WRAP_AT_PIXEL  = 2
+    WRAP_AT_BOUNDS = 3
+)
+
 type Event int
 
 var (

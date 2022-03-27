@@ -46,6 +46,15 @@ func (t *TextDisplay) SetBuffer(buf *TextBuffer) {
 	C.go_fltk_TextDisplay_set_buffer((*C.Fl_Text_Display)(t.ptr), buf.ptr)
 }
 
+// wrapMargin is not needed if WrapMode is WRAP_NONE or WRAP_AT_BOUNDS
+func (t *TextDisplay) SetWrapMode(wrap WrapMode, wrapMargin ...int) {
+    if len(wrapMargin) < 1 {
+        wrapMargin = append(wrapMargin, 0)
+    }
+
+	C.go_fltk_TextDisplay_set_wrap_mode((*C.Fl_Text_Display)(t.ptr), C.int(wrap), C.int(wrapMargin[0]))
+}
+
 func (t *TextDisplay) Buffer() *TextBuffer {
 	ptr := C.go_fltk_TextDisplay_buffer((*C.Fl_Text_Display)(t.ptr))
 	return &TextBuffer{ptr}

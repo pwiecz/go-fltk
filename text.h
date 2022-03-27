@@ -11,6 +11,7 @@ extern "C" {
   extern Fl_Text_Editor *go_fltk_new_TextEditor(int x, int y, int w, int h, const char *text);
   extern Fl_Text_Display *go_fltk_new_TextDisplay(int x, int y, int w, int h, const char *text);
   extern void go_fltk_TextDisplay_set_buffer(Fl_Text_Display *d, Fl_Text_Buffer *buf);
+  extern void go_fltk_TextDisplay_set_wrap_mode(Fl_Text_Display *b, int wrap, int wrapMargin);
   extern Fl_Text_Buffer *go_fltk_TextDisplay_buffer(Fl_Text_Display *d);
   extern Fl_Text_Buffer *go_fltk_new_TextBuffer(void);
   extern void go_fltk_TextBuffer_set_text(Fl_Text_Buffer *b, const char *txt);

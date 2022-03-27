@@ -1,7 +1,9 @@
 #include "text.h"
 
 #include <FL/Fl_Text_Display.H>
+
 #include <FL/Fl_Text_Editor.H>
+
 #include <FL/Fl_Text_Buffer.H>
 
 Fl_Text_Display *go_fltk_new_TextDisplay(int x, int y, int w, int h, const char *text) {
@@ -10,6 +12,10 @@ Fl_Text_Display *go_fltk_new_TextDisplay(int x, int y, int w, int h, const char 
 
 void go_fltk_TextDisplay_set_buffer(Fl_Text_Display *d, Fl_Text_Buffer *buf) {
   d->buffer(buf);
+}
+
+void go_fltk_TextDisplay_set_wrap_mode(Fl_Text_Display *b, int wrap, int wrapMargin) {
+  b->wrap_mode(wrap, wrapMargin);
 }
 
 Fl_Text_Buffer *go_fltk_TextDisplay_buffer(Fl_Text_Display *d) {
