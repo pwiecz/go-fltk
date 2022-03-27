@@ -29,6 +29,11 @@ type CubeView struct {
 
 func main() {
 	runtime.LockOSThread()
+	// Disable screen scaling, as we don't handle it well.
+	for i := 0; i < fltk.ScreenCount(); i++ {
+		fltk.SetScreenScale(i, 1.0)
+	}
+	fltk.SetKeyboardScreenScaling(false)
 	win := &MainWindow{}
 	win.Window = fltk.NewWindow(415, 405)
 	win.SetBox(fltk.UP_BOX)
