@@ -2,7 +2,7 @@
 #include <FL/Fl_Help_View.H>
 
 // Implemented:
-//  Create and destroy HelpView
+//  Create HelpView
 //  directory()
 //  filename()
 //  find()
@@ -25,10 +25,6 @@
 
 Fl_Help_View *go_fltk_new_HelpView(int x, int y, int w, int h, const char *text) {
 	return new Fl_Help_View(x, y, w, h, text);
-}
-
-void go_fltk_HelpView_delete(Fl_Help_View *h) {
-	delete h;
 }
 
 void go_fltk_HelpView_load(Fl_Help_View *h, const char *f) {

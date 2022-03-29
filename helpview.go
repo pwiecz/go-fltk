@@ -17,12 +17,6 @@ func NewHelpView(x, y, w, h int, text ...string) *HelpView {
 	return t
 }
 
-func (h *HelpView) Destroy() {
-	if h.ptr != nil {
-		C.go_fltk_HelpView_delete((*C.Fl_Help_View)(h.ptr))
-	}
-}
-
 func (h *HelpView) Directory() string {
 	return C.GoString(C.go_fltk_HelpView_directory((*C.Fl_Help_View)(h.ptr)))
 }
