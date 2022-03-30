@@ -2,7 +2,6 @@
 
 #include <stdint.h>
 
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -15,6 +14,7 @@ extern "C" {
   extern int go_fltk_set_scheme(const char *scheme);
   extern void go_fltk_set_background_color(unsigned char r, unsigned char g, unsigned char b);
   extern void go_fltk_set_background2_color(unsigned char r, unsigned char g, unsigned char b);
+  extern void go_fltk_set_boxtype(int i, int x, int y, int w, int h);
   extern void go_fltk_set_foreground_color(unsigned char r, unsigned char g, unsigned char b);
   extern void go_fltk_set_color(unsigned int col, unsigned char r, unsigned char g, unsigned char b);
 
@@ -29,6 +29,7 @@ extern "C" {
   extern float go_fltk_screen_scale(int screenNum);
   extern void go_fltk_set_screen_scale(int screenNum, float scale);
   extern void go_fltk_set_keyboard_screen_scaling(int value);
+
 #ifdef __cplusplus
 }
 #endif

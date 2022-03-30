@@ -31,6 +31,10 @@ func (i *image) Destroy() {
 	i.ptr = nil
 }
 
+func (i *image) Draw(x, y, w, h int) {
+	C.go_fltk_image_draw(i.ptr, C.int(x), C.int(y), C.int(w), C.int(h))
+}
+
 func (i *image) W() int {
 	return int(C.go_fltk_image_w(i.ptr))
 }

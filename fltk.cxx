@@ -44,6 +44,10 @@ void go_fltk_set_background2_color(unsigned char r, unsigned char g, unsigned ch
     Fl::background2(r, g, b);
 }
 
+void go_fltk_set_boxtype(int i, int x, int y, int w, int h) {
+	Fl::set_boxtype((Fl_Boxtype)i, _go_drawBox, x, y, w, h);
+}
+
 void go_fltk_set_foreground_color(unsigned char r, unsigned char g, unsigned char b) {
     Fl::foreground(r, g, b);
 }
