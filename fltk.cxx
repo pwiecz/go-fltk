@@ -4,7 +4,6 @@
 
 #include "_cgo_export.h"
 
-
 static void lock() { Fl::lock(); }
 
 static void unlock() {
@@ -32,6 +31,16 @@ void go_fltk_init_styles(void) {
     Fl::use_high_res_GL(1);
 }
 
+typedef void (*f_array)(int, int, int, int, unsigned int);
+
+// idk if it's worth adding all the boxtypes this way, but this is enough to
+// override all the default designs
+f_array currentBoxTypeCb[56] = {&_go_drawBox0,  &_go_drawBox1,  &_go_drawBox2,  &_go_drawBox3,
+                          &_go_drawBox4,  &_go_drawBox5,  &_go_drawBox6,  &_go_drawBox7,
+                          &_go_drawBox8,  &_go_drawBox9,  &_go_drawBox10, &_go_drawBox11,
+                          &_go_drawBox12, &_go_drawBox13, &_go_drawBox14, &_go_drawBox15,
+                          &_go_drawBox16, &_go_drawBox17, &_go_drawBox18};
+
 int go_fltk_set_scheme(const char *scheme) {
   return Fl::scheme(scheme);
 }
@@ -45,7 +54,7 @@ void go_fltk_set_background2_color(unsigned char r, unsigned char g, unsigned ch
 }
 
 void go_fltk_set_boxtype(int i, int x, int y, int w, int h) {
-	Fl::set_boxtype((Fl_Boxtype)i, _go_drawBox, x, y, w, h);
+	Fl::set_boxtype((Fl_Boxtype)i, currentBoxTypeCb[i], x, y, w, h);
 }
 
 void go_fltk_set_foreground_color(unsigned char r, unsigned char g, unsigned char b) {

@@ -15,7 +15,7 @@ import (
 )
 
 // Defined in SetBoxType() as the draw func in custom BoxTypes
-var setBoxTypeCb func(x int, y int, w int, h int, c uint)
+var setBoxTypeCb = make([]func(x, y, w, h int, c uint), 56, 56)
 
 func Run() int {
 	return int(C.go_fltk_run())
@@ -50,16 +50,11 @@ func SetBoxType(b BoxType, d func(int, int, int, int, uint), o ...int) {
 		o = append(o, []int{0, 0, 0, 0, 0}...)
 	}
 
-	setBoxTypeCb = d
+	setBoxTypeCb[b] = d
 
 	C.go_fltk_set_boxtype(C.int(b), C.int(o[0]), C.int(o[1]), C.int(o[2]), C.int(o[3]))
 }
 
-// Is there a better way to do this? Feels a bit hacky.
-//export _go_drawBox
-func _go_drawBox(x C.int, y C.int, w C.int, h C.int, c C.uint) {
-	setBoxTypeCb(int(x), int(y), int(w), int(h), uint(c))
-}
 
 func SetForegroundColor(r, g, b uint8) {
 	C.go_fltk_set_foreground_color(C.uchar(r), C.uchar(g), C.uchar(b))
@@ -150,4 +145,85 @@ func SetKeyboardScreenScaling(value bool) {
 	} else {
 		C.go_fltk_set_keyboard_screen_scaling(0)
 	}
+}
+
+// Couldn't figure out how to export a func array...
+// For now, just gonna hide it at the bottom of the file and pretend it
+// doesn't exist
+// TODO: If it's possible, fix this
+//export _go_drawBox0
+func _go_drawBox0(x, y, w, h C.int, c C.uint) {
+	setBoxTypeCb[0](int(x), int(y), int(w), int(h), uint(c))
+}
+//export _go_drawBox1
+func _go_drawBox1(x, y, w, h C.int, c C.uint) {
+	setBoxTypeCb[1](int(x), int(y), int(w), int(h), uint(c))
+}
+//export _go_drawBox2
+func _go_drawBox2(x, y, w, h C.int, c C.uint) {
+	setBoxTypeCb[2](int(x), int(y), int(w), int(h), uint(c))
+}
+//export _go_drawBox3
+func _go_drawBox3(x, y, w, h C.int, c C.uint) {
+	setBoxTypeCb[3](int(x), int(y), int(w), int(h), uint(c))
+}
+//export _go_drawBox4
+func _go_drawBox4(x, y, w, h C.int, c C.uint) {
+	setBoxTypeCb[4](int(x), int(y), int(w), int(h), uint(c))
+}
+//export _go_drawBox5
+func _go_drawBox5(x, y, w, h C.int, c C.uint) {
+	setBoxTypeCb[5](int(x), int(y), int(w), int(h), uint(c))
+}
+//export _go_drawBox6
+func _go_drawBox6(x, y, w, h C.int, c C.uint) {
+	setBoxTypeCb[6](int(x), int(y), int(w), int(h), uint(c))
+}
+//export _go_drawBox7
+func _go_drawBox7(x, y, w, h C.int, c C.uint) {
+	setBoxTypeCb[7](int(x), int(y), int(w), int(h), uint(c))
+}
+//export _go_drawBox8
+func _go_drawBox8(x, y, w, h C.int, c C.uint) {
+	setBoxTypeCb[8](int(x), int(y), int(w), int(h), uint(c))
+}
+//export _go_drawBox9
+func _go_drawBox9(x, y, w, h C.int, c C.uint) {
+	setBoxTypeCb[9](int(x), int(y), int(w), int(h), uint(c))
+}
+//export _go_drawBox10
+func _go_drawBox10(x, y, w, h C.int, c C.uint) {
+	setBoxTypeCb[10](int(x), int(y), int(w), int(h), uint(c))
+}
+//export _go_drawBox11
+func _go_drawBox11(x, y, w, h C.int, c C.uint) {
+	setBoxTypeCb[11](int(x), int(y), int(w), int(h), uint(c))
+}
+//export _go_drawBox12
+func _go_drawBox12(x, y, w, h C.int, c C.uint) {
+	setBoxTypeCb[12](int(x), int(y), int(w), int(h), uint(c))
+}
+//export _go_drawBox13
+func _go_drawBox13(x, y, w, h C.int, c C.uint) {
+	setBoxTypeCb[13](int(x), int(y), int(w), int(h), uint(c))
+}
+//export _go_drawBox14
+func _go_drawBox14(x, y, w, h C.int, c C.uint) {
+	setBoxTypeCb[14](int(x), int(y), int(w), int(h), uint(c))
+}
+//export _go_drawBox15
+func _go_drawBox15(x, y, w, h C.int, c C.uint) {
+	setBoxTypeCb[15](int(x), int(y), int(w), int(h), uint(c))
+}
+//export _go_drawBox16
+func _go_drawBox16(x, y, w, h C.int, c C.uint) {
+	setBoxTypeCb[16](int(x), int(y), int(w), int(h), uint(c))
+}
+//export _go_drawBox17
+func _go_drawBox17(x, y, w, h C.int, c C.uint) {
+	setBoxTypeCb[17](int(x), int(y), int(w), int(h), uint(c))
+}
+//export _go_drawBox18
+func _go_drawBox18(x, y, w, h C.int, c C.uint) {
+	setBoxTypeCb[18](int(x), int(y), int(w), int(h), uint(c))
 }
