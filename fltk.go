@@ -14,6 +14,9 @@ import (
 	"unsafe"
 )
 
+// Defined in SetBoxType() as the draw func in custom BoxTypes
+var setBoxTypeCb func(x int, y int, w int, h int, c uint)
+
 func Run() int {
 	return int(C.go_fltk_run())
 }
@@ -40,6 +43,22 @@ func SetBackgroundColor(r, g, b uint8) {
 
 func SetBackground2Color(r, g, b uint8) {
 	C.go_fltk_set_background2_color(C.uchar(r), C.uchar(g), C.uchar(b))
+}
+
+func SetBoxType(b BoxType, d func(int, int, int, int, uint), o ...int) {
+	if len(o) < 5 {
+		o = append(o, []int{0, 0, 0, 0, 0}...)
+	}
+
+	setBoxTypeCb = d
+
+	C.go_fltk_set_boxtype(C.int(b), C.int(o[0]), C.int(o[1]), C.int(o[2]), C.int(o[3]))
+}
+
+// Is there a better way to do this? Feels a bit hacky.
+//export _go_drawBox
+func _go_drawBox(x C.int, y C.int, w C.int, h C.int, c C.uint) {
+	setBoxTypeCb(int(x), int(y), int(w), int(h), uint(c))
 }
 
 func SetForegroundColor(r, g, b uint8) {
