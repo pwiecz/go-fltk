@@ -33,13 +33,21 @@ void go_fltk_init_styles(void) {
 
 typedef void (*f_array)(int, int, int, int, unsigned int);
 
-// idk if it's worth adding all the boxtypes this way, but this is enough to
-// override all the default designs
-f_array currentBoxTypeCb[56] = {&_go_drawBox0,  &_go_drawBox1,  &_go_drawBox2,  &_go_drawBox3,
+f_array currentBoxTypeCb[57] = {&_go_drawBox0,  &_go_drawBox1,  &_go_drawBox2,  &_go_drawBox3,
                           &_go_drawBox4,  &_go_drawBox5,  &_go_drawBox6,  &_go_drawBox7,
                           &_go_drawBox8,  &_go_drawBox9,  &_go_drawBox10, &_go_drawBox11,
                           &_go_drawBox12, &_go_drawBox13, &_go_drawBox14, &_go_drawBox15,
-                          &_go_drawBox16, &_go_drawBox17, &_go_drawBox18};
+                          &_go_drawBox16, &_go_drawBox17, &_go_drawBox18, &_go_drawBox19,
+                          &_go_drawBox20, &_go_drawBox21, &_go_drawBox22, &_go_drawBox23,
+                          &_go_drawBox24, &_go_drawBox25, &_go_drawBox26, &_go_drawBox27,
+                          &_go_drawBox28, &_go_drawBox29, &_go_drawBox30, &_go_drawBox31,
+                          &_go_drawBox32, &_go_drawBox33, &_go_drawBox34, &_go_drawBox35,
+                          &_go_drawBox36, &_go_drawBox37, &_go_drawBox38, &_go_drawBox39,
+                          &_go_drawBox40, &_go_drawBox41, &_go_drawBox42, &_go_drawBox43,
+                          &_go_drawBox44, &_go_drawBox45, &_go_drawBox46, &_go_drawBox47,
+                          &_go_drawBox48, &_go_drawBox49, &_go_drawBox50, &_go_drawBox51,
+                          &_go_drawBox52, &_go_drawBox53, &_go_drawBox54, &_go_drawBox55,
+                          &_go_drawBox56};
 
 int go_fltk_set_scheme(const char *scheme) {
   return Fl::scheme(scheme);
