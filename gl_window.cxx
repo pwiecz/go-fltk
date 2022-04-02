@@ -40,6 +40,7 @@ public:
   void set_resize_handler(uintptr_t resizeHandlerId) {
     m_resizeHandlerId = resizeHandlerId;
   }
+
 private:
   uintptr_t const m_drawFunId;
   int m_eventHandlerId = -1;

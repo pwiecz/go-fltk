@@ -4,9 +4,10 @@
 extern "C" {
 #endif
 
-  typedef struct Fl_Box Fl_Box;
+  typedef struct GBox GBox;
 
-  extern Fl_Box *go_fltk_new_Box(int boxType, int x, int y, int w, int h, const char *label);
+  extern GBox *go_fltk_new_Box(int boxType, int x, int y, int w, int h, const char *label);
+  extern void go_fltk_Box_set_event_handler(GBox* w, int handlerId);
 
 #ifdef __cplusplus
 }
