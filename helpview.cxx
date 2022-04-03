@@ -54,22 +54,22 @@ int go_fltk_HelpView_find(GHelp_View *h, const char *s, int p) {
 	return h->find(s, p);
 }
 
-int go_fltk_HelpView_leftline(Fl_Help_View *h) {
+int go_fltk_HelpView_leftline(GHelp_View *h) {
 	return h->leftline();
 }
 
-void go_fltk_HelpView_set_leftline(Fl_Help_View *h, int i) {
+void go_fltk_HelpView_set_leftline(GHelp_View *h, int i) {
 	h->leftline(i);
 }
 
-int go_fltk_HelpView_topline(Fl_Help_View *h) {
+int go_fltk_HelpView_topline(GHelp_View *h) {
 	return h->topline();
 }
 
-void go_fltk_HelpView_set_topline(Fl_Help_View *h, int i) {
+void go_fltk_HelpView_set_topline(GHelp_View *h, int i) {
 	h->topline(i);
 }
 
-void go_fltk_HelpView_set_toplinestring(Fl_Help_View *h, const char *s) {
+void go_fltk_HelpView_set_toplinestring(GHelp_View *h, const char *s) {
 	h->topline(s);
 }
