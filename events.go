@@ -48,6 +48,9 @@ func EventKey() int {
 func EventIsClick() bool {
 	return C.go_fltk_event_is_click() != 0
 }
+func EventText() string {
+	return C.GoString(C.go_fltk_event_text())
+}
 
 var (
 	SHIFT       = int(C.go_FL_SHIFT)

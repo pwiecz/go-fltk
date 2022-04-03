@@ -31,6 +31,7 @@ extern "C" {
   extern int go_fltk_event_key();
   extern int go_fltk_event_is_click();
   extern int go_fltk_event_state();
+  extern const char* go_fltk_event_text();
 
 #ifdef __cplusplus
 }

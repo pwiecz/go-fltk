@@ -124,6 +124,14 @@ func CopyToClipboard(text string) {
 	defer C.free(unsafe.Pointer(textStr))
 	C.go_fltk_copy(textStr, C.int(len(text)), 1 /* destination: clipboard */)
 }
+func CopyToSelectionBuffer(text string) {
+	textStr := C.CString(text)
+	defer C.free(unsafe.Pointer(textStr))
+	C.go_fltk_copy(textStr, C.int(len(text)), 0 /* destination: selection buffer */)
+}
+func DragAndDrop() {
+	C.go_fltk_dnd()
+}
 func ScreenWorkArea(screenNum int) (int, int, int, int) {
 	var x, y, w, h C.int
 	C.go_fltk_screen_work_area(&x, &y, &w, &h, C.int(screenNum))
