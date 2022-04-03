@@ -7,10 +7,11 @@
 //  filename()
 //  find()
 //  load()
+//  leftline()
+//  topline()
 
 // TODO:
 //  handle()
-//  leftline()
 //  link()
 //  resize()
 //  scrollbar_size()
@@ -20,7 +21,6 @@
 //  textfont()
 //  textsize()
 //  title()
-//  topline()
 //  value()
 
 Fl_Help_View *go_fltk_new_HelpView(int x, int y, int w, int h, const char *text) {
@@ -41,4 +41,24 @@ const char *go_fltk_HelpView_filename(Fl_Help_View *h) {
 
 int go_fltk_HelpView_find(Fl_Help_View *h, const char *s, int p) {
 	return h->find(s, p);
+}
+
+int go_fltk_HelpView_leftline(Fl_Help_View *h) {
+	return h->leftline();
+}
+
+void go_fltk_HelpView_set_leftline(Fl_Help_View *h, int i) {
+	h->leftline(i);
+}
+
+int go_fltk_HelpView_topline(Fl_Help_View *h) {
+	return h->topline();
+}
+
+void go_fltk_HelpView_set_topline(Fl_Help_View *h, int i) {
+	h->topline(i);
+}
+
+void go_fltk_HelpView_set_toplinestring(Fl_Help_View *h, const char *s) {
+	h->topline(s);
 }
