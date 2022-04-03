@@ -48,9 +48,9 @@ func (t *TextDisplay) SetBuffer(buf *TextBuffer) {
 
 // wrapMargin is not needed if WrapMode is WRAP_NONE or WRAP_AT_BOUNDS
 func (t *TextDisplay) SetWrapMode(wrap WrapMode, wrapMargin ...int) {
-    if len(wrapMargin) < 1 {
-        wrapMargin = append(wrapMargin, 0)
-    }
+	if len(wrapMargin) < 1 {
+		wrapMargin = append(wrapMargin, 0)
+	}
 
 	C.go_fltk_TextDisplay_set_wrap_mode((*C.GText_Display)(t.ptr), C.int(wrap), C.int(wrapMargin[0]))
 }
@@ -58,6 +58,32 @@ func (t *TextDisplay) SetWrapMode(wrap WrapMode, wrapMargin ...int) {
 func (t *TextDisplay) Buffer() *TextBuffer {
 	ptr := C.go_fltk_TextDisplay_buffer((*C.GText_Display)(t.ptr))
 	return &TextBuffer{ptr}
+}
+
+// MoveRight moves the current insert position right one character.
+//Returns true if the cursor moved, false if the end of the text was reached
+func (t *TextDisplay) MoveRight() bool {
+	return (int)(C.go_fltk_TextDisplay_move_right((*C.GText_Display)(t.ptr))) != 0
+}
+
+//MoveLeft moves the current insert position left one character.
+func (t *TextDisplay) MoveLeft() bool {
+	return (int)(C.go_fltk_TextDisplay_move_left((*C.GText_Display)(t.ptr))) != 0
+}
+
+//MoveUp moves the current insert position up one line.
+func (t *TextDisplay) MoveUp() bool {
+	return (int)(C.go_fltk_TextDisplay_move_up((*C.GText_Display)(t.ptr))) != 0
+}
+
+//MoveDown moves the current insert position down one line.
+func (t *TextDisplay) MoveDown() bool {
+	return (int)(C.go_fltk_TextDisplay_move_down((*C.GText_Display)(t.ptr))) != 0
+}
+
+//ShowInsertPosition scrolls the text buffer to show the current insert position.
+func (t *TextDisplay) ShowInsertPosition() {
+	C.go_fltk_TextDisplay_show_insert_position((*C.GText_Display)(t.ptr))
 }
 
 type TextEditor struct {

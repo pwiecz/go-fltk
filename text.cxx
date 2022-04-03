@@ -27,6 +27,26 @@ void go_fltk_TextDisplay_set_wrap_mode(GText_Display *b, int wrap, int wrapMargi
   b->wrap_mode(wrap, wrapMargin);
 }
 
+int go_fltk_TextDisplay_move_right(GText_Display *b) {
+  return b->move_right();
+}
+
+int go_fltk_TextDisplay_move_left(GText_Display *b) {
+  return b->move_left();
+}
+
+int go_fltk_TextDisplay_move_up(GText_Display *b) {
+  return b->move_up();
+}
+
+int go_fltk_TextDisplay_move_down(GText_Display *b) {
+  return b->move_down();
+}
+
+void go_fltk_TextDisplay_show_insert_position(GText_Display *b) {
+  b->show_insert_position();
+}
+
 Fl_Text_Buffer *go_fltk_TextDisplay_buffer(GText_Display *d) {
   return d->buffer();
 }
