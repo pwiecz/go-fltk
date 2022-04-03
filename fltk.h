@@ -17,6 +17,8 @@ extern "C" {
   extern void go_fltk_set_boxtype(int i, int x, int y, int w, int h);
   extern void go_fltk_set_foreground_color(unsigned char r, unsigned char g, unsigned char b);
   extern void go_fltk_set_color(unsigned int col, unsigned char r, unsigned char g, unsigned char b);
+  extern void go_fltk_get_color(unsigned int col, unsigned char *r, unsigned char *g, unsigned char *b);
+  extern unsigned go_fltk_get_colorindex(unsigned int col);
 
   extern void go_fltk_awake_null_message();
   extern int go_fltk_awake(uintptr_t id);
