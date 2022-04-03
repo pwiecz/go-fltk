@@ -73,6 +73,14 @@ void go_fltk_set_color(unsigned int col, unsigned char r, unsigned char g, unsig
     Fl::set_color((Fl_Color)col, r, g, b);
 }
 
+void go_fltk_get_color(unsigned int col, unsigned char *r, unsigned char *g, unsigned char *b) {
+	Fl::get_color((Fl_Color)col, *r, *g, *b);
+}
+
+unsigned go_fltk_get_colorindex(unsigned int col) {
+	return Fl::get_color((Fl_Color)col);
+}
+
 int go_fltk_run() { return Fl::run(); }
 int go_fltk_lock() { return Fl::lock(); }
 void go_fltk_unlock() { Fl::unlock(); }

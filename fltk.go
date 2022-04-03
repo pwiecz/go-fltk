@@ -68,6 +68,20 @@ func SetColor(col Color, r, g, b uint8) {
 	C.go_fltk_set_color(C.uint(col), C.uchar(r), C.uchar(g), C.uchar(b))
 }
 
+func (col Color) Index() uint {
+	return uint(col)
+}
+
+func (col Color) RGB() (int, int, int) {
+	var r, g, b C.uchar
+	C.go_fltk_get_color(C.uint(col), &r, &g, &b)
+	return int(r), int(g), int(b)
+}
+
+func (col Color) RGBI() (uint) {
+	return uint(C.go_fltk_get_colorindex(C.uint(col)))
+}
+
 func cStringOpt(s []string) *C.char {
 	if len(s) == 0 {
 		return (*C.char)(nil)
