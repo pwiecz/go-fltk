@@ -40,3 +40,25 @@ func (h *HelpView) Load(f string) {
 	defer C.free(unsafe.Pointer(fStr))
 	C.go_fltk_HelpView_load((*C.GHelp_View)(h.ptr), fStr)
 }
+
+func (h *HelpView) LeftLine() int {
+	return int(C.go_fltk_HelpView_leftline((*C.Fl_Help_View)(h.ptr)))
+}
+
+func (h *HelpView) SetLeftLine(i int) {
+	C.go_fltk_HelpView_set_leftline((*C.Fl_Help_View)(h.ptr), C.int(i))
+}
+
+func (h *HelpView) TopLine() int {
+	return int(C.go_fltk_HelpView_topline((*C.Fl_Help_View)(h.ptr)))
+}
+
+func (h *HelpView) SetTopLine(i int) {
+	C.go_fltk_HelpView_set_topline((*C.Fl_Help_View)(h.ptr), C.int(i))
+}
+
+func (h *HelpView) SetTopLineString(str string) {
+	cStr := C.CString(str)
+	defer C.free(unsafe.Pointer(cStr))
+	C.go_fltk_HelpView_set_toplinestring((*C.Fl_Help_View)(h.ptr), cStr)
+}
