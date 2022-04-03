@@ -77,7 +77,6 @@ func (t *table) SetTopRow(row int) {
 
 type TableRow struct {
 	table
-	eventHandler       int
 	resizeHandlerId    uintptr
 	drawCellCallbackId int
 }
@@ -139,10 +138,6 @@ func (t *TableRow) Destroy() {
 		globalCallbackMap.unregister(t.resizeHandlerId)
 	}
 	t.resizeHandlerId = 0
-	if t.eventHandler > 0 {
-		globalEventHandlerMap.unregister(t.eventHandler)
-	}
-	t.eventHandler = 0
 	t.table.Destroy()
 }
 func (t *TableRow) IsRowSelected(row int) bool {
@@ -154,13 +149,6 @@ func (t *TableRow) SetDrawCellCallback(callback func(TableContext, int, int, int
 	}
 	t.drawCellCallbackId = globalTableCallbackMap.register(callback)
 	C.go_fltk_TableRow_set_draw_cell_callback((*C.GTableRow)(t.ptr), C.int(t.drawCellCallbackId))
-}
-func (t *TableRow) SetEventHandler(handler func(Event) bool) {
-	if t.eventHandler >= 0 {
-		globalEventHandlerMap.unregister(t.eventHandler)
-	}
-	t.eventHandler = globalEventHandlerMap.register(handler)
-	C.go_fltk_TableRow_set_event_handler((*C.GTableRow)(t.ptr), C.int(t.eventHandler))
 }
 func (t *TableRow) SetResizeHandler(handler func()) {
 	if t.resizeHandlerId > 0 {

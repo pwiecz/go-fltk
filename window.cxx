@@ -3,32 +3,40 @@
 #include <FL/Fl_Window.H>
 #include <FL/Fl_Double_Window.H>
 
+#include "event_handler.h"
 
-Fl_Window *go_fltk_new_Window(int w, int h) {
-  return new Fl_Double_Window(w, h);
+
+class GWindow : public EventHandler<Fl_Double_Window> {
+public:
+  GWindow(int w, int h)
+    : EventHandler<Fl_Double_Window>(w, h) {}
+};
+
+GWindow *go_fltk_new_Window(int w, int h) {
+  return new GWindow(w, h);
 }
 
-int go_fltk_Window_shown(Fl_Window *w) {
+int go_fltk_Window_shown(GWindow *w) {
   return w->shown();
 }
 
-void go_fltk_Window_show(Fl_Window *w) {
+void go_fltk_Window_show(GWindow *w) {
   w->show();
 }
 
-int go_fltk_Window_x_root(Fl_Window* w) {
+int go_fltk_Window_x_root(GWindow* w) {
   return w->x_root();
 }
 
-int go_fltk_Window_y_root(Fl_Window* w) {
+int go_fltk_Window_y_root(GWindow* w) {
   return w->y_root();
 }
 
-void go_fltk_Window_set_label(Fl_Window *w, const char *label) {
+void go_fltk_Window_set_label(GWindow *w, const char *label) {
   w->copy_label(label);
 }
 
-void go_fltk_Window_set_cursor(Fl_Window* w, int cursor) {
+void go_fltk_Window_set_cursor(GWindow* w, int cursor) {
   w->cursor((Fl_Cursor)cursor);
 }
 

@@ -10,6 +10,7 @@ import "unsafe"
 type widget struct {
 	ptr        *C.Fl_Widget
 	callbackId uintptr
+	eventHandlerId int
 }
 
 type Widget interface {
@@ -30,6 +31,15 @@ func (w *widget) SetCallback(f func()) {
 func (w *widget) SetCallbackCondition(when CallbackCondition) {
 	C.go_fltk_Widget_when(w.ptr, C.int(when))
 }
+func (w *widget) SetEventHandler(handler func(Event) bool) {
+	if w.eventHandlerId > 0 {
+		globalEventHandlerMap.unregister(w.eventHandlerId)
+	}
+	w.eventHandlerId = globalEventHandlerMap.register(handler)
+	if C.go_fltk_Widget_set_event_handler(w.ptr, C.int(w.eventHandlerId)) == 0 {
+		panic("This widget does not support event handling")
+	}
+}
 
 func (w *widget) getWidget() *widget { return w }
 func (w *widget) Destroy() {
@@ -37,6 +47,10 @@ func (w *widget) Destroy() {
 		globalCallbackMap.unregister(w.callbackId)
 	}
 	w.callbackId = 0
+	if w.eventHandlerId > 0 {
+		globalEventHandlerMap.unregister(w.eventHandlerId)
+	}
+	w.eventHandlerId = 0
 	if w.ptr != nil {
 		C.go_fltk_delete_widget(w.ptr)
 	}
@@ -98,6 +112,6 @@ func (w *widget) LabelSize() int       { return int(C.go_fltk_Widget_labelsize(w
 func (w *widget) LabelType() LabelType { return LabelType(C.go_fltk_Widget_labeltype(w.ptr)) }
 func (w *widget) Parent() *Group {
 	ptr := C.go_fltk_Widget_parent(w.ptr)
-	wid := widget{(*C.Fl_Widget)(ptr), 0}
+	wid := widget{(*C.Fl_Widget)(ptr), 0, 0}
 	return &Group{wid}
 }

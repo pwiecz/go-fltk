@@ -4,6 +4,7 @@
 #include <FL/Fl_Widget.H>
 
 #include "enumerations.h"
+#include "event_handler.h"
 
 
 void go_fltk_delete_widget(Fl_Widget *w) {
@@ -17,6 +18,14 @@ void go_fltk_Widget_set_callback(Fl_Widget *w, uintptr_t id) {
 }
 void go_fltk_Widget_when(Fl_Widget* w, int when) {
   w->when(when);
+}
+int go_fltk_Widget_set_event_handler(Fl_Widget* w, int id) {
+  WidgetWithEventHandler* wh = dynamic_cast<WidgetWithEventHandler*>(w);
+  if (wh == nullptr) {
+    return 0;
+  }
+  wh->set_event_handler(id);
+  return 1;
 }
 void go_fltk_Widget_set_labelfont(Fl_Widget *w, int font) {
   w->labelfont((Fl_Font)font);

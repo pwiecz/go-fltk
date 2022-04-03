@@ -2,13 +2,15 @@
 
 #include <FL/Fl_Table_Row.H>
 
+#include "event_handler.h"
+
 #include "_cgo_export.h"
 
 
-class GTableRow : public Fl_Table_Row {
+class GTableRow : public EventHandler<Fl_Table_Row> {
 public:
   GTableRow(int x, int y, int w, int h)
-    : Fl_Table_Row(x, y, w, h) {}
+    : EventHandler<Fl_Table_Row>(x, y, w, h) {}
   
   void set_draw_cell_callback(int drawFunId) {
     m_drawFunId = drawFunId;
@@ -17,18 +19,6 @@ public:
     if (m_drawFunId > 0) {
       _go_drawTableHandler(m_drawFunId, (int)context, R, C, X, Y, W, H);
     }
-  }
-  void set_event_handler(int handlerId) {
-    m_eventHandlerId = handlerId;
-  }
-  int handle(int event) final {
-    if (m_eventHandlerId) {
-      const int ret = _go_eventHandler(m_eventHandlerId, event);
-      if (ret != 0) {
-	return ret;
-      }
-    }
-    return Fl_Table_Row::handle(event);
   }
 
   void set_resize_handler(uintptr_t resizeHandlerId) {
@@ -51,7 +41,6 @@ public:
 
 private:
   int m_drawFunId = 0;
-  int m_eventHandlerId = 0;
   uintptr_t m_resizeHandlerId = 0;
 };
 

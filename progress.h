@@ -4,13 +4,13 @@
 extern "C" {
 #endif
 
-  typedef struct Fl_Progress Fl_Progress;
+  typedef struct GProgress GProgress;
 
-  extern Fl_Progress* go_fltk_new_Progress(int x, int y, int w, int h, const char* label);
+  extern GProgress* go_fltk_new_Progress(int x, int y, int w, int h, const char* label);
 
-  extern void go_fltk_Progress_set_maximum(Fl_Progress* p, double maximum);
-  extern void go_fltk_Progress_set_minimum(Fl_Progress* p, double minimum);
-  extern void go_fltk_Progress_set_value(Fl_Progress* p, double value);
+  extern void go_fltk_Progress_set_maximum(GProgress* p, double maximum);
+  extern void go_fltk_Progress_set_minimum(GProgress* p, double minimum);
+  extern void go_fltk_Progress_set_value(GProgress* p, double value);
 
 #ifdef __cplusplus
 }

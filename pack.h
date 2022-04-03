@@ -4,11 +4,11 @@
 extern "C" {
 #endif
 
-  typedef struct Fl_Pack Fl_Pack;
+  typedef struct GPack GPack;
 
-  extern Fl_Pack *go_fltk_new_Pack(int x, int y, int w, int h, const char *text);
+  extern GPack *go_fltk_new_Pack(int x, int y, int w, int h, const char *text);
 
-  extern void go_fltk_Pack_set_spacing(Fl_Pack* pack, int spacing);
+  extern void go_fltk_Pack_set_spacing(GPack* pack, int spacing);
 
   extern const unsigned char go_FL_PACK_VERTICAL;
   extern const unsigned char go_FL_PACK_HORIZONTAL;

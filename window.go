@@ -18,22 +18,22 @@ func NewWindow(w, h int) *Window {
 }
 
 func (w *Window) IsShown() bool {
-	return C.go_fltk_Window_shown((*C.Fl_Window)(w.ptr)) != 0
+	return C.go_fltk_Window_shown((*C.GWindow)(w.ptr)) != 0
 }
-func (w *Window) Show() { C.go_fltk_Window_show((*C.Fl_Window)(w.ptr)) }
+func (w *Window) Show() { C.go_fltk_Window_show((*C.GWindow)(w.ptr)) }
 func (w *Window) XRoot() int {
-	return int(C.go_fltk_Window_x_root((*C.Fl_Window)(w.ptr)))
+	return int(C.go_fltk_Window_x_root((*C.GWindow)(w.ptr)))
 }
 func (w *Window) YRoot() int {
-	return int(C.go_fltk_Window_y_root((*C.Fl_Window)(w.ptr)))
+	return int(C.go_fltk_Window_y_root((*C.GWindow)(w.ptr)))
 }
 func (w *Window) SetLabel(label string) {
 	labelStr := C.CString(label)
 	defer C.free(unsafe.Pointer(labelStr))
-	C.go_fltk_Window_set_label((*C.Fl_Window)(w.ptr), labelStr)
+	C.go_fltk_Window_set_label((*C.GWindow)(w.ptr), labelStr)
 }
 func (w *Window) SetCursor(cursor Cursor) {
-	C.go_fltk_Window_set_cursor((*C.Fl_Window)(w.ptr), C.int(cursor))
+	C.go_fltk_Window_set_cursor((*C.GWindow)(w.ptr), C.int(cursor))
 }
 
 type Cursor int

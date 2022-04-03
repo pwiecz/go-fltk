@@ -68,10 +68,10 @@ var (
 )
 
 func (m *MenuButton) SetType(menuType MenuType) {
-	C.go_fltk_MenuButton_set_type((*C.Fl_Menu_Button)(m.ptr), C.int(menuType))
+	C.go_fltk_MenuButton_set_type((*C.GMenu_Button)(m.ptr), C.int(menuType))
 }
 func (m *MenuButton) Popup() {
-	C.go_fltk_MenuButton_popup((*C.Fl_Menu_Button)(m.ptr))
+	C.go_fltk_MenuButton_popup((*C.GMenu_Button)(m.ptr))
 }
 func (m *MenuButton) Destroy() {
 	for _, itemCallbackId := range m.itemCallbacks {

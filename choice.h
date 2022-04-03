@@ -4,9 +4,9 @@
 extern "C" {
 #endif
 
-  typedef struct Fl_Choice Fl_Choice;
+  typedef struct GChoice GChoice;
 
-  extern Fl_Choice *go_fltk_new_Choice(int x, int y, int w, int h, const char *label);
+  extern GChoice *go_fltk_new_Choice(int x, int y, int w, int h, const char *label);
 
 #ifdef __cplusplus
 }

@@ -7,8 +7,7 @@
 #include <FL/Fl_Menu_Bar.H>
 
 #include "enumerations.h"
-
-#include "_cgo_export.h"
+#include "event_handler.h"
 
 
 int go_fltk_Menu_add(Fl_Menu_ *m, char *label, int shortcut, int callback, int flags) {
@@ -27,18 +26,30 @@ int go_fltk_Menu_size(Fl_Menu_ *m) {
   return m->size();
 }
 
-Fl_Menu_Button* go_fltk_new_MenuButton(int x, int y, int w, int h, const char* text) {
-  return new Fl_Menu_Button(x, y, w, h, text);
+class GMenu_Button : public EventHandler<Fl_Menu_Button> {
+public:
+  GMenu_Button(int x, int y, int w, int h, const char *label)
+    : EventHandler<Fl_Menu_Button>(x, y, w, h, label) {}
+};
+
+GMenu_Button* go_fltk_new_MenuButton(int x, int y, int w, int h, const char* text) {
+  return new GMenu_Button(x, y, w, h, text);
 }
-void go_fltk_MenuButton_set_type(Fl_Menu_Button* m, int menuType) {
+void go_fltk_MenuButton_set_type(GMenu_Button* m, int menuType) {
   m->type(menuType);
 }
-void go_fltk_MenuButton_popup(Fl_Menu_Button* m) {
+void go_fltk_MenuButton_popup(GMenu_Button* m) {
   m->popup();
 }
 
-Fl_Menu_Bar* go_fltk_new_MenuBar(int x, int y, int w, int h, const char* text) {
-  return new Fl_Menu_Bar(x, y, w, h, text);
+class GMenu_Bar : public EventHandler<Fl_Menu_Bar> {
+public:
+  GMenu_Bar(int x, int y, int w, int h, const char *label)
+    : EventHandler<Fl_Menu_Bar>(x, y, w, h, label) {}
+};
+
+GMenu_Bar* go_fltk_new_MenuBar(int x, int y, int w, int h, const char* text) {
+  return new GMenu_Bar(x, y, w, h, text);
 }
 
 const int go_FL_POPUP1 = Fl_Menu_Button::POPUP1;

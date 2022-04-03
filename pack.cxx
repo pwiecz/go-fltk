@@ -2,12 +2,20 @@
 
 #include <FL/Fl_Pack.H>
 
+#include "event_handler.h"
 
-Fl_Pack *go_fltk_new_Pack(int x, int y, int w, int h, const char *label) {
-  return new Fl_Pack(x, y, w, h, label);
+
+class GPack : public EventHandler<Fl_Pack> {
+public:
+  GPack(int x, int y, int w, int h, const char *label)
+    : EventHandler<Fl_Pack>(x, y, w, h, label) {}
+};
+
+GPack *go_fltk_new_Pack(int x, int y, int w, int h, const char *label) {
+  return new GPack(x, y, w, h, label);
 }
 
-void go_fltk_Pack_set_spacing(Fl_Pack* pack, int spacing) {
+void go_fltk_Pack_set_spacing(GPack* pack, int spacing) {
   pack->spacing(spacing);
 }
 

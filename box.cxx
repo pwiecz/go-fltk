@@ -2,31 +2,13 @@
 
 #include <FL/Fl_Box.H>
 
-#include "_cgo_export.h"
+#include "event_handler.h"
 
 
-class GBox : public Fl_Box {
+class GBox : public EventHandler<Fl_Box> {
 public:
   GBox(int boxType, int x, int y, int w, int h, const char* label)
-    : Fl_Box((Fl_Boxtype)boxType, x, y, w, h, label) {
-  }
-
-  int handle(int event) final {
-    if (m_eventHandlerId >= 0) {
-      const int ret = _go_eventHandler(m_eventHandlerId, event);
-      if (ret != 0) {
-	return ret;
-      }
-    }
-    return Fl_Box::handle(event);
-  }
-  
-  void set_event_handler(int handlerId) {
-    m_eventHandlerId = handlerId;
-  }
-
-private:
-  int m_eventHandlerId = -1;
+    : EventHandler<Fl_Box>((Fl_Boxtype)boxType, x, y, w, h, label) {}
 };
 
 GBox *go_fltk_new_Box(int boxType, int x, int y, int w, int h, const char* label) {

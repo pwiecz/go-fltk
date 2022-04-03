@@ -17,11 +17,11 @@ func NewProgress(x, y, w, h int, text ...string) *Progress {
 }
 
 func (p *Progress) SetMaximum(max float64) {
-	C.go_fltk_Progress_set_maximum((*C.Fl_Progress)(p.ptr), C.double(max))
+	C.go_fltk_Progress_set_maximum((*C.GProgress)(p.ptr), C.double(max))
 }
 func (p *Progress) SetMinimum(max float64) {
-	C.go_fltk_Progress_set_minimum((*C.Fl_Progress)(p.ptr), C.double(max))
+	C.go_fltk_Progress_set_minimum((*C.GProgress)(p.ptr), C.double(max))
 }
 func (p *Progress) SetValue(value float64) {
-	C.go_fltk_Progress_set_value((*C.Fl_Progress)(p.ptr), C.double(value))
+	C.go_fltk_Progress_set_value((*C.GProgress)(p.ptr), C.double(value))
 }

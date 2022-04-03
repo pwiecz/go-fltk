@@ -6,24 +6,39 @@
 
 #include <FL/Fl_Text_Buffer.H>
 
-Fl_Text_Display *go_fltk_new_TextDisplay(int x, int y, int w, int h, const char *text) {
-  return new Fl_Text_Display(x, y, w, h, text);
+#include "event_handler.h"
+
+
+class GText_Display : public EventHandler<Fl_Text_Display> {
+public:
+  GText_Display(int x, int y, int w, int h, const char* label)
+    : EventHandler<Fl_Text_Display>(x, y, w, h, label) {}
+};
+
+GText_Display *go_fltk_new_TextDisplay(int x, int y, int w, int h, const char *text) {
+  return new GText_Display(x, y, w, h, text);
 }
 
-void go_fltk_TextDisplay_set_buffer(Fl_Text_Display *d, Fl_Text_Buffer *buf) {
+void go_fltk_TextDisplay_set_buffer(GText_Display *d, Fl_Text_Buffer *buf) {
   d->buffer(buf);
 }
 
-void go_fltk_TextDisplay_set_wrap_mode(Fl_Text_Display *b, int wrap, int wrapMargin) {
+void go_fltk_TextDisplay_set_wrap_mode(GText_Display *b, int wrap, int wrapMargin) {
   b->wrap_mode(wrap, wrapMargin);
 }
 
-Fl_Text_Buffer *go_fltk_TextDisplay_buffer(Fl_Text_Display *d) {
+Fl_Text_Buffer *go_fltk_TextDisplay_buffer(GText_Display *d) {
   return d->buffer();
 }
 
-Fl_Text_Editor *go_fltk_new_TextEditor(int x, int y, int w, int h, const char *text) {
-  return new Fl_Text_Editor(x, y, w, h, text);
+class GText_Editor : public EventHandler<Fl_Text_Editor> {
+public:
+  GText_Editor(int x, int y, int w, int h, const char* label)
+    : EventHandler<Fl_Text_Editor>(x, y, w, h, label) {}
+};
+
+GText_Editor *go_fltk_new_TextEditor(int x, int y, int w, int h, const char *text) {
+  return new GText_Editor(x, y, w, h, text);
 }
 
 Fl_Text_Buffer *go_fltk_new_TextBuffer(void) {

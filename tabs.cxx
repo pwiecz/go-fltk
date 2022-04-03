@@ -2,12 +2,20 @@
 
 #include <FL/Fl_Tabs.H>
 
+#include "event_handler.h"
 
-Fl_Tabs *go_fltk_new_Tabs(int x, int y, int w, int h, const char *label) {
-  return new Fl_Tabs(x, y, w, h, label);
+
+class GTabs : public EventHandler<Fl_Tabs> {
+public:
+  GTabs(int x, int y, int w, int h, const char* label)
+    : EventHandler<Fl_Tabs>(x, y, w, h, label) {}
+};
+
+GTabs *go_fltk_new_Tabs(int x, int y, int w, int h, const char *label) {
+  return new GTabs(x, y, w, h, label);
 }
 
-int go_fltk_Tabs_value(Fl_Tabs* tabs) {
+int go_fltk_Tabs_value(GTabs* tabs) {
   const Fl_Widget* widget = tabs->value();
   const int childrenCount = tabs->children();
   for (int i = 0; i < childrenCount; ++i) {
@@ -18,7 +26,7 @@ int go_fltk_Tabs_value(Fl_Tabs* tabs) {
   return -1;
 }
 
-void go_fltk_Tabs_set_value(Fl_Tabs* tabs, int value) {
+void go_fltk_Tabs_set_value(GTabs* tabs, int value) {
   if (value < 0 || value >= tabs->children()) {
     return;
   }

@@ -2,6 +2,16 @@
 
 #include <FL/Fl_Roller.H>
 
-Fl_Roller* go_fltk_new_Roller(int x, int y, int w, int h, const char* label) {
-  return new Fl_Roller(x, y, w, h, label);
+#include "event_handler.h"
+
+
+class GRoller : public EventHandler<Fl_Roller> {
+public:
+  GRoller(int x, int y, int w, int h, const char* label)
+    : EventHandler<Fl_Roller>(x, y, w, h, label) {}
+};
+
+
+GRoller* go_fltk_new_Roller(int x, int y, int w, int h, const char* label) {
+  return new GRoller(x, y, w, h, label);
 }
