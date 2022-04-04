@@ -20,6 +20,9 @@ extern "C" {
   extern void go_fltk_get_color(unsigned int col, unsigned char *r, unsigned char *g, unsigned char *b);
   extern unsigned go_fltk_get_colorindex(unsigned int col);
 
+  extern void go_fltk_set_font(int font, const char* family);
+  extern void go_fltk_set_font2(int font, int font2);
+
   extern void go_fltk_awake_null_message();
   extern int go_fltk_awake(uintptr_t id);
 
