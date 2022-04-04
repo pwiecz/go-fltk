@@ -47,6 +47,14 @@ void go_fltk_TextDisplay_show_insert_position(GText_Display *b) {
   b->show_insert_position();
 }
 
+int go_fltk_TextDisplay_text_size(GText_Display *d) {
+  return d->textsize();
+}
+
+void go_fltk_TextDisplay_set_text_size(GText_Display *d, int size) {
+  d->textsize(size);
+}
+
 Fl_Text_Buffer *go_fltk_TextDisplay_buffer(GText_Display *d) {
   return d->buffer();
 }

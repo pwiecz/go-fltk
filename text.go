@@ -86,6 +86,14 @@ func (t *TextDisplay) ShowInsertPosition() {
 	C.go_fltk_TextDisplay_show_insert_position((*C.GText_Display)(t.ptr))
 }
 
+func (t *TextDisplay) TextSize() int {
+	return (int)(C.go_fltk_TextDisplay_text_size((*C.GText_Display)(t.ptr)))
+}
+
+func (t *TextDisplay) SetTextSize(size int) {
+	C.go_fltk_TextDisplay_set_text_size((*C.GText_Display)(t.ptr), C.int(size))
+}
+
 type TextEditor struct {
 	TextDisplay
 }
