@@ -77,6 +77,14 @@ void go_fltk_get_color(unsigned int col, unsigned char *r, unsigned char *g, uns
 	Fl::get_color((Fl_Color)col, *r, *g, *b);
 }
 
+void go_fltk_set_font(Fl_Font font, const char* family) {
+    Fl::set_font(font, family);
+}
+
+void go_fltk_set_font2(Fl_Font font, Fl_Font font2) {
+    Fl::set_font(font, font2);
+}
+
 unsigned go_fltk_get_colorindex(unsigned int col) {
 	return Fl::get_color((Fl_Color)col);
 }
