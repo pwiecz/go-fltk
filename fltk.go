@@ -67,6 +67,7 @@ func SetColor(col Color, r, g, b uint8) {
 	C.go_fltk_set_color(C.uint(col), C.uchar(r), C.uchar(g), C.uchar(b))
 }
 
+//SetFont changes a face.
 func SetFont(font Font, family string) {
 	familystr := C.CString(family)
 	defer C.free(unsafe.Pointer(familystr))
