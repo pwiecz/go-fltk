@@ -33,21 +33,30 @@ func (c *Chart) Clear() {
 //Add the data value val with optional label text and color col to the chart.
 //When color not needed just pass zero
 func (c *Chart) Add(val float64, col Color, text ...string) {
-	C.go_fltk_Chart_add((*C.GChart)(c.ptr), C.double(val), cStringOpt(text), C.uint(col))
+	labelStr := cStringOpt(text)
+	defer C.free(unsafe.Pointer(labelStr))
+
+	C.go_fltk_Chart_add((*C.GChart)(c.ptr), C.double(val), labelStr, C.uint(col))
 }
 
 // Insert inserts a data value val at the given position ind.
 //
 //Position 1 is the first data value.
 func (c *Chart) Insert(index int, val float64, col Color, text ...string) {
-	C.go_fltk_Chart_insert((*C.GChart)(c.ptr), C.int(index), C.double(val), cStringOpt(text), C.uint(col))
+	labelStr := cStringOpt(text)
+	defer C.free(unsafe.Pointer(labelStr))
+
+	C.go_fltk_Chart_insert((*C.GChart)(c.ptr), C.int(index), C.double(val), labelStr, C.uint(col))
 }
 
 // Replace replace a data value val at the given position index.
 //
 //Position 1 is the first data value.
 func (c *Chart) Replace(index int, val float64, col Color, text ...string) {
-	C.go_fltk_Chart_replace((*C.GChart)(c.ptr), C.int(index), C.double(val), cStringOpt(text), C.uint(col))
+	labelStr := cStringOpt(text)
+	defer C.free(unsafe.Pointer(labelStr))
+
+	C.go_fltk_Chart_replace((*C.GChart)(c.ptr), C.int(index), C.double(val), labelStr, C.uint(col))
 }
 
 // Bounds gets the lower and upper bounds of the chart values.
