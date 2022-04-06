@@ -2,6 +2,7 @@ package fltk
 
 /*
 #include "chart.h"
+#include <stdlib.h>
 */
 import "C"
 import "unsafe"
