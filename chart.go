@@ -32,37 +32,34 @@ func (c *Chart) Clear() {
 
 //Add the data value val with optional label text and color col to the chart.
 //When color not needed just pass zero
-func (c *Chart) Add(val float32, col Color, text ...string) {
-	//TODO: Should i use float32 or better replace it with float64?
+func (c *Chart) Add(val float64, col Color, text ...string) {
 	C.go_fltk_Chart_add((*C.GChart)(c.ptr), C.double(val), cStringOpt(text), C.uint(col))
 }
 
 // Insert inserts a data value val at the given position ind.
 //
 //Position 1 is the first data value.
-func (c *Chart) Insert(index int, val float32, col Color, text ...string) {
-	//TODO: Should i use float32 or better replace it with float64?
+func (c *Chart) Insert(index int, val float64, col Color, text ...string) {
 	C.go_fltk_Chart_insert((*C.GChart)(c.ptr), C.int(index), C.double(val), cStringOpt(text), C.uint(col))
 }
 
 // Replace replace a data value val at the given position index.
 //
 //Position 1 is the first data value.
-func (c *Chart) Replace(index int, val float32, col Color, text ...string) {
-	//TODO: Should i use float32 or better replace it with float64?
+func (c *Chart) Replace(index int, val float64, col Color, text ...string) {
 	C.go_fltk_Chart_replace((*C.GChart)(c.ptr), C.int(index), C.double(val), cStringOpt(text), C.uint(col))
 }
 
 // Bounds gets the lower and upper bounds of the chart values.
-func (c *Chart) Bounds() (float32, float32) {
-	var a, b float32
+func (c *Chart) Bounds() (float64, float64) {
+	var a, b float64
 	C.go_fltk_Chart_bounds((*C.GChart)(c.ptr), (*C.double)(unsafe.Pointer(&a)), (*C.double)(unsafe.Pointer(&b)))
 
 	return a, b
 }
 
 // SetBounds sets the lower and upper bounds of the chart values.
-func (c *Chart) SetBounds(a, b float32) {
+func (c *Chart) SetBounds(a, b float64) {
 	C.go_fltk_Chart_set_bounds((*C.GChart)(c.ptr), C.double(a), C.double(b))
 }
 
