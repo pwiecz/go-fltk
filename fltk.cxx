@@ -103,6 +103,18 @@ int go_fltk_awake(uintptr_t id) {
   return Fl::awake(awake_handler, (void*)id);
 }
 
+void timeout_handler(void *data) {
+  _go_timeoutHandler(uintptr_t(data));
+}
+
+void go_fltk_add_timeout(double t, uintptr_t id) {
+  Fl::add_timeout(t, timeout_handler, (void*)id);
+}
+
+void go_fltk_repeat_timeout(double t, uintptr_t id) {
+  Fl::repeat_timeout(t, timeout_handler, (void*)id);
+}
+
 void go_fltk_copy(const char* data, int len, int destination) {
   Fl::copy(data, len, destination);
 }

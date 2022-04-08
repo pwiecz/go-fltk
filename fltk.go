@@ -144,6 +144,63 @@ func AwakeNullMessage() {
 	C.go_fltk_awake_null_message()
 }
 
+type timeoutMap struct {
+	mutex      sync.Mutex
+	timeoutMap map[uintptr]func()
+	id         uintptr
+}
+
+func newTimeoutMap() *timeoutMap {
+	return &timeoutMap{timeoutMap: make(map[uintptr]func())}
+}
+
+var globalTimeoutMap = newTimeoutMap()
+
+func (m *timeoutMap) register(fn func()) uintptr {
+	m.mutex.Lock()
+	defer m.mutex.Unlock()
+	m.id++
+	m.timeoutMap[m.id] = fn
+	return m.id
+}
+func (m *timeoutMap) fetchTimeout(id uintptr) func() {
+	m.mutex.Lock()
+	defer m.mutex.Unlock()
+	fn := m.timeoutMap[id]
+	delete(m.timeoutMap, id)
+	return fn
+}
+func (m *timeoutMap) invoke(id uintptr) {
+	fn := m.fetchTimeout(id)
+	fn()
+}
+
+//export _go_timeoutHandler
+func _go_timeoutHandler(id C.uintptr_t) {
+	globalTimeoutMap.invoke(uintptr(id))
+}
+
+// AddTimeout adds a one-shot timeout callback.  The function will be called by
+//  Fl::wait() at t seconds after this function is called.
+//  If you need more accurate, repeated timeouts, use RepeatTimeout() to
+//  reschedule the subsequent timeouts.
+func AddTimeout(t float64, fn func()) {
+	timeoutId := globalTimeoutMap.register(fn)
+	C.go_fltk_add_timeout(C.double(t), C.uintptr_t(timeoutId))
+}
+
+// RepeatTimeout repeats a timeout callback from the expiration of the
+//  previous timeout, allowing for more accurate timing.
+//  You may only call this method inside a timeout callback of the same timer
+//  or at least a closely related timer, otherwise the timing accuracy can't
+//  be improved and the behavior is undefined.
+func RepeatTimeout(t float64, fn func()) {
+	timeoutId := globalTimeoutMap.register(fn)
+	C.go_fltk_repeat_timeout(C.double(t), C.uintptr_t(timeoutId))
+}
+
+//TODO: implement HasTimeout, RemoveTimeout
+
 func CopyToClipboard(text string) {
 	textStr := C.CString(text)
 	defer C.free(unsafe.Pointer(textStr))
