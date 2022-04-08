@@ -180,11 +180,20 @@ func _go_timeoutHandler(id C.uintptr_t) {
 	globalTimeoutMap.invoke(uintptr(id))
 }
 
+// AddTimeout adds a one-shot timeout callback.  The function will be called by
+//  Fl::wait() at t seconds after this function is called.
+//  If you need more accurate, repeated timeouts, use RepeatTimeout() to
+//  reschedule the subsequent timeouts.
 func AddTimeout(t float64, fn func()) {
 	timeoutId := globalTimeoutMap.register(fn)
 	C.go_fltk_add_timeout(C.double(t), C.uintptr_t(timeoutId))
 }
 
+// RepeatTimeout repeats a timeout callback from the expiration of the
+//  previous timeout, allowing for more accurate timing.
+//  You may only call this method inside a timeout callback of the same timer
+//  or at least a closely related timer, otherwise the timing accuracy can't
+//  be improved and the behavior is undefined.
 func RepeatTimeout(t float64, fn func()) {
 	timeoutId := globalTimeoutMap.register(fn)
 	C.go_fltk_repeat_timeout(C.double(t), C.uintptr_t(timeoutId))
