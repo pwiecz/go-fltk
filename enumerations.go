@@ -131,10 +131,10 @@ var (
 type WrapMode int
 
 const (
-    WRAP_NONE      = 0
-    WRAP_AT_COLUMN = 1
-    WRAP_AT_PIXEL  = 2
-    WRAP_AT_BOUNDS = 3
+    WRAP_NONE      = WrapMode(0)
+    WRAP_AT_COLUMN = WrapMode(1)
+    WRAP_AT_PIXEL  = WrapMode(2)
+    WRAP_AT_BOUNDS = WrapMode(3)
 )
 
 type Event int
