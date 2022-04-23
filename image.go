@@ -76,11 +76,11 @@ func (i *image) Inactive() {
 
 func image_error(val int) error {
 	if val == -1 {
-		return errors.New("No Image was found")
+		return errors.New("no Image was found")
 	} else if val == -2 {
-		return errors.New("File access error")
+		return errors.New("file access error")
 	} else if val == -3 {
-		return errors.New("Image format error")
+		return errors.New("image format error")
 	} else {
 		return nil
 	}

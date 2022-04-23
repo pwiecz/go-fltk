@@ -15,7 +15,7 @@ import (
 )
 
 // Defined in SetBoxType() as the draw func in custom BoxTypes
-var setBoxTypeCb = make([]func(x, y, w, h int, c Color), 57, 57)
+var setBoxTypeCb = make([]func(x, y, w, h int, c Color), 57)
 
 func Run() int {
 	return int(C.go_fltk_run())
