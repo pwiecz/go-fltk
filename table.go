@@ -175,7 +175,7 @@ func (t *TableRow) SelectRow(row int, flag SelectionFlag) {
 func (t *TableRow) FindCell(ctx TableContext, row int, col int) (int, int, int, int, error) {
 	var x, y, w, h C.int
 	ret := C.go_fltk_TableRow_find_cell((*C.GTableRow)(t.ptr), C.int(ctx), C.int(row), C.int(col), &x, &y, &w, &h)
-	err := errors.New("No cell was found")
+	err := errors.New("no cell was found")
 	if ret == 0 {
 		err = nil
 	}
