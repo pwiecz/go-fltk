@@ -7,6 +7,16 @@
 #include "event_handler.h"
 
 
+Fl_Widget_Tracker* go_fltk_new_Widget_Tracker(Fl_Widget* w) {
+  return new Fl_Widget_Tracker(w);
+}
+Fl_Widget* go_fltk_Widget_Tracker_widget(Fl_Widget_Tracker* t) {
+  return t->widget();
+}
+int go_fltk_Widget_Tracker_exists(Fl_Widget_Tracker* t) {
+  return t->exists();
+}
+
 void go_fltk_delete_widget(Fl_Widget *w) {
   Fl::delete_widget(w);
 }

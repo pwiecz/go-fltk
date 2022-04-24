@@ -24,20 +24,20 @@ var SPINNER_INT_INPUT = SpinnerInputType(C.go_FL_INT_INPUT)
 var SPINNER_FLOAT_INPUT = SpinnerInputType(C.go_FL_FLOAT_INPUT)
 
 func (s *Spinner) SetType(inputType SpinnerInputType) {
-	C.go_fltk_Spinner_set_type((*C.GSpinner)(s.ptr), C.uchar(inputType))
+	C.go_fltk_Spinner_set_type((*C.GSpinner)(s.ptr()), C.uchar(inputType))
 }
 func (s *Spinner) SetMaximum(max float64) {
-	C.go_fltk_Spinner_set_maximum((*C.GSpinner)(s.ptr), C.double(max))
+	C.go_fltk_Spinner_set_maximum((*C.GSpinner)(s.ptr()), C.double(max))
 }
 func (s *Spinner) SetMinimum(min float64) {
-	C.go_fltk_Spinner_set_minimum((*C.GSpinner)(s.ptr), C.double(min))
+	C.go_fltk_Spinner_set_minimum((*C.GSpinner)(s.ptr()), C.double(min))
 }
 func (s *Spinner) SetStep(step float64) {
-	C.go_fltk_Spinner_set_step((*C.GSpinner)(s.ptr), C.double(step))
+	C.go_fltk_Spinner_set_step((*C.GSpinner)(s.ptr()), C.double(step))
 }
 func (s *Spinner) SetValue(val float64) {
-	C.go_fltk_Spinner_set_value((*C.GSpinner)(s.ptr), C.double(val))
+	C.go_fltk_Spinner_set_value((*C.GSpinner)(s.ptr()), C.double(val))
 }
 func (s *Spinner) Value() float64 {
-	return (float64)(C.go_fltk_Spinner_value((*C.GSpinner)(s.ptr)))
+	return (float64)(C.go_fltk_Spinner_value((*C.GSpinner)(s.ptr())))
 }

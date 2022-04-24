@@ -28,7 +28,7 @@ func NewChart(x, y, w, h int, text ...string) *Chart {
 }
 
 func (c *Chart) Clear() {
-	C.go_fltk_Chart_clear((*C.GChart)(c.ptr))
+	C.go_fltk_Chart_clear((*C.GChart)(c.ptr()))
 }
 
 //Add the data value val with optional label text and color col to the chart.
@@ -37,7 +37,7 @@ func (c *Chart) Add(val float64, col Color, text ...string) {
 	labelStr := cStringOpt(text)
 	defer C.free(unsafe.Pointer(labelStr))
 
-	C.go_fltk_Chart_add((*C.GChart)(c.ptr), C.double(val), labelStr, C.uint(col))
+	C.go_fltk_Chart_add((*C.GChart)(c.ptr()), C.double(val), labelStr, C.uint(col))
 }
 
 // Insert inserts a data value val at the given position ind.
@@ -47,7 +47,7 @@ func (c *Chart) Insert(index int, val float64, col Color, text ...string) {
 	labelStr := cStringOpt(text)
 	defer C.free(unsafe.Pointer(labelStr))
 
-	C.go_fltk_Chart_insert((*C.GChart)(c.ptr), C.int(index), C.double(val), labelStr, C.uint(col))
+	C.go_fltk_Chart_insert((*C.GChart)(c.ptr()), C.int(index), C.double(val), labelStr, C.uint(col))
 }
 
 // Replace replace a data value val at the given position index.
@@ -57,76 +57,76 @@ func (c *Chart) Replace(index int, val float64, col Color, text ...string) {
 	labelStr := cStringOpt(text)
 	defer C.free(unsafe.Pointer(labelStr))
 
-	C.go_fltk_Chart_replace((*C.GChart)(c.ptr), C.int(index), C.double(val), labelStr, C.uint(col))
+	C.go_fltk_Chart_replace((*C.GChart)(c.ptr()), C.int(index), C.double(val), labelStr, C.uint(col))
 }
 
 // Bounds gets the lower and upper bounds of the chart values.
 func (c *Chart) Bounds() (float64, float64) {
 	var a, b float64
-	C.go_fltk_Chart_bounds((*C.GChart)(c.ptr), (*C.double)(unsafe.Pointer(&a)), (*C.double)(unsafe.Pointer(&b)))
+	C.go_fltk_Chart_bounds((*C.GChart)(c.ptr()), (*C.double)(unsafe.Pointer(&a)), (*C.double)(unsafe.Pointer(&b)))
 
 	return a, b
 }
 
 // SetBounds sets the lower and upper bounds of the chart values.
 func (c *Chart) SetBounds(a, b float64) {
-	C.go_fltk_Chart_set_bounds((*C.GChart)(c.ptr), C.double(a), C.double(b))
+	C.go_fltk_Chart_set_bounds((*C.GChart)(c.ptr()), C.double(a), C.double(b))
 }
 
 // Size returns the number of data values in the chart.
 func (c *Chart) Size() int {
-	return int(C.go_fltk_Chart_size((*C.GChart)(c.ptr)))
+	return int(C.go_fltk_Chart_size((*C.GChart)(c.ptr())))
 }
 
 func (c *Chart) SetSize(W, H int) {
-	C.go_fltk_Chart_set_size((*C.GChart)(c.ptr), C.int(W), C.int(H))
+	C.go_fltk_Chart_set_size((*C.GChart)(c.ptr()), C.int(W), C.int(H))
 }
 
 // MaxSize gets the maximum number of data values for a chart.
 func (c *Chart) MaxSize() int {
-	return int(C.go_fltk_Chart_maxsize((*C.GChart)(c.ptr)))
+	return int(C.go_fltk_Chart_maxsize((*C.GChart)(c.ptr())))
 }
 
 // SetMaxSize sets the maximum number of data values for a chart.
 //
 //If you do not call this method then the chart will be allowed to grow to any size depending on available memory.
 func (c *Chart) SetMaxSize(m int) {
-	C.go_fltk_Chart_set_maxsize((*C.GChart)(c.ptr), C.int(m))
+	C.go_fltk_Chart_set_maxsize((*C.GChart)(c.ptr()), C.int(m))
 }
 
 // TextFont gets the chart's text font.
 func (c *Chart) TextFont() Font {
-	return Font(C.go_fltk_Chart_textfont((*C.GChart)(c.ptr)))
+	return Font(C.go_fltk_Chart_textfont((*C.GChart)(c.ptr())))
 }
 
 // SetTextFont sets the chart's text font to font.
 func (c *Chart) SetTextFont(font Font) {
-	C.go_fltk_Chart_set_textfont((*C.GChart)(c.ptr), C.int(font))
+	C.go_fltk_Chart_set_textfont((*C.GChart)(c.ptr()), C.int(font))
 }
 
 // TextSize gets the chart's text size.
 func (c *Chart) TextSize() int {
-	return int(C.go_fltk_Chart_textsize((*C.GChart)(c.ptr)))
+	return int(C.go_fltk_Chart_textsize((*C.GChart)(c.ptr())))
 }
 
 // SetTextSize sets the chart's text font to size.
 func (c *Chart) SetTextSize(size int) {
-	C.go_fltk_Chart_set_textsize((*C.GChart)(c.ptr), C.int(size))
+	C.go_fltk_Chart_set_textsize((*C.GChart)(c.ptr()), C.int(size))
 }
 
 // TextColor gets the chart's text color.
 func (c *Chart) TextColor() Color {
-	return Color(C.go_fltk_Chart_textcolor((*C.GChart)(c.ptr)))
+	return Color(C.go_fltk_Chart_textcolor((*C.GChart)(c.ptr())))
 }
 
 // SetTextColor sets the chart's text color to color
 func (c *Chart) SetTextColor(color Color) {
-	C.go_fltk_Chart_set_textcolor((*C.GChart)(c.ptr), C.uint(color))
+	C.go_fltk_Chart_set_textcolor((*C.GChart)(c.ptr()), C.uint(color))
 }
 
 // Autosize gets whether the chart will automatically adjust the bounds of the chart.
 func (c *Chart) Autosize() bool {
-	return C.go_fltk_Chart_autosize((*C.GChart)(c.ptr)) != 0
+	return C.go_fltk_Chart_autosize((*C.GChart)(c.ptr())) != 0
 }
 
 // SetAutosize sets whether the chart will automatically adjust the bounds of the chart.
@@ -135,5 +135,5 @@ func (c *Chart) SetAutosize(flag bool) {
 	if flag {
 		f = 1
 	}
-	C.go_fltk_Chart_set_autosize((*C.GChart)(c.ptr), C.uchar(f))
+	C.go_fltk_Chart_set_autosize((*C.GChart)(c.ptr()), C.uchar(f))
 }

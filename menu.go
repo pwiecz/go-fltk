@@ -15,28 +15,28 @@ func (m *menu) Add(label string, callback func()) int {
 	callbackId := globalCallbackMap.register(callback)
 	labelStr := C.CString(label)
 	defer C.free(unsafe.Pointer(labelStr))
-	return int(C.go_fltk_Menu_add((*C.Fl_Menu_)(m.ptr), labelStr, 0, C.int(callbackId), 0))
+	return int(C.go_fltk_Menu_add((*C.Fl_Menu_)(m.ptr()), labelStr, 0, C.int(callbackId), 0))
 }
 func (m *menu) AddEx(label string, shortcut int, callback func(), flags int) int {
 	callbackId := globalCallbackMap.register(callback)
 	labelStr := C.CString(label)
 	defer C.free(unsafe.Pointer(labelStr))
-	return int(C.go_fltk_Menu_add((*C.Fl_Menu_)(m.ptr), labelStr, C.int(shortcut), C.int(callbackId), C.int(flags)))
+	return int(C.go_fltk_Menu_add((*C.Fl_Menu_)(m.ptr()), labelStr, C.int(shortcut), C.int(callbackId), C.int(flags)))
 }
 
 func (m *menu) SetValue(value int) {
-	C.go_fltk_Menu_set_value((*C.Fl_Menu_)(m.ptr), C.int(value))
+	C.go_fltk_Menu_set_value((*C.Fl_Menu_)(m.ptr()), C.int(value))
 }
 func (m *menu) Value() int {
-	return int(C.go_fltk_Menu_value((*C.Fl_Menu_)(m.ptr)))
+	return int(C.go_fltk_Menu_value((*C.Fl_Menu_)(m.ptr())))
 }
 func (m *menu) Size() int {
-	return int(C.go_fltk_Menu_size((*C.Fl_Menu_)(m.ptr)))
+	return int(C.go_fltk_Menu_size((*C.Fl_Menu_)(m.ptr())))
 }
 
 type MenuButton struct {
 	menu
-	itemCallbacks     []uintptr
+	itemCallbacks []uintptr
 }
 
 func NewMenuButton(x, y, w, h int, text ...string) *MenuButton {
@@ -68,10 +68,10 @@ var (
 )
 
 func (m *MenuButton) SetType(menuType MenuType) {
-	C.go_fltk_MenuButton_set_type((*C.GMenu_Button)(m.ptr), C.int(menuType))
+	C.go_fltk_MenuButton_set_type((*C.GMenu_Button)(m.ptr()), C.int(menuType))
 }
 func (m *MenuButton) Popup() {
-	C.go_fltk_MenuButton_popup((*C.GMenu_Button)(m.ptr))
+	C.go_fltk_MenuButton_popup((*C.GMenu_Button)(m.ptr()))
 }
 func (m *MenuButton) Destroy() {
 	for _, itemCallbackId := range m.itemCallbacks {
@@ -85,7 +85,7 @@ func (m *MenuButton) Add(label string, callback func()) int {
 	m.itemCallbacks = append(m.itemCallbacks, callbackId)
 	labelStr := C.CString(label)
 	defer C.free(unsafe.Pointer(labelStr))
-	return int(C.go_fltk_Menu_add((*C.Fl_Menu_)(m.ptr), labelStr, 0, C.int(callbackId), 0))
+	return int(C.go_fltk_Menu_add((*C.Fl_Menu_)(m.ptr()), labelStr, 0, C.int(callbackId), 0))
 }
 
 type MenuBar struct {

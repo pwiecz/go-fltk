@@ -23,6 +23,7 @@ extern "C" {
   extern Fl_Text_Buffer *go_fltk_TextDisplay_buffer(GText_Display *d);
 
   extern Fl_Text_Buffer *go_fltk_new_TextBuffer(void);
+  extern void go_fltk_TextBuffer_delete(Fl_Text_Buffer* b);
   extern void go_fltk_TextBuffer_set_text(Fl_Text_Buffer *b, const char *txt);
   extern void go_fltk_TextBuffer_append(Fl_Text_Buffer *b, const char *txt);
   extern const char *go_fltk_TextBuffer_text(Fl_Text_Buffer *b);

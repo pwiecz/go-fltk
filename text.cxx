@@ -73,6 +73,10 @@ Fl_Text_Buffer *go_fltk_new_TextBuffer(void) {
   return new Fl_Text_Buffer;
 }
 
+void go_fltk_TextBuffer_delete(Fl_Text_Buffer* b) {
+  delete b;
+}
+
 void go_fltk_TextBuffer_set_text(Fl_Text_Buffer *b, const char *txt) {
   b->text(txt);
 }

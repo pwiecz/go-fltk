@@ -18,13 +18,13 @@ func NewInput(x, y, w, h int, text ...string) *Input {
 }
 
 func (i *Input) Value() string {
-	return C.GoString(C.go_fltk_Input_value((*C.GInput)(i.ptr)))
+	return C.GoString(C.go_fltk_Input_value((*C.GInput)(i.ptr())))
 }
 func (i *Input) SetValue(value string) bool {
 	valueStr := C.CString(value)
 	defer C.free(unsafe.Pointer(valueStr))
-	return C.go_fltk_Input_set_value((*C.GInput)(i.ptr), valueStr) != 0
+	return C.go_fltk_Input_set_value((*C.GInput)(i.ptr()), valueStr) != 0
 }
 func (i *Input) Resize(x int, y int, w int, h int) {
-	C.go_fltk_Input_resize((*C.GInput)(i.ptr), C.int(x), C.int(y), C.int(w), C.int(h))
+	C.go_fltk_Input_resize((*C.GInput)(i.ptr()), C.int(x), C.int(y), C.int(w), C.int(h))
 }

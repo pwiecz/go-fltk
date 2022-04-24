@@ -14,65 +14,65 @@ type table struct {
 }
 
 func (t *table) SetRowCount(rowCount int) {
-	C.go_fltk_Table_set_row_count((*C.Fl_Table)(t.ptr), C.int(rowCount))
+	C.go_fltk_Table_set_row_count((*C.Fl_Table)(t.ptr()), C.int(rowCount))
 }
 func (t *table) SetRowHeight(row, height int) {
-	C.go_fltk_Table_set_row_height((*C.Fl_Table)(t.ptr), C.int(row), C.int(height))
+	C.go_fltk_Table_set_row_height((*C.Fl_Table)(t.ptr()), C.int(row), C.int(height))
 }
 func (t *table) SetRowHeightAll(height int) {
-	C.go_fltk_Table_set_row_height_all((*C.Fl_Table)(t.ptr), C.int(height))
+	C.go_fltk_Table_set_row_height_all((*C.Fl_Table)(t.ptr()), C.int(height))
 }
 func (t *table) EnableRowHeaders() {
-	C.go_fltk_Table_set_row_header((*C.Fl_Table)(t.ptr), 1)
+	C.go_fltk_Table_set_row_header((*C.Fl_Table)(t.ptr()), 1)
 }
 func (t *table) DisableRowHeaders() {
-	C.go_fltk_Table_set_row_header((*C.Fl_Table)(t.ptr), 0)
+	C.go_fltk_Table_set_row_header((*C.Fl_Table)(t.ptr()), 0)
 }
 func (t *table) AllowRowResizing() {
-	C.go_fltk_Table_set_row_resize((*C.Fl_Table)(t.ptr), 1)
+	C.go_fltk_Table_set_row_resize((*C.Fl_Table)(t.ptr()), 1)
 }
 func (t *table) DisallowRowResizing() {
-	C.go_fltk_Table_set_row_resize((*C.Fl_Table)(t.ptr), 0)
+	C.go_fltk_Table_set_row_resize((*C.Fl_Table)(t.ptr()), 0)
 }
 func (t *table) SetColumnCount(columnCount int) {
-	C.go_fltk_Table_set_column_count((*C.Fl_Table)(t.ptr), C.int(columnCount))
+	C.go_fltk_Table_set_column_count((*C.Fl_Table)(t.ptr()), C.int(columnCount))
 }
 func (t *table) SetColumnWidth(column, width int) {
-	C.go_fltk_Table_set_column_width((*C.Fl_Table)(t.ptr), C.int(column), C.int(width))
+	C.go_fltk_Table_set_column_width((*C.Fl_Table)(t.ptr()), C.int(column), C.int(width))
 }
 func (t *table) SetColumnWidthAll(width int) {
-	C.go_fltk_Table_set_column_width_all((*C.Fl_Table)(t.ptr), C.int(width))
+	C.go_fltk_Table_set_column_width_all((*C.Fl_Table)(t.ptr()), C.int(width))
 }
 func (t *table) EnableColumnHeaders() {
-	C.go_fltk_Table_set_column_header((*C.Fl_Table)(t.ptr), 1)
+	C.go_fltk_Table_set_column_header((*C.Fl_Table)(t.ptr()), 1)
 }
 func (t *table) DisableColumnHeaders() {
-	C.go_fltk_Table_set_column_header((*C.Fl_Table)(t.ptr), 0)
+	C.go_fltk_Table_set_column_header((*C.Fl_Table)(t.ptr()), 0)
 }
 func (t *table) AllowColumnResizing() {
-	C.go_fltk_Table_set_column_resize((*C.Fl_Table)(t.ptr), 1)
+	C.go_fltk_Table_set_column_resize((*C.Fl_Table)(t.ptr()), 1)
 }
 func (t *table) DisallowColumnResizing() {
-	C.go_fltk_Table_set_column_resize((*C.Fl_Table)(t.ptr), 0)
+	C.go_fltk_Table_set_column_resize((*C.Fl_Table)(t.ptr()), 0)
 }
 func (t *table) CallbackRow() int {
-	return int(C.go_fltk_Table_callback_row((*C.Fl_Table)(t.ptr)))
+	return int(C.go_fltk_Table_callback_row((*C.Fl_Table)(t.ptr())))
 }
 func (t *table) CallbackContext() TableContext {
-	return TableContext(C.go_fltk_Table_callback_context((*C.Fl_Table)(t.ptr)))
+	return TableContext(C.go_fltk_Table_callback_context((*C.Fl_Table)(t.ptr())))
 }
 func (t *table) Selection() (int, int, int, int) {
 	var top, left, bottom, right C.int
-	C.go_fltk_Table_get_selection((*C.Fl_Table)(t.ptr), &top, &left, &bottom, &right)
+	C.go_fltk_Table_get_selection((*C.Fl_Table)(t.ptr()), &top, &left, &bottom, &right)
 	return int(top), int(left), int(bottom), int(right)
 }
 func (t *table) VisibleCells() (int, int, int, int) {
 	var top, bottom, left, right C.int
-	C.go_fltk_Table_visible_cells((*C.Fl_Table)(t.ptr), &top, &bottom, &left, &right)
+	C.go_fltk_Table_visible_cells((*C.Fl_Table)(t.ptr()), &top, &bottom, &left, &right)
 	return int(top), int(left), int(bottom), int(right)
 }
 func (t *table) SetTopRow(row int) {
-	C.go_fltk_Table_set_top_row((*C.Fl_Table)(t.ptr), C.int(row))
+	C.go_fltk_Table_set_top_row((*C.Fl_Table)(t.ptr()), C.int(row))
 }
 
 type TableRow struct {
@@ -141,21 +141,21 @@ func (t *TableRow) Destroy() {
 	t.table.Destroy()
 }
 func (t *TableRow) IsRowSelected(row int) bool {
-	return C.go_fltk_TableRow_row_selected((*C.GTableRow)(t.ptr), C.int(row)) != 0
+	return C.go_fltk_TableRow_row_selected((*C.GTableRow)(t.ptr()), C.int(row)) != 0
 }
 func (t *TableRow) SetDrawCellCallback(callback func(TableContext, int, int, int, int, int, int)) {
 	if t.drawCellCallbackId > 0 {
 		globalTableCallbackMap.unregister(t.drawCellCallbackId)
 	}
 	t.drawCellCallbackId = globalTableCallbackMap.register(callback)
-	C.go_fltk_TableRow_set_draw_cell_callback((*C.GTableRow)(t.ptr), C.int(t.drawCellCallbackId))
+	C.go_fltk_TableRow_set_draw_cell_callback((*C.GTableRow)(t.ptr()), C.int(t.drawCellCallbackId))
 }
 func (t *TableRow) SetResizeHandler(handler func()) {
 	if t.resizeHandlerId > 0 {
 		globalCallbackMap.unregister(t.resizeHandlerId)
 	}
 	t.resizeHandlerId = globalCallbackMap.register(handler)
-	C.go_fltk_TableRow_set_resize_handler((*C.GTableRow)(t.ptr), C.uintptr_t(t.resizeHandlerId))
+	C.go_fltk_TableRow_set_resize_handler((*C.GTableRow)(t.ptr()), C.uintptr_t(t.resizeHandlerId))
 }
 
 type SelectionFlag int
@@ -167,14 +167,14 @@ var (
 )
 
 func (t *TableRow) SelectAllRows(flag SelectionFlag) {
-	C.go_fltk_TableRow_select_all_rows((*C.GTableRow)(t.ptr), C.int(flag))
+	C.go_fltk_TableRow_select_all_rows((*C.GTableRow)(t.ptr()), C.int(flag))
 }
 func (t *TableRow) SelectRow(row int, flag SelectionFlag) {
-	C.go_fltk_TableRow_select_row((*C.GTableRow)(t.ptr), C.int(row), C.int(flag))
+	C.go_fltk_TableRow_select_row((*C.GTableRow)(t.ptr()), C.int(row), C.int(flag))
 }
 func (t *TableRow) FindCell(ctx TableContext, row int, col int) (int, int, int, int, error) {
 	var x, y, w, h C.int
-	ret := C.go_fltk_TableRow_find_cell((*C.GTableRow)(t.ptr), C.int(ctx), C.int(row), C.int(col), &x, &y, &w, &h)
+	ret := C.go_fltk_TableRow_find_cell((*C.GTableRow)(t.ptr()), C.int(ctx), C.int(row), C.int(col), &x, &y, &w, &h)
 	err := errors.New("no cell was found")
 	if ret == 0 {
 		err = nil
@@ -191,7 +191,7 @@ var (
 )
 
 func (t *TableRow) SetType(tableType RowSelectMode) {
-	C.go_fltk_TableRow_set_type((*C.GTableRow)(t.ptr), C.int(tableType))
+	C.go_fltk_TableRow_set_type((*C.GTableRow)(t.ptr()), C.int(tableType))
 }
 
 //export _go_drawTableHandler

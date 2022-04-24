@@ -7,10 +7,14 @@
 extern "C" {
 #endif
 
+  typedef struct Fl_Widget_Tracker Fl_Widget_Tracker;
   typedef struct Fl_Widget Fl_Widget;
   typedef struct Fl_Group Fl_Group;
   typedef struct Fl_Image Fl_Image;
 
+  extern Fl_Widget_Tracker* go_fltk_new_Widget_Tracker(Fl_Widget* t);
+  extern Fl_Widget* go_fltk_Widget_Tracker_widget(Fl_Widget_Tracker* t);
+  extern int go_fltk_Widget_Tracker_exists(Fl_Widget_Tracker* t);
   extern void go_fltk_delete_widget(Fl_Widget *w);
   extern void go_fltk_Widget_set_box(Fl_Widget *w, int box);
   extern void go_fltk_Widget_set_labelfont(Fl_Widget *w, int font);
