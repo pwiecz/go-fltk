@@ -25,6 +25,7 @@ extern "C" {
 
   extern void go_fltk_awake_null_message();
   extern int go_fltk_awake(uintptr_t id);
+  extern int go_fltk_wait();
 
   extern void go_fltk_add_timeout(double t, uintptr_t id);
   extern void go_fltk_repeat_timeout(double t, uintptr_t id);

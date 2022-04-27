@@ -23,6 +23,7 @@ extern "C" {
   extern void go_fltk_Widget_set_labelcolor(Fl_Widget *w, unsigned int tcol);
   extern void go_fltk_Widget_clear_visible_focus(Fl_Widget *w);
   extern void go_fltk_Widget_set_callback(Fl_Widget *w, uintptr_t id);
+  extern int go_fltk_Widget_set_resize_handler(Fl_Widget* w, uintptr_t id);
   extern void go_fltk_Widget_when(Fl_Widget* w, int when);
   extern int go_fltk_Widget_set_event_handler(Fl_Widget* w, int id);
   extern int go_fltk_Widget_x(Fl_Widget *w);

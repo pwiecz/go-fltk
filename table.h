@@ -33,7 +33,6 @@ extern "C" {
   extern void go_fltk_TableRow_set_type(GTableRow* t, int tableType);
   extern void go_fltk_TableRow_select_all_rows(GTableRow* t, int flag);
   extern void go_fltk_TableRow_select_row(GTableRow* t, int row, int flag);
-  extern void go_fltk_TableRow_set_resize_handler(GTableRow* t, uintptr_t handlerId);
   extern int go_fltk_TableRow_find_cell(GTableRow* t, int ctx, int row, int col, int *x, int *y, int *w, int *h);
 
   extern const int go_FL_CONTEXT_NONE;

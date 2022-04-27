@@ -21,17 +21,6 @@ public:
     }
   }
 
-  void set_resize_handler(uintptr_t resizeHandlerId) {
-    m_resizeHandlerId = resizeHandlerId;
-  }
-
-  void resize(int x, int y, int w, int h) final {
-    Fl_Table_Row::resize(x, y, w, h);
-    if (m_resizeHandlerId != 0) {
-      _go_callbackHandler(m_resizeHandlerId);
-    }
-  }
-
   int find_cell_(int ctx, int r, int c, int *x, int *y, int *w, int *h) {
     int X = 0, Y = 0, W = 0, H = 0;
     int ret = this->find_cell((Fl_Table::TableContext)ctx, r, c, X, Y, W, H);
@@ -41,7 +30,6 @@ public:
 
 private:
   int m_drawFunId = 0;
-  uintptr_t m_resizeHandlerId = 0;
 };
 
 GTableRow *go_fltk_new_TableRow(int x, int y, int w, int h) {
@@ -112,10 +100,6 @@ void go_fltk_Table_visible_cells(Fl_Table* t, int* top, int* bottom, int* left, 
 }
 void go_fltk_Table_set_top_row(Fl_Table* t, int row) {
   t->top_row(row);
-}
-
-void go_fltk_TableRow_set_resize_handler(GTableRow* t, uintptr_t handlerId) {
-  t->set_resize_handler(handlerId);
 }
 
 const int go_FL_CONTEXT_NONE = (int)Fl_Table::CONTEXT_NONE;

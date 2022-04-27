@@ -144,6 +144,10 @@ func AwakeNullMessage() {
 	C.go_fltk_awake_null_message()
 }
 
+func Wait() {
+	C.go_fltk_wait()
+}
+
 type timeoutMap struct {
 	mutex      sync.Mutex
 	timeoutMap map[uintptr]func()

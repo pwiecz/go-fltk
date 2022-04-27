@@ -37,6 +37,14 @@ int go_fltk_Widget_set_event_handler(Fl_Widget* w, int id) {
   wh->set_event_handler(id);
   return 1;
 }
+int go_fltk_Widget_set_resize_handler(Fl_Widget* w, uintptr_t id) {
+  WidgetWithResizeHandler* wh = dynamic_cast<WidgetWithResizeHandler*>(w);
+  if (wh == nullptr) {
+    return 0;
+  }
+  wh->set_resize_handler(id);
+  return 1;
+}
 void go_fltk_Widget_set_labelfont(Fl_Widget *w, int font) {
   w->labelfont((Fl_Font)font);
 }

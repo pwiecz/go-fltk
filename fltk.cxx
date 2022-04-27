@@ -102,7 +102,9 @@ void go_fltk_awake_null_message() {
 int go_fltk_awake(uintptr_t id) {
   return Fl::awake(awake_handler, (void*)id);
 }
-
+int go_fltk_wait() {
+  return Fl::wait();
+}
 void timeout_handler(void *data) {
   _go_timeoutHandler(uintptr_t(data));
 }
