@@ -14,6 +14,7 @@ extern "C" {
 
   extern Fl_Widget_Tracker* go_fltk_new_Widget_Tracker(Fl_Widget* t);
   extern Fl_Widget* go_fltk_Widget_Tracker_widget(Fl_Widget_Tracker* t);
+  extern void go_fltk_Widget_Tracker_delete(Fl_Widget_Tracker* t);
   extern int go_fltk_Widget_Tracker_exists(Fl_Widget_Tracker* t);
   extern void go_fltk_delete_widget(Fl_Widget *w);
   extern void go_fltk_Widget_set_box(Fl_Widget *w, int box);
@@ -24,6 +25,7 @@ extern "C" {
   extern void go_fltk_Widget_clear_visible_focus(Fl_Widget *w);
   extern void go_fltk_Widget_set_callback(Fl_Widget *w, uintptr_t id);
   extern int go_fltk_Widget_set_resize_handler(Fl_Widget* w, uintptr_t id);
+  extern int go_fltk_Widget_set_deletion_handler(Fl_Widget* w, uintptr_t id);
   extern void go_fltk_Widget_when(Fl_Widget* w, int when);
   extern int go_fltk_Widget_set_event_handler(Fl_Widget* w, int id);
   extern int go_fltk_Widget_x(Fl_Widget *w);

@@ -11,12 +11,23 @@ class WidgetWithResizeHandler {
 public:
   virtual void set_resize_handler(uintptr_t handlerId) = 0;
 };
+class WidgetWithDeletionHandler {
+public:
+  virtual void set_deletion_handler(uintptr_t handlerId) = 0;
+};
+
 template<class BaseWidget>
-class EventHandler : public BaseWidget, public WidgetWithEventHandler, public WidgetWithResizeHandler {
+class EventHandler : public BaseWidget, public WidgetWithEventHandler, public WidgetWithResizeHandler, public WidgetWithDeletionHandler {
 public:
   template<class... Arg>
   EventHandler(Arg... args)
     : BaseWidget(args...) {}
+
+  virtual ~EventHandler() {
+    if (m_deletionHandlerId >= 0) {
+      _go_callbackHandler(m_deletionHandlerId);
+    }
+  }
 
   int handle(int event) final {
     if (m_eventHandlerId >= 0) {
@@ -44,7 +55,12 @@ public:
     m_resizeHandlerId = handlerId;
   }
 
+  void set_deletion_handler(uintptr_t handlerId) final {
+    m_deletionHandlerId = handlerId;
+  }
+
 protected:
   int m_eventHandlerId = -1;
   uintptr_t m_resizeHandlerId = 0;
+  uintptr_t m_deletionHandlerId = 0;
 };

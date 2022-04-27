@@ -11,10 +11,11 @@ import (
 )
 
 type widget struct {
-	tracker        *C.Fl_Widget_Tracker
-	callbackId     uintptr
-	resizeHandlerId uintptr
-	eventHandlerId int
+	tracker           *C.Fl_Widget_Tracker
+	callbackId        uintptr
+	deletionHandlerId uintptr
+	resizeHandlerId   uintptr
+	eventHandlerId    int
 }
 
 type Widget interface {
@@ -24,7 +25,9 @@ type Widget interface {
 var ErrDestroyed = errors.New("widget is destroyed")
 
 func initWidget(w Widget, p unsafe.Pointer) {
-	w.getWidget().tracker = C.go_fltk_new_Widget_Tracker((*C.Fl_Widget)(p))
+	ww := w.getWidget()
+	ww.tracker = C.go_fltk_new_Widget_Tracker((*C.Fl_Widget)(p))
+	ww.setDeletionHandler(ww.onDelete)
 }
 
 func (w *widget) ptr() *C.Fl_Widget {
@@ -39,7 +42,35 @@ func (w *widget) exists() bool {
 	}
 	return C.go_fltk_Widget_Tracker_exists(w.tracker) == 1
 }
-
+func (w *widget) onDelete() {
+	if w.deletionHandlerId > 0 {
+		globalCallbackMap.unregister(w.deletionHandlerId)
+	}
+	w.deletionHandlerId = 0
+	if w.callbackId > 0 {
+		globalCallbackMap.unregister(w.callbackId)
+	}
+	w.callbackId = 0
+	if w.resizeHandlerId > 0 {
+		globalCallbackMap.unregister(w.resizeHandlerId)
+	}
+	w.resizeHandlerId = 0
+	if w.eventHandlerId > 0 {
+		globalEventHandlerMap.unregister(w.eventHandlerId)
+	}
+	w.eventHandlerId = 0
+	C.go_fltk_Widget_Tracker_delete(w.tracker)
+	w.tracker = nil
+}
+func (w *widget) setDeletionHandler(handler func()) {
+	if w.deletionHandlerId > 0 {
+		panic("duplicate deletion handler")
+	}
+	w.deletionHandlerId = globalCallbackMap.register(handler)
+	if C.go_fltk_Widget_set_deletion_handler(w.ptr(), C.uintptr_t(w.deletionHandlerId)) == 0 {
+		panic("this widget does not support deletion handling")
+	}
+}
 func (w *widget) SetCallback(f func()) {
 	if w.callbackId > 0 {
 		globalCallbackMap.unregister(w.callbackId)

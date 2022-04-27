@@ -16,6 +16,9 @@ Fl_Widget* go_fltk_Widget_Tracker_widget(Fl_Widget_Tracker* t) {
 int go_fltk_Widget_Tracker_exists(Fl_Widget_Tracker* t) {
   return t->exists();
 }
+void go_fltk_Widget_Tracker_delete(Fl_Widget_Tracker* t) {
+  delete t;
+}
 
 void go_fltk_delete_widget(Fl_Widget *w) {
   Fl::delete_widget(w);
@@ -25,6 +28,14 @@ void go_fltk_Widget_set_box(Fl_Widget *w, int box) {
 }
 void go_fltk_Widget_set_callback(Fl_Widget *w, uintptr_t id) {
   w->callback(callback_handler, (void*)id);
+}
+int go_fltk_Widget_set_deletion_handler(Fl_Widget* w, uintptr_t id) {
+  WidgetWithDeletionHandler* wh = dynamic_cast<WidgetWithDeletionHandler*>(w);
+  if (wh == nullptr) {
+    return 0;
+  }
+  wh->set_deletion_handler(id);
+  return 1;
 }
 void go_fltk_Widget_when(Fl_Widget* w, int when) {
   w->when(when);
