@@ -27,7 +27,7 @@ var ErrDestroyed = errors.New("widget is destroyed")
 func initWidget(w Widget, p unsafe.Pointer) {
 	ww := w.getWidget()
 	ww.tracker = C.go_fltk_new_Widget_Tracker((*C.Fl_Widget)(p))
-	ww.setDeletionHandler(ww.onDelete)
+	ww.deletionHandlerId = ww.addDeletionHandler(ww.onDelete)
 }
 
 func (w *widget) ptr() *C.Fl_Widget {
@@ -42,34 +42,12 @@ func (w *widget) exists() bool {
 	}
 	return C.go_fltk_Widget_Tracker_exists(w.tracker) == 1
 }
-func (w *widget) onDelete() {
-	if w.deletionHandlerId > 0 {
-		globalCallbackMap.unregister(w.deletionHandlerId)
-	}
-	w.deletionHandlerId = 0
-	if w.callbackId > 0 {
-		globalCallbackMap.unregister(w.callbackId)
-	}
-	w.callbackId = 0
-	if w.resizeHandlerId > 0 {
-		globalCallbackMap.unregister(w.resizeHandlerId)
-	}
-	w.resizeHandlerId = 0
-	if w.eventHandlerId > 0 {
-		globalEventHandlerMap.unregister(w.eventHandlerId)
-	}
-	w.eventHandlerId = 0
-	C.go_fltk_Widget_Tracker_delete(w.tracker)
-	w.tracker = nil
-}
-func (w *widget) setDeletionHandler(handler func()) {
-	if w.deletionHandlerId > 0 {
-		panic("duplicate deletion handler")
-	}
-	w.deletionHandlerId = globalCallbackMap.register(handler)
-	if C.go_fltk_Widget_set_deletion_handler(w.ptr(), C.uintptr_t(w.deletionHandlerId)) == 0 {
+func (w *widget) addDeletionHandler(handler func()) uintptr {
+	deletionHandlerId := globalCallbackMap.register(handler)
+	if C.go_fltk_Widget_add_deletion_handler(w.ptr(), C.uintptr_t(deletionHandlerId)) == 0 {
 		panic("this widget does not support deletion handling")
 	}
+	return deletionHandlerId
 }
 func (w *widget) SetCallback(f func()) {
 	if w.callbackId > 0 {
@@ -100,6 +78,26 @@ func (w *widget) SetResizeHandler(handler func()) {
 	}
 }
 func (w *widget) getWidget() *widget { return w }
+func (w *widget) onDelete() {
+	if w.deletionHandlerId > 0 {
+		globalCallbackMap.unregister(w.deletionHandlerId)
+	}
+	w.deletionHandlerId = 0
+	if w.callbackId > 0 {
+		globalCallbackMap.unregister(w.callbackId)
+	}
+	w.callbackId = 0
+	if w.resizeHandlerId > 0 {
+		globalCallbackMap.unregister(w.resizeHandlerId)
+	}
+	w.resizeHandlerId = 0
+	if w.eventHandlerId > 0 {
+		globalEventHandlerMap.unregister(w.eventHandlerId)
+	}
+	w.eventHandlerId = 0
+	C.go_fltk_Widget_Tracker_delete(w.tracker)
+	w.tracker = nil
+}
 func (w *widget) Destroy() {
 	if w.callbackId > 0 {
 		globalCallbackMap.unregister(w.callbackId)
@@ -152,8 +150,8 @@ func (w *widget) SetLabel(label string) {
 	defer C.free(unsafe.Pointer(labelStr))
 	C.go_fltk_Widget_set_label(w.ptr(), labelStr)
 }
-func (w *widget) SetImage(i Image)     { C.go_fltk_Widget_set_image(w.ptr(), i.getImage().ptr) }
-func (w *widget) SetDeimage(i Image)   { C.go_fltk_Widget_set_deimage(w.ptr(), i.getImage().ptr) }
+func (w *widget) SetImage(i Image)     { C.go_fltk_Widget_set_image(w.ptr(), i.getImage().ptr()) }
+func (w *widget) SetDeimage(i Image)   { C.go_fltk_Widget_set_deimage(w.ptr(), i.getImage().ptr()) }
 func (w *widget) Box() BoxType         { return BoxType(C.go_fltk_Widget_box(w.ptr())) }
 func (w *widget) LabelColor() Color    { return Color(C.go_fltk_Widget_labelcolor(w.ptr())) }
 func (w *widget) Align() Align         { return Align(C.go_fltk_Widget_align(w.ptr())) }
@@ -164,7 +162,7 @@ func (w *widget) LabelFont() Font      { return Font(C.go_fltk_Widget_labelfont(
 func (w *widget) LabelSize() int       { return int(C.go_fltk_Widget_labelsize(w.ptr())) }
 func (w *widget) LabelType() LabelType { return LabelType(C.go_fltk_Widget_labeltype(w.ptr())) }
 func (w *widget) Parent() *Group {
-	ptr := C.go_fltk_Widget_parent(w.ptr())
-	wid := widget{tracker: C.go_fltk_new_Widget_Tracker((*C.Fl_Widget)(ptr))}
-	return &Group{wid}
+	g := &Group{}
+	initWidget(g, unsafe.Pointer(C.go_fltk_Widget_parent(w.ptr())))
+	return g
 }

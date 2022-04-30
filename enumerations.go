@@ -131,10 +131,10 @@ var (
 type WrapMode int
 
 const (
-    WRAP_NONE      = WrapMode(0)
-    WRAP_AT_COLUMN = WrapMode(1)
-    WRAP_AT_PIXEL  = WrapMode(2)
-    WRAP_AT_BOUNDS = WrapMode(3)
+	WRAP_NONE      = WrapMode(0)
+	WRAP_AT_COLUMN = WrapMode(1)
+	WRAP_AT_PIXEL  = WrapMode(2)
+	WRAP_AT_BOUNDS = WrapMode(3)
 )
 
 type Event int
@@ -249,6 +249,17 @@ func (m *callbackMap) invoke(id uintptr) {
 		callback()
 	}
 }
+func (m *callbackMap) isEmpty() bool {
+	return len(m.callbackMap) == 0
+}
+func (m *callbackMap) size() int {
+	return len(m.callbackMap)
+}
+func (m *callbackMap) clear() {
+	for id, _ := range m.callbackMap {
+		delete(m.callbackMap, id)
+	}
+}
 
 var globalCallbackMap = newCallbackMap()
 
@@ -280,6 +291,17 @@ func (m *eventHandlerMap) invoke(id int, event Event) bool {
 		return handler(event)
 	}
 	return false
+}
+func (m *eventHandlerMap) isEmpty() bool {
+	return len(m.eventHandlerMap) == 0
+}
+func (m *eventHandlerMap) size() int {
+	return len(m.eventHandlerMap)
+}
+func (m *eventHandlerMap) clear() {
+	for id, _ := range m.eventHandlerMap {
+		delete(m.eventHandlerMap, id)
+	}
 }
 
 var globalEventHandlerMap = newEventHandlerMap()

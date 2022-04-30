@@ -5,36 +5,47 @@ package fltk
 #include "text.h"
 */
 import "C"
-import "unsafe"
+import (
+	"errors"
+	"unsafe"
+)
 
 type TextBuffer struct {
-	ptr *C.Fl_Text_Buffer
+	cPtr *C.Fl_Text_Buffer
 }
+
+var ErrTextBufferDestroyed = errors.New("text buffer is destroyed")
 
 func NewTextBuffer() *TextBuffer {
 	ptr := C.go_fltk_new_TextBuffer()
 	return &TextBuffer{ptr}
 }
 
+func (b *TextBuffer) ptr() *C.Fl_Text_Buffer {
+	if b.cPtr == nil {
+		panic(ErrTextBufferDestroyed)
+	}
+	return b.cPtr
+}
 func (b *TextBuffer) Destroy() {
-	C.go_fltk_TextBuffer_delete(b.ptr)
-	b.ptr = nil
+	C.go_fltk_TextBuffer_delete(b.ptr())
+	b.cPtr = nil
 }
 
 func (b *TextBuffer) SetText(txt string) {
 	txtstr := C.CString(txt)
 	defer C.free(unsafe.Pointer(txtstr))
-	C.go_fltk_TextBuffer_set_text(b.ptr, txtstr)
+	C.go_fltk_TextBuffer_set_text(b.ptr(), txtstr)
 }
 
 func (b *TextBuffer) Append(txt string) {
 	txtstr := C.CString(txt)
 	defer C.free(unsafe.Pointer(txtstr))
-	C.go_fltk_TextBuffer_append(b.ptr, txtstr)
+	C.go_fltk_TextBuffer_append(b.ptr(), txtstr)
 }
 
 func (b *TextBuffer) Text() string {
-	return C.GoString(C.go_fltk_TextBuffer_text(b.ptr))
+	return C.GoString(C.go_fltk_TextBuffer_text(b.ptr()))
 }
 
 type TextDisplay struct {
@@ -48,7 +59,7 @@ func NewTextDisplay(x, y, w, h int, text ...string) *TextDisplay {
 }
 
 func (t *TextDisplay) SetBuffer(buf *TextBuffer) {
-	C.go_fltk_TextDisplay_set_buffer((*C.GText_Display)(t.ptr()), buf.ptr)
+	C.go_fltk_TextDisplay_set_buffer((*C.GText_Display)(t.ptr()), buf.ptr())
 }
 
 // wrapMargin is not needed if WrapMode is WRAP_NONE or WRAP_AT_BOUNDS

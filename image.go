@@ -11,38 +11,44 @@ import (
 )
 
 type image struct {
-	ptr *C.Fl_Image
+	iPtr *C.Fl_Image
 }
 
 type Image interface {
 	getImage() *image
 }
 
+var ErrImageDestroyed = errors.New("image is destroyed")
+
 func (i *image) getImage() *image { return i }
+func (i *image) ptr() *C.Fl_Image {
+	if i.iPtr == nil {
+		panic(ErrImageDestroyed)
+	}
+	return i.iPtr
+}
 
 func initImage(i Image, p unsafe.Pointer) {
-	i.getImage().ptr = (*C.Fl_Image)(p)
+	i.getImage().iPtr = (*C.Fl_Image)(p)
 }
 
 func (i *image) Destroy() {
-	if i.ptr != nil {
-		C.go_fltk_image_delete(i.ptr)
-	}
-	i.ptr = nil
+	C.go_fltk_image_delete(i.ptr())
+	i.iPtr = nil
 }
 
 func (i *image) Draw(x, y, w, h int) {
-	C.go_fltk_image_draw(i.ptr, C.int(x), C.int(y), C.int(w), C.int(h))
+	C.go_fltk_image_draw(i.ptr(), C.int(x), C.int(y), C.int(w), C.int(h))
 }
 
 func (i *image) W() int {
-	return int(C.go_fltk_image_w(i.ptr))
+	return int(C.go_fltk_image_w(i.ptr()))
 }
 func (i *image) H() int {
-	return int(C.go_fltk_image_h(i.ptr))
+	return int(C.go_fltk_image_h(i.ptr()))
 }
 func (i *image) Count() int {
-	return int(C.go_fltk_image_count(i.ptr))
+	return int(C.go_fltk_image_count(i.ptr()))
 }
 func (i *image) Scale(width int, height int, proportional bool, can_expand bool) {
 	prop := 0
@@ -53,25 +59,25 @@ func (i *image) Scale(width int, height int, proportional bool, can_expand bool)
 	if can_expand {
 		expand = 1
 	}
-	C.go_fltk_image_scale(i.ptr, C.int(width), C.int(height), C.int(prop), C.int(expand))
+	C.go_fltk_image_scale(i.ptr(), C.int(width), C.int(height), C.int(prop), C.int(expand))
 }
 func (i *image) fail() int {
-	return int(C.go_fltk_image_fail(i.ptr))
+	return int(C.go_fltk_image_fail(i.ptr()))
 }
 func (i *image) DataW() int {
-	return int(C.go_fltk_image_data_w(i.ptr))
+	return int(C.go_fltk_image_data_w(i.ptr()))
 }
 func (i *image) DataH() int {
-	return int(C.go_fltk_image_data_h(i.ptr))
+	return int(C.go_fltk_image_data_h(i.ptr()))
 }
 func (i *image) D() int {
-	return int(C.go_fltk_image_d(i.ptr))
+	return int(C.go_fltk_image_d(i.ptr()))
 }
 func (i *image) Ld() int {
-	return int(C.go_fltk_image_ld(i.ptr))
+	return int(C.go_fltk_image_ld(i.ptr()))
 }
 func (i *image) Inactive() {
-	C.go_fltk_image_inactive(i.ptr)
+	C.go_fltk_image_inactive(i.ptr())
 }
 
 func image_error(val int) error {
@@ -201,7 +207,7 @@ func NewSharedImageLoad(path string) (*SharedImage, error) {
 	defer C.free(unsafe.Pointer(fileStr))
 	img := &SharedImage{}
 	initImage(img, unsafe.Pointer(C.go_fltk_shared_image_load(fileStr)))
-	if img.ptr == nil {
+	if img.iPtr == nil {
 		return nil, errors.New("Shared Image initialization error")
 	}
 	return img, image_error(img.fail())

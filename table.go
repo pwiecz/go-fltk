@@ -77,6 +77,7 @@ func (t *table) SetTopRow(row int) {
 
 type TableRow struct {
 	table
+	deletionHandlerId  uintptr
 	drawCellCallbackId int
 }
 
@@ -106,6 +107,17 @@ func (m *tableCallbackMap) invoke(id int, context TableContext, r, c, x, y, w, h
 		callback(context, r, c, x, y, w, h)
 	}
 }
+func (m *tableCallbackMap) isEmpty() bool {
+	return len(m.callbackMap) == 0
+}
+func (m *tableCallbackMap) size() int {
+	return len(m.callbackMap)
+}
+func (m *tableCallbackMap) clear() {
+	for id, _ := range m.callbackMap {
+		delete(m.callbackMap, id)
+	}
+}
 
 var globalTableCallbackMap = newTableCallbackMap()
 
@@ -123,11 +135,22 @@ var (
 )
 
 func NewTableRow(x, y, w, h int) *TableRow {
-	i := &TableRow{}
-	initWidget(i, unsafe.Pointer(C.go_fltk_new_TableRow(C.int(x), C.int(y), C.int(w), C.int(h))))
-	return i
+	t := &TableRow{}
+	initWidget(t, unsafe.Pointer(C.go_fltk_new_TableRow(C.int(x), C.int(y), C.int(w), C.int(h))))
+	t.deletionHandlerId = t.addDeletionHandler(t.onDelete)
+	return t
 }
 
+func (t *TableRow) onDelete() {
+	if t.deletionHandlerId > 0 {
+		globalCallbackMap.unregister(t.deletionHandlerId)
+	}
+	t.deletionHandlerId = 0
+	if t.drawCellCallbackId > 0 {
+		globalTableCallbackMap.unregister(t.drawCellCallbackId)
+	}
+	t.drawCellCallbackId = 0
+}
 func (t *TableRow) Destroy() {
 	if t.drawCellCallbackId > 0 {
 		globalTableCallbackMap.unregister(t.drawCellCallbackId)

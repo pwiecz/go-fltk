@@ -2,6 +2,8 @@
 
 #include "_cgo_export.h"
 
+#include <vector>
+
 
 class WidgetWithEventHandler {
 public:
@@ -13,7 +15,7 @@ public:
 };
 class WidgetWithDeletionHandler {
 public:
-  virtual void set_deletion_handler(uintptr_t handlerId) = 0;
+  virtual void add_deletion_handler(uintptr_t handlerId) = 0;
 };
 
 template<class BaseWidget>
@@ -24,8 +26,8 @@ public:
     : BaseWidget(args...) {}
 
   virtual ~EventHandler() {
-    if (m_deletionHandlerId >= 0) {
-      _go_callbackHandler(m_deletionHandlerId);
+    for (uintptr_t deletionHandlerId : m_deletionHandlerIds) {
+      _go_callbackHandler(deletionHandlerId);
     }
   }
 
@@ -55,12 +57,12 @@ public:
     m_resizeHandlerId = handlerId;
   }
 
-  void set_deletion_handler(uintptr_t handlerId) final {
-    m_deletionHandlerId = handlerId;
+  void add_deletion_handler(uintptr_t handlerId) final {
+    m_deletionHandlerIds.push_back(handlerId);
   }
 
 protected:
   int m_eventHandlerId = -1;
   uintptr_t m_resizeHandlerId = 0;
-  uintptr_t m_deletionHandlerId = 0;
+  std::vector<uintptr_t> m_deletionHandlerIds;
 };

@@ -29,12 +29,12 @@ void go_fltk_Widget_set_box(Fl_Widget *w, int box) {
 void go_fltk_Widget_set_callback(Fl_Widget *w, uintptr_t id) {
   w->callback(callback_handler, (void*)id);
 }
-int go_fltk_Widget_set_deletion_handler(Fl_Widget* w, uintptr_t id) {
+int go_fltk_Widget_add_deletion_handler(Fl_Widget* w, uintptr_t id) {
   WidgetWithDeletionHandler* wh = dynamic_cast<WidgetWithDeletionHandler*>(w);
   if (wh == nullptr) {
     return 0;
   }
-  wh->set_deletion_handler(id);
+  wh->add_deletion_handler(id);
   return 1;
 }
 void go_fltk_Widget_when(Fl_Widget* w, int when) {
