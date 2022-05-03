@@ -27,6 +27,9 @@ extern "C" {
   extern void go_fltk_Table_get_selection(Fl_Table* t, int* top, int* left, int* bottom, int* right);
   extern void go_fltk_Table_visible_cells(Fl_Table* t, int* top, int* bottom, int* left, int* right);
   extern void go_fltk_Table_set_top_row(Fl_Table* t, int row);
+  extern int go_fltk_Table_scrollbar_size(Fl_Table* t);
+  extern void go_fltk_Table_set_scrollbar_size(Fl_Table* t, int size);
+
   extern int go_fltk_TableRow_row_selected(GTableRow* t, int row);
   extern void go_fltk_TableRow_set_draw_cell_callback(GTableRow* t, int drawCellCallback);
   extern void go_fltk_TableRow_set_event_handler(GTableRow* t, int eventHandler);

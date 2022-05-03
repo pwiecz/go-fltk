@@ -40,6 +40,9 @@ extern "C" {
   extern void go_fltk_set_screen_scale(int screenNum, float scale);
   extern void go_fltk_set_keyboard_screen_scaling(int value);
 
+  extern int go_fltk_scrollbar_size();
+  extern void go_fltk_set_scrollbar_size(int size);
+
 #ifdef __cplusplus
 }
 #endif

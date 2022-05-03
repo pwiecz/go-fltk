@@ -74,6 +74,12 @@ func (t *table) VisibleCells() (int, int, int, int) {
 func (t *table) SetTopRow(row int) {
 	C.go_fltk_Table_set_top_row((*C.Fl_Table)(t.ptr()), C.int(row))
 }
+func (t *table) ScrollbarSize() int {
+	return int(C.go_fltk_Table_scrollbar_size((*C.Fl_Table)(t.ptr())))
+}
+func (t *table) SetScrollbarSize(size int) {
+	C.go_fltk_Table_set_scrollbar_size((*C.Fl_Table)(t.ptr()), C.int(size))
+}
 
 type TableRow struct {
 	table

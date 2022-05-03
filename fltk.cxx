@@ -142,3 +142,10 @@ void go_fltk_set_screen_scale(int screenNum, float scale) {
 void go_fltk_set_keyboard_screen_scaling(int value) {
   Fl::keyboard_screen_scaling(value);
 }
+
+int go_fltk_scrollbar_size() {
+  return Fl::scrollbar_size();
+}
+void go_fltk_set_scrollbar_size(int size) {
+  Fl::scrollbar_size(size);
+}

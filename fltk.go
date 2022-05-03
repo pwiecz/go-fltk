@@ -244,6 +244,12 @@ func SetKeyboardScreenScaling(value bool) {
 		C.go_fltk_set_keyboard_screen_scaling(0)
 	}
 }
+func ScrollbarSize() int {
+	return int(C.go_fltk_scrollbar_size())
+}
+func SetScrollbarSize(size int) {
+	C.go_fltk_set_scrollbar_size(C.int(size))
+}
 
 // Couldn't figure out how to export a func array...
 // For now, just gonna hide it at the bottom of the file and pretend it

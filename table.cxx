@@ -101,6 +101,12 @@ void go_fltk_Table_visible_cells(Fl_Table* t, int* top, int* bottom, int* left, 
 void go_fltk_Table_set_top_row(Fl_Table* t, int row) {
   t->top_row(row);
 }
+int go_fltk_Table_scrollbar_size(Fl_Table* t) {
+  return t->scrollbar_size();
+}
+void go_fltk_Table_set_scrollbar_size(Fl_Table* t, int size) {
+  t->scrollbar_size(size);
+}
 
 const int go_FL_CONTEXT_NONE = (int)Fl_Table::CONTEXT_NONE;
 const int go_FL_CONTEXT_STARTPAGE = (int)Fl_Table::CONTEXT_STARTPAGE;
