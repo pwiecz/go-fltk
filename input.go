@@ -28,3 +28,23 @@ func (i *Input) SetValue(value string) bool {
 func (i *Input) Resize(x int, y int, w int, h int) {
 	C.go_fltk_Input_resize((*C.GInput)(i.ptr()), C.int(x), C.int(y), C.int(w), C.int(h))
 }
+
+type Output struct {
+	Input
+}
+
+func NewOutput(x, y, w, h int, text ...string) *Output {
+	i := &Output{}
+	initWidget(i, unsafe.Pointer(C.go_fltk_new_Output(C.int(x), C.int(y), C.int(w), C.int(h), cStringOpt(text))))
+	return i
+}
+
+type FloatInput struct {
+	Input
+}
+
+func NewFloatInput(x, y, w, h int, text ...string) *FloatInput {
+	i := &FloatInput{}
+	initWidget(i, unsafe.Pointer(C.go_fltk_new_Float_Input(C.int(x), C.int(y), C.int(w), C.int(h), cStringOpt(text))))
+	return i
+}

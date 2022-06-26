@@ -66,7 +66,7 @@ const (
 	OVAL_BOX               = BoxType(26)
 	OSHADOW_BOX            = BoxType(27)
 	OVAL_FRAME             = BoxType(28)
-	OFLAT_FRAME            = BoxType(29)
+	OFLAT_BOX              = BoxType(29)
 	PLASTIC_UP_BOX         = BoxType(30)
 	PLASTIC_DOWN_BOX       = BoxType(31)
 	PLASTIC_UP_FRAME       = BoxType(32)

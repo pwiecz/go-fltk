@@ -33,3 +33,10 @@ void go_fltk_Value_Slider_set_textfont(GValue_Slider* slider, int font) {
 void go_fltk_Value_Slider_set_textsize(GValue_Slider* slider, int size) {
   slider->textsize(size);
 }
+
+const unsigned char go_FL_VERT_SLIDER = FL_VERT_SLIDER;
+const unsigned char go_FL_HOR_SLIDER = FL_HOR_SLIDER;
+const unsigned char go_FL_VERT_FILL_SLIDER = FL_VERT_FILL_SLIDER;
+const unsigned char go_FL_HOR_FILL_SLIDER = FL_HOR_FILL_SLIDER;
+const unsigned char go_FL_VERT_NICE_SLIDER = FL_VERT_NICE_SLIDER;
+const unsigned char go_FL_HOR_NICE_SLIDER = FL_HOR_NICE_SLIDER;
