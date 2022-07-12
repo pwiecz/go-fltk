@@ -90,7 +90,7 @@ func main() {
 	btn.SetColor(BLUE)
 	btn.SetSelectionColor(SEL_BLUE)
 	btn.SetLabelColor(255)
-	btn.SetBox(fltk.OFLAT_BOX)
+	btn.SetBox(fltk.OFLAT_FRAME)
 	btn.ClearVisibleFocus()
 	btn.SetCallback(func() {
 		curr += 1

@@ -15,6 +15,7 @@ type widget struct {
 	callbackId        uintptr
 	deletionHandlerId uintptr
 	resizeHandlerId   uintptr
+	drawHandlerId     uintptr
 	eventHandlerId    int
 }
 
@@ -77,6 +78,15 @@ func (w *widget) SetResizeHandler(handler func()) {
 		panic("this widget does not support resize handling")
 	}
 }
+func (w *widget) SetDrawHandler(handler func()) {
+	if w.drawHandlerId > 0 {
+		globalCallbackMap.unregister(w.drawHandlerId)
+	}
+	w.drawHandlerId = globalCallbackMap.register(handler)
+	if C.go_fltk_Widget_set_draw_handler(w.ptr(), C.uintptr_t(w.drawHandlerId)) == 0 {
+		panic("this widget does not support custom drawing")
+	}
+}
 func (w *widget) getWidget() *widget { return w }
 func (w *widget) onDelete() {
 	if w.deletionHandlerId > 0 {
@@ -91,6 +101,10 @@ func (w *widget) onDelete() {
 		globalCallbackMap.unregister(w.resizeHandlerId)
 	}
 	w.resizeHandlerId = 0
+	if w.drawHandlerId > 0 {
+		globalCallbackMap.unregister(w.drawHandlerId)
+	}
+	w.drawHandlerId = 0
 	if w.eventHandlerId > 0 {
 		globalEventHandlerMap.unregister(w.eventHandlerId)
 	}
@@ -107,6 +121,10 @@ func (w *widget) Destroy() {
 		globalCallbackMap.unregister(w.resizeHandlerId)
 	}
 	w.resizeHandlerId = 0
+	if w.drawHandlerId > 0 {
+		globalCallbackMap.unregister(w.drawHandlerId)
+	}
+	w.drawHandlerId = 0
 	if w.eventHandlerId > 0 {
 		globalEventHandlerMap.unregister(w.eventHandlerId)
 	}
