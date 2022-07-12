@@ -84,7 +84,7 @@ func (w *widget) SetDrawHandler(handler func()) {
 	}
 	w.drawHandlerId = globalCallbackMap.register(handler)
 	if C.go_fltk_Widget_set_draw_handler(w.ptr(), C.uintptr_t(w.drawHandlerId)) == 0 {
-		panic("this widget does not support resize handling")
+		panic("this widget does not support custom drawing")
 	}
 }
 func (w *widget) getWidget() *widget { return w }
