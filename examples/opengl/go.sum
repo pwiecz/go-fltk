@@ -1,4 +1,4 @@
 github.com/go-gl/gl v0.0.0-20211210172815-726fda9656d6 h1:zDw5v7qm4yH7N8C8uWd+8Ii9rROdgWxQuGoJ9WDXxfk=
 github.com/go-gl/gl v0.0.0-20211210172815-726fda9656d6/go.mod h1:9YTyiznxEY1fVinfM7RvRcjRHbw2xLBJ3AAGIT0I4Nw=
-github.com/pwiecz/go-fltk v0.0.0-20220327082103-404ba76f8fb2 h1:AGW+3nZuanhZhMlhLSZ2DLquGU5Xn+XE2bSqKQkVmoo=
-github.com/pwiecz/go-fltk v0.0.0-20220327082103-404ba76f8fb2/go.mod h1:uMK5daOr9p+ba2BPs5QadbfaqqrHR5TGj13yWGsAsmw=
+github.com/pwiecz/go-fltk v0.0.0-20220723095549-2020b5635372 h1:HU+jfecrJQmFEYFiHQExT0sKuOvHcGaucXrYh5+SM3A=
+github.com/pwiecz/go-fltk v0.0.0-20220723095549-2020b5635372/go.mod h1:uMK5daOr9p+ba2BPs5QadbfaqqrHR5TGj13yWGsAsmw=
