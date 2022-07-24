@@ -142,10 +142,25 @@ public:
    \see Fl_Text_Display::highlight_data()
    */
   struct Style_Table_Entry {
-    Fl_Color    color;  ///< text color
-    Fl_Font     font;   ///< text font
-    Fl_Fontsize size;   ///< text font size
-    unsigned    attr;   ///< currently unused (this may be changed in the future)
+    Fl_Color    color;    ///< text color
+    Fl_Font     font;     ///< text font
+    Fl_Fontsize size;     ///< text font size
+    unsigned    attr;     ///< further attributes for the text style (see `ATTR_BGCOLOR`, etc.)
+    Fl_Color    bgcolor;  ///< text background color if `ATTR_BGCOLOR` or `ATTR_BGCOLOR_EXT` is set
+  };
+
+  /**
+   attribute flags in `Style_Table_Entry.attr`
+   */
+  enum {
+    ATTR_BGCOLOR        = 0x0001, ///< use the background color in the `bgcolor` field
+    ATTR_BGCOLOR_EXT_   = 0x0002, ///< (internal use)
+    ATTR_BGCOLOR_EXT    = 0x0003, ///< extend background color to the end of the line
+    ATTR_UNDERLINE      = 0x0004, ///< a single underline, underline types are mutually exclusive
+    ATTR_GRAMMAR        = 0x0008, ///< grammar suggestion (blue dotted underline)
+    ATTR_SPELLING       = 0x000C, ///< spelling suggestion (red dotted underline)
+    ATTR_STRIKE_THROUGH = 0x0010, ///< line through the middle of the text
+    ATTR_LINES_MASK     = 0x001C, ///< the mask for all underline and strike through types
   };
 
   Fl_Text_Display(int X, int Y, int W, int H, const char *l = 0);
@@ -376,6 +391,42 @@ public:
    */
   void textcolor(Fl_Color n) {textcolor_ = n;}
 
+  /**
+   Sets the underline color for style attribute ATTR_GRAMMAR.
+   \param color underline color
+   */
+  void grammar_underline_color(Fl_Color color) { grammar_underline_color_ = color; }
+
+  /**
+   Gets the underline color for style attribute ATTR_GRAMMAR.
+   \return underline color
+   */
+  Fl_Color grammar_underline_color() const { return grammar_underline_color_;}
+
+  /**
+   Sets the underline color for style attribute ATTR_SPELLING.
+   \param color underline color
+   */
+  void spelling_underline_color(Fl_Color color) { spelling_underline_color_ = color; }
+
+  /**
+   Gets the underline color for style attribute ATTR_SPELLING.
+   \return underline color
+   */
+  Fl_Color spelling_underline_color() const { return spelling_underline_color_;}
+
+  /**
+   Sets the background color for the secondary selection block.
+   \param color background color
+   */
+  void secondary_selection_color(Fl_Color color) { secondary_selection_color_ = color; }
+
+  /**
+   Gets the background color for the secondary selection block.
+   \return background color color
+   */
+  Fl_Color secondary_selection_color() const { return secondary_selection_color_;}
+
   int wrapped_column(int row, int column) const;
   int wrapped_row(int row) const;
   void wrap_mode(int wrap, int wrap_margin);
@@ -589,6 +640,9 @@ protected:
   Fl_Font textfont_;
   Fl_Fontsize textsize_;
   Fl_Color textcolor_;
+  Fl_Color grammar_underline_color_;
+  Fl_Color spelling_underline_color_;
+  Fl_Color secondary_selection_color_;
 
   // Line number margin and width
   int mLineNumLeft, mLineNumWidth;

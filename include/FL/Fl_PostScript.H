@@ -40,14 +40,14 @@ class Fl_PostScript_Graphics_Driver;
  This class is used exactly as the Fl_Printer class except for the begin_job() call,
  two variants of which are usable and allow to specify what page format and layout are desired.
 
- <b>Processing of text</b>: Text uses vectorial fonts under the X11 + pango platform.
+ <b>Processing of text</b>: Text uses vectorial fonts under the X11 + Pango and the Wayland platforms.
  With other platforms, only text restricted to the Latin alphabet (and a few other characters
  listed in the table below) and to FLTK standard fonts is vectorized.  All other unicode characters
  or all other fonts (FL_FREE_FONT and above) are output as a bitmap.
  FLTK standard fonts are output using the corresponding PostScript standard fonts.
  The latin alphabet means all unicode characters between U+0020 and U+017F, or, in other words,
  the ASCII, Latin-1 Supplement and Latin Extended-A charts.
- <br><b>Processing of transparent Fl_RGB_Image objects</b>: Under the X11 + pango platform,
+ <br><b>Processing of transparent Fl_RGB_Image objects</b>: Under the X11 + Pango and the Wayland platforms,
  these objects are output with their exact transparency. With other platforms, these objects
  are drawn blended to white color. Class Fl_EPS_File_Surface 's constructor allows to set another
  background color for blending.
@@ -71,6 +71,10 @@ class Fl_PostScript_Graphics_Driver;
 
  */
 class FL_EXPORT Fl_PostScript_File_Device : public Fl_Paged_Device {
+private:
+  // memorize the display's current font to restore it when the object ceases being current
+  Fl_Font display_font_;
+  Fl_Fontsize display_size_;
 protected:
   /**
    \brief Returns the PostScript driver of this drawing surface.
@@ -139,6 +143,8 @@ public:
   FILE *file();
   /** Sets the function end_job() calls to close the file() */
   void close_command(Fl_PostScript_Close_Command cmd);
+  virtual void set_current();
+  virtual void end_current();
 };
 
 /** Encapsulated PostScript drawing surface.
