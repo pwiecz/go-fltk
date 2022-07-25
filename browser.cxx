@@ -10,14 +10,14 @@
 //  add()
 //  bottomline()
 //  clear()
+//  column_char()
+//  format_char()
 
 // TODO:
-//  column_char()
 //  column_widths()
 //  data() Need to implement the data in general when creating the widget
 //  display()
 //  displayed()
-//  format_char()
 //  hide()
 //  icon()
 //  insert()
@@ -43,4 +43,38 @@ void go_fltk_Browser_bottomline(GBrowser *b, int i) {
 
 void go_fltk_Browser_clear(GBrowser *b) {
 	b->clear();
+}
+
+void go_fltk_Browser_remove(GBrowser *b, int i) {
+	b->remove(i);
+}
+
+char go_fltk_Browser_column_char(GBrowser *b) {
+	return b->column_char();
+}
+
+void go_fltk_Browser_set_column_char(GBrowser *b, char c) {
+	b->column_char(c);
+}
+
+/*
+void go_fltk_Browser_hide_line(GBrowser *b, int line) {
+	b->hide(line);
+}
+
+Fl_Image* go_fltk_Browser_icon(GBrowser *b, int line) {
+	return b->icon();
+}
+*/
+
+char go_fltk_Browser_format_char(GBrowser *b) {
+	return b->format_char();
+}
+
+void go_fltk_Browser_set_format_char(GBrowser *b, char c) {
+	b->format_char(c);
+}
+
+int go_fltk_Browser_displayed(GBrowser *b, int line) {
+	return b->displayed(line);
 }
