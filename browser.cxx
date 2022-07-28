@@ -12,14 +12,14 @@
 //  clear()
 //  column_char()
 //  format_char()
+//  icon()
+//  displayed()
 
 // TODO:
 //  column_widths()
 //  data() Need to implement the data in general when creating the widget
 //  display()
-//  displayed()
 //  hide()
-//  icon()
 //  insert()
 
 
@@ -61,11 +61,15 @@ void go_fltk_Browser_set_column_char(GBrowser *b, char c) {
 void go_fltk_Browser_hide_line(GBrowser *b, int line) {
 	b->hide(line);
 }
+*/
 
 Fl_Image* go_fltk_Browser_icon(GBrowser *b, int line) {
-	return b->icon();
+	return b->icon(line);
 }
-*/
+
+void go_fltk_Browser_set_icon(GBrowser *b, int line, Fl_Image *i) {
+	b->icon(line, i);
+}
 
 char go_fltk_Browser_format_char(GBrowser *b) {
 	return b->format_char();
