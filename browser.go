@@ -6,7 +6,6 @@ package fltk
 */
 import "C"
 import "unsafe"
-import "fmt"
 
 type Browser struct {
 	widget
@@ -58,7 +57,6 @@ func (b *Browser) HideLine(line int) {
 */
 
 func (b *Browser) Icon(line int) Image {
-		fmt.Println(b.icons)
 	return b.icons[line]
 }
 
