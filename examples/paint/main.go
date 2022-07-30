@@ -6,7 +6,7 @@ import (
 
 func main() {
 	win := fltk.NewWindow(800, 600)
-	box := fltk.NewBox(fltk.DOWN_BOX, 3, 3, 800-6, 600-6)
+	box := fltk.NewBox(fltk.NO_BOX, 3, 3, 800-6, 600-6)
 	box.SetColor(fltk.WHITE)
 	win.End()
 	win.Show()
@@ -19,10 +19,7 @@ func main() {
 	offs.End()
 
 	box.SetDrawHandler(func() {
-		if offs.IsValid() {
-			offs.Rescale()
-			offs.Copy(3, 3, box.W(), box.H(), 0, 0)
-		}
+		offs.Copy(3, 3, box.W(), box.H(), 0, 0)
 	})
 
 	x := 0
@@ -55,7 +52,7 @@ func main() {
 			fltk.SetLineStyle(fltk.Solid, 0)
 			return true
 		default:
-			return true
+			return false
 		}
 	})
 

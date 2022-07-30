@@ -172,18 +172,18 @@ func DrawCheck(x, y, w, h int, col Color) {
 }
 
 type Offscreen struct {
-	inner *C.GOffscreen
+	oPtr *C.GOffscreen
 }
 
 func NewOffscreen(w, h int) *Offscreen {
 	o := &Offscreen{
-		inner: C.go_fltk_create_offscreen(C.int(w), C.int(h)),
+		oPtr: C.go_fltk_create_offscreen(C.int(w), C.int(h)),
 	}
 	return o
 }
 
 func (offs *Offscreen) Begin() {
-	C.go_fltk_begin_offscreen(offs.inner)
+	C.go_fltk_begin_offscreen(offs.oPtr)
 }
 
 func (offs *Offscreen) End() {
@@ -191,17 +191,17 @@ func (offs *Offscreen) End() {
 }
 
 func (offs *Offscreen) Rescale() {
-	C.go_fltk_rescale_offscreen(&offs.inner)
+	C.go_fltk_rescale_offscreen(&offs.oPtr)
 }
 
 func (offs *Offscreen) Delete() {
-	C.go_fltk_delete_offscreen(offs.inner)
+	C.go_fltk_delete_offscreen(offs.oPtr)
 }
 
 func (offs *Offscreen) IsValid() bool {
-	return offs.inner != nil
+	return offs.oPtr != nil
 }
 
 func (offs *Offscreen) Copy(x, y, w, h, srcx, srcy int) {
-	C.go_fltk_copy_offscreen(C.int(x), C.int(y), C.int(w), C.int(h), offs.inner, C.int(srcx), C.int(srcy))
+	C.go_fltk_copy_offscreen(C.int(x), C.int(y), C.int(w), C.int(h), offs.oPtr, C.int(srcx), C.int(srcy))
 }
