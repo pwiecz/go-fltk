@@ -1,4 +1,4 @@
-name: Go
+name: Check
 
 on:
   push:
@@ -12,7 +12,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [windows-latest, macos-11, ubuntu-18.04]
+        os: [windows-latest, macos-latest, ubuntu-latest]
     
     steps:
     - uses: actions/checkout@v3
