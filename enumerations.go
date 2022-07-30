@@ -226,6 +226,33 @@ var (
 	WHITE             = Color(C.go_FL_WHITE)
 )
 
+type LineStyle int
+
+var (
+	/// Solid line
+	Solid = LineStyle(0)
+	/// Dash
+	Dash = LineStyle(1)
+	/// Dot
+	Dot = LineStyle(2)
+	/// Dash dot
+	DashDot = LineStyle(3)
+	/// Dash dot dot
+	DashDotDot = LineStyle(4)
+	/// Cap flat
+	CapFlat = LineStyle(100)
+	/// Cap round
+	CapRound = LineStyle(200)
+	/// Cap square
+	CapSquare = LineStyle(300)
+	/// Join miter
+	JoinMiter = LineStyle(1000)
+	/// Join round
+	JoinRound = LineStyle(2000)
+	/// Join bevel
+	JoinBevel = LineStyle(3000)
+)
+
 type callbackMap struct {
 	callbackMap map[uintptr]func()
 	id          uintptr
