@@ -38,7 +38,7 @@ func PopClip() {
 	C.go_fltk_pop_clip()
 }
 
-func Point(x, y int) {
+func DrawPoint(x, y int) {
 	C.go_fltk_point(C.int(x), C.int(y))
 }
 
@@ -182,22 +182,26 @@ func NewOffscreen(w, h int) *Offscreen {
 	return o
 }
 
-func (offs *Offscreen) begin() {
+func (offs *Offscreen) Begin() {
 	C.go_fltk_begin_offscreen(offs.inner)
 }
 
-func (offs *Offscreen) end() {
+func (offs *Offscreen) End() {
 	C.go_fltk_end_offscreen()
 }
 
-func (offs *Offscreen) rescale() {
+func (offs *Offscreen) Rescale() {
 	C.go_fltk_rescale_offscreen(&offs.inner)
 }
 
-func (offs *Offscreen) delete() {
+func (offs *Offscreen) Delete() {
 	C.go_fltk_delete_offscreen(offs.inner)
 }
 
-func (offs *Offscreen) copy(x, y, w, h, srcx, srcy int) {
+func (offs *Offscreen) IsValid() bool {
+	return offs.inner != nil
+}
+
+func (offs *Offscreen) Copy(x, y, w, h, srcx, srcy int) {
 	C.go_fltk_copy_offscreen(C.int(x), C.int(y), C.int(w), C.int(h), offs.inner, C.int(srcx), C.int(srcy))
 }

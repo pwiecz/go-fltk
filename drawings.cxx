@@ -1,6 +1,7 @@
 #include "drawings.h"
 
 #include <FL/fl_draw.H>
+#include <FL/platform.H>
 #include <FL/Enumerations.H>
 
 
@@ -423,6 +424,7 @@ void go_fltk_copy_offscreen(int x, int y, int w, int h, GOffscreen *pixmap, int 
 }
 
 GOffscreen *go_fltk_create_offscreen(int w, int h) {
+    fl_open_display();
     return (GOffscreen *)fl_create_offscreen(w, h);
 }
 
