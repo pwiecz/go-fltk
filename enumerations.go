@@ -226,6 +226,13 @@ var (
 	WHITE             = Color(C.go_FL_WHITE)
 )
 
+func ColorFromRgb(r, g, b uint8) Color {
+	r1 := uint(r)
+	g1 := uint(g)
+	b1 := uint(b)
+	return Color(((r1 & 0xff) << 24) + ((g1 & 0xff) << 16) + ((b1 & 0xff) << 8) + 0x00)
+}
+
 type LineStyle int
 
 var (

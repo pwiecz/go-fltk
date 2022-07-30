@@ -170,3 +170,34 @@ func MeasureText(text string, draw_symbols bool) (int, int) {
 func DrawCheck(x, y, w, h int, col Color) {
 	C.go_fltk_draw_check(C.int(x), C.int(y), C.int(w), C.int(h), C.uint(col))
 }
+
+type Offscreen struct {
+	inner *C.GOffscreen
+}
+
+func NewOffscreen(w, h int) *Offscreen {
+	o := &Offscreen{
+		inner: C.go_fltk_create_offscreen(C.int(w), C.int(h)),
+	}
+	return o
+}
+
+func (offs *Offscreen) begin() {
+	C.go_fltk_begin_offscreen(offs.inner)
+}
+
+func (offs *Offscreen) end() {
+	C.go_fltk_end_offscreen()
+}
+
+func (offs *Offscreen) rescale() {
+	C.go_fltk_rescale_offscreen(&offs.inner)
+}
+
+func (offs *Offscreen) delete() {
+	C.go_fltk_delete_offscreen(offs.inner)
+}
+
+func (offs *Offscreen) copy(x, y, w, h, srcx, srcy int) {
+	C.go_fltk_copy_offscreen(C.int(x), C.int(y), C.int(w), C.int(h), offs.inner, C.int(srcx), C.int(srcy))
+}
