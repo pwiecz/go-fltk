@@ -30,18 +30,18 @@ func main() {
 		case fltk.PUSH:
 			offs.Begin()
 			fltk.SetDrawColor(fltk.RED)
-			fltk.SetLineStyle(fltk.Solid, 3)
+			fltk.SetLineStyle(fltk.SOLID, 3)
 			x = fltk.EventX()
 			y = fltk.EventY()
 			fltk.DrawPoint(x, y)
 			offs.End()
 			box.Redraw()
-			fltk.SetLineStyle(fltk.Solid, 0)
+			fltk.SetLineStyle(fltk.SOLID, 0)
 			return true
 		case fltk.DRAG:
 			offs.Begin()
 			fltk.SetDrawColor(fltk.RED)
-			fltk.SetLineStyle(fltk.Solid, 3)
+			fltk.SetLineStyle(fltk.SOLID, 3)
 			nx := fltk.EventX()
 			ny := fltk.EventY()
 			fltk.DrawLine(x, y, nx, ny)
@@ -49,7 +49,7 @@ func main() {
 			y = ny
 			offs.End()
 			box.Redraw()
-			fltk.SetLineStyle(fltk.Solid, 0)
+			fltk.SetLineStyle(fltk.SOLID, 0)
 			return true
 		default:
 			return false

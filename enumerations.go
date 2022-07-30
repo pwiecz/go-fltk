@@ -236,28 +236,17 @@ func ColorFromRgb(r, g, b uint8) Color {
 type LineStyle int
 
 var (
-	/// Solid line
-	Solid = LineStyle(0)
-	/// Dash
-	Dash = LineStyle(1)
-	/// Dot
-	Dot = LineStyle(2)
-	/// Dash dot
-	DashDot = LineStyle(3)
-	/// Dash dot dot
-	DashDotDot = LineStyle(4)
-	/// Cap flat
-	CapFlat = LineStyle(100)
-	/// Cap round
-	CapRound = LineStyle(200)
-	/// Cap square
-	CapSquare = LineStyle(300)
-	/// Join miter
-	JoinMiter = LineStyle(1000)
-	/// Join round
-	JoinRound = LineStyle(2000)
-	/// Join bevel
-	JoinBevel = LineStyle(3000)
+	SOLID        = LineStyle(0)
+	DASH         = LineStyle(1)
+	Dot          = LineStyle(2)
+	DASH_DOT     = LineStyle(3)
+	DASH_DOT_DOT = LineStyle(4)
+	CAP_FLAT     = LineStyle(100)
+	CAP_ROUND    = LineStyle(200)
+	CAP_SQUARE   = LineStyle(300)
+	JOIN_MITER   = LineStyle(1000)
+	JOIN_ROUND   = LineStyle(2000)
+	JOIN_BEVEL   = LineStyle(3000)
 )
 
 type callbackMap struct {

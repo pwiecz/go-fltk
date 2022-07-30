@@ -143,3 +143,7 @@ func main() {
 	fltk.Run()
 }
 ```
+
+## Resources
+- [Link](https://www.fltk.org/doc-1.4/index.html) to the official FLTK 1.4 documentation.
+- [Link](https://pkg.go.dev/github.com/pwiecz/go-fltk) to go-fltk documentation.
