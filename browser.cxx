@@ -9,18 +9,25 @@
 //  Create Browser
 //  add()
 //  bottomline()
+//  middleline()
+//  topline()
 //  clear()
 //  column_char()
 //  format_char()
-//  icon()
 //  displayed()
+//  icon()
+//  hide()
+//  size()
+//  icon()
 
 // TODO:
 //  column_widths()
 //  data() Need to implement the data in general when creating the widget
 //  display()
-//  hide()
 //  insert()
+//  lineposition()
+//  load()
+
 
 
 class GBrowser : public EventHandler<Fl_Browser> {
@@ -41,6 +48,14 @@ void go_fltk_Browser_bottomline(GBrowser *b, int i) {
 	b->bottomline(i);
 }
 
+void go_fltk_Browser_middleline(GBrowser *b, int i) {
+	b->middleline(i);
+}
+
+void go_fltk_Browser_topline(GBrowser *b, int i) {
+	b->topline(i);
+}
+
 void go_fltk_Browser_clear(GBrowser *b) {
 	b->clear();
 }
@@ -57,11 +72,13 @@ void go_fltk_Browser_set_column_char(GBrowser *b, char c) {
 	b->column_char(c);
 }
 
-/*
 void go_fltk_Browser_hide_line(GBrowser *b, int line) {
 	b->hide(line);
 }
-*/
+
+int go_fltk_Browser_size(GBrowser *b) {
+	return b->size();
+}
 
 Fl_Image* go_fltk_Browser_icon(GBrowser *b, int line) {
 	return b->icon(line);
@@ -82,3 +99,4 @@ void go_fltk_Browser_set_format_char(GBrowser *b, char c) {
 int go_fltk_Browser_displayed(GBrowser *b, int line) {
 	return b->displayed(line);
 }
+
