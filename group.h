@@ -13,6 +13,7 @@ extern "C" {
   extern void go_fltk_Group_end(GGroup *g);
   extern void go_fltk_Group_add(GGroup *g, Fl_Widget *w);
   extern void go_fltk_Group_resizable(GGroup *g, Fl_Widget *w);
+  extern void go_fltk_Group_draw_children(GGroup *g);
 
 #ifdef __cplusplus
 }
