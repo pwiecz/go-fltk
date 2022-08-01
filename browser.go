@@ -5,12 +5,19 @@ package fltk
 #include "browser.h"
 */
 import "C"
-import "unsafe"
+import (
+	"errors"
+	"unsafe"
+)
 
 type Browser struct {
 	widget
 	icons  map[int]Image
 }
+
+var (
+	InvalidLine = errors.New("line doesn't exist")
+)
 
 func NewBrowser(x, y, w, h int, text ...string) *Browser {
 	b := &Browser{}
@@ -26,16 +33,44 @@ func (b *Browser) Add(str string) {
 	C.go_fltk_Browser_add((*C.GBrowser)(b.ptr()), cStr, unsafe.Pointer(&cStr))
 }
 
-func (b *Browser) BottomLine(i int) {
-	C.go_fltk_Browser_bottomline((*C.GBrowser)(b.ptr()), C.int(i))
+func (b *Browser) BottomLine(line int) error {
+	if line < 1 || line > b.Size() {
+		return InvalidLine
+	}
+
+	C.go_fltk_Browser_bottomline((*C.GBrowser)(b.ptr()), C.int(line))
+	return nil
+}
+
+func (b *Browser) MiddleLine(line int) error {
+	if line < 1 || line > b.Size() {
+		return InvalidLine
+	}
+
+	C.go_fltk_Browser_middleline((*C.GBrowser)(b.ptr()), C.int(line))
+	return nil
+}
+
+func (b *Browser) TopLine(line int) error {
+	if line < 1 || line > b.Size() {
+		return InvalidLine
+	}
+
+	C.go_fltk_Browser_topline((*C.GBrowser)(b.ptr()), C.int(line))
+	return nil
 }
 
 func (b *Browser) Clear() {
 	C.go_fltk_Browser_clear((*C.GBrowser)(b.ptr()))
 }
 
-func (b *Browser) Remove(i int) {
-	C.go_fltk_Browser_remove((*C.GBrowser)(b.ptr()), C.int(i))
+func (b *Browser) Remove(line int) error {
+	if line < 1 || line > b.Size() {
+		return InvalidLine
+	}
+
+	C.go_fltk_Browser_remove((*C.GBrowser)(b.ptr()), C.int(line))
+	return nil
 }
 
 func (b *Browser) ColumnChar() rune {
@@ -49,12 +84,18 @@ func (b *Browser) SetColumnChar(r rune) {
 	C.go_fltk_Browser_set_column_char((*C.GBrowser)(b.ptr()), *cStr)
 }
 
-//TODO: fix crash whenever this is called
-/*
-func (b *Browser) HideLine(line int) {
+func (b *Browser) HideLine(line int) error {
+	if line < 1 || line > b.Size() {
+		return InvalidLine
+	}
+
 	C.go_fltk_Browser_hide_line((*C.GBrowser)(b.ptr()), C.int(line))
+	return nil
 }
-*/
+
+func (b *Browser) Size() int {
+	return int(C.go_fltk_Browser_size((*C.GBrowser)(b.ptr())))
+}
 
 func (b *Browser) Icon(line int) Image {
 	return b.icons[line]
