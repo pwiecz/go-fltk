@@ -12,7 +12,8 @@ import (
 
 type Browser struct {
 	widget
-	icons  map[int]Image
+	icons        map[int]Image
+	columnWidths []int
 }
 
 var (
@@ -33,34 +34,42 @@ func (b *Browser) Add(str string) {
 	C.go_fltk_Browser_add((*C.GBrowser)(b.ptr()), cStr, unsafe.Pointer(&cStr))
 }
 
-func (b *Browser) BottomLine(line int) error {
+func (b *Browser) TopLine() int {
+	return int(C.go_fltk_Browser_topline((*C.GBrowser)(b.ptr())))
+}
+
+func (b *Browser) SetBottomLine(line int) error {
 	if line < 1 || line > b.Size() {
 		return InvalidLine
 	}
 
-	C.go_fltk_Browser_bottomline((*C.GBrowser)(b.ptr()), C.int(line))
+	C.go_fltk_Browser_set_bottomline((*C.GBrowser)(b.ptr()), C.int(line))
 	return nil
 }
 
-func (b *Browser) MiddleLine(line int) error {
+func (b *Browser) SetMiddleLine(line int) error {
 	if line < 1 || line > b.Size() {
 		return InvalidLine
 	}
 
-	C.go_fltk_Browser_middleline((*C.GBrowser)(b.ptr()), C.int(line))
+	C.go_fltk_Browser_set_middleline((*C.GBrowser)(b.ptr()), C.int(line))
 	return nil
 }
 
-func (b *Browser) TopLine(line int) error {
+func (b *Browser) SetTopLine(line int) error {
 	if line < 1 || line > b.Size() {
 		return InvalidLine
 	}
 
-	C.go_fltk_Browser_topline((*C.GBrowser)(b.ptr()), C.int(line))
+	C.go_fltk_Browser_set_topline((*C.GBrowser)(b.ptr()), C.int(line))
 	return nil
 }
 
 func (b *Browser) Clear() {
+	for k := range b.icons {
+		delete(b.icons, k)
+	}
+
 	C.go_fltk_Browser_clear((*C.GBrowser)(b.ptr()))
 }
 
@@ -129,4 +138,31 @@ func (b *Browser) Displayed(line int) bool {
 	}
 
 	return false
+}
+
+func (b *Browser) Value() int {
+	return int(C.go_fltk_Browser_value((*C.GBrowser)(b.ptr())))
+}
+
+func (b *Browser) Text(line int) string {
+	cStr := C.go_fltk_Browser_text((*C.GBrowser)(b.ptr()), C.int(line))
+	//defer C.free(unsafe.Pointer(cStr))
+
+	return C.GoString(cStr)
+}
+
+func (b *Browser) SetColumnWidths(widths ...int) {
+	cArr := make([]C.int, len(widths), len(widths))
+	for i, v := range widths {
+		cArr[i] = C.int(v)
+	}
+
+	b.columnWidths = widths
+	C.go_fltk_Browser_set_column_widths((*C.GBrowser)(b.ptr()), (*C.int)(&cArr[0]))
+}
+
+// Store column widths in Go instead of calling from C++ as it's complex and expensive
+// to convert between them
+func (b *Browser) ColumnWidths() []int {
+	return b.columnWidths
 }

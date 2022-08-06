@@ -18,12 +18,11 @@
 //  icon()
 //  hide()
 //  size()
-//  icon()
+//  value()
+//  column_widths()
 
 // TODO:
-//  column_widths()
 //  data() Need to implement the data in general when creating the widget
-//  display()
 //  insert()
 //  lineposition()
 //  load()
@@ -44,15 +43,19 @@ void go_fltk_Browser_add(GBrowser *b, const char *str, void *d=0) {
 	b->add(str, d);
 }
 
-void go_fltk_Browser_bottomline(GBrowser *b, int i) {
+int go_fltk_Browser_topline(GBrowser *b) {
+	return b->topline();
+}
+
+void go_fltk_Browser_set_bottomline(GBrowser *b, int i) {
 	b->bottomline(i);
 }
 
-void go_fltk_Browser_middleline(GBrowser *b, int i) {
+void go_fltk_Browser_set_middleline(GBrowser *b, int i) {
 	b->middleline(i);
 }
 
-void go_fltk_Browser_topline(GBrowser *b, int i) {
+void go_fltk_Browser_set_topline(GBrowser *b, int i) {
 	b->topline(i);
 }
 
@@ -100,3 +103,14 @@ int go_fltk_Browser_displayed(GBrowser *b, int line) {
 	return b->displayed(line);
 }
 
+int go_fltk_Browser_value(GBrowser *b) {
+	return b->value();
+}
+
+const char* go_fltk_Browser_text(GBrowser *b, int line) {
+	return b->text(line);
+}
+
+void go_fltk_Browser_set_column_widths(GBrowser *b, const int *arr) {
+	b->column_widths(arr);
+}
