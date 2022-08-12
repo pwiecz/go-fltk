@@ -145,8 +145,17 @@ func AwakeNullMessage() {
 	C.go_fltk_awake_null_message()
 }
 
-func Wait() {
+func Wait(duration ...float64) {
+	if len(duration) == 1 {
+		C.go_fltk_wait_timed(C.double(duration[0]))
+		return
+	}
+
 	C.go_fltk_wait()
+}
+
+func Check() {
+	C.go_fltk_check()
 }
 
 type timeoutMap struct {
