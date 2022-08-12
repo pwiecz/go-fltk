@@ -36,6 +36,18 @@ func (w *Window) SetCursor(cursor Cursor) {
 	C.go_fltk_Window_set_cursor((*C.GWindow)(w.ptr()), C.int(cursor))
 }
 
+func (w *Window) SetFullscreen(flag bool) {
+	f := 0
+	if flag {
+		f = 1
+	}
+	C.go_fltk_Window_set_fullscreen((*C.GWindow)(w.ptr()), C.int(f))
+}
+
+func (w *Window) FullscreenActive() bool {
+	return C.go_fltk_Window_fullscreen_active((*C.GWindow)(w.ptr())) != 0
+}
+
 type Cursor int
 
 var (
