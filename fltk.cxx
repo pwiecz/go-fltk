@@ -105,6 +105,12 @@ int go_fltk_awake(uintptr_t id) {
 int go_fltk_wait() {
   return Fl::wait();
 }
+int go_fltk_wait_timed(double t) {
+  return Fl::wait(t);
+}
+int go_fltk_check() {
+  return Fl::check();
+}
 void timeout_handler(void *data) {
   _go_timeoutHandler(uintptr_t(data));
 }
