@@ -14,6 +14,8 @@ extern "C" {
   extern int go_fltk_Window_y_root(GWindow* w);
   extern void go_fltk_Window_set_label(GWindow *w, const char *label);
   extern void go_fltk_Window_set_cursor(GWindow *w, int cursor);
+  extern void go_fltk_Window_set_fullscreen(GWindow *w, int flag);
+  extern int go_fltk_Window_fullscreen_active(GWindow *w);
 
   extern const int go_FL_CURSOR_DEFAULT;
   extern const int go_FL_CURSOR_ARROW;

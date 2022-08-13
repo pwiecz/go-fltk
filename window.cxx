@@ -40,6 +40,14 @@ void go_fltk_Window_set_cursor(GWindow* w, int cursor) {
   w->cursor((Fl_Cursor)cursor);
 }
 
+void go_fltk_Window_set_fullscreen(GWindow *w, int flag) {
+  if (flag) w->fullscreen(); else w->fullscreen_off();
+}
+
+int go_fltk_Window_fullscreen_active(GWindow *w) {
+  return w->fullscreen_active();
+}
+
 const int go_FL_CURSOR_DEFAULT = (int)FL_CURSOR_DEFAULT;
 const int go_FL_CURSOR_ARROW = (int)FL_CURSOR_ARROW;
 const int go_FL_CURSOR_CROSS = (int)FL_CURSOR_CROSS;
