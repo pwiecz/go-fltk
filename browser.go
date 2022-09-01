@@ -15,7 +15,7 @@ type Browser struct {
 	icons        map[int]Image
 	columnWidths []int
 	dataMap      map[uintptr]interface{}
-	lastID       uintptr
+	lastDataID   uintptr
 }
 
 var (
@@ -41,8 +41,8 @@ func (b *Browser) AddWithData(str string, data interface{}) {
 	cStr := C.CString(str)
 	defer C.free(unsafe.Pointer(cStr))
 
-	b.lastID++
-	id := b.lastID
+	b.lastDataID++
+	id := b.lastDataID
 	b.dataMap[id] = data
 
 	C.go_fltk_Browser_add((*C.GBrowser)(b.ptr()), cStr, C.uintptr_t(id))
