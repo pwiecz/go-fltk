@@ -16,7 +16,6 @@ func NewWindow(w, h int) *Window {
 	initWidget(win, unsafe.Pointer(C.go_fltk_new_Window(C.int(w), C.int(h))))
 	return win
 }
-
 func (w *Window) IsShown() bool {
 	return C.go_fltk_Window_shown((*C.GWindow)(w.ptr())) != 0
 }
@@ -34,6 +33,26 @@ func (w *Window) SetLabel(label string) {
 }
 func (w *Window) SetCursor(cursor Cursor) {
 	C.go_fltk_Window_set_cursor((*C.GWindow)(w.ptr()), C.int(cursor))
+}
+
+func (w *Window) SetFullscreen(flag bool) {
+	f := 0
+	if flag {
+		f = 1
+	}
+	C.go_fltk_Window_set_fullscreen((*C.GWindow)(w.ptr()), C.int(f))
+}
+
+func (w *Window) FullscreenActive() bool {
+	return C.go_fltk_Window_fullscreen_active((*C.GWindow)(w.ptr())) != 0
+}
+
+func (w *Window) SetModal() {
+	C.go_fltk_Window_set_modal((*C.GWindow)(w.ptr()))
+}
+
+func (w *Window) SetNonModal() {
+	C.go_fltk_Window_set_non_modal((*C.GWindow)(w.ptr()))
 }
 
 type Cursor int

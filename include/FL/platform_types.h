@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2018 by Bill Spitzak and others.
+ * Copyright 2016-2022 by Bill Spitzak and others.
  *
  * This library is free software. Distribution and use rights are outlined in
  * the file "COPYING" which should have been included with this file.  If this
@@ -33,7 +33,6 @@ typedef opaque fl_intptr_t;
 typedef opaque fl_uintptr_t;
 
 typedef opaque Fl_Offscreen; /**< an offscreen drawing buffer */
-typedef opaque Fl_Bitmask; /**< mask */
 typedef opaque Fl_Region; /**< a region made of several rectangles */
 typedef opaque FL_SOCKET; /**< socket or file descriptor */
 typedef opaque GLContext; /**< an OpenGL graphics context, into which all OpenGL calls are rendered */
@@ -46,9 +45,11 @@ typedef opaque GLContext; /**< an OpenGL graphics context, into which all OpenGL
 #ifndef FL_PLATFORM_TYPES_H
 #define FL_PLATFORM_TYPES_H
 
+#include <FL/fl_config.h>
+
 /* Platform-dependent types are defined here.
   These types must be defined by any platform:
-  Fl_Offscreen, Fl_Bitmask, Fl_Region, FL_SOCKET, GLContext, struct dirent, struct stat,
+  Fl_Offscreen, Fl_Region, FL_SOCKET, GLContext, struct dirent, struct stat,
   fl_intptr_t, fl_uintptr_t
 
   NOTE: *FIXME* AlbrechtS 13 Apr 2016 (concerning FL_SOCKET)
@@ -70,12 +71,6 @@ typedef opaque GLContext; /**< an OpenGL graphics context, into which all OpenGL
 typedef intptr_t fl_intptr_t;
 typedef uintptr_t fl_uintptr_t;
 
-#elif defined(__ANDROID__)
-
-#include <sys/stat.h>
-typedef intptr_t fl_intptr_t;
-typedef uintptr_t fl_uintptr_t;
-
 #else /* ! _WIN64 */
 
 typedef long fl_intptr_t;
@@ -86,7 +81,6 @@ typedef unsigned long fl_uintptr_t;
 
 #ifdef __APPLE__
 typedef struct CGContext* Fl_Offscreen;
-typedef struct CGImage* Fl_Bitmask;
 typedef struct flCocoaRegion* Fl_Region;
 typedef int FL_SOCKET;
 #ifdef __OBJC__
@@ -96,7 +90,6 @@ typedef int FL_SOCKET;
   typedef class NSOpenGLContext* GLContext;
 #endif /* __OBJC__ */
 
-#include <sys/stat.h>
 #include <sys/types.h>
 #include <dirent.h>
 #  define FL_COMMAND    FL_META
@@ -105,7 +98,6 @@ typedef int FL_SOCKET;
 #elif defined(_WIN32)
 typedef struct HBITMAP__ *HBITMAP;
 typedef HBITMAP Fl_Offscreen;
-typedef HBITMAP Fl_Bitmask;
 typedef struct HRGN__ *Fl_Region;
 # if defined(_WIN64) && defined(_MSC_VER)
 typedef  unsigned __int64 FL_SOCKET;    /* *FIXME* - FL_SOCKET (see above) */
@@ -113,37 +105,27 @@ typedef  unsigned __int64 FL_SOCKET;    /* *FIXME* - FL_SOCKET (see above) */
 typedef  int FL_SOCKET;
 # endif
 typedef struct HGLRC__ *GLContext;
-#include <sys/stat.h>
 #ifdef __MINGW32__
 #  include <dirent.h>
 #else
    struct dirent {char d_name[1];};
 #endif
 
-#elif defined(__ANDROID__)
-
-#ifdef __cplusplus
-typedef class Fl_Rect_Region *Fl_Region;
-#else
-typedef struct Fl_Rect_Region *Fl_Region;
-#endif
-
-// TODO: the types below have not yet been ported
-typedef unsigned long Fl_Offscreen;
-typedef unsigned long Fl_Bitmask;
-typedef int FL_SOCKET;
-typedef struct __GLXcontextRec *GLContext;
+#elif defined(FLTK_USE_WAYLAND)
+typedef struct fl_wld_buffer *Fl_Offscreen; /**< an offscreen drawing buffer */
+typedef struct flCairoRegion* Fl_Region;
+typedef int FL_SOCKET; /**< socket or file descriptor */
+typedef void *EGLContext;
+typedef EGLContext GLContext;
 #include <sys/types.h>
 #include <dirent.h>
 
-#else /* X11 */
+#elif defined(FLTK_USE_X11)
 
 typedef unsigned long Fl_Offscreen;
-typedef unsigned long Fl_Bitmask;
 typedef struct _XRegion *Fl_Region;
 typedef int FL_SOCKET;
 typedef struct __GLXcontextRec *GLContext;
-#include <sys/stat.h>
 #include <sys/types.h>
 #include <dirent.h>
 

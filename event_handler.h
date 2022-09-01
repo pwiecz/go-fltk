@@ -13,13 +13,17 @@ class WidgetWithResizeHandler {
 public:
   virtual void set_resize_handler(uintptr_t handlerId) = 0;
 };
+class WidgetWithDrawHandler {
+public:
+  virtual void set_draw_handler(uintptr_t handlerId) = 0;
+};
 class WidgetWithDeletionHandler {
 public:
   virtual void add_deletion_handler(uintptr_t handlerId) = 0;
 };
 
 template<class BaseWidget>
-class EventHandler : public BaseWidget, public WidgetWithEventHandler, public WidgetWithResizeHandler, public WidgetWithDeletionHandler {
+class EventHandler : public BaseWidget, public WidgetWithEventHandler, public WidgetWithDrawHandler, public WidgetWithResizeHandler, public WidgetWithDeletionHandler {
 public:
   template<class... Arg>
   EventHandler(Arg... args)
@@ -41,6 +45,13 @@ public:
     return BaseWidget::handle(event);
   }
 
+  void draw() override {
+    if (m_drawHandlerId != 0) {
+      _go_callbackHandler(m_drawHandlerId);
+    }
+    return BaseWidget::draw();
+  }
+
   void resize(int x, int y, int w, int h) final {
     BaseWidget::resize(x, y, w, h);
     if (m_resizeHandlerId != 0) {
@@ -53,6 +64,10 @@ public:
     m_eventHandlerId = handlerId;
   }
 
+  void set_draw_handler(uintptr_t handlerId) final {
+    m_drawHandlerId = handlerId;
+  }
+
   void set_resize_handler(uintptr_t handlerId) final {
     m_resizeHandlerId = handlerId;
   }
@@ -63,6 +78,7 @@ public:
 
 protected:
   int m_eventHandlerId = -1;
+  uintptr_t m_drawHandlerId = 0;
   uintptr_t m_resizeHandlerId = 0;
   std::vector<uintptr_t> m_deletionHandlerIds;
 };

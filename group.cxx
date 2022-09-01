@@ -9,6 +9,9 @@ class GGroup : public EventHandler<Fl_Group> {
 public:
   GGroup(int x, int y, int w, int h, const char *label)
     : EventHandler<Fl_Group>(x, y, w, h, label) {}
+  void draw_children() {
+    Fl_Group::draw_children();
+  }
 };
 
 GGroup *go_fltk_new_Group(int x, int y, int w, int h, const char *label) {
@@ -26,4 +29,7 @@ void go_fltk_Group_add(GGroup *g, Fl_Widget *w) {
 }
 void go_fltk_Group_resizable(GGroup *g, Fl_Widget *w) {
   g->resizable(w);
+}
+void go_fltk_Group_draw_children(GGroup *g) {
+  g->draw_children();
 }

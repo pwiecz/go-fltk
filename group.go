@@ -22,3 +22,6 @@ func (g *Group) Add(w Widget) { C.go_fltk_Group_add((*C.GGroup)(g.ptr()), w.getW
 func (g *Group) Resizable(w Widget) {
 	C.go_fltk_Group_resizable((*C.GGroup)(g.ptr()), w.getWidget().ptr())
 }
+func (g *Group) DrawChildren() {
+	C.go_fltk_Group_draw_children((*C.GGroup)(g.ptr()))
+}

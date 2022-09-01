@@ -226,6 +226,29 @@ var (
 	WHITE             = Color(C.go_FL_WHITE)
 )
 
+func ColorFromRgb(r, g, b uint8) Color {
+	r1 := uint(r)
+	g1 := uint(g)
+	b1 := uint(b)
+	return Color(((r1 & 0xff) << 24) + ((g1 & 0xff) << 16) + ((b1 & 0xff) << 8) + 0x00)
+}
+
+type LineStyle int
+
+var (
+	SOLID        = LineStyle(0)
+	DASH         = LineStyle(1)
+	Dot          = LineStyle(2)
+	DASH_DOT     = LineStyle(3)
+	DASH_DOT_DOT = LineStyle(4)
+	CAP_FLAT     = LineStyle(100)
+	CAP_ROUND    = LineStyle(200)
+	CAP_SQUARE   = LineStyle(300)
+	JOIN_MITER   = LineStyle(1000)
+	JOIN_ROUND   = LineStyle(2000)
+	JOIN_BEVEL   = LineStyle(3000)
+)
+
 type callbackMap struct {
 	callbackMap map[uintptr]func()
 	id          uintptr

@@ -64,6 +64,7 @@ import (
 // FLTK uses an RGBI color representation, the I is an index into FLTK's color map
 // Passing 00 as I will use the RGB part of the value
 const GRAY = 0x75757500
+const LIGHT_GRAY = 0xeeeeee00
 const BLUE = 0x42A5F500
 const SEL_BLUE = 0x2196F300
 const WIDTH = 600
@@ -76,6 +77,9 @@ func main() {
 	win.SetLabel("Flutter-like")
 	win.SetColor(fltk.WHITE)
 	bar := fltk.NewBox(fltk.FLAT_BOX, 0, 0, WIDTH, 60, "    FLTK App!")
+	bar.SetDrawHandler(func() { // Shadow under the bar
+		fltk.DrawBox(fltk.FLAT_BOX, 0, 0, WIDTH, 63, LIGHT_GRAY)
+	})
 	bar.SetAlign(fltk.ALIGN_INSIDE | fltk.ALIGN_LEFT)
 	bar.SetLabelColor(255) // this uses the index into the color map, here it's white
 	bar.SetColor(BLUE)
@@ -90,7 +94,7 @@ func main() {
 	btn.SetColor(BLUE)
 	btn.SetSelectionColor(SEL_BLUE)
 	btn.SetLabelColor(255)
-	btn.SetBox(fltk.OFLAT_BOX)
+	btn.SetBox(fltk.OFLAT_FRAME)
 	btn.ClearVisibleFocus()
 	btn.SetCallback(func() {
 		curr += 1
@@ -139,3 +143,7 @@ func main() {
 	fltk.Run()
 }
 ```
+
+## Resources
+- [Link](https://www.fltk.org/doc-1.4/index.html) to the official FLTK 1.4 documentation.
+- [Link](https://pkg.go.dev/github.com/pwiecz/go-fltk) to go-fltk documentation.
