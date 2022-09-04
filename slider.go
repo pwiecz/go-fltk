@@ -10,10 +10,25 @@ type Slider struct {
 	valuator
 }
 
+type SliderType uint8
+
+var (
+	VERT_SLIDER      = SliderType(C.go_FL_VERT_SLIDER)
+	HOR_SLIDER       = SliderType(C.go_FL_HOR_SLIDER)
+	VERT_FILL_SLIDER = SliderType(C.go_FL_VERT_FILL_SLIDER)
+	HOR_FILL_SLIDER  = SliderType(C.go_FL_HOR_FILL_SLIDER)
+	VERT_NICE_SLIDER = SliderType(C.go_FL_VERT_NICE_SLIDER)
+	HOR_NICE_SLIDER  = SliderType(C.go_FL_HOR_NICE_SLIDER)
+)
+
 func NewSlider(x, y, w, h int, text ...string) *Slider {
 	s := &Slider{}
 	initWidget(s, unsafe.Pointer(C.go_fltk_new_Slider(C.int(x), C.int(y), C.int(w), C.int(h), cStringOpt(text))))
 	return s
+}
+
+func (s *Slider) SetType(sliderType SliderType) {
+	s.widget.SetType(uint8(sliderType))
 }
 
 type ValueSlider struct {
