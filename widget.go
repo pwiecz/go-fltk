@@ -179,6 +179,11 @@ func (w *widget) Color() Color         { return Color(C.go_fltk_Widget_color(w.p
 func (w *widget) LabelFont() Font      { return Font(C.go_fltk_Widget_labelfont(w.ptr())) }
 func (w *widget) LabelSize() int       { return int(C.go_fltk_Widget_labelsize(w.ptr())) }
 func (w *widget) LabelType() LabelType { return LabelType(C.go_fltk_Widget_labeltype(w.ptr())) }
+func (w *widget) SetTooltip(text string) { 
+	tooltipStr := C.CString(text)
+	defer C.free(unsafe.Pointer(tooltipStr))
+	C.go_fltk_Widget_set_tooltip(w.ptr(), tooltipStr)
+}
 func (w *widget) Parent() *Group {
 	g := &Group{}
 	initWidget(g, unsafe.Pointer(C.go_fltk_Widget_parent(w.ptr())))

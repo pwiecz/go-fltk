@@ -58,6 +58,7 @@ extern "C" {
   extern int go_fltk_Widget_labelfont(Fl_Widget *w);
   extern int go_fltk_Widget_labelsize(Fl_Widget *w);
   extern int go_fltk_Widget_labeltype(Fl_Widget *w);
+  extern void go_fltk_Widget_set_tooltip(Fl_Widget* w, const char* tooltip);
   extern Fl_Group *go_fltk_Widget_parent(Fl_Widget *w);
 
 #ifdef __cplusplus

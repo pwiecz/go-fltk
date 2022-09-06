@@ -166,6 +166,9 @@ int go_fltk_Widget_labelsize(Fl_Widget *w) {
 int go_fltk_Widget_labeltype(Fl_Widget *w) {
     return w->labeltype();
 }
+void go_fltk_Widget_set_tooltip(Fl_Widget *w, const char *tooltip) {
+    w->copy_tooltip(tooltip);
+}  
 Fl_Group *go_fltk_Widget_parent(Fl_Widget *w) {
     return w->parent();
 }
