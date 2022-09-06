@@ -9,6 +9,7 @@ import "unsafe"
 
 type Window struct {
 	Group
+	icons []*RgbImage
 }
 
 func NewWindow(w, h int) *Window {
@@ -53,6 +54,15 @@ func (w *Window) SetModal() {
 
 func (w *Window) SetNonModal() {
 	C.go_fltk_Window_set_non_modal((*C.GWindow)(w.ptr()))
+}
+
+func (w *Window) SetIcons(icons []*RgbImage) {
+	images := make([]*C.Fl_RGB_Image, 0, len(icons))
+	for _, icon := range icons {
+		images = append(images, (*C.Fl_RGB_Image)(icon.iPtr))
+	}
+	C.go_fltk_Window_set_icons((*C.GWindow)(w.ptr()), &images[0], C.int(len(images)))
+	w.icons = icons
 }
 
 type Cursor int

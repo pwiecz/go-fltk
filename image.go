@@ -7,6 +7,7 @@ package fltk
 import "C"
 import (
 	"errors"
+	goimage "image"
 	"unsafe"
 )
 
@@ -177,15 +178,47 @@ func NewBmpImageFromData(data []uint8) (*BmpImage, error) {
 
 type RgbImage struct {
 	image
+	data []uint8
 }
 
 func NewRgbImage(data []uint8, w, h, depth int) (*RgbImage, error) {
-	buf := (*C.uchar)(unsafe.Pointer(&data[0]))
-
 	img := &RgbImage{}
+	img.data = append(make([]uint8, 0, len(data)), data...)
+
+	buf := (*C.uchar)(unsafe.Pointer(&img.data[0]))
 
 	initImage(img, unsafe.Pointer(C.go_fltk_rgb_image_data(buf, C.int(w), C.int(h), C.int(depth), C.int(0))))
 	return img, image_error(img.fail())
+}
+
+func NewRgbImageFromImage(image goimage.Image) (*RgbImage, error) {
+	rgbImage := &RgbImage{}
+	var w, h, stride, depth int
+	if grayImage, ok := image.(*goimage.Gray); ok {
+		rgbImage.data = append(make([]uint8, 0, len(grayImage.Pix)), grayImage.Pix...)
+		w, h, stride = grayImage.Rect.Dx(), grayImage.Rect.Dy(), grayImage.Stride
+		depth = 1
+	} else if rgbaImage, ok := image.(*goimage.RGBA); ok {
+		rgbImage.data = append(make([]uint8, 0, len(rgbaImage.Pix)), rgbaImage.Pix...)
+		w, h, stride = rgbaImage.Rect.Dx(), rgbaImage.Rect.Dy(), rgbaImage.Stride
+		depth = 4
+	} else {
+		w, h, stride = image.Bounds().Dx(), image.Bounds().Dy(), 0
+		depth = 4
+		rgbImage.data = make([]uint8, 0, w*h*4)
+		for dy := 0; dy < h; dy++ {
+			y := image.Bounds().Min.Y + dy
+			for dx := 0; dx < w; dx++ {
+				x := image.Bounds().Min.X + dx
+				r, g, b, a := image.At(x, y).RGBA()
+				r8, g8, b8, a8 := uint8(r>>8), uint8(g>>8), uint8(b>>8), uint8(a>>8)
+				rgbImage.data = append(rgbImage.data, r8, g8, b8, a8)
+			}
+		}
+	}
+	buf := (*C.uchar)(unsafe.Pointer(&rgbImage.data[0]))
+	initImage(rgbImage, unsafe.Pointer(C.go_fltk_rgb_image_data(buf, C.int(w), C.int(h), C.int(depth), C.int(stride))))
+	return rgbImage, image_error(rgbImage.fail())
 }
 
 type SharedImage struct {

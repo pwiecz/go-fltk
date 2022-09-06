@@ -54,7 +54,11 @@ void go_fltk_Window_set_modal(GWindow *w) {
 
 void go_fltk_Window_set_non_modal(GWindow *w) {
   w->set_non_modal();
-}  
+}
+
+void go_fltk_Window_set_icons(GWindow *w, const Fl_RGB_Image *images[], int length) {
+  w->icons(images, length);
+}
 
 const int go_FL_CURSOR_DEFAULT = (int)FL_CURSOR_DEFAULT;
 const int go_FL_CURSOR_ARROW = (int)FL_CURSOR_ARROW;

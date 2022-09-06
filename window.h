@@ -5,6 +5,7 @@ extern "C" {
 #endif
 
   typedef struct GWindow GWindow;
+  typedef struct Fl_RGB_Image Fl_RGB_Image;
 
   extern GWindow *go_fltk_new_Window(int w, int h);
 
@@ -18,6 +19,7 @@ extern "C" {
   extern int go_fltk_Window_fullscreen_active(GWindow *w);
   extern void go_fltk_Window_set_modal(GWindow *w);
   extern void go_fltk_Window_set_non_modal(GWindow *w);
+  extern void go_fltk_Window_set_icons(GWindow* w, const Fl_RGB_Image* images[], int length);
 
   extern const int go_FL_CURSOR_DEFAULT;
   extern const int go_FL_CURSOR_ARROW;
