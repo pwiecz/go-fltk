@@ -1,6 +1,6 @@
 #include "scroll.h"
 
-#include <Fl/Fl_Scroll.H>
+#include <FL/Fl_Scroll.H>
 
 #include "event_handler.h"
 
