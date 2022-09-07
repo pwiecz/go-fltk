@@ -25,8 +25,6 @@
 //  textfont()
 //  textsize()
 //  title()
-//  value()
-
 
 class GHelp_View : public EventHandler<Fl_Help_View> {
 public:
@@ -73,3 +71,12 @@ void go_fltk_HelpView_set_topline(GHelp_View *h, int i) {
 void go_fltk_HelpView_set_toplinestring(GHelp_View *h, const char *s) {
 	h->topline(s);
 }
+
+const char *go_fltk_HelpView_value(GHelp_View *h) {
+	return h->value();
+}
+
+void go_fltk_HelpView_set_value(GHelp_View *h, const char *val) {
+	h->value(val);
+}
+

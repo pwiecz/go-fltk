@@ -16,6 +16,8 @@ extern "C" {
 	extern int         go_fltk_HelpView_topline(GHelp_View *h);
 	extern void        go_fltk_HelpView_set_topline(GHelp_View *h, int i);
 	extern void        go_fltk_HelpView_set_toplinestring(GHelp_View *h, const char *s);
+	extern const char *go_fltk_HelpView_value(GHelp_View *h);
+	extern void        go_fltk_HelpView_set_value(GHelp_View *h, const char *val);
 
 #ifdef __cplusplus
 }
