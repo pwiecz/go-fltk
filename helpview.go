@@ -62,3 +62,13 @@ func (h *HelpView) SetTopLineString(str string) {
 	defer C.free(unsafe.Pointer(cStr))
 	C.go_fltk_HelpView_set_toplinestring((*C.GHelp_View)(h.ptr()), cStr)
 }
+
+func (h *HelpView) Value() string {
+	return C.GoString(C.go_fltk_HelpView_value((*C.GHelp_View)(h.ptr())))
+}
+
+func (h *HelpView) SetValue(str string) {
+	cStr := C.CString(str)
+	defer C.free(unsafe.Pointer(cStr))
+	C.go_fltk_HelpView_set_value((*C.GHelp_View)(h.ptr()), cStr)
+}
