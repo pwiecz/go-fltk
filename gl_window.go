@@ -17,7 +17,7 @@ type GlWindow struct {
 func NewGlWindow(x, y, w, h int, drawFun func()) *GlWindow {
 	win := &GlWindow{}
 	win.drawFunId = globalCallbackMap.register(drawFun)
-	initWidget(win, unsafe.Pointer(C.go_fltk_new_GlWindow(C.int(x), C.int(y), C.int(w), C.int(h), C.uintptr_t(win.drawFunId))))
+	initGroup(win, unsafe.Pointer(C.go_fltk_new_GlWindow(C.int(x), C.int(y), C.int(w), C.int(h), C.uintptr_t(win.drawFunId))))
 	win.deletionHandlerId = win.addDeletionHandler(win.onDelete)
 	return win
 }
