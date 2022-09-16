@@ -11,7 +11,7 @@ import (
 )
 
 type Browser struct {
-	widget
+	Group
 	icons        map[int]Image
 	columnWidths []int
 	dataMap      map[uintptr]interface{}
@@ -26,7 +26,7 @@ func NewBrowser(x, y, w, h int, text ...string) *Browser {
 	b := &Browser{}
 	b.dataMap = make(map[uintptr]interface{})
 	b.icons = make(map[int]Image)
-	initWidget(b, unsafe.Pointer(C.go_fltk_new_Browser(C.int(x), C.int(y), C.int(w), C.int(h), cStringOpt(text))))
+	initGroup(b, unsafe.Pointer(C.go_fltk_new_Browser(C.int(x), C.int(y), C.int(w), C.int(h), cStringOpt(text))))
 	return b
 }
 

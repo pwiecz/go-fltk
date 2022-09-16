@@ -15,6 +15,16 @@ GScroll *go_fltk_new_Scroll(int x, int y, int w, int h, const char *label) {
   return new GScroll(x, y, w, h, label);
 }
 
+void go_fltk_Scroll_scroll_to(GScroll* scroll, int x, int y) {
+  scroll->scroll_to(x, y);
+}
+int go_fltk_Scroll_x_position(GScroll *scroll) {
+  return scroll->xposition();  
+}
+int go_fltk_Scroll_y_position(GScroll *scroll) {
+  return scroll->yposition();
+}  
+
 const unsigned char go_FL_SCROLL_HORIZONTAL = Fl_Scroll::HORIZONTAL;
 const unsigned char go_FL_SCROLL_VERTICAL = Fl_Scroll::VERTICAL;
 const unsigned char go_FL_SCROLL_BOTH = Fl_Scroll::BOTH;

@@ -12,11 +12,14 @@ import (
 
 type widget struct {
 	tracker           *C.Fl_Widget_Tracker
+	parent            groupInterface
 	callbackId        uintptr
 	deletionHandlerId uintptr
 	resizeHandlerId   uintptr
 	drawHandlerId     uintptr
 	eventHandlerId    int
+	image             Image
+	deimage           Image
 }
 
 type Widget interface {
@@ -29,6 +32,11 @@ func initWidget(w Widget, p unsafe.Pointer) {
 	ww := w.getWidget()
 	ww.tracker = C.go_fltk_new_Widget_Tracker((*C.Fl_Widget)(p))
 	ww.deletionHandlerId = ww.addDeletionHandler(ww.onDelete)
+	ww.parent = currentGroup
+	if currentGroup != nil {
+		cg := currentGroup.getGroup()
+		cg.children = append(cg.children, w)
+	}
 }
 
 func (w *widget) ptr() *C.Fl_Widget {
@@ -89,6 +97,10 @@ func (w *widget) SetDrawHandler(handler func()) {
 }
 func (w *widget) getWidget() *widget { return w }
 func (w *widget) onDelete() {
+	if w.parent != nil {
+		w.parent.getGroup().removeChild(w)
+	}
+	w.parent = nil
 	if w.deletionHandlerId > 0 {
 		globalCallbackMap.unregister(w.deletionHandlerId)
 	}
@@ -109,10 +121,16 @@ func (w *widget) onDelete() {
 		globalEventHandlerMap.unregister(w.eventHandlerId)
 	}
 	w.eventHandlerId = 0
+	w.image = nil
+	w.deimage = nil
 	C.go_fltk_Widget_Tracker_delete(w.tracker)
 	w.tracker = nil
 }
 func (w *widget) Destroy() {
+	if w.parent != nil {
+		w.parent.getGroup().removeChild(w)
+	}
+	w.parent = nil
 	if w.callbackId > 0 {
 		globalCallbackMap.unregister(w.callbackId)
 	}
@@ -129,6 +147,8 @@ func (w *widget) Destroy() {
 		globalEventHandlerMap.unregister(w.eventHandlerId)
 	}
 	w.eventHandlerId = 0
+	w.image = nil
+	w.deimage = nil
 	C.go_fltk_delete_widget(w.ptr())
 }
 
@@ -168,8 +188,14 @@ func (w *widget) SetLabel(label string) {
 	defer C.free(unsafe.Pointer(labelStr))
 	C.go_fltk_Widget_set_label(w.ptr(), labelStr)
 }
-func (w *widget) SetImage(i Image)     { C.go_fltk_Widget_set_image(w.ptr(), i.getImage().ptr()) }
-func (w *widget) SetDeimage(i Image)   { C.go_fltk_Widget_set_deimage(w.ptr(), i.getImage().ptr()) }
+func (w *widget) SetImage(i Image) {
+	C.go_fltk_Widget_set_image(w.ptr(), i.getImage().ptr())
+	w.image = i
+}
+func (w *widget) SetDeimage(i Image) {
+	C.go_fltk_Widget_set_deimage(w.ptr(), i.getImage().ptr())
+	w.deimage = i
+}
 func (w *widget) Box() BoxType         { return BoxType(C.go_fltk_Widget_box(w.ptr())) }
 func (w *widget) LabelColor() Color    { return Color(C.go_fltk_Widget_labelcolor(w.ptr())) }
 func (w *widget) Align() Align         { return Align(C.go_fltk_Widget_align(w.ptr())) }
@@ -179,13 +205,14 @@ func (w *widget) Color() Color         { return Color(C.go_fltk_Widget_color(w.p
 func (w *widget) LabelFont() Font      { return Font(C.go_fltk_Widget_labelfont(w.ptr())) }
 func (w *widget) LabelSize() int       { return int(C.go_fltk_Widget_labelsize(w.ptr())) }
 func (w *widget) LabelType() LabelType { return LabelType(C.go_fltk_Widget_labeltype(w.ptr())) }
-func (w *widget) SetTooltip(text string) { 
+func (w *widget) SetTooltip(text string) {
 	tooltipStr := C.CString(text)
 	defer C.free(unsafe.Pointer(tooltipStr))
 	C.go_fltk_Widget_set_tooltip(w.ptr(), tooltipStr)
 }
 func (w *widget) Parent() *Group {
-	g := &Group{}
-	initWidget(g, unsafe.Pointer(C.go_fltk_Widget_parent(w.ptr())))
-	return g
+	if w.parent == toplevelGroup {
+		return nil
+	}
+	return w.parent.getGroup()
 }

@@ -14,7 +14,7 @@ type Window struct {
 
 func NewWindow(w, h int) *Window {
 	win := &Window{}
-	initWidget(win, unsafe.Pointer(C.go_fltk_new_Window(C.int(w), C.int(h))))
+	initGroup(win, unsafe.Pointer(C.go_fltk_new_Window(C.int(w), C.int(h))))
 	return win
 }
 func (w *Window) IsShown() bool {
