@@ -11,6 +11,7 @@ package fltk
 */
 import "C"
 import (
+	"image/color"
 	"sync"
 	"unsafe"
 )
@@ -38,12 +39,12 @@ func SetScheme(scheme string) int {
 	return int(C.go_fltk_set_scheme(schemestr))
 }
 
-func SetBackgroundColor(r, g, b uint8) {
-	C.go_fltk_set_background_color(C.uchar(r), C.uchar(g), C.uchar(b))
+func SetBackgroundColor(c color.RGBA) {
+	C.go_fltk_set_background_color(C.uchar(c.R), C.uchar(c.G), C.uchar(c.B))
 }
 
-func SetBackground2Color(r, g, b uint8) {
-	C.go_fltk_set_background2_color(C.uchar(r), C.uchar(g), C.uchar(b))
+func SetBackground2Color(c color.RGBA) {
+	C.go_fltk_set_background2_color(C.uchar(c.R), C.uchar(c.G), C.uchar(c.B))
 }
 
 func SetBoxType(b BoxType, d func(int, int, int, int, Color), o ...int) {
@@ -60,12 +61,12 @@ func SetBoxType(b BoxType, d func(int, int, int, int, Color), o ...int) {
 	C.go_fltk_set_boxtype(C.int(b), C.int(o[0]), C.int(o[1]), C.int(o[2]), C.int(o[3]))
 }
 
-func SetForegroundColor(r, g, b uint8) {
-	C.go_fltk_set_foreground_color(C.uchar(r), C.uchar(g), C.uchar(b))
+func SetForegroundColor(c color.RGBA) {
+	C.go_fltk_set_foreground_color(C.uchar(c.R), C.uchar(c.G), C.uchar(c.B))
 }
 
-func SetColor(col Color, r, g, b uint8) {
-	C.go_fltk_set_color(C.uint(col), C.uchar(r), C.uchar(g), C.uchar(b))
+func SetColor(col Color, c color.RGBA) {
+	C.go_fltk_set_color(C.uint(col), C.uchar(c.R), C.uchar(c.G), C.uchar(c.B))
 }
 
 //SetFont changes a face.
@@ -80,18 +81,26 @@ func SetFont2(font Font, font2 Font) {
 	C.go_fltk_set_font2(C.int(font), C.int(font2))
 }
 
-func (col Color) Index() uint {
-	return uint(col)
+func (col Color) Index() uint8 {
+	return uint8(col)
 }
 
-func (col Color) RGB() (int, int, int) {
+// Maybe eventually the go-fltk Color type should just be replaced with Go's
+// native RGBA?
+func (col Color) RGBA() color.RGBA {
 	var r, g, b C.uchar
 	C.go_fltk_get_color(C.uint(col), &r, &g, &b)
-	return int(r), int(g), int(b)
+
+	return color.RGBA{
+		R: uint8(r),
+		G: uint8(g),
+		B: uint8(b),
+		A: 255,
+	}
 }
 
-func (col Color) RGBI() uint {
-	return uint(C.go_fltk_get_colorindex(C.uint(col)))
+func (col Color) RGBI() uint32 {
+	return uint32(C.go_fltk_get_colorindex(C.uint(col)))
 }
 
 func cStringOpt(s []string) *C.char {
