@@ -279,7 +279,7 @@ func (m *callbackMap) size() int {
 	return len(m.callbackMap)
 }
 func (m *callbackMap) clear() {
-	for id, _ := range m.callbackMap {
+	for id := range m.callbackMap {
 		delete(m.callbackMap, id)
 	}
 }
@@ -322,7 +322,7 @@ func (m *eventHandlerMap) size() int {
 	return len(m.eventHandlerMap)
 }
 func (m *eventHandlerMap) clear() {
-	for id, _ := range m.eventHandlerMap {
+	for id := range m.eventHandlerMap {
 		delete(m.eventHandlerMap, id)
 	}
 }

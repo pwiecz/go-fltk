@@ -120,7 +120,7 @@ func (m *tableCallbackMap) size() int {
 	return len(m.callbackMap)
 }
 func (m *tableCallbackMap) clear() {
-	for id, _ := range m.callbackMap {
+	for id := range m.callbackMap {
 		delete(m.callbackMap, id)
 	}
 }
