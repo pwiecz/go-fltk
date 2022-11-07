@@ -54,39 +54,51 @@ int go_fltk_set_scheme(const char *scheme) {
 }
 
 void go_fltk_set_background_color(unsigned char r, unsigned char g, unsigned char b) {
-    Fl::background(r, g, b);
+  Fl::background(r, g, b);
 }
 
 void go_fltk_set_background2_color(unsigned char r, unsigned char g, unsigned char b) {
-    Fl::background2(r, g, b);
+  Fl::background2(r, g, b);
 }
 
 void go_fltk_set_boxtype(int i, int x, int y, int w, int h) {
-	Fl::set_boxtype((Fl_Boxtype)i, currentBoxTypeCb[i], x, y, w, h);
+  Fl::set_boxtype((Fl_Boxtype)i, currentBoxTypeCb[i], x, y, w, h);
 }
 
 void go_fltk_set_foreground_color(unsigned char r, unsigned char g, unsigned char b) {
-    Fl::foreground(r, g, b);
+  Fl::foreground(r, g, b);
 }
 
 void go_fltk_set_color(unsigned int col, unsigned char r, unsigned char g, unsigned char b) {
-    Fl::set_color((Fl_Color)col, r, g, b);
+  Fl::set_color((Fl_Color)col, r, g, b);
 }
 
 void go_fltk_get_color(unsigned int col, unsigned char *r, unsigned char *g, unsigned char *b) {
-	Fl::get_color((Fl_Color)col, *r, *g, *b);
+  Fl::get_color((Fl_Color)col, *r, *g, *b);
 }
 
+const char *go_fltk_get_font(int font) {
+  return Fl::get_font(font);
+}
+
+const char *go_fltk_get_font_name(int font, int *attributes) {
+  return Fl::get_font_name(font, attributes);
+}    
+
 void go_fltk_set_font(Fl_Font font, const char* family) {
-    Fl::set_font(font, family);
+  Fl::set_font(font, family);
 }
 
 void go_fltk_set_font2(Fl_Font font, Fl_Font font2) {
-    Fl::set_font(font, font2);
+  Fl::set_font(font, font2);
 }
 
+int go_fltk_set_fonts(const char *xstarname) {
+  return (int)Fl::set_fonts(xstarname);
+}  
+
 unsigned go_fltk_get_colorindex(unsigned int col) {
-	return Fl::get_color((Fl_Color)col);
+  return Fl::get_color((Fl_Color)col);
 }
 
 int go_fltk_run() { return Fl::run(); }

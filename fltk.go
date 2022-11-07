@@ -68,16 +68,32 @@ func SetColor(col Color, r, g, b uint8) {
 	C.go_fltk_set_color(C.uint(col), C.uchar(r), C.uchar(g), C.uchar(b))
 }
 
-//SetFont changes a face.
-func SetFont(font Font, family string) {
-	familystr := C.CString(family)
-	defer C.free(unsafe.Pointer(familystr))
+func GetFont(font Font) string {
+	return C.GoString(C.go_fltk_get_font(C.int(font)))
+}
 
-	C.go_fltk_set_font(C.int(font), familystr)
+// GetFontName Returs human readable font name and a font attribute (BOLD, ITALIC or BOLD_ITALIC).
+func GetFontName(font Font) (string, Font) {
+	var attribute C.int
+	fontName := C.go_fltk_get_font_name(C.int(font), &attribute)
+	return C.GoString(fontName), Font(attribute)
+}
+
+// SetFont assigns font specified by the name to the font number
+func SetFont(fontNumber Font, fontName string) {
+	fontNameStr := C.CString(fontName)
+	// fontNameStr is not freed as the fltk just depends on it living on
+	// throughout the lifetime of the app.
+
+	C.go_fltk_set_font(C.int(fontNumber), fontNameStr)
 }
 
 func SetFont2(font Font, font2 Font) {
 	C.go_fltk_set_font2(C.int(font), C.int(font2))
+}
+
+func SetFonts(xstarname ...string) int {
+	return int(C.go_fltk_set_fonts(cStringOpt(xstarname)))
 }
 
 func (col Color) Index() uint {
