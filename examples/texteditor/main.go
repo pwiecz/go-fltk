@@ -37,11 +37,11 @@ func (app *EditorApp) BuildGUI() {
 	menuBar.SetType(uint8(fltk.FLAT_BOX))
 	menuBar.Activate()
 	menuBar.AddEx("File", fltk.ALT+'f', nil, fltk.SUBMENU)
-	menuBar.AddEx("File/&Open", fltk.CTRL+'o', app.callBackMenuFileOpen, fltk.MENU_VALUE)
-	menuBar.AddEx("File/&Save", fltk.CTRL+'s', app.callBackMenuFileSave, fltk.MENU_VALUE)
-	menuBar.Add("File/Save &As", app.callBackMenuFileSaveAs)
+	menuBar.AddEx("File/&Open", fltk.CTRL+'o', app.callbackMenuFileOpen, fltk.MENU_VALUE)
+	menuBar.AddEx("File/&Save", fltk.CTRL+'s', app.callbackMenuFileSave, fltk.MENU_VALUE)
+	menuBar.Add("File/Save &As", app.callbackMenuFileSaveAs)
 	menuBar.AddEx("Help", 0, nil, fltk.SUBMENU)
-	menuBar.Add("Help/&About", app.callBackMenuHelpAbout)
+	menuBar.Add("Help/&About", app.callbackMenuHelpAbout)
 
 	app.TextBuffer = fltk.NewTextBuffer()
 	app.TextEditor = fltk.NewTextEditor(0, 0, app.Win.W(), app.Win.H()-20)
@@ -64,7 +64,7 @@ func main() {
 	fltk.Run()
 }
 
-func (app *EditorApp) callBackMenuFileOpen() {
+func (app *EditorApp) callbackMenuFileOpen() {
 	fChooser := fltk.NewFileChooser("./", "*.*", fltk.FileChooser_SINGLE, "Open text file")
 	defer fChooser.Destroy()
 	fChooser.Popup()
@@ -81,7 +81,7 @@ func (app *EditorApp) callBackMenuFileOpen() {
 	}
 }
 
-func (app *EditorApp) callBackMenuFileSave() {
+func (app *EditorApp) callbackMenuFileSave() {
 	if app.IsChanged {
 		info, _ := os.Stat(app.FileName)
 		os.WriteFile(app.FileName, []byte(app.TextBuffer.Text()), info.Mode())
@@ -89,7 +89,7 @@ func (app *EditorApp) callBackMenuFileSave() {
 	}
 }
 
-func (app *EditorApp) callBackMenuFileSaveAs() {
+func (app *EditorApp) callbackMenuFileSaveAs() {
 	fChooser := fltk.NewFileChooser("./", "*.*", fltk.FileChooser_CREATE, "Enter/Select file name")
 	defer fChooser.Destroy()
 	fChooser.Popup()
@@ -101,6 +101,6 @@ func (app *EditorApp) callBackMenuFileSaveAs() {
 	}
 }
 
-func (app *EditorApp) callBackMenuHelpAbout() {
+func (app *EditorApp) callbackMenuHelpAbout() {
 	fltk.MessageBox("About", "Sample Text Editor")
 }
