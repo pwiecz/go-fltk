@@ -69,6 +69,10 @@ GText_Editor *go_fltk_new_TextEditor(int x, int y, int w, int h, const char *tex
   return new GText_Editor(x, y, w, h, text);
 }
 
+void go_fltk_TextEditor_copy(GText_Editor *e) {
+  e->kf_copy(0, e);
+}
+
 Fl_Text_Buffer *go_fltk_new_TextBuffer(void) {
   return new Fl_Text_Buffer;
 }

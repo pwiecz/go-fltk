@@ -77,43 +77,48 @@ func (t *TextDisplay) Buffer() *TextBuffer {
 }
 
 // MoveRight moves the current insert position right one character.
-//Returns true if the cursor moved, false if the end of the text was reached
+// Returns true if the cursor moved, false if the end of the text was reached
 func (t *TextDisplay) MoveRight() bool {
 	return (int)(C.go_fltk_TextDisplay_move_right((*C.GText_Display)(t.ptr()))) != 0
 }
 
-//MoveLeft moves the current insert position left one character.
+// MoveLeft moves the current insert position left one character.
 func (t *TextDisplay) MoveLeft() bool {
 	return (int)(C.go_fltk_TextDisplay_move_left((*C.GText_Display)(t.ptr()))) != 0
 }
 
-//MoveUp moves the current insert position up one line.
+// MoveUp moves the current insert position up one line.
 func (t *TextDisplay) MoveUp() bool {
 	return (int)(C.go_fltk_TextDisplay_move_up((*C.GText_Display)(t.ptr()))) != 0
 }
 
-//MoveDown moves the current insert position down one line.
+// MoveDown moves the current insert position down one line.
 func (t *TextDisplay) MoveDown() bool {
 	return (int)(C.go_fltk_TextDisplay_move_down((*C.GText_Display)(t.ptr()))) != 0
 }
 
-//ShowInsertPosition scrolls the text buffer to show the current insert position.
+// ShowInsertPosition scrolls the text buffer to show the current insert position.
 func (t *TextDisplay) ShowInsertPosition() {
 	C.go_fltk_TextDisplay_show_insert_position((*C.GText_Display)(t.ptr()))
 }
 
-//TextSize gets the default size of text in the widget
+// TextSize gets the default size of text in the widget
 func (t *TextDisplay) TextSize() int {
 	return (int)(C.go_fltk_TextDisplay_text_size((*C.GText_Display)(t.ptr())))
 }
 
-//SetTextSize sets the default size of text in the widget
+// SetTextSize sets the default size of text in the widget
 func (t *TextDisplay) SetTextSize(size int) {
 	C.go_fltk_TextDisplay_set_text_size((*C.GText_Display)(t.ptr()), C.int(size))
 }
 
 type TextEditor struct {
 	TextDisplay
+}
+
+// Copy Does a copy of selected text or the current character in the current buffer of editor 'e'. (kf_copy)
+func (t *TextEditor) Copy() {
+	C.go_fltk_TextEditor_copy((*C.GText_Editor)(t.ptr()))
 }
 
 func NewTextEditor(x, y, w, h int, text ...string) *TextEditor {

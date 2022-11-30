@@ -9,6 +9,7 @@ extern "C" {
   typedef struct Fl_Text_Buffer Fl_Text_Buffer;
 
   extern GText_Editor *go_fltk_new_TextEditor(int x, int y, int w, int h, const char *text);
+  extern void go_fltk_TextEditor_copy(GText_Editor *e);
 
   extern GText_Display *go_fltk_new_TextDisplay(int x, int y, int w, int h, const char *text);
   extern void go_fltk_TextDisplay_set_buffer(GText_Display *d, Fl_Text_Buffer *buf);
