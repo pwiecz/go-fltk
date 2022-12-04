@@ -86,27 +86,27 @@ GText_Editor *go_fltk_new_TextEditor(int x, int y, int w, int h, const char *tex
 }
 
 void go_fltk_TextEditor_copy(GText_Editor *e) {
-  e->kf_copy(0, e);
+  Fl_Text_Editor::kf_copy(0, e);
 }
 
 void go_fltk_TextEditor_insert(GText_Editor *e) {
-  e->kf_insert(0, e);
+  Fl_Text_Editor::kf_insert(0, e);
 }
 
 void go_fltk_TextEditor_cut(GText_Editor *e) {
-  e->kf_cut(0, e);
+  Fl_Text_Editor::kf_cut(0, e);
 }
 
 void go_fltk_TextEditor_delete(GText_Editor *e) {
-  e->kf_delete(0, e);
+  Fl_Text_Editor::kf_delete(0, e);
 }
 
 void go_fltk_TextEditor_paste(GText_Editor *e) {
-  e->kf_paste(0, e);
+  Fl_Text_Editor::kf_paste(0, e);
 }
 
 void go_fltk_TextEditor_select_all(GText_Editor *e) {
-  e->kf_select_all(0, e);
+  Fl_Text_Editor::kf_select_all(0, e);
 }
 
 Fl_Text_Buffer *go_fltk_new_TextBuffer(void) {
