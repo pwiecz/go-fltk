@@ -31,6 +31,9 @@ extern "C" {
   int go_fltk_TextDisplay_get_insert_position(GText_Display *d);
   void go_fltk_TextDisplay_insert_text(GText_Display *d, const char *text);
   void go_fltk_TextDisplay_overstrike(GText_Display *d, const char* text);
+  extern int go_fltk_TextDisplay_total_lines(GText_Display *d);
+  extern int go_fltk_TextDisplay_line_to_position(GText_Display *d, int lineNum);
+  extern int go_fltk_TextDisplay_move_end(GText_Display *d);
 
   extern Fl_Text_Buffer *go_fltk_new_TextBuffer(void);
   extern void go_fltk_TextBuffer_delete(Fl_Text_Buffer* b);

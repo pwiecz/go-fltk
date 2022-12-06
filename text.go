@@ -252,6 +252,23 @@ func (t *TextDisplay) Overstrike(txt string) {
 	C.go_fltk_TextDisplay_overstrike((*C.GText_Display)(t.ptr()), txtstr)
 }
 
+func (t *TextDisplay) TotalLines() int {
+	lines := C.go_fltk_TextDisplay_total_lines( (*C.GText_Display)(t.ptr()) )
+	return int(lines)
+}
+
+// LineToPosition - Given a line number, return the position of the start of the line. If not found return -1
+func (t *TextDisplay) LineToPosition(lineNum int) int {
+	pos := C.go_fltk_TextDisplay_line_to_position( (*C.GText_Display)(t.ptr()), C.int(lineNum) )
+	return int(pos)
+}
+
+// MoveEnd - Move the cursor to the end of the display
+func (t *TextDisplay) MoveEnd() int {
+	pos := C.go_fltk_TextDisplay_move_end( (*C.GText_Display)(t.ptr()) )
+	return int(pos)
+}
+
 type TextEditor struct {
 	TextDisplay
 }

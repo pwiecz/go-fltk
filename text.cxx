@@ -75,6 +75,52 @@ void go_fltk_TextDisplay_overstrike(GText_Display *d, const char* text) {
   d->overstrike(text);
 }
 
+int go_fltk_TextDisplay_total_lines(GText_Display *d) {
+  Fl_Text_Buffer* buffer = d->buffer();
+  int endPos = go_fltk_TextDisplay_move_end(d);
+  return buffer->count_lines(0, endPos);
+}
+
+// fltk has position_to_line but not this one
+int go_fltk_TextDisplay_line_to_position(GText_Display *d, int lineNum) {
+  int currentPos, currentLine, movedown, startPos;
+  Fl_Text_Buffer* buff = d->buffer();
+  int total_lines = go_fltk_TextDisplay_total_lines(d);
+  if (lineNum > total_lines) {
+    return -1;
+  }
+  currentPos = d->insert_position();
+  currentLine = buff->count_lines(0, currentPos);
+
+  while ( true )  {
+    if ( currentLine == lineNum ) {
+      break;
+    }
+    movedown = d->move_down();
+    if (movedown == 0) {
+      d->insert_position(0);
+      currentLine = 0;
+    } else {
+      currentPos = d->insert_position();
+      currentLine++;
+    }
+  }
+
+  return d->line_start(currentPos);
+}
+
+// Move insert to the end of display
+int go_fltk_TextDisplay_move_end(GText_Display *d) {
+  int movedown;
+  while ( movedown = d->move_down() == 1) {
+  }
+  int currentPos = d->insert_position();
+  int lineEnd;
+  lineEnd = d->line_end(currentPos, false);
+  d->insert_position(lineEnd);
+  return lineEnd;
+}
+
 class GText_Editor : public EventHandler<Fl_Text_Editor> {
 public:
   GText_Editor(int x, int y, int w, int h, const char* label)
