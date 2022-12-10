@@ -77,3 +77,14 @@ func SetDialogTitle(title string) {
 	C.go_fltk_set_title_dialog(titleC)
 }
 
+func ColorChooserDialog(title string, r, g, b float64, cmode int) (float64, float64, float64) {
+	titleC := C.CString(title)
+	defer C.free(unsafe.Pointer(titleC))
+	var rr, rg, rb C.double
+	resultC := C.go_fltk_color_chooser_dialog( titleC, &rr, &rg, &rb, C.int(cmode) )
+	if int(resultC) == 1 {
+		return float64(rr), float64(rg), float64(rb)
+	} else {
+		return r, g, b
+	}
+}

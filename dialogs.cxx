@@ -1,6 +1,7 @@
 #include "dialogs.h"
 
 #include <FL/fl_ask.H>
+#include <FL/Fl_Color_Chooser.H>
 
 #include <stddef.h>
 #include <cstdlib>
@@ -50,4 +51,11 @@ char* go_fltk_password_dialog(int maxchar, const char* message, const char* defa
 
 void go_fltk_set_title_dialog(const char* title) {
   fl_message_title(title);
+}
+
+int go_fltk_color_chooser_dialog(const char* title, double *r, double *g, double *b, int cmode) {
+  double x, y, z;
+  int result = fl_color_chooser(title, &x, &y, &z, cmode);
+  *r = x; *g = y; *b = z;
+  return result;
 }

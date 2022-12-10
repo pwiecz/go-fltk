@@ -18,6 +18,8 @@ extern "C" {
 
   extern void go_fltk_set_title_dialog(const char* title);
 
+  extern int go_fltk_color_chooser_dialog(const char* title, double *r, double *g, double *b, int cmode);
+
 #ifdef __cplusplus
 }
 #endif
