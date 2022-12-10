@@ -35,3 +35,19 @@ char* go_fltk_input_dialog(int maxchar, const char* message) {
   }
   return output;
 }
+
+char* go_fltk_password_dialog(int maxchar, const char* message, const char* defaultPassword) {
+  Fl_String outputFlString = fl_password_str(maxchar, message, defaultPassword, 0);
+  const char* outputStr = outputFlString.value();
+  char* output = (char*) malloc(maxchar);
+  if (outputStr != NULL){
+    strncpy(output, outputStr, maxchar);
+  } else {
+    strcpy(output, "");
+  }
+  return output;
+}
+
+void go_fltk_set_title_dialog(const char* title) {
+  fl_message_title(title);
+}

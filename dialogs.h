@@ -14,6 +14,10 @@ extern "C" {
 
   extern char* go_fltk_input_dialog(int maxchar, const char* message);
 
+  extern char* go_fltk_password_dialog(int maxchar, const char* message, const char* defaultPassword);
+
+  extern void go_fltk_set_title_dialog(const char* title);
+
 #ifdef __cplusplus
 }
 #endif

@@ -58,3 +58,22 @@ func InputDialog(maxchar int, message string) string {
 	defer C.free(unsafe.Pointer(output))
 	return C.GoString(output)
 }
+
+// PasswordDialog - Prompt for a passwordwith the message. A default password can be supplied. (fl_password_str)
+func PasswordDialog(maxchar int, message, defaultPassword string) string {
+	messageStr := C.CString(message)
+	defaultPasswordC := C.CString(defaultPassword)
+	defer C.free(unsafe.Pointer(messageStr))
+	defer C.free(unsafe.Pointer(defaultPasswordC))
+	output := C.go_fltk_password_dialog(C.int(maxchar), messageStr, defaultPasswordC)
+	defer C.free(unsafe.Pointer(output))
+	return C.GoString(output)
+}
+
+// SetDialogTitle - Set the title for the next dialog display. You have to call this before calling to display the Dialog. Without this, dialog will have no title by default (fl_message_title)
+func SetDialogTitle(title string) {
+	titleC := C.CString(title)
+	defer C.free(unsafe.Pointer(titleC))
+	C.go_fltk_set_title_dialog(titleC)
+}
+
