@@ -43,9 +43,9 @@ class FL_EXPORT Fl_Glut_Window : public Fl_Gl_Window {
   void _init();
   int mouse_down;
 protected:
-  void draw();
-  void draw_overlay();
-  int handle(int);
+  void draw() FL_OVERRIDE;
+  void draw_overlay() FL_OVERRIDE;
+  int handle(int) FL_OVERRIDE;
 public: // so the inline functions work
   int number;
   int menu[3];
@@ -315,12 +315,12 @@ enum {
   GLUT_INIT_WINDOW_HEIGHT,
   GLUT_INIT_DISPLAY_MODE,
   GLUT_WINDOW_BUFFER_SIZE,
-  GLUT_VERSION
+  GLUT_VERSION,
 //GLUT_WINDOW_NUM_CHILDREN,
 //GLUT_WINDOW_CURSOR,
 //GLUT_SCREEN_WIDTH_MM,
 //GLUT_SCREEN_HEIGHT_MM,
-//GLUT_ELAPSED_TIME,
+  GLUT_ELAPSED_TIME,
 };
 
 #  define GLUT_WINDOW_STENCIL_SIZE      GL_STENCIL_BITS
