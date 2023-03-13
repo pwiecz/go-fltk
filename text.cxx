@@ -59,6 +59,22 @@ Fl_Text_Buffer *go_fltk_TextDisplay_buffer(GText_Display *d) {
   return d->buffer();
 }
 
+void go_fltk_TextDisplay_insert_position(GText_Display *d, int newPos) {
+  d->insert_position(newPos);
+}
+
+int go_fltk_TextDisplay_get_insert_position(GText_Display *d) {
+  return d->insert_position();
+}
+
+void go_fltk_TextDisplay_insert_text(GText_Display *d, const char *text) {
+  d->insert(text);
+}
+
+void go_fltk_TextDisplay_overstrike(GText_Display *d, const char* text) {
+  d->overstrike(text);
+}
+
 class GText_Editor : public EventHandler<Fl_Text_Editor> {
 public:
   GText_Editor(int x, int y, int w, int h, const char* label)
@@ -67,6 +83,30 @@ public:
 
 GText_Editor *go_fltk_new_TextEditor(int x, int y, int w, int h, const char *text) {
   return new GText_Editor(x, y, w, h, text);
+}
+
+void go_fltk_TextEditor_copy(GText_Editor *e) {
+  Fl_Text_Editor::kf_copy(0, e);
+}
+
+void go_fltk_TextEditor_insert(GText_Editor *e) {
+  Fl_Text_Editor::kf_insert(0, e);
+}
+
+void go_fltk_TextEditor_cut(GText_Editor *e) {
+  Fl_Text_Editor::kf_cut(0, e);
+}
+
+void go_fltk_TextEditor_delete(GText_Editor *e) {
+  Fl_Text_Editor::kf_delete(0, e);
+}
+
+void go_fltk_TextEditor_paste(GText_Editor *e) {
+  Fl_Text_Editor::kf_paste(0, e);
+}
+
+void go_fltk_TextEditor_select_all(GText_Editor *e) {
+  Fl_Text_Editor::kf_select_all(0, e);
 }
 
 Fl_Text_Buffer *go_fltk_new_TextBuffer(void) {
@@ -87,4 +127,60 @@ void go_fltk_TextBuffer_append(Fl_Text_Buffer *b, const char *txt) {
 
 const char *go_fltk_TextBuffer_text(Fl_Text_Buffer *b) {
   return b->text();
+}
+
+const char *go_fltk_TextBuffer_text_range(Fl_Text_Buffer *b, int start, int end) {
+  return b->text_range(start, end);
+}
+
+void go_fltk_TextBuffer_highlight(Fl_Text_Buffer *b, int start, int end) {
+  b->highlight(start, end);
+}
+
+void go_fltk_TextBuffer_unhighlight(Fl_Text_Buffer *b) {
+  b->unhighlight();
+}
+
+void go_fltk_TextBuffer_replace(Fl_Text_Buffer *b, int start, int end, const char *text) {
+  b->replace(start, end, text);
+}
+
+void go_fltk_TextBuffer_replace_selection(Fl_Text_Buffer *b, const char *text) {
+  b->replace_selection(text);
+}
+
+int go_fltk_TextBuffer_search_forward(Fl_Text_Buffer *b, int start, const char *searchString, int *foundPos, int matchCase) {
+  return b->search_forward(start, searchString, foundPos, matchCase);
+}
+
+int go_fltk_TextBuffer_search_backward(Fl_Text_Buffer *b, int start, const char *searchString, int *foundPos, int matchCase) {
+  return b->search_backward(start, searchString, foundPos, matchCase);
+}
+
+void go_fltk_TextBuffer_select(Fl_Text_Buffer *b, int start, int end) {
+  b->select(start, end);
+}
+
+int go_fltk_TextBuffer_selected(Fl_Text_Buffer *b) {
+  return b->selected();
+}
+
+int go_fltk_TextBuffer_selection_position(Fl_Text_Buffer *b, int *start, int *end) {
+  return b->selection_position(start, end);
+}
+
+char* go_fltk_TextBuffer_selection_text(Fl_Text_Buffer *b) {
+  return b->selection_text();
+}
+
+void go_fltk_TextBuffer_unselect(Fl_Text_Buffer *b) {
+  b->unselect();
+}
+
+int go_fltk_TextBuffer_tab_distance(Fl_Text_Buffer *b) {
+  return b->tab_distance();
+}
+
+void go_fltk_TextBuffer_set_tab_distance(Fl_Text_Buffer *b, int tabDist) {
+  b->tab_distance(tabDist);
 }
