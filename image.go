@@ -148,10 +148,11 @@ func NewJpegImageLoad(path string) (*JpegImage, error) {
 
 func NewJpegImageFromData(data []uint8) (*JpegImage, error) {
 	buf := (*C.uchar)(unsafe.Pointer(&data[0]))
+	len := len(data)
 
 	img := &JpegImage{}
 
-	initImage(img, unsafe.Pointer(C.go_fltk_jpg_image_data(buf)))
+	initImage(img, unsafe.Pointer(C.go_fltk_jpg_image_data(buf, C.int(len))))
 	return img, image_error(img.fail())
 }
 

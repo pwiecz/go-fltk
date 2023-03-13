@@ -74,8 +74,8 @@ Fl_JPEG_Image *go_fltk_jpg_image_load(const char *file) {
     return new Fl_JPEG_Image(file);
 }
 
-Fl_JPEG_Image *go_fltk_jpg_image_data(const unsigned char *data) {
-    return new Fl_JPEG_Image(NULL, data);
+Fl_JPEG_Image *go_fltk_jpg_image_data(const unsigned char *data, int len) {
+    return new Fl_JPEG_Image(NULL, data, len);
 }
 
 Fl_BMP_Image *go_fltk_bmp_image_load(const char *file) {

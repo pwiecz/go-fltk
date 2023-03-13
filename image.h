@@ -36,7 +36,7 @@ extern "C" {
     extern Fl_PNG_Image *go_fltk_png_image_load(const char *file);
     extern Fl_PNG_Image *go_fltk_png_image_data(const unsigned char *data, int size);
     extern Fl_JPEG_Image *go_fltk_jpg_image_load(const char *file);
-    extern Fl_JPEG_Image *go_fltk_jpg_image_data(const unsigned char *data);
+    extern Fl_JPEG_Image *go_fltk_jpg_image_data(const unsigned char *data, int len);
     extern Fl_BMP_Image *go_fltk_bmp_image_load(const char *file);
     extern Fl_BMP_Image *go_fltk_bmp_image_data(const unsigned char *data, long size);
     extern Fl_Shared_Image *go_fltk_shared_image_load(const char *file);

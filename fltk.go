@@ -2,7 +2,7 @@ package fltk
 
 /*
 #cgo CPPFLAGS: -I${SRCDIR}/include
-#cgo amd64,linux LDFLAGS: ${SRCDIR}/lib/linux/x64/libfltk.a ${SRCDIR}/lib/linux/x64/libfltk_images.a ${SRCDIR}/lib/linux/x64/libfltk_z.a ${SRCDIR}/lib/linux/x64/libfltk_jpeg.a ${SRCDIR}/lib/linux/x64/libfltk_png.a ${SRCDIR}/lib/linux/x64/libfltk_gl.a -lGLU -lGL -lXrender -lXcursor -lXfixes -lXext -lXft -lfontconfig -lXinerama -lpthread -ldl -lm -lX11
+#cgo amd64,linux LDFLAGS: ${SRCDIR}/lib/linux/x64/libfltk.a ${SRCDIR}/lib/linux/x64/libfltk_images.a ${SRCDIR}/lib/linux/x64/libfltk_z.a ${SRCDIR}/lib/linux/x64/libfltk_jpeg.a ${SRCDIR}/lib/linux/x64/libfltk_png.a ${SRCDIR}/lib/linux/x64/libfltk_gl.a -lGLU -lGL -lXrender -lXcursor -lXfixes -lXext -lXft -lfontconfig -lXinerama -lpthread -ldl -lm -lX11 -lcairo -lpango-1.0 -lpangoxft-1.0 -lgobject-2.0 -lpangocairo-1.0
 #cgo amd64,windows LDFLAGS: -L${SRCDIR}/lib/windows/x64 -lfltk -lfltk_images -lfltk_z -lfltk_png -lfltk_jpeg -lfltk_gl -lglu32 -lopengl32 -lgdiplus -lgdi32 -luser32 -lole32 -lcomctl32 -luuid -lws2_32 -lcomdlg32
 #cgo amd64,darwin LDFLAGS: ${SRCDIR}/lib/macos/x64/libfltk.a ${SRCDIR}/lib/macos/x64/libfltk_images.a ${SRCDIR}/lib/macos/x64/libfltk_z.a ${SRCDIR}/lib/macos/x64/libfltk_jpeg.a ${SRCDIR}/lib/macos/x64/libfltk_png.a ${SRCDIR}/lib/macos/x64/libfltk_gl.a -framework Cocoa -framework OpenGL -framework ApplicationServices -framework Carbon
 #cgo arm64,darwin LDFLAGS: ${SRCDIR}/lib/macos/arm64/libfltk.a ${SRCDIR}/lib/macos/arm64/libfltk_images.a ${SRCDIR}/lib/macos/arm64/libfltk_z.a ${SRCDIR}/lib/macos/arm64/libfltk_jpeg.a ${SRCDIR}/lib/macos/arm64/libfltk_png.a ${SRCDIR}/lib/macos/arm64/libfltk_gl.a -framework Cocoa -framework OpenGL -framework ApplicationServices -framework Carbon
@@ -211,19 +211,21 @@ func _go_timeoutHandler(id C.uintptr_t) {
 }
 
 // AddTimeout adds a one-shot timeout callback.  The function will be called by
-//  Fl::wait() at t seconds after this function is called.
-//  If you need more accurate, repeated timeouts, use RepeatTimeout() to
-//  reschedule the subsequent timeouts.
+//
+//	Fl::wait() at t seconds after this function is called.
+//	If you need more accurate, repeated timeouts, use RepeatTimeout() to
+//	reschedule the subsequent timeouts.
 func AddTimeout(t float64, fn func()) {
 	timeoutId := globalTimeoutMap.register(fn)
 	C.go_fltk_add_timeout(C.double(t), C.uintptr_t(timeoutId))
 }
 
 // RepeatTimeout repeats a timeout callback from the expiration of the
-//  previous timeout, allowing for more accurate timing.
-//  You may only call this method inside a timeout callback of the same timer
-//  or at least a closely related timer, otherwise the timing accuracy can't
-//  be improved and the behavior is undefined.
+//
+//	previous timeout, allowing for more accurate timing.
+//	You may only call this method inside a timeout callback of the same timer
+//	or at least a closely related timer, otherwise the timing accuracy can't
+//	be improved and the behavior is undefined.
 func RepeatTimeout(t float64, fn func()) {
 	timeoutId := globalTimeoutMap.register(fn)
 	C.go_fltk_repeat_timeout(C.double(t), C.uintptr_t(timeoutId))
@@ -281,6 +283,7 @@ func SetScrollbarSize(size int) {
 // For now, just gonna hide it at the bottom of the file and pretend it
 // doesn't exist
 // TODO: If it's possible, fix this
+//
 //export _go_drawBox0
 func _go_drawBox0(x, y, w, h C.int, c C.uint) {
 	setBoxTypeCb[0](int(x), int(y), int(w), int(h), Color(c))
