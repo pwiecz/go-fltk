@@ -192,6 +192,12 @@ func NewRgbImage(data []uint8, w, h, depth int) (*RgbImage, error) {
 	return img, image_error(img.fail())
 }
 
+func NewRgbImageFromSvg(img *SvgImage) (*RgbImage) {
+	rgbImage := &RgbImage{}
+	rgbImage.image = img.image
+	return rgbImage
+}
+
 func NewRgbImageFromImage(image goimage.Image) (*RgbImage, error) {
 	rgbImage := &RgbImage{}
 	var w, h, stride, depth int
