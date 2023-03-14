@@ -18,8 +18,8 @@ void go_fltk_Flex_set_gap(GFlex* flex, int spacing) {
     flex->gap(spacing);
 }
 
-void go_fltk_Flex_fixed(GFlex* flex, void* w, int size) {
-    flex->fixed((Fl_Widget *)w, size);
+void go_fltk_Flex_fixed(GFlex* flex, Fl_Widget* w, int size) {
+    flex->fixed(w, size);
 }
 
 extern void go_fltk_Flex_end(GFlex *flex) {

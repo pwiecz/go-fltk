@@ -30,7 +30,7 @@ func (f *Flex) SetGap(spacing int) {
 	C.go_fltk_Flex_set_gap((*C.GFlex)(f.ptr()), C.int(spacing))
 }
 func (f *Flex) Fixed(w Widget, size int) {
-	C.go_fltk_Flex_fixed((*C.GFlex)(f.ptr()), unsafe.Pointer(w.getWidget().ptr()), C.int(size))
+	C.go_fltk_Flex_fixed((*C.GFlex)(f.ptr()), w.getWidget().ptr(), C.int(size))
 }
 func (f *Flex) End() {
 	C.go_fltk_Flex_end((*C.GFlex)(f.ptr()))
