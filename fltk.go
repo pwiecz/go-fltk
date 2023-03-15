@@ -568,3 +568,11 @@ func _go_drawBox55(x, y, w, h C.int, c C.uint) {
 func _go_drawBox56(x, y, w, h C.int, c C.uint) {
 	setBoxTypeCb[56](int(x), int(y), int(w), int(h), Color(c))
 }
+
+func Version() string {
+	return "v1.4.0"
+}
+
+func GoVersion() string {
+	return "v0.1.0"
+}
