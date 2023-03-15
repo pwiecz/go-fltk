@@ -216,3 +216,6 @@ func (w *widget) Parent() *Group {
 	}
 	return w.parent.getGroup()
 }
+func (w *widget) TakeFocus() int {
+	return int(C.go_fltk_Widget_take_focus(w.ptr()))
+}
