@@ -68,6 +68,7 @@ const int go_FL_UNFOCUS = FL_UNFOCUS;
 const int go_FL_KEYBOARD = FL_KEYBOARD;
 const int go_FL_KEYDOWN = FL_KEYDOWN;
 const int go_FL_KEYUP = FL_KEYUP;
+const int go_FL_CLOSE = FL_CLOSE;
 const int go_FL_SHORTCUT = FL_SHORTCUT;
 const int go_FL_DEACTIVATE = FL_DEACTIVATE;
 const int go_FL_ACTIVATE = FL_ACTIVATE;
