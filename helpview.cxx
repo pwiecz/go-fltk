@@ -80,3 +80,14 @@ void go_fltk_HelpView_set_value(GHelp_View *h, const char *val) {
 	h->value(val);
 }
 
+void go_fltk_HelpView_set_textcolor(GHelp_View *h, unsigned int col) {
+	h->textcolor(col);
+}
+
+void go_fltk_HelpView_set_textsize(GHelp_View *h, int size) {
+	h->textsize(size);
+}
+
+void go_fltk_HelpView_set_textfont(GHelp_View *h, int font) {
+	h->textfont(font);
+}
