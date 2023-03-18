@@ -153,6 +153,7 @@ var (
 	KEY            = Event(C.go_FL_KEYDOWN)
 	KEYDOWN        = Event(C.go_FL_KEYDOWN)
 	KEYUP          = Event(C.go_FL_KEYUP)
+	CLOSE          = Event(C.go_FL_CLOSE)
 	SHORTCUT       = Event(C.go_FL_SHORTCUT)
 	DEACTIVATE     = Event(C.go_FL_DEACTIVATE)
 	ACTIVATE       = Event(C.go_FL_ACTIVATE)

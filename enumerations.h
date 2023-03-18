@@ -68,6 +68,7 @@ extern "C" {
   extern const int go_FL_KEYBOARD;
   extern const int go_FL_KEYDOWN;
   extern const int go_FL_KEYUP;
+  extern const int go_FL_CLOSE;
   extern const int go_FL_SHORTCUT;
   extern const int go_FL_DEACTIVATE;
   extern const int go_FL_ACTIVATE;
