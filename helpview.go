@@ -72,3 +72,15 @@ func (h *HelpView) SetValue(str string) {
 	defer C.free(unsafe.Pointer(cStr))
 	C.go_fltk_HelpView_set_value((*C.GHelp_View)(h.ptr()), cStr)
 }
+
+func (h *HelpView) TextSize(size int) {
+	C.go_fltk_HelpView_set_textsize((*C.GHelp_View)(h.ptr()), C.int(size))
+}
+
+func (h *HelpView) TextFont(font Font) {
+	C.go_fltk_HelpView_set_textfont((*C.GHelp_View)(h.ptr()), C.int(font))
+}
+
+func (h *HelpView) TextColor(col Color) {
+	C.go_fltk_HelpView_set_textcolor((*C.GHelp_View)(h.ptr()), C.uint(col))
+}

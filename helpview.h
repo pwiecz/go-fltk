@@ -18,6 +18,9 @@ extern "C" {
 	extern void        go_fltk_HelpView_set_toplinestring(GHelp_View *h, const char *s);
 	extern const char *go_fltk_HelpView_value(GHelp_View *h);
 	extern void        go_fltk_HelpView_set_value(GHelp_View *h, const char *val);
+	extern void        go_fltk_HelpView_set_textcolor(GHelp_View *h, unsigned int col);
+	extern void        go_fltk_HelpView_set_textsize(GHelp_View *h, int size);
+	extern void        go_fltk_HelpView_set_textfont(GHelp_View *h, int font);
 
 #ifdef __cplusplus
 }
