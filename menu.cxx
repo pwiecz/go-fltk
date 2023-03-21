@@ -22,7 +22,10 @@ void go_fltk_Menu_remove(Fl_Menu_ *m, int index) { m->remove(index); }
 
 void go_fltk_Menu_replace(Fl_Menu_ *m, int index, const char *label) {
   m->replace(index, label);
-} 
+}
+int go_fltk_Menu_find_index(Fl_Menu_ *m, const char *label) {
+  return m->find_index(label);  
+}  
 
 void go_fltk_Menu_set_value(Fl_Menu_ *m, int value) { 
   m->value(value);
