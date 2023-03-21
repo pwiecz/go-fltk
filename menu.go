@@ -50,7 +50,28 @@ func (m *menu) AddEx(label string, shortcut int, callback func(), flags int) int
 	defer C.free(unsafe.Pointer(labelStr))
 	return int(C.go_fltk_Menu_add((*C.Fl_Menu_)(m.ptr()), labelStr, C.int(shortcut), C.int(callbackId), C.int(flags)))
 }
-
+func (m* menu) Insert(index int, label string, callback func()) int {
+	callbackId := globalCallbackMap.register(callback)
+	m.itemCallbacks = append(m.itemCallbacks, callbackId)
+	labelStr := C.CString(label)
+	defer C.free(unsafe.Pointer(labelStr))
+	return int(C.go_fltk_Menu_insert((*C.Fl_Menu_)(m.ptr()), C.int(index), labelStr, 0, C.int(callbackId), 0))
+}
+func (m* menu) InsertEx(index int, label string, shortcut int, callback func(), flags int) int {
+	callbackId := globalCallbackMap.register(callback)
+	m.itemCallbacks = append(m.itemCallbacks, callbackId)
+	labelStr := C.CString(label)
+	defer C.free(unsafe.Pointer(labelStr))
+	return int(C.go_fltk_Menu_insert((*C.Fl_Menu_)(m.ptr()), C.int(index), labelStr, C.int(shortcut), C.int(callbackId), C.int(flags)))
+}
+func (m *menu) Remove(index int) {
+	C.go_fltk_Menu_remove((*C.Fl_Menu_)(m.ptr()), C.int(index))
+}
+func (m* menu) Replace(index int, label string) {
+	labelStr := C.CString(label)
+	defer C.free(unsafe.Pointer(labelStr))
+	C.go_fltk_Menu_replace((*C.Fl_Menu_)(m.ptr()), C.int(index), labelStr)
+}
 func (m *menu) SetValue(value int) {
 	C.go_fltk_Menu_set_value((*C.Fl_Menu_)(m.ptr()), C.int(value))
 }

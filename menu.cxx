@@ -14,17 +14,25 @@ int go_fltk_Menu_add(Fl_Menu_ *m, char *label, int shortcut, int callback, int f
   return m->add(label, shortcut, callback_handler, (void*)(uintptr_t)callback, flags);
 }
 
+int go_fltk_Menu_insert(Fl_Menu_ *m, int index, char *label, int shortcut, int callback, int flags) {
+  return m->insert(index, label, shortcut, callback_handler, (void*)(uintptr_t)callback, flags);
+}
+
+void go_fltk_Menu_remove(Fl_Menu_ *m, int index) { m->remove(index); }
+
+void go_fltk_Menu_replace(Fl_Menu_ *m, int index, const char *label) {
+  m->replace(index, label);
+} 
+
 void go_fltk_Menu_set_value(Fl_Menu_ *m, int value) { 
   m->value(value);
 }
 
-int go_fltk_Menu_value(Fl_Menu_ *m) {
-  return m->value();
-}
+int go_fltk_Menu_value(Fl_Menu_ *m) { return m->value(); }
 
-int go_fltk_Menu_size(Fl_Menu_ *m) {
-  return m->size();
-}
+
+int go_fltk_Menu_size(Fl_Menu_ *m) { return m->size(); }
+
 
 class GMenu_Button : public EventHandler<Fl_Menu_Button> {
 public:
