@@ -80,8 +80,20 @@ func (m *menu) FindIndex(label string) int {
 func (m *menu) SetValue(value int) {
 	C.go_fltk_Menu_set_value((*C.Fl_Menu_)(m.ptr()), C.int(value))
 }
+
+// Value returns index of the last item chosen by the user.
 func (m *menu) Value() int {
 	return int(C.go_fltk_Menu_value((*C.Fl_Menu_)(m.ptr())))
+}
+
+// SelectedText returns the title of the last item chosen by the user.
+func (m *menu) SelectedText() string {
+	return C.GoString(C.go_fltk_Menu_selected_text((*C.Fl_Menu_)(m.ptr())))
+}
+
+// Text returns the title of the last item at index.
+func (m *menu) Text(index int) string {
+	return C.GoString(C.go_fltk_Menu_text((*C.Fl_Menu_)(m.ptr()), C.int(index)))
 }
 func (m *menu) Size() int {
 	return int(C.go_fltk_Menu_size((*C.Fl_Menu_)(m.ptr())))

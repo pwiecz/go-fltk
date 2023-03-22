@@ -15,6 +15,8 @@ extern "C" {
   extern int go_fltk_Menu_find_index(Fl_Menu_ *m, const char* label);
   extern void go_fltk_Menu_set_value(Fl_Menu_* m, int value);
   extern int go_fltk_Menu_value(Fl_Menu_* m);
+  extern const char* go_fltk_Menu_text(Fl_Menu_* m, int index);
+  extern const char* go_fltk_Menu_selected_text(Fl_Menu_* m);
   extern int go_fltk_Menu_size(Fl_Menu_* m);
 
   extern GMenu_Button* go_fltk_new_MenuButton(int x, int y, int w, int h, const char* text);

@@ -33,6 +33,9 @@ void go_fltk_Menu_set_value(Fl_Menu_ *m, int value) {
 
 int go_fltk_Menu_value(Fl_Menu_ *m) { return m->value(); }
 
+const char* go_fltk_Menu_selected_text(Fl_Menu_* m) { return m->text(); }
+
+const char* go_fltk_Menu_text(Fl_Menu_* m, int index) { return m->text(index); }
 
 int go_fltk_Menu_size(Fl_Menu_ *m) { return m->size(); }
 
