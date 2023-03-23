@@ -15,22 +15,22 @@ GProgress* go_fltk_new_Progress(int x, int y, int w, int h, const char *label) {
   return new GProgress(x, y, w, h, label);
 }
 
-void go_fltk_Progress_set_maximum(GProgress* p, double maximum) {
+void go_fltk_Progress_set_maximum(Fl_Progress* p, double maximum) {
   p->maximum((float)maximum);
 }
-double go_fltk_Progress_maximum(GProgress* p) {
+double go_fltk_Progress_maximum(Fl_Progress* p) {
   return (double)p->maximum();
 }
-void go_fltk_Progress_set_minimum(GProgress* p, double minimum) {
+void go_fltk_Progress_set_minimum(Fl_Progress* p, double minimum) {
   p->minimum((float)minimum);
 }
-double go_fltk_Progress_minimum(GProgress* p) {
+double go_fltk_Progress_minimum(Fl_Progress* p) {
   return (double)p->minimum();
 }
-void go_fltk_Progress_set_value(GProgress* p, double value) {
+void go_fltk_Progress_set_value(Fl_Progress* p, double value) {
   p->value((float)value);
 }
-double go_fltk_Progress_value(GProgress* p) {
+double go_fltk_Progress_value(Fl_Progress* p) {
   return (double)p->value();
 }
 

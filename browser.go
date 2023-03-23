@@ -26,7 +26,7 @@ func NewBrowser(x, y, w, h int, text ...string) *Browser {
 	b := &Browser{}
 	b.dataMap = make(map[uintptr]interface{})
 	b.icons = make(map[int]Image)
-	initGroup(b, unsafe.Pointer(C.go_fltk_new_Browser(C.int(x), C.int(y), C.int(w), C.int(h), cStringOpt(text))))
+	initWidget(b, unsafe.Pointer(C.go_fltk_new_Browser(C.int(x), C.int(y), C.int(w), C.int(h), cStringOpt(text))))
 	return b
 }
 
@@ -34,7 +34,7 @@ func (b *Browser) Add(str string) {
 	cStr := C.CString(str)
 	defer C.free(unsafe.Pointer(cStr))
 
-	C.go_fltk_Browser_add((*C.GBrowser)(b.ptr()), cStr, C.uintptr_t(0))
+	C.go_fltk_Browser_add((*C.Fl_Browser)(b.ptr()), cStr, C.uintptr_t(0))
 }
 
 func (b *Browser) AddWithData(str string, data interface{}) {
@@ -45,11 +45,11 @@ func (b *Browser) AddWithData(str string, data interface{}) {
 	id := b.lastDataID
 	b.dataMap[id] = data
 
-	C.go_fltk_Browser_add((*C.GBrowser)(b.ptr()), cStr, C.uintptr_t(id))
+	C.go_fltk_Browser_add((*C.Fl_Browser)(b.ptr()), cStr, C.uintptr_t(id))
 }
 
 func (b *Browser) TopLine() int {
-	return int(C.go_fltk_Browser_topline((*C.GBrowser)(b.ptr())))
+	return int(C.go_fltk_Browser_topline((*C.Fl_Browser)(b.ptr())))
 }
 
 func (b *Browser) SetBottomLine(line int) error {
@@ -57,7 +57,7 @@ func (b *Browser) SetBottomLine(line int) error {
 		return InvalidLine
 	}
 
-	C.go_fltk_Browser_set_bottomline((*C.GBrowser)(b.ptr()), C.int(line))
+	C.go_fltk_Browser_set_bottomline((*C.Fl_Browser)(b.ptr()), C.int(line))
 	return nil
 }
 
@@ -66,7 +66,7 @@ func (b *Browser) SetMiddleLine(line int) error {
 		return InvalidLine
 	}
 
-	C.go_fltk_Browser_set_middleline((*C.GBrowser)(b.ptr()), C.int(line))
+	C.go_fltk_Browser_set_middleline((*C.Fl_Browser)(b.ptr()), C.int(line))
 	return nil
 }
 
@@ -75,7 +75,7 @@ func (b *Browser) SetTopLine(line int) error {
 		return InvalidLine
 	}
 
-	C.go_fltk_Browser_set_topline((*C.GBrowser)(b.ptr()), C.int(line))
+	C.go_fltk_Browser_set_topline((*C.Fl_Browser)(b.ptr()), C.int(line))
 	return nil
 }
 
@@ -84,7 +84,7 @@ func (b *Browser) Clear() {
 		delete(b.icons, k)
 	}
 	b.dataMap = make(map[uintptr]interface{})
-	C.go_fltk_Browser_clear((*C.GBrowser)(b.ptr()))
+	C.go_fltk_Browser_clear((*C.Fl_Browser)(b.ptr()))
 }
 
 func (b *Browser) Remove(line int) error {
@@ -94,22 +94,22 @@ func (b *Browser) Remove(line int) error {
 	delete(b.icons, line)
 
 	// TODO: got the id from C++ is expensive, need a better way to delete go reference
-	id := uintptr(C.go_fltk_Browser_data((*C.GBrowser)(b.ptr()), C.int(line)))
+	id := uintptr(C.go_fltk_Browser_data((*C.Fl_Browser)(b.ptr()), C.int(line)))
 	delete(b.dataMap, id)
 
-	C.go_fltk_Browser_remove((*C.GBrowser)(b.ptr()), C.int(line))
+	C.go_fltk_Browser_remove((*C.Fl_Browser)(b.ptr()), C.int(line))
 	return nil
 }
 
 func (b *Browser) ColumnChar() rune {
-	return rune(C.go_fltk_Browser_column_char((*C.GBrowser)(b.ptr())))
+	return rune(C.go_fltk_Browser_column_char((*C.Fl_Browser)(b.ptr())))
 }
 
 func (b *Browser) SetColumnChar(r rune) {
 	cStr := C.CString(string(r))
 	defer C.free(unsafe.Pointer(cStr))
 
-	C.go_fltk_Browser_set_column_char((*C.GBrowser)(b.ptr()), *cStr)
+	C.go_fltk_Browser_set_column_char((*C.Fl_Browser)(b.ptr()), *cStr)
 }
 
 func (b *Browser) HideLine(line int) error {
@@ -117,12 +117,12 @@ func (b *Browser) HideLine(line int) error {
 		return InvalidLine
 	}
 
-	C.go_fltk_Browser_hide_line((*C.GBrowser)(b.ptr()), C.int(line))
+	C.go_fltk_Browser_hide_line((*C.Fl_Browser)(b.ptr()), C.int(line))
 	return nil
 }
 
 func (b *Browser) Size() int {
-	return int(C.go_fltk_Browser_size((*C.GBrowser)(b.ptr())))
+	return int(C.go_fltk_Browser_size((*C.Fl_Browser)(b.ptr())))
 }
 
 func (b *Browser) Icon(line int) Image {
@@ -132,27 +132,27 @@ func (b *Browser) Icon(line int) Image {
 func (b *Browser) SetIcon(line int, i Image) {
 	if i == nil {
 		delete(b.icons, line)
-		C.go_fltk_Browser_set_icon((*C.GBrowser)(b.ptr()), C.int(line), nil)
+		C.go_fltk_Browser_set_icon((*C.Fl_Browser)(b.ptr()), C.int(line), nil)
 		return
 	}
 
 	b.icons[line] = i
-	C.go_fltk_Browser_set_icon((*C.GBrowser)(b.ptr()), C.int(line), b.icons[line].getImage().ptr())
+	C.go_fltk_Browser_set_icon((*C.Fl_Browser)(b.ptr()), C.int(line), b.icons[line].getImage().ptr())
 }
 
 func (b *Browser) FormatChar() rune {
-	return rune(C.go_fltk_Browser_format_char((*C.GBrowser)(b.ptr())))
+	return rune(C.go_fltk_Browser_format_char((*C.Fl_Browser)(b.ptr())))
 }
 
 func (b *Browser) SetFormatChar(r rune) {
 	cStr := C.CString(string(r))
 	defer C.free(unsafe.Pointer(cStr))
 
-	C.go_fltk_Browser_set_format_char((*C.GBrowser)(b.ptr()), *cStr)
+	C.go_fltk_Browser_set_format_char((*C.Fl_Browser)(b.ptr()), *cStr)
 }
 
 func (b *Browser) Displayed(line int) bool {
-	if C.go_fltk_Browser_displayed((*C.GBrowser)(b.ptr()), C.int(line)) == 1 {
+	if C.go_fltk_Browser_displayed((*C.Fl_Browser)(b.ptr()), C.int(line)) == 1 {
 		return true
 	}
 
@@ -160,7 +160,7 @@ func (b *Browser) Displayed(line int) bool {
 }
 
 func (b *Browser) Text(line int) string {
-	cStr := C.go_fltk_Browser_text((*C.GBrowser)(b.ptr()), C.int(line))
+	cStr := C.go_fltk_Browser_text((*C.Fl_Browser)(b.ptr()), C.int(line))
 	//defer C.free(unsafe.Pointer(cStr))
 
 	return C.GoString(cStr)
@@ -173,7 +173,7 @@ func (b *Browser) SetColumnWidths(widths ...int) {
 	}
 
 	b.columnWidths = widths
-	C.go_fltk_Browser_set_column_widths((*C.GBrowser)(b.ptr()), (*C.int)(&cArr[0]))
+	C.go_fltk_Browser_set_column_widths((*C.Fl_Browser)(b.ptr()), (*C.int)(&cArr[0]))
 }
 
 // Store column widths in Go instead of calling from C++ as it's complex and expensive
@@ -183,16 +183,16 @@ func (b *Browser) ColumnWidths() []int {
 }
 
 func (b *Browser) Data(line int) interface{} {
-	id := uintptr(C.go_fltk_Browser_data((*C.GBrowser)(b.ptr()), C.int(line)))
+	id := uintptr(C.go_fltk_Browser_data((*C.Fl_Browser)(b.ptr()), C.int(line)))
 	return b.dataMap[id]
 }
 
 func (b *Browser) Value() int {
-	return int(C.go_fltk_Browser_value((*C.GBrowser)(b.ptr())))
+	return int(C.go_fltk_Browser_value((*C.Fl_Browser)(b.ptr())))
 }
 
 func (b *Browser) SetValue(line int) {
-	C.go_fltk_Browser_set_value((*C.GBrowser)(b.ptr()), C.int(line))
+	C.go_fltk_Browser_set_value((*C.Fl_Browser)(b.ptr()), C.int(line))
 }
 
 type SelectBrowser struct {

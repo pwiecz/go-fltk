@@ -13,15 +13,15 @@ type Tree struct {
 
 func NewTree(x, y, w, h int, text ...string) *Tree {
 	t := &Tree{}
-	initGroup(t, unsafe.Pointer(C.go_fltk_new_Tree(C.int(x), C.int(y), C.int(w), C.int(h), cStringOpt(text))))
+	initWidget(t, unsafe.Pointer(C.go_fltk_new_Tree(C.int(x), C.int(y), C.int(w), C.int(h), cStringOpt(text))))
 	return t
 }
 
 func (t *Tree) SetShowRoot(show bool) {
 	if show {
-		C.go_fltk_Tree_set_show_root((*C.GTree)(t.ptr()), 1)
+		C.go_fltk_Tree_set_show_root((*C.Fl_Tree)(t.ptr()), 1)
 	} else {
-		C.go_fltk_Tree_set_show_root((*C.GTree)(t.ptr()), 0)
+		C.go_fltk_Tree_set_show_root((*C.Fl_Tree)(t.ptr()), 0)
 	}
 }
 
@@ -32,7 +32,7 @@ type TreeItem struct {
 func (t *Tree) Add(path string) TreeItem {
 	pathStr := C.CString(path)
 	defer C.free(unsafe.Pointer(pathStr))
-	itemPtr := C.go_fltk_Tree_add((*C.GTree)(t.ptr()), pathStr)
+	itemPtr := C.go_fltk_Tree_add((*C.Fl_Tree)(t.ptr()), pathStr)
 	return TreeItem{ptr: itemPtr}
 }
 func (t TreeItem) SetWidget(w Widget) {
@@ -46,7 +46,7 @@ var (
 	TreeItemHeightFromWidget = TreeItemDrawMode(C.go_FL_TREE_ITEM_HEIGHT_FROM_WIDGET)
 )
 func (t *Tree) SetItemDrawMode(drawMode TreeItemDrawMode) {
-	C.go_fltk_Tree_set_item_draw_mode((*C.GTree)(t.ptr()), C.uint(drawMode))
+	C.go_fltk_Tree_set_item_draw_mode((*C.Fl_Tree)(t.ptr()), C.uint(drawMode))
 }
 
 type TreeConnector int
@@ -56,5 +56,5 @@ var (
 	TreeConnectorSolid = TreeConnector(C.go_FL_TREE_CONNECTOR_SOLID)
 )
 func (t *Tree) SetConnectorStyle(style TreeConnector) {
-	C.go_fltk_Tree_set_connector_style((*C.GTree)(t.ptr()), C.int(style))
+	C.go_fltk_Tree_set_connector_style((*C.Fl_Tree)(t.ptr()), C.int(style))
 }

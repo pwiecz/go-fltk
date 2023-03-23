@@ -17,17 +17,17 @@ func NewButton(x, y, w, h int, text ...string) *Button {
 }
 
 func (b *Button) Value() bool {
-	return C.go_fltk_Button_value((*C.GButton)(b.ptr())) != C.char(0)
+	return C.go_fltk_Button_value((*C.Fl_Button)(b.ptr())) != C.char(0)
 }
 func (b *Button) SetValue(val bool) {
 	if val {
-		C.go_fltk_Button_set_value((*C.GButton)(b.ptr()), 1)
+		C.go_fltk_Button_set_value((*C.Fl_Button)(b.ptr()), 1)
 	} else {
-		C.go_fltk_Button_set_value((*C.GButton)(b.ptr()), 0)
+		C.go_fltk_Button_set_value((*C.Fl_Button)(b.ptr()), 0)
 	}
 }
 func (b *Button) SetDownBox(box BoxType) {
-	C.go_fltk_Button_set_down_box((*C.GButton)(b.ptr()), C.int(box))
+	C.go_fltk_Button_set_down_box((*C.Fl_Button)(b.ptr()), C.int(box))
 }
 
 type CheckButton struct {

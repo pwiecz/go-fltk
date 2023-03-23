@@ -6,6 +6,7 @@ extern "C" {
 
   typedef struct Fl_Menu_ Fl_Menu_;
   typedef struct GMenu_Button GMenu_Button;
+  typedef struct Fl_Menu_Button Fl_Menu_Button;
   typedef struct GMenu_Bar GMenu_Bar;
 
   extern int go_fltk_Menu_add(Fl_Menu_* m, char* label, int shortcut, int callback, int flags);
@@ -20,8 +21,8 @@ extern "C" {
   extern int go_fltk_Menu_size(Fl_Menu_* m);
 
   extern GMenu_Button* go_fltk_new_MenuButton(int x, int y, int w, int h, const char* text);
-  extern void go_fltk_MenuButton_set_type(GMenu_Button* m, int type);
-  extern void go_fltk_MenuButton_popup(GMenu_Button* m);
+  extern void go_fltk_MenuButton_set_type(Fl_Menu_Button* m, int type);
+  extern void go_fltk_MenuButton_popup(Fl_Menu_Button* m);
 
   extern GMenu_Bar* go_fltk_new_MenuBar(int x, int y, int w, int h, const char* text);
 

@@ -49,10 +49,10 @@ public:
 GMenu_Button* go_fltk_new_MenuButton(int x, int y, int w, int h, const char* text) {
   return new GMenu_Button(x, y, w, h, text);
 }
-void go_fltk_MenuButton_set_type(GMenu_Button* m, int menuType) {
+void go_fltk_MenuButton_set_type(Fl_Menu_Button* m, int menuType) {
   m->type(menuType);
 }
-void go_fltk_MenuButton_popup(GMenu_Button* m) {
+void go_fltk_MenuButton_popup(Fl_Menu_Button* m) {
   m->popup();
 }
 

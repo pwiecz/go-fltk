@@ -12,18 +12,18 @@ type Scroll struct {
 
 func NewScroll(x, y, w, h int, text ...string) *Scroll {
 	s := &Scroll{}
-	initGroup(s, unsafe.Pointer(C.go_fltk_new_Scroll(C.int(x), C.int(y), C.int(w), C.int(h), cStringOpt(text))))
+	initWidget(s, unsafe.Pointer(C.go_fltk_new_Scroll(C.int(x), C.int(y), C.int(w), C.int(h), cStringOpt(text))))
 	return s
 }
 
 func (s *Scroll) ScrollTo(x, y int) {
-	C.go_fltk_Scroll_scroll_to((*C.GScroll)(s.ptr()), C.int(x), C.int(y))
+	C.go_fltk_Scroll_scroll_to((*C.Fl_Scroll)(s.ptr()), C.int(x), C.int(y))
 }
 func (s *Scroll) XPosition() int {
-	return int(C.go_fltk_Scroll_x_position((*C.GScroll)(s.ptr())))
+	return int(C.go_fltk_Scroll_x_position((*C.Fl_Scroll)(s.ptr())))
 }
 func (s *Scroll) YPosition() int {
-	return int(C.go_fltk_Scroll_y_position((*C.GScroll)(s.ptr())))
+	return int(C.go_fltk_Scroll_y_position((*C.Fl_Scroll)(s.ptr())))
 }
 
 

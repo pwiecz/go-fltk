@@ -20,13 +20,13 @@ GButton *go_fltk_new_Button(int x, int y, int w, int h, const char *label) {
   return new GButton(x, y, w, h, label);
 }
 
-char go_fltk_Button_value(GButton *b) {
+char go_fltk_Button_value(Fl_Button *b) {
   return b->value();
 }
-void go_fltk_Button_set_value(GButton *b, int val) {
+void go_fltk_Button_set_value(Fl_Button *b, int val) {
   b->value(val);
 }
-void go_fltk_Button_set_down_box(GButton *b, int val) {
+void go_fltk_Button_set_down_box(Fl_Button *b, int val) {
   b->down_box((Fl_Boxtype)val);
 }
 

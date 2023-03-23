@@ -7,12 +7,12 @@ package fltk
 import "C"
 import (
 	"errors"
+	"runtime"
 	"unsafe"
 )
 
 type widget struct {
 	tracker           *C.Fl_Widget_Tracker
-	parent            groupInterface
 	callbackId        uintptr
 	deletionHandlerId uintptr
 	resizeHandlerId   uintptr
@@ -32,11 +32,11 @@ func initWidget(w Widget, p unsafe.Pointer) {
 	ww := w.getWidget()
 	ww.tracker = C.go_fltk_new_Widget_Tracker((*C.Fl_Widget)(p))
 	ww.deletionHandlerId = ww.addDeletionHandler(ww.onDelete)
-	ww.parent = currentGroup
-	if currentGroup != nil {
-		cg := currentGroup.getGroup()
-		cg.children = append(cg.children, w)
-	}
+}
+func initUnownedWidget(w Widget, p unsafe.Pointer) {
+	ww := w.getWidget()
+	ww.tracker = C.go_fltk_new_Widget_Tracker((*C.Fl_Widget)(p))
+	runtime.SetFinalizer(ww, func(w *widget) { w.onDelete() })
 }
 
 func (w *widget) ptr() *C.Fl_Widget {
@@ -97,10 +97,6 @@ func (w *widget) SetDrawHandler(handler func()) {
 }
 func (w *widget) getWidget() *widget { return w }
 func (w *widget) onDelete() {
-	if w.parent != nil {
-		w.parent.getGroup().removeChild(w)
-	}
-	w.parent = nil
 	if w.deletionHandlerId > 0 {
 		globalCallbackMap.unregister(w.deletionHandlerId)
 	}
@@ -127,10 +123,6 @@ func (w *widget) onDelete() {
 	w.tracker = nil
 }
 func (w *widget) Destroy() {
-	if w.parent != nil {
-		w.parent.getGroup().removeChild(w)
-	}
-	w.parent = nil
 	if w.callbackId > 0 {
 		globalCallbackMap.unregister(w.callbackId)
 	}
@@ -211,10 +203,9 @@ func (w *widget) SetTooltip(text string) {
 	C.go_fltk_Widget_set_tooltip(w.ptr(), tooltipStr)
 }
 func (w *widget) Parent() *Group {
-	if w.parent == toplevelGroup {
-		return nil
-	}
-	return w.parent.getGroup()
+	group := &Group{}
+	initUnownedWidget(group, unsafe.Pointer(C.go_fltk_Widget_parent(w.ptr())))
+	return group
 }
 func (w *widget) TakeFocus() int {
 	return int(C.go_fltk_Widget_take_focus(w.ptr()))

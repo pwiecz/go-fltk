@@ -41,9 +41,6 @@ int go_fltk_TableRow_row_selected(GTableRow* t, int row) {
 void go_fltk_TableRow_set_draw_cell_callback(GTableRow* t, int drawFunId) {
   t->set_draw_cell_callback(drawFunId);
 }
-void go_fltk_TableRow_set_event_handler(GTableRow* t, int eventHandler) {
-  t->set_event_handler(eventHandler);
-}
 void go_fltk_TableRow_set_type(GTableRow* t, int type) {
   t->type((Fl_Table_Row::TableRowSelectMode)type);
 }

@@ -20,13 +20,13 @@ GInput *go_fltk_new_Input(int x, int y, int w, int h, const char *text) {
   return new GInput(x, y, w, h, text);
 }
 
-const char *go_fltk_Input_value(GInput *in) {
+const char *go_fltk_Input_value(Fl_Input *in) {
   return in->value();
 }
-int go_fltk_Input_set_value(GInput *in, const char *t) {
+int go_fltk_Input_set_value(Fl_Input *in, const char *t) {
   return in->value(t);
 }
-void go_fltk_Input_resize(GInput *in, int x, int y, int w, int h) {
+void go_fltk_Input_resize(Fl_Input *in, int x, int y, int w, int h) {
   in->resize(x, y, w, h);
 }
 

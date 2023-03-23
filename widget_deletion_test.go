@@ -5,26 +5,25 @@ import (
 	"testing"
 )
 
-func testWidgetDestroyed(w *widget, t *testing.T) {
+func testWidgetDestroyed(name string, w *widget, t *testing.T) {
 	if w.tracker != nil {
-		t.Errorf("widget's tracker is not nil")
+		t.Errorf("%s's widget's tracker is not nil", name)
 	}
 	if w.callbackId != 0 {
-		t.Errorf("callbackId is not 0")
+		t.Errorf("%s's callbackId is not 0", name)
 	}
 	if w.deletionHandlerId != 0 {
-		t.Errorf("deletionHandlerId is not 0")
+		t.Errorf("%s's deletionHandlerId is not 0", name)
 	}
 	if w.resizeHandlerId != 0 {
-		t.Errorf("resizeHandlerId is not 0")
+		t.Errorf("%s's resizeHandlerId is not 0", name)
 	}
 }
 
 func testGlobalMapsEmpty(t *testing.T) {
 	// actually in our tests we do not destroy the main windows, so the callback map should
-	// contain their deletion handlers. There are two deletion handlers per window - one as a widget,
-	// and one as a group.
-	if globalCallbackMap.size() != 2 {
+	// contain their deletion handlers.
+	if globalCallbackMap.size() != 1 {
 		t.Errorf("global callback map is not empty: %d", globalCallbackMap.size())
 	}
 	globalCallbackMap.clear()
@@ -51,7 +50,7 @@ func TestPanicWhenAccessingDeletedWidget(t *testing.T) {
 		} else if !errors.Is(err, ErrDestroyed) {
 			t.Errorf("Unexpected error: %v", err)
 		}
-		testWidgetDestroyed(&b.widget, t)
+		testWidgetDestroyed("button", &b.widget, t)
 		testGlobalMapsEmpty(t)
 		Unlock()
 	}()
@@ -83,8 +82,8 @@ func TestPanicWhenAccessingChildOfDeletedWidget(t *testing.T) {
 		} else if !errors.Is(err, ErrDestroyed) {
 			t.Errorf("Unexpected error: %v", err)
 		}
-		testWidgetDestroyed(&g.widget, t)
-		testWidgetDestroyed(&b.widget, t)
+		testWidgetDestroyed("group", &g.widget, t)
+		testWidgetDestroyed("button", &b.widget, t)
 		testGlobalMapsEmpty(t)
 		Unlock()
 	}()
@@ -119,9 +118,8 @@ func TestPanicWhenAccessingChildOfWidgetDeletedViaParent(t *testing.T) {
 		} else if !errors.Is(err, ErrDestroyed) {
 			t.Errorf("Unexpected error: %v", err)
 		}
-		testWidgetDestroyed(&g.widget, t)
-		testWidgetDestroyed(&b.widget, t)
-		testWidgetDestroyed(&bParent.widget, t)
+		testWidgetDestroyed("group", &g.widget, t)
+		testWidgetDestroyed("button", &b.widget, t)
 		testGlobalMapsEmpty(t)
 		Unlock()
 	}()
@@ -156,7 +154,7 @@ func TestDestroyingTableRow(t *testing.T) {
 		} else if !errors.Is(err, ErrDestroyed) {
 			t.Errorf("Unexpected error: %v", err)
 		}
-		testWidgetDestroyed(&tb.widget, t)
+		testWidgetDestroyed("table row", &tb.widget, t)
 		testGlobalMapsEmpty(t)
 		Unlock()
 	}()
@@ -190,7 +188,7 @@ func TestDestroyingMenu(t *testing.T) {
 		} else if !errors.Is(err, ErrDestroyed) {
 			t.Errorf("Unexpected error: %v", err)
 		}
-		testWidgetDestroyed(&mb.widget, t)
+		testWidgetDestroyed("menu bar", &mb.widget, t)
 		testGlobalMapsEmpty(t)
 		Unlock()
 	}()

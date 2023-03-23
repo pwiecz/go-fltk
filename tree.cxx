@@ -15,11 +15,11 @@ GTree *go_fltk_new_Tree(int x, int y, int w, int h, const char *label) {
   return new GTree(x, y, w, h, label);
 }
 
-void go_fltk_Tree_set_show_root(GTree *tree, int show) {
+void go_fltk_Tree_set_show_root(Fl_Tree *tree, int show) {
   tree->showroot(show);
 }  
 
-Fl_Tree_Item* go_fltk_Tree_add(GTree *tree, const char *path) {
+Fl_Tree_Item* go_fltk_Tree_add(Fl_Tree *tree, const char *path) {
   return tree->add(path);
 }
 
@@ -31,13 +31,13 @@ const unsigned int go_FL_TREE_ITEM_DRAW_DEFAULT = (unsigned int)FL_TREE_ITEM_DRA
 const unsigned int go_FL_TREE_ITEM_DRAW_LABEL_AND_WIDGET = (unsigned int)FL_TREE_ITEM_DRAW_LABEL_AND_WIDGET;
 const unsigned int go_FL_TREE_ITEM_HEIGHT_FROM_WIDGET = (unsigned int)FL_TREE_ITEM_HEIGHT_FROM_WIDGET;
 
-void go_fltk_Tree_set_item_draw_mode(GTree *tree, unsigned int drawMode) {
+void go_fltk_Tree_set_item_draw_mode(Fl_Tree *tree, unsigned int drawMode) {
   tree->item_draw_mode((Fl_Tree_Item_Draw_Mode)drawMode);
 }
 
 const int go_FL_TREE_CONNECTOR_NONE = (int)FL_TREE_CONNECTOR_NONE;
 const int go_FL_TREE_CONNECTOR_DOTTED = (int)FL_TREE_CONNECTOR_DOTTED;
 const int go_FL_TREE_CONNECTOR_SOLID = (int)FL_TREE_CONNECTOR_SOLID;
-void go_fltk_Tree_set_connector_style(GTree *tree, int style) {
+void go_fltk_Tree_set_connector_style(Fl_Tree *tree, int style) {
   tree->connectorstyle((Fl_Tree_Connector)style);
 }

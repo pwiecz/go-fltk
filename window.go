@@ -14,26 +14,26 @@ type Window struct {
 
 func NewWindow(w, h int) *Window {
 	win := &Window{}
-	initGroup(win, unsafe.Pointer(C.go_fltk_new_Window(C.int(w), C.int(h))))
+	initWidget(win, unsafe.Pointer(C.go_fltk_new_Window(C.int(w), C.int(h))))
 	return win
 }
 func (w *Window) IsShown() bool {
-	return C.go_fltk_Window_shown((*C.GWindow)(w.ptr())) != 0
+	return C.go_fltk_Window_shown((*C.Fl_Window)(w.ptr())) != 0
 }
-func (w *Window) Show() { C.go_fltk_Window_show((*C.GWindow)(w.ptr())) }
+func (w *Window) Show() { C.go_fltk_Window_show((*C.Fl_Window)(w.ptr())) }
 func (w *Window) XRoot() int {
-	return int(C.go_fltk_Window_x_root((*C.GWindow)(w.ptr())))
+	return int(C.go_fltk_Window_x_root((*C.Fl_Window)(w.ptr())))
 }
 func (w *Window) YRoot() int {
-	return int(C.go_fltk_Window_y_root((*C.GWindow)(w.ptr())))
+	return int(C.go_fltk_Window_y_root((*C.Fl_Window)(w.ptr())))
 }
 func (w *Window) SetLabel(label string) {
 	labelStr := C.CString(label)
 	defer C.free(unsafe.Pointer(labelStr))
-	C.go_fltk_Window_set_label((*C.GWindow)(w.ptr()), labelStr)
+	C.go_fltk_Window_set_label((*C.Fl_Window)(w.ptr()), labelStr)
 }
 func (w *Window) SetCursor(cursor Cursor) {
-	C.go_fltk_Window_set_cursor((*C.GWindow)(w.ptr()), C.int(cursor))
+	C.go_fltk_Window_set_cursor((*C.Fl_Window)(w.ptr()), C.int(cursor))
 }
 
 func (w *Window) SetFullscreen(flag bool) {
@@ -41,19 +41,19 @@ func (w *Window) SetFullscreen(flag bool) {
 	if flag {
 		f = 1
 	}
-	C.go_fltk_Window_set_fullscreen((*C.GWindow)(w.ptr()), C.int(f))
+	C.go_fltk_Window_set_fullscreen((*C.Fl_Window)(w.ptr()), C.int(f))
 }
 
 func (w *Window) FullscreenActive() bool {
-	return C.go_fltk_Window_fullscreen_active((*C.GWindow)(w.ptr())) != 0
+	return C.go_fltk_Window_fullscreen_active((*C.Fl_Window)(w.ptr())) != 0
 }
 
 func (w *Window) SetModal() {
-	C.go_fltk_Window_set_modal((*C.GWindow)(w.ptr()))
+	C.go_fltk_Window_set_modal((*C.Fl_Window)(w.ptr()))
 }
 
 func (w *Window) SetNonModal() {
-	C.go_fltk_Window_set_non_modal((*C.GWindow)(w.ptr()))
+	C.go_fltk_Window_set_non_modal((*C.Fl_Window)(w.ptr()))
 }
 
 func (w *Window) SetIcons(icons []*RgbImage) {
@@ -61,7 +61,7 @@ func (w *Window) SetIcons(icons []*RgbImage) {
 	for _, icon := range icons {
 		images = append(images, (*C.Fl_RGB_Image)(icon.iPtr))
 	}
-	C.go_fltk_Window_set_icons((*C.GWindow)(w.ptr()), &images[0], C.int(len(images)))
+	C.go_fltk_Window_set_icons((*C.Fl_Window)(w.ptr()), &images[0], C.int(len(images)))
 	w.icons = icons
 }
 

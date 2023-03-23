@@ -16,47 +16,47 @@ GWindow *go_fltk_new_Window(int w, int h) {
   return new GWindow(w, h);
 }
 
-int go_fltk_Window_shown(GWindow *w) {
+int go_fltk_Window_shown(Fl_Window *w) {
   return w->shown();
 }
 
-void go_fltk_Window_show(GWindow *w) {
+void go_fltk_Window_show(Fl_Window *w) {
   w->show();
 }
 
-int go_fltk_Window_x_root(GWindow* w) {
+int go_fltk_Window_x_root(Fl_Window* w) {
   return w->x_root();
 }
 
-int go_fltk_Window_y_root(GWindow* w) {
+int go_fltk_Window_y_root(Fl_Window* w) {
   return w->y_root();
 }
 
-void go_fltk_Window_set_label(GWindow *w, const char *label) {
+void go_fltk_Window_set_label(Fl_Window *w, const char *label) {
   w->copy_label(label);
 }
 
-void go_fltk_Window_set_cursor(GWindow* w, int cursor) {
+void go_fltk_Window_set_cursor(Fl_Window* w, int cursor) {
   w->cursor((Fl_Cursor)cursor);
 }
 
-void go_fltk_Window_set_fullscreen(GWindow *w, int flag) {
+void go_fltk_Window_set_fullscreen(Fl_Window* w, int flag) {
   if (flag) w->fullscreen(); else w->fullscreen_off();
 }
 
-int go_fltk_Window_fullscreen_active(GWindow *w) {
+int go_fltk_Window_fullscreen_active(Fl_Window* w) {
   return w->fullscreen_active();
 }
 
-void go_fltk_Window_set_modal(GWindow *w) {
+void go_fltk_Window_set_modal(Fl_Window* w) {
   w->set_modal();
 }
 
-void go_fltk_Window_set_non_modal(GWindow *w) {
+void go_fltk_Window_set_non_modal(Fl_Window* w) {
   w->set_non_modal();
 }
 
-void go_fltk_Window_set_icons(GWindow *w, const Fl_RGB_Image *images[], int length) {
+void go_fltk_Window_set_icons(Fl_Window* w, const Fl_RGB_Image *images[], int length) {
   w->icons(images, length);
 }
 

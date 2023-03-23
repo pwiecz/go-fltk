@@ -15,13 +15,13 @@ GScroll *go_fltk_new_Scroll(int x, int y, int w, int h, const char *label) {
   return new GScroll(x, y, w, h, label);
 }
 
-void go_fltk_Scroll_scroll_to(GScroll* scroll, int x, int y) {
+void go_fltk_Scroll_scroll_to(Fl_Scroll* scroll, int x, int y) {
   scroll->scroll_to(x, y);
 }
-int go_fltk_Scroll_x_position(GScroll *scroll) {
+int go_fltk_Scroll_x_position(Fl_Scroll *scroll) {
   return scroll->xposition();  
 }
-int go_fltk_Scroll_y_position(GScroll *scroll) {
+int go_fltk_Scroll_y_position(Fl_Scroll *scroll) {
   return scroll->yposition();
 }  
 

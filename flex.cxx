@@ -14,15 +14,15 @@ GFlex* go_fltk_new_Flex(int x, int y, int w, int h, const char* label) {
     return new GFlex(x, y, w, h, label);
 }
 
-void go_fltk_Flex_set_gap(GFlex* flex, int spacing) {
+void go_fltk_Flex_set_gap(Fl_Flex* flex, int spacing) {
     flex->gap(spacing);
 }
 
-void go_fltk_Flex_fixed(GFlex* flex, Fl_Widget* w, int size) {
+void go_fltk_Flex_fixed(Fl_Flex* flex, Fl_Widget* w, int size) {
     flex->fixed(w, size);
 }
 
-extern void go_fltk_Flex_end(GFlex *flex) {
+extern void go_fltk_Flex_end(Fl_Flex *flex) {
     flex->end();
 }
 

@@ -26,11 +26,11 @@ GValue_Slider* go_fltk_new_Value_Slider(int x, int y, int w, int h, const char* 
   return new GValue_Slider(x, y, w, h, label);
 }
 
-void go_fltk_Value_Slider_set_textfont(GValue_Slider* slider, int font) {
+void go_fltk_Value_Slider_set_textfont(Fl_Value_Slider* slider, int font) {
   slider->textfont(font);
 }
 
-void go_fltk_Value_Slider_set_textsize(GValue_Slider* slider, int size) {
+void go_fltk_Value_Slider_set_textsize(Fl_Value_Slider* slider, int size) {
   slider->textsize(size);
 }
 

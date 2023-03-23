@@ -39,22 +39,19 @@ private:
 GGlWindow *go_fltk_new_GlWindow(int x, int y, int w, int h, uintptr_t drawFunId) {
   return new GGlWindow(x, y, w, h, drawFunId);
 }
-void go_fltk_Gl_Window_make_current(GGlWindow* w) {
+void go_fltk_Gl_Window_make_current(Fl_Gl_Window* w) {
   w->make_current();
 }
-char go_fltk_Gl_Window_context_valid(GGlWindow* w) { 
+char go_fltk_Gl_Window_context_valid(Fl_Gl_Window* w) { 
   return w->context_valid(); 
 }
-char go_fltk_Gl_Window_valid(GGlWindow* w) {
+char go_fltk_Gl_Window_valid(Fl_Gl_Window* w) {
   return w->valid(); 
 }
-int go_fltk_Gl_Window_can_do(GGlWindow* w) {
+int go_fltk_Gl_Window_can_do(Fl_Gl_Window* w) {
   return w->can_do();
 }
-void go_fltk_Gl_Window_set_resize_handler(GGlWindow* w, uintptr_t handlerId) {
-  w->set_resize_handler(handlerId);
-}
-void go_fltk_Gl_Window_set_mode(GGlWindow* w, int m) {
+void go_fltk_Gl_Window_set_mode(Fl_Gl_Window* w, int m) {
   w->mode(m);
 #ifdef __linux__
   // For some reason static storage is required here.    

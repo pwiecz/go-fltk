@@ -3,34 +3,35 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-
+  typedef struct Fl_Text_Editor Fl_Text_Editor;
   typedef struct GText_Editor GText_Editor;
+  typedef struct Fl_Text_Display Fl_Text_Display;
   typedef struct GText_Display GText_Display;
   typedef struct Fl_Text_Buffer Fl_Text_Buffer;
 
   extern GText_Editor *go_fltk_new_TextEditor(int x, int y, int w, int h, const char *text);
-  extern void go_fltk_TextEditor_copy(GText_Editor *e);
-  extern void go_fltk_TextEditor_insert(GText_Editor *e);
-  extern void go_fltk_TextEditor_cut(GText_Editor *e);
-  extern void go_fltk_TextEditor_delete(GText_Editor *e);
-  extern void go_fltk_TextEditor_paste(GText_Editor *e);
-  extern void go_fltk_TextEditor_select_all(GText_Editor *e);
+  extern void go_fltk_TextEditor_copy(Fl_Text_Editor *e);
+  extern void go_fltk_TextEditor_insert(Fl_Text_Editor *e);
+  extern void go_fltk_TextEditor_cut(Fl_Text_Editor *e);
+  extern void go_fltk_TextEditor_delete(Fl_Text_Editor *e);
+  extern void go_fltk_TextEditor_paste(Fl_Text_Editor *e);
+  extern void go_fltk_TextEditor_select_all(Fl_Text_Editor *e);
 
   extern GText_Display *go_fltk_new_TextDisplay(int x, int y, int w, int h, const char *text);
-  extern void go_fltk_TextDisplay_set_buffer(GText_Display *d, Fl_Text_Buffer *buf);
-  extern void go_fltk_TextDisplay_set_wrap_mode(GText_Display *b, int wrap, int wrapMargin);
-  extern int go_fltk_TextDisplay_move_right(GText_Display *b);
-  extern int go_fltk_TextDisplay_move_left(GText_Display *b);
-  extern int go_fltk_TextDisplay_move_up(GText_Display *b);
-  extern int go_fltk_TextDisplay_move_down(GText_Display *b);
-  extern void go_fltk_TextDisplay_show_insert_position(GText_Display *b);
-  extern int go_fltk_TextDisplay_text_size(GText_Display *d);
-  extern void go_fltk_TextDisplay_set_text_size(GText_Display *d, int size);
-  extern Fl_Text_Buffer *go_fltk_TextDisplay_buffer(GText_Display *d);
-  void go_fltk_TextDisplay_insert_position(GText_Display *d, int newPos);
-  int go_fltk_TextDisplay_get_insert_position(GText_Display *d);
-  void go_fltk_TextDisplay_insert_text(GText_Display *d, const char *text);
-  void go_fltk_TextDisplay_overstrike(GText_Display *d, const char* text);
+  extern void go_fltk_TextDisplay_set_buffer(Fl_Text_Display *d, Fl_Text_Buffer *buf);
+  extern void go_fltk_TextDisplay_set_wrap_mode(Fl_Text_Display *d, int wrap, int wrapMargin);
+  extern int go_fltk_TextDisplay_move_right(Fl_Text_Display *d);
+  extern int go_fltk_TextDisplay_move_left(Fl_Text_Display *d);
+  extern int go_fltk_TextDisplay_move_up(Fl_Text_Display *d);
+  extern int go_fltk_TextDisplay_move_down(Fl_Text_Display *d);
+  extern void go_fltk_TextDisplay_show_insert_position(Fl_Text_Display *d);
+  extern int go_fltk_TextDisplay_text_size(Fl_Text_Display *d);
+  extern void go_fltk_TextDisplay_set_text_size(Fl_Text_Display *d, int size);
+  extern Fl_Text_Buffer *go_fltk_TextDisplay_buffer(Fl_Text_Display *d);
+  void go_fltk_TextDisplay_insert_position(Fl_Text_Display *d, int newPos);
+  int go_fltk_TextDisplay_get_insert_position(Fl_Text_Display *d);
+  void go_fltk_TextDisplay_insert_text(Fl_Text_Display *d, const char *text);
+  void go_fltk_TextDisplay_overstrike(Fl_Text_Display *d, const char* text);
 
   extern Fl_Text_Buffer *go_fltk_new_TextBuffer(void);
   extern void go_fltk_TextBuffer_delete(Fl_Text_Buffer* b);

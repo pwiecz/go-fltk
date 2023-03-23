@@ -142,7 +142,7 @@ var (
 
 func NewTableRow(x, y, w, h int) *TableRow {
 	t := &TableRow{}
-	initGroup(t, unsafe.Pointer(C.go_fltk_new_TableRow(C.int(x), C.int(y), C.int(w), C.int(h))))
+	initWidget(t, unsafe.Pointer(C.go_fltk_new_TableRow(C.int(x), C.int(y), C.int(w), C.int(h))))
 	t.deletionHandlerId = t.addDeletionHandler(t.onDelete)
 	return t
 }

@@ -175,7 +175,7 @@ func NewTextDisplay(x, y, w, h int, text ...string) *TextDisplay {
 }
 
 func (t *TextDisplay) SetBuffer(buf *TextBuffer) {
-	C.go_fltk_TextDisplay_set_buffer((*C.GText_Display)(t.ptr()), buf.ptr())
+	C.go_fltk_TextDisplay_set_buffer((*C.Fl_Text_Display)(t.ptr()), buf.ptr())
 }
 
 // wrapMargin is not needed if WrapMode is WRAP_NONE or WRAP_AT_BOUNDS
@@ -184,72 +184,72 @@ func (t *TextDisplay) SetWrapMode(wrap WrapMode, wrapMargin ...int) {
 		wrapMargin = append(wrapMargin, 0)
 	}
 
-	C.go_fltk_TextDisplay_set_wrap_mode((*C.GText_Display)(t.ptr()), C.int(wrap), C.int(wrapMargin[0]))
+	C.go_fltk_TextDisplay_set_wrap_mode((*C.Fl_Text_Display)(t.ptr()), C.int(wrap), C.int(wrapMargin[0]))
 }
 
 func (t *TextDisplay) Buffer() *TextBuffer {
-	ptr := C.go_fltk_TextDisplay_buffer((*C.GText_Display)(t.ptr()))
+	ptr := C.go_fltk_TextDisplay_buffer((*C.Fl_Text_Display)(t.ptr()))
 	return &TextBuffer{ptr}
 }
 
 // MoveRight moves the current insert position right one character.
 // Returns true if the cursor moved, false if the end of the text was reached
 func (t *TextDisplay) MoveRight() bool {
-	return (int)(C.go_fltk_TextDisplay_move_right((*C.GText_Display)(t.ptr()))) != 0
+	return (int)(C.go_fltk_TextDisplay_move_right((*C.Fl_Text_Display)(t.ptr()))) != 0
 }
 
 // MoveLeft moves the current insert position left one character.
 func (t *TextDisplay) MoveLeft() bool {
-	return (int)(C.go_fltk_TextDisplay_move_left((*C.GText_Display)(t.ptr()))) != 0
+	return (int)(C.go_fltk_TextDisplay_move_left((*C.Fl_Text_Display)(t.ptr()))) != 0
 }
 
 // MoveUp moves the current insert position up one line.
 func (t *TextDisplay) MoveUp() bool {
-	return (int)(C.go_fltk_TextDisplay_move_up((*C.GText_Display)(t.ptr()))) != 0
+	return (int)(C.go_fltk_TextDisplay_move_up((*C.Fl_Text_Display)(t.ptr()))) != 0
 }
 
 // MoveDown moves the current insert position down one line.
 func (t *TextDisplay) MoveDown() bool {
-	return (int)(C.go_fltk_TextDisplay_move_down((*C.GText_Display)(t.ptr()))) != 0
+	return (int)(C.go_fltk_TextDisplay_move_down((*C.Fl_Text_Display)(t.ptr()))) != 0
 }
 
 // ShowInsertPosition scrolls the text buffer to show the current insert position.
 func (t *TextDisplay) ShowInsertPosition() {
-	C.go_fltk_TextDisplay_show_insert_position((*C.GText_Display)(t.ptr()))
+	C.go_fltk_TextDisplay_show_insert_position((*C.Fl_Text_Display)(t.ptr()))
 }
 
 // TextSize gets the default size of text in the widget
 func (t *TextDisplay) TextSize() int {
-	return (int)(C.go_fltk_TextDisplay_text_size((*C.GText_Display)(t.ptr())))
+	return (int)(C.go_fltk_TextDisplay_text_size((*C.Fl_Text_Display)(t.ptr())))
 }
 
 // SetTextSize sets the default size of text in the widget
 func (t *TextDisplay) SetTextSize(size int) {
-	C.go_fltk_TextDisplay_set_text_size((*C.GText_Display)(t.ptr()), C.int(size))
+	C.go_fltk_TextDisplay_set_text_size((*C.Fl_Text_Display)(t.ptr()), C.int(size))
 }
 
 // SetInsertPosition set the insert position to a new position
 func (t *TextDisplay) SetInsertPosition(newPos int) {
-	C.go_fltk_TextDisplay_insert_position((*C.GText_Display)(t.ptr()), C.int(newPos))
+	C.go_fltk_TextDisplay_insert_position((*C.Fl_Text_Display)(t.ptr()), C.int(newPos))
 }
 
 // GetInsertPosition - return the current insert position
 func (t *TextDisplay) GetInsertPosition() int {
-	return (int)(C.go_fltk_TextDisplay_get_insert_position((*C.GText_Display)(t.ptr())))
+	return (int)(C.go_fltk_TextDisplay_get_insert_position((*C.Fl_Text_Display)(t.ptr())))
 }
 
 // InsertText - Insert text at the cursor position
 func (t *TextDisplay) InsertText(txt string) {
 	txtstr := C.CString(txt)
 	defer C.free(unsafe.Pointer(txtstr))
-	C.go_fltk_TextDisplay_insert_text((*C.GText_Display)(t.ptr()), txtstr)
+	C.go_fltk_TextDisplay_insert_text((*C.Fl_Text_Display)(t.ptr()), txtstr)
 }
 
 // Overstrike - Not sure what it does, the fltk doc does not match with the name meaning
 func (t *TextDisplay) Overstrike(txt string) {
 	txtstr := C.CString(txt)
 	defer C.free(unsafe.Pointer(txtstr))
-	C.go_fltk_TextDisplay_overstrike((*C.GText_Display)(t.ptr()), txtstr)
+	C.go_fltk_TextDisplay_overstrike((*C.Fl_Text_Display)(t.ptr()), txtstr)
 }
 
 type TextEditor struct {
@@ -258,28 +258,28 @@ type TextEditor struct {
 
 // Copy copy of selected text or the current character in the current buffer of editor 'e'. (kf_copy)
 func (t *TextEditor) Copy() {
-	C.go_fltk_TextEditor_copy((*C.GText_Editor)(t.ptr()))
+	C.go_fltk_TextEditor_copy((*C.Fl_Text_Editor)(t.ptr()))
 }
 
 // Insert - Togglesthe insert mode (kf_insert)
 func (t *TextEditor) Insert() {
-	C.go_fltk_TextEditor_insert((*C.GText_Editor)(t.ptr()))
+	C.go_fltk_TextEditor_insert((*C.Fl_Text_Editor)(t.ptr()))
 }
 
 func (t *TextEditor) Cut() {
-	C.go_fltk_TextEditor_cut((*C.GText_Editor)(t.ptr()))
+	C.go_fltk_TextEditor_cut((*C.Fl_Text_Editor)(t.ptr()))
 }
 
 func (t *TextEditor) Delete() {
-	C.go_fltk_TextEditor_delete((*C.GText_Editor)(t.ptr()))
+	C.go_fltk_TextEditor_delete((*C.Fl_Text_Editor)(t.ptr()))
 }
 
 func (t *TextEditor) Paste() {
-	C.go_fltk_TextEditor_paste((*C.GText_Editor)(t.ptr()))
+	C.go_fltk_TextEditor_paste((*C.Fl_Text_Editor)(t.ptr()))
 }
 
 func (t *TextEditor) SelectAll() {
-	C.go_fltk_TextEditor_select_all((*C.GText_Editor)(t.ptr()))
+	C.go_fltk_TextEditor_select_all((*C.Fl_Text_Editor)(t.ptr()))
 }
 
 func NewTextEditor(x, y, w, h int, text ...string) *TextEditor {

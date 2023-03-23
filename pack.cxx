@@ -15,7 +15,7 @@ GPack *go_fltk_new_Pack(int x, int y, int w, int h, const char *label) {
   return new GPack(x, y, w, h, label);
 }
 
-void go_fltk_Pack_set_spacing(GPack* pack, int spacing) {
+void go_fltk_Pack_set_spacing(Fl_Pack* pack, int spacing) {
   pack->spacing(spacing);
 }
 

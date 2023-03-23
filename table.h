@@ -32,7 +32,6 @@ extern "C" {
 
   extern int go_fltk_TableRow_row_selected(GTableRow* t, int row);
   extern void go_fltk_TableRow_set_draw_cell_callback(GTableRow* t, int drawCellCallback);
-  extern void go_fltk_TableRow_set_event_handler(GTableRow* t, int eventHandler);
   extern void go_fltk_TableRow_set_type(GTableRow* t, int tableType);
   extern void go_fltk_TableRow_select_all_rows(GTableRow* t, int flag);
   extern void go_fltk_TableRow_select_row(GTableRow* t, int row, int flag);

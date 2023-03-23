@@ -42,31 +42,31 @@ GBrowser *go_fltk_new_Browser(int x, int y, int w, int h, const char *text) {
 	return new GBrowser(x, y, w, h, text);
 }
 
-void go_fltk_Browser_add(GBrowser *b, const char *str, uintptr_t id) {
+void go_fltk_Browser_add(Fl_Browser* b, const char *str, uintptr_t id) {
 	b->add(str, (void *)id);
 }
 
-int go_fltk_Browser_topline(GBrowser *b) {
+int go_fltk_Browser_topline(Fl_Browser* b) {
 	return b->topline();
 }
 
-void go_fltk_Browser_set_bottomline(GBrowser *b, int i) {
+void go_fltk_Browser_set_bottomline(Fl_Browser* b, int i) {
 	b->bottomline(i);
 }
 
-void go_fltk_Browser_set_middleline(GBrowser *b, int i) {
+void go_fltk_Browser_set_middleline(Fl_Browser* b, int i) {
 	b->middleline(i);
 }
 
-void go_fltk_Browser_set_topline(GBrowser *b, int i) {
+void go_fltk_Browser_set_topline(Fl_Browser* b, int i) {
 	b->topline(i);
 }
 
-void go_fltk_Browser_clear(GBrowser *b) {
+void go_fltk_Browser_clear(Fl_Browser* b) {
 	b->clear();
 }
 
-uintptr_t go_fltk_Browser_data(GBrowser *b, int line) {
+uintptr_t go_fltk_Browser_data(Fl_Browser* b, int line) {
 	return (uintptr_t)b->data(line);
 }
 
@@ -104,58 +104,58 @@ GMultiBrowser *go_fltk_new_Multi_Browser(int x, int y, int w, int h, const char 
 }
 
 
-void go_fltk_Browser_remove(GBrowser *b, int i) {
+void go_fltk_Browser_remove(Fl_Browser* b, int i) {
 	b->remove(i);
 }
 
-char go_fltk_Browser_column_char(GBrowser *b) {
+char go_fltk_Browser_column_char(Fl_Browser* b) {
 	return b->column_char();
 }
 
-void go_fltk_Browser_set_column_char(GBrowser *b, char c) {
+void go_fltk_Browser_set_column_char(Fl_Browser* b, char c) {
 	b->column_char(c);
 }
 
-void go_fltk_Browser_hide_line(GBrowser *b, int line) {
+void go_fltk_Browser_hide_line(Fl_Browser* b, int line) {
 	b->hide(line);
 }
 
-int go_fltk_Browser_size(GBrowser *b) {
+int go_fltk_Browser_size(Fl_Browser* b) {
 	return b->size();
 }
 
-Fl_Image* go_fltk_Browser_icon(GBrowser *b, int line) {
+Fl_Image* go_fltk_Browser_icon(Fl_Browser* b, int line) {
 	return b->icon(line);
 }
 
-void go_fltk_Browser_set_icon(GBrowser *b, int line, Fl_Image *i) {
+void go_fltk_Browser_set_icon(Fl_Browser* b, int line, Fl_Image *i) {
 	b->icon(line, i);
 }
 
-char go_fltk_Browser_format_char(GBrowser *b) {
+char go_fltk_Browser_format_char(Fl_Browser* b) {
 	return b->format_char();
 }
 
-void go_fltk_Browser_set_format_char(GBrowser *b, char c) {
+void go_fltk_Browser_set_format_char(Fl_Browser* b, char c) {
 	b->format_char(c);
 }
 
-int go_fltk_Browser_displayed(GBrowser *b, int line) {
+int go_fltk_Browser_displayed(Fl_Browser* b, int line) {
 	return b->displayed(line);
 }
 
-int go_fltk_Browser_value(GBrowser *b) {
+int go_fltk_Browser_value(Fl_Browser* b) {
 	return b->value();
 }
 
-void go_fltk_Browser_set_value(GBrowser *b, int line) {
+void go_fltk_Browser_set_value(Fl_Browser* b, int line) {
 	b->value(line);
 }
 
-const char* go_fltk_Browser_text(GBrowser *b, int line) {
+const char* go_fltk_Browser_text(Fl_Browser* b, int line) {
 	return b->text(line);
 }
 
-void go_fltk_Browser_set_column_widths(GBrowser *b, const int *arr) {
+void go_fltk_Browser_set_column_widths(Fl_Browser* b, const int *arr) {
 	b->column_widths(arr);
 }

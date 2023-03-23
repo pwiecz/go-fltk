@@ -19,59 +19,59 @@ GText_Display *go_fltk_new_TextDisplay(int x, int y, int w, int h, const char *t
   return new GText_Display(x, y, w, h, text);
 }
 
-void go_fltk_TextDisplay_set_buffer(GText_Display *d, Fl_Text_Buffer *buf) {
+void go_fltk_TextDisplay_set_buffer(Fl_Text_Display *d, Fl_Text_Buffer *buf) {
   d->buffer(buf);
 }
 
-void go_fltk_TextDisplay_set_wrap_mode(GText_Display *b, int wrap, int wrapMargin) {
-  b->wrap_mode(wrap, wrapMargin);
+void go_fltk_TextDisplay_set_wrap_mode(Fl_Text_Display *d, int wrap, int wrapMargin) {
+  d->wrap_mode(wrap, wrapMargin);
 }
 
-int go_fltk_TextDisplay_move_right(GText_Display *b) {
-  return b->move_right();
+int go_fltk_TextDisplay_move_right(Fl_Text_Display *d) {
+  return d->move_right();
 }
 
-int go_fltk_TextDisplay_move_left(GText_Display *b) {
-  return b->move_left();
+int go_fltk_TextDisplay_move_left(Fl_Text_Display *d) {
+  return d->move_left();
 }
 
-int go_fltk_TextDisplay_move_up(GText_Display *b) {
-  return b->move_up();
+int go_fltk_TextDisplay_move_up(Fl_Text_Display *d) {
+  return d->move_up();
 }
 
-int go_fltk_TextDisplay_move_down(GText_Display *b) {
-  return b->move_down();
+int go_fltk_TextDisplay_move_down(Fl_Text_Display *d) {
+  return d->move_down();
 }
 
-void go_fltk_TextDisplay_show_insert_position(GText_Display *b) {
-  b->show_insert_position();
+void go_fltk_TextDisplay_show_insert_position(Fl_Text_Display *d) {
+  d->show_insert_position();
 }
 
-int go_fltk_TextDisplay_text_size(GText_Display *d) {
+int go_fltk_TextDisplay_text_size(Fl_Text_Display *d) {
   return d->textsize();
 }
 
-void go_fltk_TextDisplay_set_text_size(GText_Display *d, int size) {
+void go_fltk_TextDisplay_set_text_size(Fl_Text_Display *d, int size) {
   d->textsize(size);
 }
 
-Fl_Text_Buffer *go_fltk_TextDisplay_buffer(GText_Display *d) {
+Fl_Text_Buffer *go_fltk_TextDisplay_buffer(Fl_Text_Display *d) {
   return d->buffer();
 }
 
-void go_fltk_TextDisplay_insert_position(GText_Display *d, int newPos) {
+void go_fltk_TextDisplay_insert_position(Fl_Text_Display *d, int newPos) {
   d->insert_position(newPos);
 }
 
-int go_fltk_TextDisplay_get_insert_position(GText_Display *d) {
+int go_fltk_TextDisplay_get_insert_position(Fl_Text_Display *d) {
   return d->insert_position();
 }
 
-void go_fltk_TextDisplay_insert_text(GText_Display *d, const char *text) {
+void go_fltk_TextDisplay_insert_text(Fl_Text_Display *d, const char *text) {
   d->insert(text);
 }
 
-void go_fltk_TextDisplay_overstrike(GText_Display *d, const char* text) {
+void go_fltk_TextDisplay_overstrike(Fl_Text_Display *d, const char* text) {
   d->overstrike(text);
 }
 
@@ -85,27 +85,27 @@ GText_Editor *go_fltk_new_TextEditor(int x, int y, int w, int h, const char *tex
   return new GText_Editor(x, y, w, h, text);
 }
 
-void go_fltk_TextEditor_copy(GText_Editor *e) {
+void go_fltk_TextEditor_copy(Fl_Text_Editor *e) {
   Fl_Text_Editor::kf_copy(0, e);
 }
 
-void go_fltk_TextEditor_insert(GText_Editor *e) {
+void go_fltk_TextEditor_insert(Fl_Text_Editor *e) {
   Fl_Text_Editor::kf_insert(0, e);
 }
 
-void go_fltk_TextEditor_cut(GText_Editor *e) {
+void go_fltk_TextEditor_cut(Fl_Text_Editor *e) {
   Fl_Text_Editor::kf_cut(0, e);
 }
 
-void go_fltk_TextEditor_delete(GText_Editor *e) {
+void go_fltk_TextEditor_delete(Fl_Text_Editor *e) {
   Fl_Text_Editor::kf_delete(0, e);
 }
 
-void go_fltk_TextEditor_paste(GText_Editor *e) {
+void go_fltk_TextEditor_paste(Fl_Text_Editor *e) {
   Fl_Text_Editor::kf_paste(0, e);
 }
 
-void go_fltk_TextEditor_select_all(GText_Editor *e) {
+void go_fltk_TextEditor_select_all(Fl_Text_Editor *e) {
   Fl_Text_Editor::kf_select_all(0, e);
 }
 

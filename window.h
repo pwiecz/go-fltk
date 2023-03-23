@@ -4,22 +4,23 @@
 extern "C" {
 #endif
 
+  typedef struct Fl_Window Fl_Window;
   typedef struct GWindow GWindow;
   typedef struct Fl_RGB_Image Fl_RGB_Image;
 
   extern GWindow *go_fltk_new_Window(int w, int h);
 
-  extern int go_fltk_Window_shown(GWindow* w);
-  extern void go_fltk_Window_show(GWindow *w);
-  extern int go_fltk_Window_x_root(GWindow* w);
-  extern int go_fltk_Window_y_root(GWindow* w);
-  extern void go_fltk_Window_set_label(GWindow *w, const char *label);
-  extern void go_fltk_Window_set_cursor(GWindow *w, int cursor);
-  extern void go_fltk_Window_set_fullscreen(GWindow *w, int flag);
-  extern int go_fltk_Window_fullscreen_active(GWindow *w);
-  extern void go_fltk_Window_set_modal(GWindow *w);
-  extern void go_fltk_Window_set_non_modal(GWindow *w);
-  extern void go_fltk_Window_set_icons(GWindow* w, const Fl_RGB_Image* images[], int length);
+  extern int go_fltk_Window_shown(Fl_Window* w);
+  extern void go_fltk_Window_show(Fl_Window *w);
+  extern int go_fltk_Window_x_root(Fl_Window* w);
+  extern int go_fltk_Window_y_root(Fl_Window* w);
+  extern void go_fltk_Window_set_label(Fl_Window *w, const char *label);
+  extern void go_fltk_Window_set_cursor(Fl_Window *w, int cursor);
+  extern void go_fltk_Window_set_fullscreen(Fl_Window *w, int flag);
+  extern int go_fltk_Window_fullscreen_active(Fl_Window *w);
+  extern void go_fltk_Window_set_modal(Fl_Window *w);
+  extern void go_fltk_Window_set_non_modal(Fl_Window *w);
+  extern void go_fltk_Window_set_icons(Fl_Window* w, const Fl_RGB_Image* images[], int length);
 
   extern const int go_FL_CURSOR_DEFAULT;
   extern const int go_FL_CURSOR_ARROW;
