@@ -61,7 +61,7 @@ extern "C" {
   extern const int go_FL_RELEASE;
   extern const int go_FL_MOVE;
   extern const int go_FL_MOUSEWHEEL;
-  extern const int go_FL_ENTER;
+  extern const int go_FL_ENTER_KEY;
   extern const int go_FL_LEAVE;
   extern const int go_FL_FOCUS;
   extern const int go_FL_UNFOCUS;
@@ -91,6 +91,30 @@ extern "C" {
   extern const int go_FL_WHEN_ENTER_KEY_CHANGED;
 
   extern const int go_FL_ESCAPE;
+  extern const int go_FL_TAB;
+  extern const int go_FL_ENTER;
+  extern const int go_FL_HOME;
+  extern const int go_FL_LEFT;
+  extern const int go_FL_UP;
+  extern const int go_FL_RIGHT;
+  extern const int go_FL_DOWN;
+  extern const int go_FL_PAGE_UP;
+  extern const int go_FL_PAGE_DOWN;
+  extern const int go_FL_END;
+  extern const int go_FL_MENU;
+  extern const int go_FL_HELP;
+  extern const int go_FL_F1;
+  extern const int go_FL_F2;
+  extern const int go_FL_F3;
+  extern const int go_FL_F4;
+  extern const int go_FL_F5;
+  extern const int go_FL_F6;
+  extern const int go_FL_F7;
+  extern const int go_FL_F8;
+  extern const int go_FL_F9;
+  extern const int go_FL_F10;
+  extern const int go_FL_F11;
+  extern const int go_FL_F12;
 
   extern const int go_FL_RGB;
   extern const int go_FL_INDEX;
