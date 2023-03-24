@@ -9,14 +9,31 @@ import "unsafe"
 
 type InputChoice struct {
 	Group
+	input             *Input
+	menuButton        *MenuButton
+	deletionHandlerId uintptr
 }
 
 func NewInputChoice(x, y, w, h int, text ...string) *InputChoice {
 	c := &InputChoice{}
-	initWidget(c, unsafe.Pointer(C.go_fltk_new_Input_Choice(C.int(x), C.int(y), C.int(w), C.int(h), cStringOpt(text))))
+	inputChoice := C.go_fltk_new_Input_Choice(C.int(x), C.int(y), C.int(w), C.int(h), cStringOpt(text))
+	initWidget(c, unsafe.Pointer(inputChoice))
+	c.input = &Input{}
+	initUnownedWidget(c.input, unsafe.Pointer(C.go_fltk_Input_Choice_input((*C.Fl_Input_Choice)(inputChoice))))
+	c.menuButton = &MenuButton{}
+	initUnownedWidget(c.menuButton, unsafe.Pointer(C.go_fltk_Input_Choice_menubutton((*C.Fl_Input_Choice)(inputChoice))))
+	c.deletionHandlerId = c.addDeletionHandler(c.onDelete)
 	return c
 }
 
+func (c *InputChoice) onDelete() {
+	c.input.onDelete()
+	c.menuButton.onDelete()
+	if c.deletionHandlerId > 0 {
+		globalCallbackMap.unregister(c.deletionHandlerId)
+	}
+	c.deletionHandlerId = 0
+}
 
 func (c *InputChoice) Clear() {
 	C.go_fltk_Input_Choice_clear((*C.Fl_Input_Choice)(c.ptr()))
@@ -41,14 +58,8 @@ func (c *InputChoice) UpdateMenuButton() bool {
 }
 
 func (c *InputChoice) Input() *Input {
-	input := &Input{}
-	cInput := C.go_fltk_Input_Choice_input((*C.Fl_Input_Choice)(c.ptr()))
-	initUnownedWidget(input, unsafe.Pointer(cInput))
-	return input
+	return c.input
 }
 func (c *InputChoice) MenuButton() *MenuButton {
-	menuButton := &MenuButton{}
-	cMenuButton := C.go_fltk_Input_Choice_menubutton((*C.Fl_Input_Choice)(c.ptr()))
-	initUnownedWidget(menuButton, unsafe.Pointer(cMenuButton))
-	return menuButton
+	return c.menuButton
 }

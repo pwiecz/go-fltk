@@ -12,9 +12,9 @@ type HelpView struct {
 }
 
 func NewHelpView(x, y, w, h int, text ...string) *HelpView {
-	t := &HelpView{}
-	initWidget(t, unsafe.Pointer(C.go_fltk_new_HelpView(C.int(x), C.int(y), C.int(w), C.int(h), cStringOpt(text))))
-	return t
+	hv := &HelpView{}
+	initWidget(hv, unsafe.Pointer(C.go_fltk_new_HelpView(C.int(x), C.int(y), C.int(w), C.int(h), cStringOpt(text))))
+	return hv
 }
 
 func (h *HelpView) Directory() string {

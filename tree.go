@@ -35,8 +35,8 @@ func (t *Tree) Add(path string) TreeItem {
 	itemPtr := C.go_fltk_Tree_add((*C.Fl_Tree)(t.ptr()), pathStr)
 	return TreeItem{ptr: itemPtr}
 }
-func (t TreeItem) SetWidget(w Widget) {
-	C.go_fltk_Tree_Item_set_widget(t.ptr, w.getWidget().ptr())
+func (t TreeItem) SetWidget(w *widget) {
+	C.go_fltk_Tree_Item_set_widget(t.ptr, w.ptr())
 }
 
 type TreeItemDrawMode uint

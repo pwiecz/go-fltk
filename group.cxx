@@ -39,3 +39,9 @@ void go_fltk_Group_draw_children(Fl_Group *g) {
     gg->draw_children();
   }    
 }
+Fl_Widget* go_fltk_Group_child(Fl_Group *g, int index) {
+  if (index < 0 || index >= g->children()) {
+    return nullptr;
+  }
+  return g->child(index);
+}  

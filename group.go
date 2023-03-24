@@ -38,3 +38,13 @@ func (g *Group) Resizable(w Widget) {
 func (g *Group) DrawChildren() {
 	C.go_fltk_Group_draw_children((*C.Fl_Group)(g.ptr()))
 }
+
+func (g *Group) Child(index int) *widget {
+	child := C.go_fltk_Group_child((*C.Fl_Group)(g.ptr()), C.int(index))
+	if child == nil {
+		return nil
+	}
+	widget := &widget{}
+	initUnownedWidget(widget, unsafe.Pointer(child))
+	return widget
+}

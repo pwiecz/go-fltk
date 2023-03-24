@@ -7,7 +7,6 @@ package fltk
 import "C"
 import (
 	"errors"
-	"runtime"
 	"unsafe"
 )
 
@@ -28,17 +27,19 @@ type Widget interface {
 
 var ErrDestroyed = errors.New("widget is destroyed")
 
-func initWidget(w Widget, p unsafe.Pointer) {
-	ww := w.getWidget()
-	ww.tracker = C.go_fltk_new_Widget_Tracker((*C.Fl_Widget)(p))
-	ww.deletionHandlerId = ww.addDeletionHandler(ww.onDelete)
+func initWidget(iw Widget, p unsafe.Pointer) {
+	w := iw.getWidget()
+	w.tracker = C.go_fltk_new_Widget_Tracker((*C.Fl_Widget)(p))
+	w.deletionHandlerId = w.addDeletionHandler(w.onDelete)
 }
-func initUnownedWidget(w Widget, p unsafe.Pointer) {
-	ww := w.getWidget()
-	ww.tracker = C.go_fltk_new_Widget_Tracker((*C.Fl_Widget)(p))
-	runtime.SetFinalizer(ww, func(w *widget) { w.onDelete() })
+func initUnownedWidget(iw Widget, p unsafe.Pointer) {
+	w := iw.getWidget()
+	w.tracker = C.go_fltk_new_Widget_Tracker((*C.Fl_Widget)(p))
 }
 
+func (w *widget) getWidget() *widget {
+	return w
+}
 func (w *widget) ptr() *C.Fl_Widget {
 	if !w.exists() {
 		panic(ErrDestroyed)
@@ -95,7 +96,7 @@ func (w *widget) SetDrawHandler(handler func()) {
 		panic("this widget does not support custom drawing")
 	}
 }
-func (w *widget) getWidget() *widget { return w }
+
 func (w *widget) onDelete() {
 	if w.deletionHandlerId > 0 {
 		globalCallbackMap.unregister(w.deletionHandlerId)
@@ -209,4 +210,7 @@ func (w *widget) Parent() *Group {
 }
 func (w *widget) TakeFocus() int {
 	return int(C.go_fltk_Widget_take_focus(w.ptr()))
+}
+func (w *widget) Changed() uint {
+	return uint(C.go_fltk_Widget_changed(w.ptr()))
 }

@@ -173,5 +173,8 @@ Fl_Group *go_fltk_Widget_parent(Fl_Widget *w) {
     return w->parent();
 }
 int go_fltk_Widget_take_focus(Fl_Widget *w) {
-  return w->take_focus();
+    return w->take_focus();
+}
+unsigned int go_fltk_Widget_changed(Fl_Widget *w) {
+  return w->changed();
 }

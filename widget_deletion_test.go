@@ -5,17 +5,18 @@ import (
 	"testing"
 )
 
-func testWidgetDestroyed(name string, w *widget, t *testing.T) {
-	if w.tracker != nil {
+func testWidgetDestroyed(name string, w Widget, t *testing.T) {
+	ww := w.getWidget()
+	if ww.tracker != nil {
 		t.Errorf("%s's widget's tracker is not nil", name)
 	}
-	if w.callbackId != 0 {
+	if ww.callbackId != 0 {
 		t.Errorf("%s's callbackId is not 0", name)
 	}
-	if w.deletionHandlerId != 0 {
+	if ww.deletionHandlerId != 0 {
 		t.Errorf("%s's deletionHandlerId is not 0", name)
 	}
-	if w.resizeHandlerId != 0 {
+	if ww.resizeHandlerId != 0 {
 		t.Errorf("%s's resizeHandlerId is not 0", name)
 	}
 }
@@ -50,7 +51,7 @@ func TestPanicWhenAccessingDeletedWidget(t *testing.T) {
 		} else if !errors.Is(err, ErrDestroyed) {
 			t.Errorf("Unexpected error: %v", err)
 		}
-		testWidgetDestroyed("button", &b.widget, t)
+		testWidgetDestroyed("button", b, t)
 		testGlobalMapsEmpty(t)
 		Unlock()
 	}()
@@ -82,8 +83,8 @@ func TestPanicWhenAccessingChildOfDeletedWidget(t *testing.T) {
 		} else if !errors.Is(err, ErrDestroyed) {
 			t.Errorf("Unexpected error: %v", err)
 		}
-		testWidgetDestroyed("group", &g.widget, t)
-		testWidgetDestroyed("button", &b.widget, t)
+		testWidgetDestroyed("group", g, t)
+		testWidgetDestroyed("button", b, t)
 		testGlobalMapsEmpty(t)
 		Unlock()
 	}()
@@ -118,8 +119,8 @@ func TestPanicWhenAccessingChildOfWidgetDeletedViaParent(t *testing.T) {
 		} else if !errors.Is(err, ErrDestroyed) {
 			t.Errorf("Unexpected error: %v", err)
 		}
-		testWidgetDestroyed("group", &g.widget, t)
-		testWidgetDestroyed("button", &b.widget, t)
+		testWidgetDestroyed("group", g, t)
+		testWidgetDestroyed("button", b, t)
 		testGlobalMapsEmpty(t)
 		Unlock()
 	}()
@@ -154,7 +155,7 @@ func TestDestroyingTableRow(t *testing.T) {
 		} else if !errors.Is(err, ErrDestroyed) {
 			t.Errorf("Unexpected error: %v", err)
 		}
-		testWidgetDestroyed("table row", &tb.widget, t)
+		testWidgetDestroyed("table row", tb, t)
 		testGlobalMapsEmpty(t)
 		Unlock()
 	}()
@@ -188,7 +189,7 @@ func TestDestroyingMenu(t *testing.T) {
 		} else if !errors.Is(err, ErrDestroyed) {
 			t.Errorf("Unexpected error: %v", err)
 		}
-		testWidgetDestroyed("menu bar", &mb.widget, t)
+		testWidgetDestroyed("menu bar", mb, t)
 		testGlobalMapsEmpty(t)
 		Unlock()
 	}()
@@ -199,6 +200,43 @@ func TestDestroyingMenu(t *testing.T) {
 		mb.Destroy()
 		Wait()
 		mb.Redraw()
+		panic("Should have panicked")
+	})
+	win.End()
+	Lock()
+	win.Show()
+	Run()
+}
+
+// InputChoice have child widgets which may have assigned its own callbacks
+func TestDestroyingInputChoice(t *testing.T) {
+	win := NewWindow(400, 400)
+	c := NewInputChoice(20, 20, 50, 50)
+	c.SetResizeHandler(func() {})
+	input := c.Input()
+	input.SetCallback(func() {})
+	menuButton := c.MenuButton()
+	menuButton.Add("1", func() {})
+	menuButton.Add("2", func() {})
+	defer func() {
+		if r := recover(); r == nil {
+			t.Errorf("Did not panic")
+		} else if err, ok := r.(error); !ok {
+			t.Errorf("Panicked with not an error: %v", r)
+		} else if !errors.Is(err, ErrDestroyed) {
+			t.Errorf("Unexpected error: %v", err)
+		}
+		testWidgetDestroyed("input choice", c, t)
+		testGlobalMapsEmpty(t)
+		Unlock()
+	}()
+	c.SetEventHandler(func(event Event) bool {
+		if event != SHOW {
+			return false
+		}
+		c.Destroy()
+		Wait()
+		c.Redraw()
 		panic("Should have panicked")
 	})
 	win.End()
