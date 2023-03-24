@@ -5,7 +5,9 @@ package fltk
 #include "menu.h"
 */
 import "C"
-import "unsafe"
+import (
+	"unsafe"
+)
 
 type menu struct {
 	widget
@@ -136,7 +138,11 @@ func (m *MenuButton) SetType(menuType MenuType) {
 	C.go_fltk_MenuButton_set_type((*C.Fl_Menu_Button)(m.ptr()), C.int(menuType))
 }
 func (m *MenuButton) Popup() {
-	C.go_fltk_MenuButton_popup((*C.Fl_Menu_Button)(m.ptr()))
+	if m.Size() > 0 {
+		// Fltk may crash when Popup is called on empty menu.
+		// https://github.com/pwiecz/go-fltk/issues/64
+		C.go_fltk_MenuButton_popup((*C.Fl_Menu_Button)(m.ptr()))
+	}
 }
 func (m *MenuButton) Destroy() {
 	m.menu.Destroy()
