@@ -282,6 +282,17 @@ func (t *TextEditor) SelectAll() {
 	C.go_fltk_TextEditor_select_all((*C.Fl_Text_Editor)(t.ptr()))
 }
 
+// NewTextEditor returns a TextEditor.
+//
+// Example:
+//		textBuffer := fltk.NewTextBuffer()
+//		textEditor := fltk.NewTextEditor()
+//		textEditor.SetBuffer(textBuffer)
+//		textBuffer.SetText("Initial Text")
+//		fmt.Println(textBuffer.Text()) // Prints: Initial Text
+//
+// Note that the text buffer pointer must be kept around for as long as the
+// text editor is in use.
 func NewTextEditor(x, y, w, h int, text ...string) *TextEditor {
 	t := &TextEditor{}
 	initWidget(t, unsafe.Pointer(C.go_fltk_new_TextEditor(C.int(x), C.int(y), C.int(w), C.int(h), cStringOpt(text))))
