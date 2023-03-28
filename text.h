@@ -52,6 +52,8 @@ extern "C" {
   void go_fltk_TextBuffer_unselect(Fl_Text_Buffer *b);
   int go_fltk_TextBuffer_tab_distance(Fl_Text_Buffer *b);
   void go_fltk_TextBuffer_set_tab_distance(Fl_Text_Buffer *b, int tabDist);
+  extern void go_fltk_TextDisplay_set_highlight_data(Fl_Text_Display *self, Fl_Text_Buffer *sbuff, unsigned int *color, int *font, 
+                                     int *fontsz, unsigned *attr, unsigned int *bgcolor, int sz);                                                                                              \
 
 #ifdef __cplusplus
 }

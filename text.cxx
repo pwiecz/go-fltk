@@ -184,3 +184,14 @@ int go_fltk_TextBuffer_tab_distance(Fl_Text_Buffer *b) {
 void go_fltk_TextBuffer_set_tab_distance(Fl_Text_Buffer *b, int tabDist) {
   b->tab_distance(tabDist);
 }
+
+void go_fltk_TextDisplay_set_highlight_data(Fl_Text_Display *self, Fl_Text_Buffer *sbuff, unsigned int *color, int *font,    
+                                     int *fontsz, unsigned *attr, unsigned int *bgcolor, int sz) { 
+    Fl_Text_Display::Style_Table_Entry *stable = new Fl_Text_Display::Style_Table_Entry[sz];   
+    if (!stable)                                                                               
+        return;                                                                                
+    for (int i = 0; i < sz; ++i) {                                                             
+        stable[i] = {color[i], font[i], fontsz[i], attr[i], bgcolor[i]};                       
+    }                                                                                          
+    self->highlight_data(sbuff, stable, sz, 'A', 0, 0);                
+}                                                                                              

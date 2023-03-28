@@ -10,6 +10,12 @@ import (
 	"unsafe"
 )
 
+type StyleTableEntry struct {
+	Color Color
+	Font Font
+	Size int
+}
+
 type TextBuffer struct {
 	cPtr *C.Fl_Text_Buffer
 }
@@ -250,6 +256,22 @@ func (t *TextDisplay) Overstrike(txt string) {
 	txtstr := C.CString(txt)
 	defer C.free(unsafe.Pointer(txtstr))
 	C.go_fltk_TextDisplay_overstrike((*C.Fl_Text_Display)(t.ptr()), txtstr)
+}
+
+func (t *TextDisplay) SetHighlightData(buf *TextBuffer, entries []StyleTableEntry) {
+	var colors []C.uint
+	var fonts []C.int
+	var sizes []C.int
+	var attrs []C.uint
+	var bgcolors []C.uint
+	for i := 0; i < len(entries); i++ {
+		colors = append(colors, C.uint(entries[i].Color))
+		fonts = append(fonts, C.int(entries[i].Font))
+		sizes = append(sizes, C.int(entries[i].Size))
+		attrs = append(attrs, 0)
+		bgcolors = append(bgcolors, 0)
+	}
+	C.go_fltk_TextDisplay_set_highlight_data((*C.Fl_Text_Display)(t.ptr()), buf.ptr(), &colors[0], &fonts[0], &sizes[0], &attrs[0], &bgcolors[0], C.int(len(entries)))
 }
 
 type TextEditor struct {
