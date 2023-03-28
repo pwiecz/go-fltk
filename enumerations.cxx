@@ -3,6 +3,7 @@
 #include <cstdint>
 
 #include <FL/Enumerations.H>
+#include <FL/Fl_Tabs.H>
 
 #include "_cgo_export.h"
 
@@ -156,6 +157,11 @@ const unsigned int go_FL_DARK_BLUE = FL_DARK_BLUE;
 const unsigned int go_FL_DARK_MAGENTA = FL_DARK_MAGENTA;
 const unsigned int go_FL_DARK_CYAN = FL_DARK_CYAN;
 const unsigned int go_FL_WHITE = FL_WHITE;
+
+const int go_FL_OVERFLOW_COMPRESS = (int)Fl_Tabs::OVERFLOW_COMPRESS;
+const int go_FL_OVERFLOW_CLIP = (int)Fl_Tabs::OVERFLOW_CLIP;
+const int go_FL_OVERFLOW_PULLDOWN = (int)Fl_Tabs::OVERFLOW_PULLDOWN;
+const int go_FL_OVERFLOW_DRAG = (int)Fl_Tabs::OVERFLOW_DRAG;
 
 void callback_handler(Fl_Widget *w, void* data) {
   _go_callbackHandler((uintptr_t)data);
