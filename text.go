@@ -286,7 +286,7 @@ func (t *TextEditor) SelectAll() {
 //
 // Example:
 //		textBuffer := fltk.NewTextBuffer()
-//		textEditor := fltk.NewTextEditor()
+//		textEditor := fltk.NewTextEditor(x, y, width, height)
 //		textEditor.SetBuffer(textBuffer)
 //		textBuffer.SetText("Initial Text")
 //		fmt.Println(textBuffer.Text()) // Prints: Initial Text
