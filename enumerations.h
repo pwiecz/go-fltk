@@ -157,11 +157,6 @@ extern "C" {
   extern const unsigned int go_FL_DARK_CYAN;
   extern const unsigned int go_FL_WHITE;
 
-  extern const int go_FL_OVERFLOW_COMPRESS;
-  extern const int go_FL_OVERFLOW_CLIP;
-  extern const int go_FL_OVERFLOW_PULLDOWN;
-  extern const int go_FL_OVERFLOW_DRAG;
-
   extern void callback_handler(Fl_Widget *w, void* data);
 
 #ifdef __cplusplus

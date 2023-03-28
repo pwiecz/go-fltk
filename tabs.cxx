@@ -32,3 +32,12 @@ void go_fltk_Tabs_set_value(Fl_Tabs* tabs, int value) {
   }
   tabs->value(tabs->child(value));
 }
+
+const int go_FL_OVERFLOW_COMPRESS = (int)Fl_Tabs::OVERFLOW_COMPRESS;
+const int go_FL_OVERFLOW_CLIP = (int)Fl_Tabs::OVERFLOW_CLIP;
+const int go_FL_OVERFLOW_PULLDOWN = (int)Fl_Tabs::OVERFLOW_PULLDOWN;
+const int go_FL_OVERFLOW_DRAG = (int)Fl_Tabs::OVERFLOW_DRAG;
+
+void go_fltk_Tabs_handle_overflow(Fl_Tabs *tabs, int overflow) {
+  tabs->handle_overflow(overflow);
+}
