@@ -25,6 +25,8 @@ extern "C" {
   extern int go_fltk_TextDisplay_move_up(Fl_Text_Display *d);
   extern int go_fltk_TextDisplay_move_down(Fl_Text_Display *d);
   extern void go_fltk_TextDisplay_show_insert_position(Fl_Text_Display *d);
+  extern unsigned int go_fltk_TextDisplay_text_color(Fl_Text_Display *d);
+  extern void go_fltk_TextDisplay_set_text_color(Fl_Text_Display* d, unsigned int color);
   extern int go_fltk_TextDisplay_text_size(Fl_Text_Display *d);
   extern void go_fltk_TextDisplay_set_text_size(Fl_Text_Display *d, int size);
   extern Fl_Text_Buffer *go_fltk_TextDisplay_buffer(Fl_Text_Display *d);

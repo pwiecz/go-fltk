@@ -47,6 +47,14 @@ void go_fltk_TextDisplay_show_insert_position(Fl_Text_Display *d) {
   d->show_insert_position();
 }
 
+unsigned int go_fltk_TextDisplay_text_color(Fl_Text_Display *d) {
+  return d->textcolor();
+}
+
+void go_fltk_TextDisplay_set_text_color(Fl_Text_Display *d, unsigned int color) {
+  d->textcolor(color);
+}
+  
 int go_fltk_TextDisplay_text_size(Fl_Text_Display *d) {
   return d->textsize();
 }
