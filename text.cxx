@@ -199,7 +199,7 @@ void go_fltk_TextDisplay_set_highlight_data(Fl_Text_Display *self, Fl_Text_Buffe
     if (!stable)                                                                               
         return;                                                                                
     for (int i = 0; i < sz; ++i) {                                                             
-        stable[i] = {color[i], font[i], fontsz[i], attr[i], bgcolor[i]};                       
+        stable[i] = (Fl_Text_Display::Style_Table_Entry){color[i], font[i], fontsz[i], attr[i], bgcolor[i]};                       
     }                                                                                          
     self->highlight_data(sbuff, stable, sz, 'A', 0, 0);                
 }                                                                                              
