@@ -365,10 +365,3 @@ var (
 	F11       = int(C.go_FL_F11)
 	F12       = int(C.go_FL_F12)
 )
-
-var (
-	OVERFLOW_COMPRESS = int(C.go_FL_OVERFLOW_COMPRESS)
-	OVERFLOW_CLIP     = int(C.go_FL_OVERFLOW_CLIP)
-	OVERFLOW_PULLDOWN = int(C.go_FL_OVERFLOW_PULLDOWN)
-	OVERFLOW_DRAG     = int(C.go_FL_OVERFLOW_DRAG)
-)

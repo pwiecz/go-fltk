@@ -224,6 +224,16 @@ func (t *TextDisplay) ShowInsertPosition() {
 	C.go_fltk_TextDisplay_show_insert_position((*C.Fl_Text_Display)(t.ptr()))
 }
 
+// TextColor gets the default color of text in the widget
+func (t *TextDisplay) TextColor() Color {
+	return Color(C.go_fltk_TextDisplay_text_color((*C.Fl_Text_Display)(t.ptr())))
+}
+
+// SetTextColor sets the default color of text in the widget
+func (t *TextDisplay) SetTextColor(color Color) {
+	C.go_fltk_TextDisplay_set_text_color((*C.Fl_Text_Display)(t.ptr()), C.uint(color))
+}
+
 // TextSize gets the default size of text in the widget
 func (t *TextDisplay) TextSize() int {
 	return (int)(C.go_fltk_TextDisplay_text_size((*C.Fl_Text_Display)(t.ptr())))

@@ -23,3 +23,16 @@ func (t *Tabs) Value() int {
 func (t *Tabs) SetValue(value int) {
 	C.go_fltk_Tabs_set_value((*C.Fl_Tabs)(t.ptr()), (C.int)(value))
 }
+
+type Overflow int
+
+var (
+	OverflowCompress = Overflow(C.go_FL_OVERFLOW_COMPRESS)
+	OverflowClip     = Overflow(C.go_FL_OVERFLOW_CLIP)
+	OverflowPulldown = Overflow(C.go_FL_OVERFLOW_PULLDOWN)
+	OverflowDrag     = Overflow(C.go_FL_OVERFLOW_DRAG)
+)
+
+func (t *Tabs) SetOverflow(overflow Overflow) {
+	C.go_fltk_Tabs_handle_overflow((*C.Fl_Tabs)(t.ptr()), (C.int)(overflow))
+}
