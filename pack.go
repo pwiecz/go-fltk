@@ -26,6 +26,9 @@ var (
 func (p *Pack) SetType(packType PackType) {
 	p.widget.SetType(uint8(packType))
 }
+func (p *Pack) Spacing() int {
+	return int(C.go_fltk_Pack_spacing((*C.Fl_Pack)(p.ptr())))
+}
 func (p *Pack) SetSpacing(spacing int) {
 	C.go_fltk_Pack_set_spacing((*C.Fl_Pack)(p.ptr()), C.int(spacing))
 }

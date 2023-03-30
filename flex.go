@@ -35,3 +35,9 @@ func (f *Flex) Fixed(w Widget, size int) {
 func (f *Flex) End() {
 	C.go_fltk_Flex_end((*C.Fl_Flex)(f.ptr()))
 }
+func (f *Flex) Spacing() int {
+	return int(C.go_fltk_Flex_spacing((*C.Fl_Flex)(f.ptr())))
+}
+func (f *Flex) SetSpacing(spacing int) {
+	C.go_fltk_Flex_set_spacing((*C.Fl_Flex)(f.ptr()), C.int(spacing))
+}

@@ -22,9 +22,12 @@ void go_fltk_Flex_fixed(Fl_Flex* flex, Fl_Widget* w, int size) {
     flex->fixed(w, size);
 }
 
-extern void go_fltk_Flex_end(Fl_Flex *flex) {
-    flex->end();
-}
+void go_fltk_Flex_end(Fl_Flex *flex) { flex->end(); }
+
+int go_fltk_Flex_spacing(Fl_Flex* flex) { return flex->spacing(); }
+
+void go_fltk_Flex_set_spacing(Fl_Flex* flex, int spacing) { flex->spacing(spacing); }
+
 
 const unsigned char go_FL_FLEX_COLUMN = Fl_Flex::COLUMN;
 const unsigned char go_FL_FLEX_ROW = Fl_Flex::ROW;

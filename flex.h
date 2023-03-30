@@ -16,6 +16,10 @@ extern "C" {
 
   extern void go_fltk_Flex_end(Fl_Flex *flex);
 
+  extern int go_fltk_Flex_spacing(Fl_Flex* flex);
+
+  extern void go_fltk_Flex_set_spacing(Fl_Flex* flex, int spacing);
+
   extern const unsigned char go_FL_FLEX_COLUMN;
   extern const unsigned char go_FL_FLEX_ROW;
 
