@@ -22,7 +22,7 @@ func main() {
 		box.SetLabel(strconv.Itoa(i))
 	})
 	dec.SetCallback(func() {
-		i++
+		i--
 		box.SetLabel(strconv.Itoa(i))
 	})
 
