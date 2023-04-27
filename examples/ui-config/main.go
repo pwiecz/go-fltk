@@ -22,7 +22,7 @@ func makeWindow() *fltk.Window {
 	width := 200
 	height := 80
 	window := fltk.NewWindow(width, height)
-	window.SetLabel("Config")
+	window.SetLabel("UI Config")
 	makeWidgets(width, height)
 	window.End()
 	return window
