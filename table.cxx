@@ -86,6 +86,9 @@ void go_fltk_Table_set_column_resize(Fl_Table* t, int resize) {
 int go_fltk_Table_callback_row(Fl_Table* t) {
   return t->callback_row();
 }
+int go_fltk_Table_callback_col(Fl_Table* t) {
+  return t->callback_col();
+}
 int go_fltk_Table_callback_context(Fl_Table* t) {
   return t->callback_context();
 }

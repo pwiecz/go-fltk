@@ -23,6 +23,7 @@ extern "C" {
   extern void go_fltk_Table_set_column_header(Fl_Table* t, int header);
   extern void go_fltk_Table_set_column_resize(Fl_Table* t, int resize);
   extern int go_fltk_Table_callback_row(Fl_Table* t);
+  extern int go_fltk_Table_callback_col(Fl_Table* t);
   extern int go_fltk_Table_callback_context(Fl_Table* t);
   extern void go_fltk_Table_get_selection(Fl_Table* t, int* top, int* left, int* bottom, int* right);
   extern void go_fltk_Table_visible_cells(Fl_Table* t, int* top, int* bottom, int* left, int* right);

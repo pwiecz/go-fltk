@@ -16,18 +16,18 @@ func main() {
 	fltk.SetScheme("gtk+")
 
 	win := fltk.NewWindow(
-		WIDGET_WIDTH*2+WIDGET_PADDING*3,
-		WIDGET_HEIGHT*3+WIDGET_PADDING*2)
+		WIDGET_WIDTH*2+WIDGET_PADDING*2,
+		WIDGET_HEIGHT+WIDGET_PADDING*2)
 	win.SetLabel("Counter")
 
-	hpack := fltk.NewPack(WIDGET_PADDING, WIDGET_PADDING, win.W(), WIDGET_HEIGHT)
-	hpack.SetType(fltk.HORIZONTAL)
-	hpack.SetSpacing(WIDGET_PADDING)
+	row := fltk.NewFlex(WIDGET_PADDING, WIDGET_PADDING, WIDGET_WIDTH*2, WIDGET_HEIGHT)
+	row.SetType(fltk.ROW)
+	row.SetGap(WIDGET_PADDING)
 
-	text := fltk.NewOutput(0, 0, WIDGET_WIDTH, WIDGET_HEIGHT)
+	text := fltk.NewOutput(0, 0, 0, 0)
 	text.SetValue("0")
 
-	btn := fltk.NewButton(0, 0, WIDGET_WIDTH, WIDGET_HEIGHT)
+	btn := fltk.NewButton(0, 0, 0, 0)
 	btn.SetLabel("Count")
 
 	value := 0
@@ -36,6 +36,7 @@ func main() {
 		text.SetValue(strconv.Itoa(value))
 	})
 
+	row.End()
 	win.End()
 	win.Show()
 	fltk.Run()
