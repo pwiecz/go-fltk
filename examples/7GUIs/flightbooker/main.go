@@ -59,32 +59,33 @@ func main() {
 
 	win := fltk.NewWindow(
 		WIDGET_WIDTH+WIDGET_PADDING*2,
-		WIDGET_HEIGHT*4+WIDGET_PADDING*5)
+		WIDGET_HEIGHT*4+WIDGET_PADDING*2)
 	win.SetLabel("Book Flight")
 
-	vpack := fltk.NewPack(WIDGET_PADDING, WIDGET_PADDING, win.W()-WIDGET_PADDING*2, win.H()-WIDGET_PADDING*2)
-	vpack.SetSpacing(WIDGET_PADDING)
+	col := fltk.NewFlex(WIDGET_PADDING, WIDGET_PADDING, WIDGET_WIDTH, WIDGET_HEIGHT*4)
+	col.SetType(fltk.COLUMN)
+	col.SetGap(WIDGET_PADDING)
 
 	option = BookOptionOneWay
 
-	optionChoice = fltk.NewChoice(0, 0, WIDGET_WIDTH, WIDGET_HEIGHT)
+	optionChoice = fltk.NewChoice(0, 0, 0, 0)
 	optionChoice.Add("one-way flight", update)
 	optionChoice.Add("return flight", update)
 	optionChoice.SetValue(int(option))
 
 	now := time.Now()
-	startInput = fltk.NewInput(0, 0, WIDGET_WIDTH, WIDGET_HEIGHT)
+	startInput = fltk.NewInput(0, 0, 0, 0)
 	startInput.SetValue(now.Format(DATE_FORMAT))
 	startInput.SetCallbackCondition(fltk.WhenChanged)
 	startInput.SetCallback(update)
 
-	returnInput = fltk.NewInput(0, 0, WIDGET_WIDTH, WIDGET_HEIGHT)
+	returnInput = fltk.NewInput(0, 0, 0, 0)
 	returnInput.SetValue(now.Format(DATE_FORMAT))
 	returnInput.SetCallbackCondition(fltk.WhenChanged)
 	returnInput.SetCallback(update)
 	// defaultInputColor = startInput.Color()
 
-	bookBtn = fltk.NewButton(0, 0, WIDGET_WIDTH, WIDGET_HEIGHT)
+	bookBtn = fltk.NewButton(0, 0, 0, 0)
 	bookBtn.SetLabel("Book")
 	bookBtn.SetCallback(func() {
 		switch option {
@@ -97,6 +98,7 @@ func main() {
 
 	update()
 
+	col.End()
 	win.End()
 	win.Show()
 	fltk.Run()

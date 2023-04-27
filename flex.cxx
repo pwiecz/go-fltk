@@ -28,6 +28,9 @@ int go_fltk_Flex_spacing(Fl_Flex* flex) { return flex->spacing(); }
 
 void go_fltk_Flex_set_spacing(Fl_Flex* flex, int spacing) { flex->spacing(spacing); }
 
+int go_fltk_Flex_margin(Fl_Flex* flex) { return flex->margin(); }
+
+void go_fltk_Flex_set_margin(Fl_Flex* flex, int margin, int gap) { flex->margin(margin, gap); }
 
 const unsigned char go_FL_FLEX_COLUMN = Fl_Flex::COLUMN;
 const unsigned char go_FL_FLEX_ROW = Fl_Flex::ROW;

@@ -41,3 +41,13 @@ func (f *Flex) Spacing() int {
 func (f *Flex) SetSpacing(spacing int) {
 	C.go_fltk_Flex_set_spacing((*C.Fl_Flex)(f.ptr()), C.int(spacing))
 }
+func (f *Flex) Margin() int {
+	return int(C.go_fltk_Flex_margin((*C.Fl_Flex)(f.ptr())))
+}
+func (f *Flex) SetMargin(margin int, gap ...int) {
+	g := -1
+	if len(gap) > 0 {
+		g = gap[0]
+	}
+	C.go_fltk_Flex_set_margin((*C.Fl_Flex)(f.ptr()), C.int(margin), C.int(g))
+}

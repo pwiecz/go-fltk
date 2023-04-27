@@ -58,6 +58,9 @@ func (t *table) DisallowColumnResizing() {
 func (t *table) CallbackRow() int {
 	return int(C.go_fltk_Table_callback_row((*C.Fl_Table)(t.ptr())))
 }
+func (t *table) CallbackCol() int {
+	return int(C.go_fltk_Table_callback_col((*C.Fl_Table)(t.ptr())))
+}
 func (t *table) CallbackContext() TableContext {
 	return TableContext(C.go_fltk_Table_callback_context((*C.Fl_Table)(t.ptr())))
 }

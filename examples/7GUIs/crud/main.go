@@ -53,61 +53,68 @@ func NewCrudPanel(win *fltk.Window) *CrudPanel {
 
 	win.Begin()
 
-	vpack := fltk.NewPack(WIDGET_PADDING, WIDGET_PADDING, win.W()-WIDGET_PADDING*2, win.H()-WIDGET_PADDING*2)
-	vpack.SetSpacing(WIDGET_PADDING)
+	col := fltk.NewFlex(WIDGET_PADDING, WIDGET_PADDING, win.W()-WIDGET_PADDING*2, win.H()-WIDGET_PADDING*2)
+	col.SetGap(WIDGET_PADDING)
 
 	{
-		hpack := fltk.NewPack(0, 0, vpack.W(), WIDGET_HEIGHT)
-		hpack.SetType(fltk.HORIZONTAL)
-		fltk.NewBox(fltk.NO_BOX, 0, 0, WIDGET_WIDTH, WIDGET_HEIGHT, "Filter prefix:").SetAlign(fltk.ALIGN_INSIDE | fltk.ALIGN_LEFT)
-		p.prefixInput = fltk.NewInput(0, 0, WIDGET_WIDTH, WIDGET_HEIGHT)
-		hpack.End()
+		row := fltk.NewFlex(0, 0, 0, 0)
+		col.Fixed(row, WIDGET_HEIGHT)
+		row.SetType(fltk.ROW)
+		fltk.NewBox(fltk.NO_BOX, 0, 0, 0, 0, "Filter prefix:").SetAlign(fltk.ALIGN_INSIDE | fltk.ALIGN_LEFT)
+		p.prefixInput = fltk.NewInput(0, 0, 0, 0)
+		fltk.NewBox(fltk.NO_BOX, 0, 0, 0, 0) // invisible
+		fltk.NewBox(fltk.NO_BOX, 0, 0, 0, 0) // invisible
+		row.End()
 	}
 
 	{
-		hpack := fltk.NewPack(0, 0, vpack.W(), WIDGET_HEIGHT*4)
-		hpack.SetType(fltk.HORIZONTAL)
-		hpack.SetSpacing(WIDGET_PADDING)
-		p.listBrowser = fltk.NewHoldBrowser(0, 0, WIDGET_WIDTH*2, WIDGET_HEIGHT*4)
+		row := fltk.NewFlex(0, 0, 0, 0*4)
+		row.SetType(fltk.ROW)
+		row.SetGap(WIDGET_PADDING)
+		p.listBrowser = fltk.NewHoldBrowser(0, 0, 0, 0)
 		{
-			vpack := fltk.NewPack(0, 0, WIDGET_WIDTH*2, hpack.H())
+			col := fltk.NewFlex(0, 0, 0, 0)
 			{
-				hpack := fltk.NewPack(0, 0, vpack.W(), WIDGET_HEIGHT)
-				hpack.SetType(fltk.HORIZONTAL)
-				fltk.NewBox(fltk.NO_BOX, 0, 0, WIDGET_WIDTH, WIDGET_HEIGHT, "Name:").SetAlign(fltk.ALIGN_INSIDE | fltk.ALIGN_LEFT)
-				p.nameInput = fltk.NewInput(0, 0, WIDGET_WIDTH, WIDGET_HEIGHT)
-				hpack.End()
+				row := fltk.NewFlex(0, 0, 0, 0)
+				col.Fixed(row, WIDGET_HEIGHT)
+				row.SetType(fltk.ROW)
+				fltk.NewBox(fltk.NO_BOX, 0, 0, 0, 0, "Name:").SetAlign(fltk.ALIGN_INSIDE | fltk.ALIGN_LEFT)
+				p.nameInput = fltk.NewInput(0, 0, 0, 0)
+				row.End()
 			}
 			{
-				hpack := fltk.NewPack(0, 0, vpack.W(), WIDGET_HEIGHT)
-				hpack.SetType(fltk.HORIZONTAL)
-				fltk.NewBox(fltk.NO_BOX, 0, 0, WIDGET_WIDTH, WIDGET_HEIGHT, "Surname:").SetAlign(fltk.ALIGN_INSIDE | fltk.ALIGN_LEFT)
-				p.surnameInput = fltk.NewInput(0, 0, WIDGET_WIDTH, WIDGET_HEIGHT)
-				hpack.End()
+				row := fltk.NewFlex(0, 0, 0, 0)
+				col.Fixed(row, WIDGET_HEIGHT)
+				row.SetType(fltk.ROW)
+				fltk.NewBox(fltk.NO_BOX, 0, 0, 0, 0, "Surname:").SetAlign(fltk.ALIGN_INSIDE | fltk.ALIGN_LEFT)
+				p.surnameInput = fltk.NewInput(0, 0, 0, 0)
+				row.End()
 			}
-			vpack.End()
+			col.End()
 		}
 
-		hpack.End()
+		row.End()
 	}
 
 	{
-		hpack := fltk.NewPack(0, 0, vpack.W(), WIDGET_HEIGHT)
-		hpack.SetType(fltk.HORIZONTAL)
-		hpack.SetSpacing(WIDGET_PADDING)
-		hpack.SetAlign(fltk.ALIGN_BOTTOM)
-		p.createBtn = fltk.NewButton(0, 0, WIDGET_WIDTH, WIDGET_HEIGHT)
+		row := fltk.NewFlex(0, 0, 0, 0)
+		col.Fixed(row, WIDGET_HEIGHT)
+		row.SetType(fltk.ROW)
+		row.SetGap(WIDGET_PADDING)
+		p.createBtn = fltk.NewButton(0, 0, 0, 0)
 		p.createBtn.SetLabel("Create")
 
-		p.updateBtn = fltk.NewButton(0, 0, WIDGET_WIDTH, WIDGET_HEIGHT)
+		p.updateBtn = fltk.NewButton(0, 0, 0, 0)
 		p.updateBtn.SetLabel("Update")
 
-		p.deleteBtn = fltk.NewButton(0, 0, WIDGET_WIDTH, WIDGET_HEIGHT)
+		p.deleteBtn = fltk.NewButton(0, 0, 0, 0)
 		p.deleteBtn.SetLabel("Delete")
-		hpack.End()
+		fltk.NewBox(fltk.NO_BOX, 0, 0, 0, 0) // invisible
+		row.End()
 	}
 
-	vpack.End()
+	col.End()
+	win.Resizable(col)
 	return p
 }
 
