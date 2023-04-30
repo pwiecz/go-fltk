@@ -66,6 +66,11 @@ void go_fltk_focus_rect(int x, int y, int w, int h) {
     fl_focus_rect(x, y, w, h);
 }
 
+void go_fltk_draw_arrow(int x, int y, int w, int h, int arr, int orient, unsigned int color) {
+	Fl_Rect r{x, y, w, h};
+	fl_draw_arrow(r, (Fl_Arrow_Type)arr, (Fl_Orientation)orient, color);
+}
+
 void go_fltk_rect_with_color(int x, int y, int w, int h, unsigned int c) {
     fl_rect(x, y, w, h, c);
 }

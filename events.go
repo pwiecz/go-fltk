@@ -48,6 +48,12 @@ func EventKey() int {
 func EventIsClick() bool {
 	return C.go_fltk_event_is_click() != 0
 }
+func EventClicks() int {
+	return int(C.go_fltk_event_clicks())
+}
+func SetEventClicks(i int){
+	C.go_fltk_event_set_clicks(C.int(i))
+}
 func EventText() string {
 	return C.GoString(C.go_fltk_event_text())
 }

@@ -171,6 +171,7 @@ func (w *widget) Activate()                { C.go_fltk_Widget_activate(w.ptr()) 
 func (w *widget) SetType(widgetType uint8) { C.go_fltk_Widget_set_type(w.ptr(), C.uchar(widgetType)) }
 func (w *widget) Show()                    { C.go_fltk_Widget_show(w.ptr()) }
 func (w *widget) Hide()                    { C.go_fltk_Widget_hide(w.ptr()) }
+func (w *widget) Visible() bool            { return C.go_fltk_Widget_visible(w.ptr()) != 0 }
 func (w *widget) SelectionColor() Color    { return Color(C.go_fltk_Widget_selection_color(w.ptr())) }
 func (w *widget) SetSelectionColor(color Color) {
 	C.go_fltk_Widget_set_selection_color(w.ptr(), C.uint(color))
@@ -211,6 +212,11 @@ func (w *widget) Parent() *Group {
 func (w *widget) TakeFocus() int {
 	return int(C.go_fltk_Widget_take_focus(w.ptr()))
 }
+func (w *widget) HasFocus() bool {
+	res := int(C.go_fltk_Widget_has_focus(w.ptr())) 
+	return res != 0
+}
+
 func (w *widget) Changed() uint {
 	return uint(C.go_fltk_Widget_changed(w.ptr()))
 }

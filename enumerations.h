@@ -30,7 +30,22 @@ extern "C" {
   extern const unsigned int go_FL_ALIGN_NOWRAP;
   extern const unsigned int go_FL_ALIGN_POSITION_MASK;
   extern const unsigned int go_FL_ALIGN_IMAGE_MASK;
-
+	
+  extern const int go_FL_ARROW_SINGLE;
+  extern const int go_FL_ARROW_DOUBLE;
+  extern const int go_FL_ARROW_CHOICE;
+  extern const int go_FL_ARROW_RETURN;
+	
+  extern const int go_FL_ORIENT_NONE;
+  extern const int go_FL_ORIENT_RIGHT;
+  extern const int go_FL_ORIENT_NE;
+  extern const int go_FL_ORIENT_UP;
+  extern const int go_FL_ORIENT_NW;
+  extern const int go_FL_ORIENT_LEFT;
+  extern const int go_FL_ORIENT_SW;
+  extern const int go_FL_ORIENT_DOWN;
+  extern const int go_FL_ORIENT_SE;
+	
   extern const int go_FL_HELVETICA;
   extern const int go_FL_HELVETICA_BOLD;
   extern const int go_FL_HELVETICA_ITALIC;

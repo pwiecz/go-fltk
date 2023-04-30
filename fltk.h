@@ -47,7 +47,12 @@ extern "C" {
 
   extern int go_fltk_scrollbar_size();
   extern void go_fltk_set_scrollbar_size(int size);
+	
+  extern void go_fltk_set_menu_linespacing(int size);
+  extern int go_fltk_menu_linespacing();
 
+  extern int go_fltk_test_shortcut(int shortcut);
+		
 #ifdef __cplusplus
 }
 #endif

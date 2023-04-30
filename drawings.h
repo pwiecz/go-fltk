@@ -27,6 +27,7 @@ extern "C" {
   extern void go_fltk_rectf_with_color(int x, int y, int w, int h, unsigned int c);
   extern void go_fltk_rectf_with_rgb(int x, int y, int w, int h, unsigned char r, unsigned char g,
                           unsigned char b);
+  extern void go_fltk_draw_arrow(int x, int y, int w, int h, int arr, int orient, unsigned int color);
   extern void go_fltk_line(int x, int y, int x1, int y1);
   extern void go_fltk_line2(int x, int y, int x1, int y1, int x2, int y2);
   extern void go_fltk_loop(int x, int y, int x1, int y1, int x2, int y2);

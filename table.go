@@ -16,6 +16,9 @@ type table struct {
 func (t *table) SetRowCount(rowCount int) {
 	C.go_fltk_Table_set_row_count((*C.Fl_Table)(t.ptr()), C.int(rowCount))
 }
+func (t *table) RowCount() int {
+	return int(C.go_fltk_Table_row_count((*C.Fl_Table)(t.ptr())));
+}
 func (t *table) SetRowHeight(row, height int) {
 	C.go_fltk_Table_set_row_height((*C.Fl_Table)(t.ptr()), C.int(row), C.int(height))
 }
@@ -74,11 +77,31 @@ func (t *table) VisibleCells() (int, int, int, int) {
 func (t *table) SetTopRow(row int) {
 	C.go_fltk_Table_set_top_row((*C.Fl_Table)(t.ptr()), C.int(row))
 }
+func (t *table) TopRow() int {
+	return int(C.go_fltk_Table_top_row((*C.Fl_Table)(t.ptr())))
+}
 func (t *table) ScrollbarSize() int {
 	return int(C.go_fltk_Table_scrollbar_size((*C.Fl_Table)(t.ptr())))
 }
 func (t *table) SetScrollbarSize(size int) {
 	C.go_fltk_Table_set_scrollbar_size((*C.Fl_Table)(t.ptr()), C.int(size))
+}
+func (t *table) SetRowHeaderWidth(size int) {
+	C.go_fltk_Table_set_row_header_width((*C.Fl_Table)(t.ptr()), C.int(size))
+}
+func (t *table) RowHeaderWidth() int {
+	return int(C.go_fltk_Table_row_header_width((*C.Fl_Table)(t.ptr())))
+}
+func (t *table) SetColHeaderHeight(size int) {
+	C.go_fltk_Table_set_col_header_height((*C.Fl_Table)(t.ptr()), C.int(size))
+}
+func (t *table) ColHeaderHeight() int {
+	return int(C.go_fltk_Table_row_header_width((*C.Fl_Table)(t.ptr())))
+}
+func (t *table) RowAndColumnFromCursor() (row, col int) {
+	row = int(C.go_fltk_Table_row_from_cursor((*C.GTableRow)(t.ptr())))
+	col = int(C.go_fltk_Table_column_from_cursor((*C.GTableRow)(t.ptr())))
+	return row, col
 }
 
 type TableRow struct {

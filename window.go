@@ -65,6 +65,14 @@ func (w *Window) SetIcons(icons []*RgbImage) {
 	w.icons = icons
 }
 
+func (w *Window) SetSizeRange(minW, minH, maxW, maxH, deltaX, deltaY int, aspectRatio bool) {
+	ratio := 0
+	if aspectRatio == true {
+		ratio = 1
+	}
+	C.go_fltk_Window_size_range((*C.Fl_Window)(w.ptr()), C.int(minW), C.int(minH), C.int(maxW), C.int(maxH), C.int(deltaX), C.int(deltaY), C.int(ratio));
+}
+
 type Cursor int
 
 var (

@@ -3,13 +3,15 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-
+	
   typedef struct Fl_Menu_ Fl_Menu_;
   typedef struct GMenu_Button GMenu_Button;
   typedef struct Fl_Menu_Button Fl_Menu_Button;
   typedef struct GMenu_Bar GMenu_Bar;
+  typedef struct Fl_Image Fl_Image;
 
   extern int go_fltk_Menu_add(Fl_Menu_* m, char* label, int shortcut, int callback, int flags);
+  extern int go_fltk_Menu_add_with_icon(Fl_Menu_ *m, char *label, int shortcut, int callback, int flags, Fl_Image *img);
   extern int go_fltk_Menu_insert(Fl_Menu_* m, int index, char* label, int shortcut, int callback, int flags);
   extern void go_fltk_Menu_remove(Fl_Menu_ *m, int index);
   extern void go_fltk_Menu_replace(Fl_Menu_ *m, int index, const char *label);

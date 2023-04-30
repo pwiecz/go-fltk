@@ -21,6 +21,8 @@ const int go_FL_BUTTON3 = FL_BUTTON3;
 int go_fltk_event() { return Fl::event(); }
 int go_fltk_event_button() { return Fl::event_button(); }
 int go_fltk_event_button1() { return Fl::event_button1(); }
+int go_fltk_event_clicks() { return Fl::event_clicks(); }
+void go_fltk_event_set_clicks(int i) { Fl::event_clicks(i); }
 int go_fltk_event_x() { return Fl::event_x(); }
 int go_fltk_event_y() { return Fl::event_y(); }
 int go_fltk_event_x_root() { return Fl::event_x_root(); }

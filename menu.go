@@ -52,6 +52,13 @@ func (m *menu) AddEx(label string, shortcut int, callback func(), flags int) int
 	defer C.free(unsafe.Pointer(labelStr))
 	return int(C.go_fltk_Menu_add((*C.Fl_Menu_)(m.ptr()), labelStr, C.int(shortcut), C.int(callbackId), C.int(flags)))
 }
+func (m *menu) AddExWithIcon(label string, shortcut int, callback func(), flags int, img Image) int {
+	callbackId := globalCallbackMap.register(callback)
+	m.itemCallbacks = append(m.itemCallbacks, callbackId)
+	labelStr := C.CString(label)
+	defer C.free(unsafe.Pointer(labelStr))
+	return int(C.go_fltk_Menu_add_with_icon((*C.Fl_Menu_)(m.ptr()), labelStr, C.int(shortcut), C.int(callbackId), C.int(flags), img.getImage().ptr()))
+}
 func (m *menu) Insert(index int, label string, callback func()) int {
 	callbackId := globalCallbackMap.register(callback)
 	m.itemCallbacks = append(m.itemCallbacks, callbackId)

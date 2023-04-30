@@ -60,6 +60,10 @@ void go_fltk_Window_set_icons(Fl_Window* w, const Fl_RGB_Image *images[], int le
   w->icons(images, length);
 }
 
+void go_fltk_Window_size_range(Fl_Window* w, int minW, int minH, int maxW, int maxH, int deltaX, int deltaY, int aspectRatio) {
+	w->size_range(minW, minH, maxW, maxH, deltaX, deltaY, aspectRatio);
+}
+
 const int go_FL_CURSOR_DEFAULT = (int)FL_CURSOR_DEFAULT;
 const int go_FL_CURSOR_ARROW = (int)FL_CURSOR_ARROW;
 const int go_FL_CURSOR_CROSS = (int)FL_CURSOR_CROSS;
