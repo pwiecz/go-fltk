@@ -60,7 +60,7 @@ func makeScaleSpinner() *fltk.Spinner {
 	spinner.SetMinimum(0.5)
 	spinner.SetMaximum(3.5)
 	spinner.SetStep(0.1)
-	spinner.SetValue(1.0)
+	spinner.SetValue(float64(fltk.ScreenScale(0)))
 	spinner.SetCallback(func() {
 		fltk.SetScreenScale(0, float32(spinner.Value()))
 	})
