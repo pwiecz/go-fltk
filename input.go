@@ -28,6 +28,15 @@ func (i *Input) SetValue(value string) bool {
 func (i *Input) Resize(x int, y int, w int, h int) {
 	C.go_fltk_Input_resize((*C.Fl_Input)(i.ptr()), C.int(x), C.int(y), C.int(w), C.int(h))
 }
+func (i *Input) SetInsertPosition(pos, mark int) {
+	C.go_fltk_Input_set_insert_position((*C.Fl_Input)(i.ptr()), C.int(pos), C.int(mark))
+}
+func (i *Input) InsertPosition() int {
+	return int(C.go_fltk_Input_insert_position((*C.Fl_Input)(i.ptr())))
+}
+func (i *Input) Mark() int {
+	return int(C.go_fltk_Input_mark((*C.Fl_Input)(i.ptr())))
+}
 
 type Output struct {
 	Input

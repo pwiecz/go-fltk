@@ -5,6 +5,7 @@
 #include <FL/Fl_Menu_.H>
 #include <FL/Fl_Menu_Button.H>
 #include <FL/Fl_Menu_Bar.H>
+#include <FL/Fl_Multi_Label.H>
 
 #include "enumerations.h"
 #include "event_handler.h"
@@ -12,6 +13,19 @@
 
 int go_fltk_Menu_add(Fl_Menu_ *m, char *label, int shortcut, int callback, int flags) {
   return m->add(label, shortcut, callback_handler, (void*)(uintptr_t)callback, flags);
+}
+
+int go_fltk_Menu_add_with_icon(Fl_Menu_ *m, char *label, int shortcut, int callback, int flags, Fl_Image *img) {
+	int idx = m->add(label, shortcut, callback_handler, (void*)(uintptr_t)callback, flags);
+	Fl_Menu_Item *item = (Fl_Menu_Item*)&(m->menu()[idx]);
+	Fl_Multi_Label *ml = new Fl_Multi_Label;
+	ml->typea = FL_IMAGE_LABEL;
+	ml->labela = (const char*)img;
+	
+	ml->typeb = FL_NORMAL_LABEL;
+	ml->labelb = item->label();
+	ml->label(item);
+	return idx;
 }
 
 int go_fltk_Menu_insert(Fl_Menu_ *m, int index, char *label, int shortcut, int callback, int flags) {

@@ -29,6 +29,12 @@ func (b *Button) SetValue(val bool) {
 func (b *Button) SetDownBox(box BoxType) {
 	C.go_fltk_Button_set_down_box((*C.Fl_Button)(b.ptr()), C.int(box))
 }
+func (b *Button) SetShortcut(shortcut int) {
+	C.go_fltk_Button_set_shortcut((*C.Fl_Button)(b.ptr()), C.int(shortcut))
+}
+func (b *Button) Shortcut() int {
+	return int(C.go_fltk_Button_shortcut((*C.Fl_Button)(b.ptr())))
+}
 
 type CheckButton struct {
 	Button

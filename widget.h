@@ -43,6 +43,7 @@ extern "C" {
   extern void go_fltk_Widget_set_type(Fl_Widget* w, unsigned char type);
   extern void go_fltk_Widget_show(Fl_Widget* w);
   extern void go_fltk_Widget_hide(Fl_Widget* w);
+  extern int go_fltk_Widget_visible(Fl_Widget* w);
   extern unsigned int go_fltk_Widget_selection_color(Fl_Widget* w);
   extern void go_fltk_Widget_set_selection_color(Fl_Widget* w, unsigned int color);
   extern void go_fltk_Widget_set_color(Fl_Widget* w, unsigned int color);
@@ -61,6 +62,7 @@ extern "C" {
   extern void go_fltk_Widget_set_tooltip(Fl_Widget* w, const char* tooltip);
   extern Fl_Group *go_fltk_Widget_parent(Fl_Widget *w);
   extern int go_fltk_Widget_take_focus(Fl_Widget *w);
+  extern int go_fltk_Widget_has_focus(Fl_Widget *w);
   extern unsigned int go_fltk_Widget_changed(Fl_Widget* w);
 
 #ifdef __cplusplus

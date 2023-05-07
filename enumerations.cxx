@@ -32,6 +32,21 @@ const unsigned int go_FL_ALIGN_NOWRAP = (unsigned int)FL_ALIGN_NOWRAP;
 const unsigned int go_FL_ALIGN_POSITION_MASK = (unsigned int)FL_ALIGN_POSITION_MASK;
 const unsigned int go_FL_ALIGN_IMAGE_MASK = (unsigned int)FL_ALIGN_IMAGE_MASK;
 
+const int go_FL_ARROW_SINGLE = (int)FL_ARROW_SINGLE;
+const int go_FL_ARROW_DOUBLE = (int)FL_ARROW_DOUBLE;
+const int go_FL_ARROW_CHOICE = (int)FL_ARROW_CHOICE;
+const int go_FL_ARROW_RETURN = (int)FL_ARROW_RETURN;
+
+const int go_FL_ORIENT_NONE = (int)FL_ORIENT_NONE;
+const int go_FL_ORIENT_RIGHT = (int)FL_ORIENT_RIGHT;
+const int go_FL_ORIENT_NE = (int)FL_ORIENT_NE;
+const int go_FL_ORIENT_UP= (int)FL_ORIENT_UP;
+const int go_FL_ORIENT_NW = (int)FL_ORIENT_NW;
+const int go_FL_ORIENT_LEFT = (int)FL_ORIENT_LEFT;
+const int go_FL_ORIENT_SW = (int)FL_ORIENT_SW;
+const int go_FL_ORIENT_DOWN = (int)FL_ORIENT_DOWN;
+const int go_FL_ORIENT_SE = (int)FL_ORIENT_SE;
+
 const int go_FL_HELVETICA = (int)FL_HELVETICA;
 const int go_FL_HELVETICA_BOLD = (int)FL_HELVETICA_BOLD;
 const int go_FL_HELVETICA_ITALIC = (int)FL_HELVETICA_ITALIC;

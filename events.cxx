@@ -30,5 +30,6 @@ int go_fltk_event_dy() { return Fl::event_dy(); }
 int go_fltk_event_key() { return Fl::event_key(); }
 int go_fltk_event_is_click() { return Fl::event_is_click(); }
 int go_fltk_event_clicks() { return Fl::event_clicks(); }
+void go_fltk_event_set_clicks(int i) { Fl::event_clicks(i); }
 int go_fltk_event_state() { return Fl::event_state(); }
 const char* go_fltk_event_text() { return Fl::event_text(); }

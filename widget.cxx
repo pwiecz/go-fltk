@@ -121,6 +121,9 @@ void go_fltk_Widget_show(Fl_Widget* w) {
 void go_fltk_Widget_hide(Fl_Widget* w) {
   w->hide();
 }
+int go_fltk_Widget_visible(Fl_Widget* w) {
+	return w->visible();
+}
 unsigned int go_fltk_Widget_selection_color(Fl_Widget* w) {
   return w->selection_color();
 }
@@ -174,6 +177,9 @@ Fl_Group *go_fltk_Widget_parent(Fl_Widget *w) {
 }
 int go_fltk_Widget_take_focus(Fl_Widget *w) {
     return w->take_focus();
+}
+int go_fltk_Widget_has_focus(Fl_Widget *w) {
+	return Fl::focus() == w;
 }
 unsigned int go_fltk_Widget_changed(Fl_Widget *w) {
   return w->changed();

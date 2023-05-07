@@ -29,6 +29,15 @@ int go_fltk_Input_set_value(Fl_Input *in, const char *t) {
 void go_fltk_Input_resize(Fl_Input *in, int x, int y, int w, int h) {
   in->resize(x, y, w, h);
 }
+void go_fltk_Input_set_insert_position(Fl_Input *in, int p, int m) {
+	in->insert_position(p, m);
+}
+int go_fltk_Input_insert_position(Fl_Input *in) {
+	return in->insert_position();
+}
+int go_fltk_Input_mark(Fl_Input *in) {
+	return in->mark();
+}
 
 class GOutput : public EventHandler<Fl_Output> {
 public:

@@ -66,6 +66,10 @@ func DrawRectfWithColor(x, y, w, h int, col Color) {
 	C.go_fltk_rectf_with_color(C.int(x), C.int(y), C.int(w), C.int(h), C.uint(col))
 }
 
+func DrawArrow(x, y, w, h int, arr ArrowType, orient Orientation, col Color) {
+	C.go_fltk_draw_arrow(C.int(x), C.int(y), C.int(w), C.int(h), C.int(arr), C.int(orient), C.uint(col))
+}
+
 func DrawLine(x, y, x1, y1 int) {
 	C.go_fltk_line(C.int(x), C.int(y), C.int(x1), C.int(y1))
 }

@@ -278,7 +278,15 @@ func ScrollbarSize() int {
 func SetScrollbarSize(size int) {
 	C.go_fltk_set_scrollbar_size(C.int(size))
 }
-
+func MenuLinespacing() int {
+	return int(C.go_fltk_menu_linespacing())
+}
+func SetMenuLinespacing(size int) {
+	C.go_fltk_set_menu_linespacing(C.int(size))
+}
+func TestShortcut(shortcut int) bool {
+	return C.go_fltk_test_shortcut(C.int(shortcut)) != 0
+}
 // Couldn't figure out how to export a func array...
 // For now, just gonna hide it at the bottom of the file and pretend it
 // doesn't exist

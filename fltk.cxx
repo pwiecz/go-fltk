@@ -167,3 +167,14 @@ int go_fltk_scrollbar_size() {
 void go_fltk_set_scrollbar_size(int size) {
   Fl::scrollbar_size(size);
 }
+
+void go_fltk_set_menu_linespacing(int size) {
+	Fl::menu_linespacing(size);
+}
+int go_fltk_menu_linespacing() {
+	return Fl::menu_linespacing();
+}
+
+int go_fltk_test_shortcut(int shortcut) {
+	return Fl::test_shortcut((unsigned int)shortcut);
+}

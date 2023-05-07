@@ -29,6 +29,12 @@ void go_fltk_Button_set_value(Fl_Button *b, int val) {
 void go_fltk_Button_set_down_box(Fl_Button *b, int val) {
   b->down_box((Fl_Boxtype)val);
 }
+void go_fltk_Button_set_shortcut(Fl_Button *b, int shortcut) {
+	b->shortcut(shortcut);
+}
+int go_fltk_Button_shortcut(Fl_Button *b) {
+	return b->shortcut();
+}
 
 class GCheck_Button : public EventHandler<Fl_Check_Button> {
 public:

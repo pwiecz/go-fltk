@@ -27,7 +27,31 @@ public:
     *x = X, *y = Y, *w = W, *h = H;
     return ret;
   }
-
+	
+  int row_from_cursor() {
+	int row = 0;
+	int col = 0;
+	ResizeFlag rflag = RESIZE_NONE;
+	TableContext ctx = cursor2rowcol(row, col, rflag);
+	if (ctx == CONTEXT_COL_HEADER)
+		row = -1;
+	else if (ctx != CONTEXT_CELL && ctx != CONTEXT_ROW_HEADER)
+		row = -2;
+	return row;
+  }
+	
+  int column_from_cursor() {
+	int row = 0;
+	int col = 0;
+	ResizeFlag rflag = RESIZE_NONE;
+	TableContext ctx = cursor2rowcol(row, col, rflag);
+	if (ctx == CONTEXT_ROW_HEADER)
+		col = -1;
+	else if (ctx != CONTEXT_CELL && ctx != CONTEXT_COL_HEADER)
+		col = -2;
+	return col;
+  }
+	
 private:
   int m_drawFunId = 0;
 };
@@ -55,6 +79,9 @@ int go_fltk_TableRow_find_cell(GTableRow* t, int ctx, int r, int c, int *x, int 
 }
 void go_fltk_Table_set_row_count(Fl_Table* t, int rowCount) {
   t->rows(rowCount);
+}
+int go_fltk_Table_row_count(Fl_Table* t) {
+	return t->rows();
 }
 void go_fltk_Table_set_row_height(Fl_Table* t, int row, int height) {
   t->row_height(row, height);
@@ -86,7 +113,7 @@ void go_fltk_Table_set_column_resize(Fl_Table* t, int resize) {
 int go_fltk_Table_callback_row(Fl_Table* t) {
   return t->callback_row();
 }
-int go_fltk_Table_callback_col(Fl_Table* t) {
+int go_fltk_Table_callback_column(Fl_Table* t) {
   return t->callback_col();
 }
 int go_fltk_Table_callback_context(Fl_Table* t) {
@@ -101,11 +128,32 @@ void go_fltk_Table_visible_cells(Fl_Table* t, int* top, int* bottom, int* left, 
 void go_fltk_Table_set_top_row(Fl_Table* t, int row) {
   t->top_row(row);
 }
+int go_fltk_Table_top_row(Fl_Table* t) {
+  return t->top_row();
+}
 int go_fltk_Table_scrollbar_size(Fl_Table* t) {
   return t->scrollbar_size();
 }
 void go_fltk_Table_set_scrollbar_size(Fl_Table* t, int size) {
   t->scrollbar_size(size);
+}
+void go_fltk_Table_set_column_header_height(Fl_Table* t, int size) {
+	t->col_header_height(size);
+}
+int go_fltk_Table_column_header_height(Fl_Table* t) {
+	return t->col_header_height();
+}
+void go_fltk_Table_set_row_header_width(Fl_Table* t, int size) {
+	t->row_header_width(size);
+}
+int go_fltk_Table_row_header_width(Fl_Table* t) {
+	return t->row_header_width();
+}
+int go_fltk_Table_column_from_cursor(GTableRow* t) {
+	return t->column_from_cursor();
+}
+int go_fltk_Table_row_from_cursor(GTableRow* t) {
+	return t->row_from_cursor();
 }
 
 const int go_FL_CONTEXT_NONE = (int)Fl_Table::CONTEXT_NONE;

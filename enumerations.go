@@ -34,6 +34,29 @@ var (
 	ALIGN_IMAGE_MASK         = Align(C.go_FL_ALIGN_IMAGE_MASK)
 )
 
+type ArrowType int
+
+var (
+	ARROW_SINGLE = ArrowType(C.go_FL_ARROW_SINGLE)
+	ARROW_DOUBLE = ArrowType(C.go_FL_ARROW_DOUBLE)
+	ARROW_CHOICE = ArrowType(C.go_FL_ARROW_CHOICE)
+	ARROW_RETURN = ArrowType(C.go_FL_ARROW_RETURN)
+)
+
+type Orientation int
+
+var (
+	ORIENT_NONE   = Orientation(C.go_FL_ORIENT_NONE)
+	ORIENT_RIGHT  = Orientation(C.go_FL_ORIENT_RIGHT)
+	ORIENT_NE     = Orientation(C.go_FL_ORIENT_NE)
+	ORIENT_UP     = Orientation(C.go_FL_ORIENT_UP)
+	ORIENT_NW     = Orientation(C.go_FL_ORIENT_NW)
+	ORIENT_LEFT   = Orientation(C.go_FL_ORIENT_LEFT)
+	ORIENT_SW     = Orientation(C.go_FL_ORIENT_SW)
+	ORIENT_DOWN   = Orientation(C.go_FL_ORIENT_DOWN)
+	ORIENT_SE     = Orientation(C.go_FL_ORIENT_SE)
+)
+
 type BoxType int
 
 const (

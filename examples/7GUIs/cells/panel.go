@@ -112,7 +112,7 @@ func (p *Panel) StartEditing(ctx *Context) {
 	}
 
 	row := CellRow(p.tb.CallbackRow())
-	col := CellCol(p.tb.CallbackCol())
+	col := CellCol(p.tb.CallbackColumn())
 	loc := CellLoc{Row: row, Col: col}
 
 	x, y, w, h, err := p.tb.FindCell(fltk.ContextCell, int(row), int(col))
