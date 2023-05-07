@@ -20,7 +20,7 @@ func main() {
 
 func makeWindow() *fltk.Window {
 	width := 200
-	height := 80
+	height := 115
 	window := fltk.NewWindow(width, height)
 	window.SetLabel("UI Config")
 	makeWidgets(width, height)
@@ -34,6 +34,8 @@ func makeWidgets(width, height int) {
 	rowFlex := makeScaleRow(width, rowHeight)
 	colFlex.Fixed(rowFlex, rowHeight)
 	rowFlex = makeThemeRow(rowHeight, rowHeight)
+	colFlex.Fixed(rowFlex, rowHeight)
+	rowFlex = makeTooltipRow(rowHeight, rowHeight)
 	colFlex.Fixed(rowFlex, rowHeight)
 	colFlex.End()
 }
@@ -58,7 +60,7 @@ func makeScaleSpinner() *fltk.Spinner {
 	spinner.SetMinimum(0.5)
 	spinner.SetMaximum(3.5)
 	spinner.SetStep(0.1)
-	spinner.SetValue(1.0)
+	spinner.SetValue(float64(fltk.ScreenScale(0)))
 	spinner.SetCallback(func() {
 		fltk.SetScreenScale(0, float32(spinner.Value()))
 	})
@@ -89,6 +91,27 @@ func makeThemeChoice() *fltk.Choice {
 		choice.Add(name, func() { fltk.SetScheme(theme) })
 	}
 	return choice
+}
+
+func makeTooltipRow(width, height int) *fltk.Flex {
+	rowFlex := fltk.NewFlex(0, 0, width, height)
+	rowFlex.SetType(fltk.ROW)
+	rowFlex.SetSpacing(pad)
+	padBox := fltk.NewBox(fltk.NO_BOX, 0, 0, colWidth, rowHeight)
+	checkButton := fltk.NewCheckButton(colWidth, 0, colWidth, rowHeight,
+		"S&how Tooltips")
+	checkButton.SetTooltip("If checked the application shows tooltips.")
+	checkButton.SetValue(fltk.AreTooltipsEnabled())
+	checkButton.SetCallback(func() {
+		if checkButton.Value() {
+			fltk.EnableTooltips()
+		} else {
+			fltk.DisableTooltips()
+		}
+	})
+	rowFlex.Fixed(padBox, colWidth)
+	rowFlex.End()
+	return rowFlex
 }
 
 func makeAccelLabel(width, height int, label string) *fltk.Button {
