@@ -12,8 +12,8 @@ import (
 
 type StyleTableEntry struct {
 	Color Color
-	Font Font
-	Size int
+	Font  Font
+	Size  int
 }
 
 type TextBuffer struct {
@@ -51,12 +51,16 @@ func (b *TextBuffer) Append(txt string) {
 }
 
 func (b *TextBuffer) Text() string {
-	return C.GoString(C.go_fltk_TextBuffer_text(b.ptr()))
+	cStr := C.go_fltk_TextBuffer_text(b.ptr())
+	defer C.free(unsafe.Pointer(cStr))
+	return C.GoString(cStr)
 }
 
 // GetTextRange - get text from start and end position
 func (b *TextBuffer) GetTextRange(start, end int) string {
-	return C.GoString(C.go_fltk_TextBuffer_text_range(b.ptr(), C.int(start), C.int(end)))
+	cStr := C.go_fltk_TextBuffer_text_range(b.ptr(), C.int(start), C.int(end))
+	defer C.free(unsafe.Pointer(cStr))
+	return C.GoString(cStr)
 }
 
 // Highlight - highlight text from start and end position
@@ -151,8 +155,9 @@ func (b *TextBuffer) GetSelectionPosition() (int, int) {
 
 // GetSelectionText return the text within the current selection
 func (b *TextBuffer) GetSelectionText() string {
-	txtstr := C.go_fltk_TextBuffer_selection_text(b.ptr())
-	return C.GoString(txtstr)
+	cStr := C.go_fltk_TextBuffer_selection_text(b.ptr())
+	defer C.free(unsafe.Pointer(cStr))
+	return C.GoString(cStr)
 }
 
 // UnSelect - unselect any selections in the buffer
