@@ -46,15 +46,15 @@ var (
 type Orientation int
 
 var (
-	ORIENT_NONE   = Orientation(C.go_FL_ORIENT_NONE)
-	ORIENT_RIGHT  = Orientation(C.go_FL_ORIENT_RIGHT)
-	ORIENT_NE     = Orientation(C.go_FL_ORIENT_NE)
-	ORIENT_UP     = Orientation(C.go_FL_ORIENT_UP)
-	ORIENT_NW     = Orientation(C.go_FL_ORIENT_NW)
-	ORIENT_LEFT   = Orientation(C.go_FL_ORIENT_LEFT)
-	ORIENT_SW     = Orientation(C.go_FL_ORIENT_SW)
-	ORIENT_DOWN   = Orientation(C.go_FL_ORIENT_DOWN)
-	ORIENT_SE     = Orientation(C.go_FL_ORIENT_SE)
+	ORIENT_NONE  = Orientation(C.go_FL_ORIENT_NONE)
+	ORIENT_RIGHT = Orientation(C.go_FL_ORIENT_RIGHT)
+	ORIENT_NE    = Orientation(C.go_FL_ORIENT_NE)
+	ORIENT_UP    = Orientation(C.go_FL_ORIENT_UP)
+	ORIENT_NW    = Orientation(C.go_FL_ORIENT_NW)
+	ORIENT_LEFT  = Orientation(C.go_FL_ORIENT_LEFT)
+	ORIENT_SW    = Orientation(C.go_FL_ORIENT_SW)
+	ORIENT_DOWN  = Orientation(C.go_FL_ORIENT_DOWN)
+	ORIENT_SE    = Orientation(C.go_FL_ORIENT_SE)
 )
 
 type BoxType int
@@ -387,4 +387,7 @@ var (
 	F10       = int(C.go_FL_F10)
 	F11       = int(C.go_FL_F11)
 	F12       = int(C.go_FL_F12)
+	DELETE    = int(C.go_FL_DELETE)
+	BACKSPACE = int(C.go_FL_BACKSPACE)
+	INSERT    = int(C.go_FL_INSERT)
 )

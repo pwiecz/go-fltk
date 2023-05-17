@@ -39,7 +39,7 @@ public:
     if (m_eventHandlerId >= 0) {
       const int ret = _go_eventHandler(m_eventHandlerId, event);
       if (ret != 0) {
-	return ret;
+        return ret;
       }
     }
     return BaseWidget::handle(event);

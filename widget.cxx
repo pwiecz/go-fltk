@@ -112,6 +112,9 @@ void go_fltk_Widget_deactivate(Fl_Widget* w) {
 void go_fltk_Widget_activate(Fl_Widget* w) {
   w->activate();
 }
+unsigned int go_fltk_Widget_active(Fl_Widget* w) {
+  return w->active();
+}
 void go_fltk_Widget_set_type(Fl_Widget* w, unsigned char type) {
   w->type(type);
 }

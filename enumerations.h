@@ -130,6 +130,9 @@ extern "C" {
   extern const int go_FL_F10;
   extern const int go_FL_F11;
   extern const int go_FL_F12;
+  extern const int go_FL_DELETE;
+  extern const int go_FL_BACKSPACE;
+  extern const int go_FL_INSERT;  
 
   extern const int go_FL_RGB;
   extern const int go_FL_INDEX;

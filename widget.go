@@ -167,6 +167,7 @@ func (w *widget) Resize(x, y, width, height int) {
 }
 func (w *widget) Redraw()                  { C.go_fltk_Widget_redraw(w.ptr()) }
 func (w *widget) Deactivate()              { C.go_fltk_Widget_deactivate(w.ptr()) }
+func (w *widget) IsActive() bool           { return C.go_fltk_Widget_active(w.ptr()) != 0 }
 func (w *widget) Activate()                { C.go_fltk_Widget_activate(w.ptr()) }
 func (w *widget) SetType(widgetType uint8) { C.go_fltk_Widget_set_type(w.ptr(), C.uchar(widgetType)) }
 func (w *widget) Show()                    { C.go_fltk_Widget_show(w.ptr()) }
@@ -213,8 +214,7 @@ func (w *widget) TakeFocus() int {
 	return int(C.go_fltk_Widget_take_focus(w.ptr()))
 }
 func (w *widget) HasFocus() bool {
-	res := int(C.go_fltk_Widget_has_focus(w.ptr())) 
-	return res != 0
+	return C.go_fltk_Widget_has_focus(w.ptr()) != 0
 }
 
 func (w *widget) Changed() uint {

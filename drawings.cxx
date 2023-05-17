@@ -11,6 +11,12 @@ void go_fltk_color(unsigned int color) {
 void go_fltk_set_draw_font(int font, int size) {
   fl_font((Fl_Font)font, size);
 }
+int go_fltk_draw_font() {
+	return fl_font();
+}
+int go_fltk_draw_font_size() {
+	return fl_size();
+}
 void go_fltk_draw(const char* text, int x, int y, int w, int h, unsigned int align) {
   fl_draw(text, x, y, w, h, (Fl_Align)align);
 }

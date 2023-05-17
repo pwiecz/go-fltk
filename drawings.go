@@ -26,6 +26,10 @@ func SetDrawFont(font Font, size int) {
 	C.go_fltk_set_draw_font(C.int(font), C.int(size))
 }
 
+func DrawFont() (Font, int) {
+	return Font(C.go_fltk_draw_font()), int(C.go_fltk_draw_font_size())
+}
+
 func PushClip(x, y, w, h int) {
 	C.go_fltk_push_clip(C.int(x), C.int(y), C.int(w), C.int(h))
 }

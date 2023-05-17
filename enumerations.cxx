@@ -131,6 +131,9 @@ const int go_FL_F9 = FL_F + 9;
 const int go_FL_F10 = FL_F + 10;
 const int go_FL_F11 = FL_F + 11;
 const int go_FL_F12 = FL_F + 12;
+const int go_FL_DELETE = FL_Delete;
+const int go_FL_BACKSPACE = FL_BackSpace;
+const int go_FL_INSERT = FL_Insert;
 
 const int go_FL_RGB = FL_RGB;
 const int go_FL_INDEX = FL_INDEX;

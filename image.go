@@ -198,6 +198,24 @@ func NewRgbImageFromSvg(img *SvgImage) (*RgbImage) {
 	return rgbImage
 }
 
+func NewRgbImageFromPng(img *PngImage) (*RgbImage) {
+	rgbImage := &RgbImage{}
+	rgbImage.image = img.image
+	return rgbImage
+}
+
+func NewRgbImageFromBmp(img *BmpImage) (*RgbImage) {
+	rgbImage := &RgbImage{}
+	rgbImage.image = img.image
+	return rgbImage
+}
+
+func NewRgbImageFromJpeg(img *JpegImage) (*RgbImage) {
+	rgbImage := &RgbImage{}
+	rgbImage.image = img.image
+	return rgbImage
+}
+
 func NewRgbImageFromImage(image goimage.Image) (*RgbImage, error) {
 	rgbImage := &RgbImage{}
 	var w, h, stride, depth int

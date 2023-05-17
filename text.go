@@ -2,6 +2,7 @@ package fltk
 
 /*
 #include <stdlib.h>
+#include <stdint.h>
 #include "text.h"
 */
 import "C"
@@ -10,6 +11,50 @@ import (
 	"unsafe"
 )
 
+// --- Modify-Callback-Map ---
+
+type modifyCallbackMap struct {
+	cbMap map[uintptr]func(int, int, int, int, string)
+	id    uintptr
+}
+
+func newModifyCallbackMap() *modifyCallbackMap {
+	return &modifyCallbackMap{
+		cbMap: make(map[uintptr]func(int, int, int, int, string)),
+	}
+}
+func (m *modifyCallbackMap) register(fn func(int, int, int, int, string)) uintptr {
+	m.id++
+	m.cbMap[m.id] = fn
+	return m.id
+}
+func (m *modifyCallbackMap) unregister(id uintptr) {
+	delete(m.cbMap, id)
+}
+func (m *modifyCallbackMap) invoke(id uintptr, pos, nInserted, nDeleted, nRestyled int, deletedText string) {
+	if callback, ok := m.cbMap[id]; ok && callback != nil {
+		callback(pos, nInserted, nDeleted, nRestyled, deletedText)
+	}
+}
+func (m *modifyCallbackMap) isEmpty() bool {
+	return len(m.cbMap) == 0
+}
+func (m *modifyCallbackMap) size() int {
+	return len(m.cbMap)
+}
+func (m *modifyCallbackMap) clear() {
+	for id := range m.cbMap {
+		delete(m.cbMap, id)
+	}
+}
+
+var globalModifyCallbackMap = newModifyCallbackMap()
+
+//export _go_modifyCallbackHandler
+func _go_modifyCallbackHandler(id C.uintptr_t, pos, nInserted, nDeleted, nRestyled C.int, deletedText *C.char) {
+	globalModifyCallbackMap.invoke(uintptr(id), int(pos), int(nInserted), int(nDeleted), int(nRestyled), C.GoString(deletedText))
+}
+
 type StyleTableEntry struct {
 	Color Color
 	Font  Font
@@ -17,14 +62,15 @@ type StyleTableEntry struct {
 }
 
 type TextBuffer struct {
-	cPtr *C.Fl_Text_Buffer
+	cPtr       *C.Fl_Text_Buffer
+	handlerIds []uintptr
 }
 
 var ErrTextBufferDestroyed = errors.New("text buffer is destroyed")
 
 func NewTextBuffer() *TextBuffer {
 	ptr := C.go_fltk_new_TextBuffer()
-	return &TextBuffer{ptr}
+	return &TextBuffer{cPtr: ptr}
 }
 
 func (b *TextBuffer) ptr() *C.Fl_Text_Buffer {
@@ -34,6 +80,11 @@ func (b *TextBuffer) ptr() *C.Fl_Text_Buffer {
 	return b.cPtr
 }
 func (b *TextBuffer) Destroy() {
+	for _, id := range b.handlerIds {
+		globalModifyCallbackMap.unregister(id)
+	}
+	b.handlerIds = nil
+
 	C.go_fltk_TextBuffer_delete(b.ptr())
 	b.cPtr = nil
 }
@@ -48,6 +99,28 @@ func (b *TextBuffer) Append(txt string) {
 	txtstr := C.CString(txt)
 	defer C.free(unsafe.Pointer(txtstr))
 	C.go_fltk_TextBuffer_append(b.ptr(), txtstr)
+}
+
+func (b *TextBuffer) CharAt(pos int) rune {
+	return rune(C.go_fltk_TextBuffer_char_at(b.ptr(), C.int(pos)))
+}
+
+func (b *TextBuffer) NextChar(pos int) int {
+	return int(C.go_fltk_TextBuffer_next_char(b.ptr(), C.int(pos)))
+}
+
+func (b *TextBuffer) PrevChar(pos int) int {
+	return int(C.go_fltk_TextBuffer_prev_char(b.ptr(), C.int(pos)))
+}
+
+func (b *TextBuffer) Length() int {
+	return int(C.go_fltk_TextBuffer_length(b.ptr()))
+}
+
+func (b *TextBuffer) AddModifyCallback(cb func(int, int, int, int, string)) {
+	handlerId := globalModifyCallbackMap.register(cb)
+	b.handlerIds = append(b.handlerIds, handlerId)
+	C.go_fltk_TextBuffer_add_modify_callback(b.ptr(), C.uintptr_t(handlerId))
 }
 
 func (b *TextBuffer) Text() string {
@@ -194,9 +267,21 @@ func (t *TextDisplay) SetWrapMode(wrap WrapMode, wrapMargin ...int) {
 	C.go_fltk_TextDisplay_set_wrap_mode((*C.Fl_Text_Display)(t.ptr()), C.int(wrap), C.int(wrapMargin[0]))
 }
 
+// Translate a pixel position into a character index.
+func (t *TextDisplay) XYToPosition(x, y int) int {
+	return int(C.go_fltk_TextDisplay_xy_to_position((*C.Fl_Text_Display)(t.ptr()), C.int(x), C.int(y)))
+}
+
+// Convert a character index into a pixel position.
+func (t *TextDisplay) PositionToXY(pos int) (int, int) {
+	var x, y C.int
+	C.go_fltk_TextDisplay_position_to_xy((*C.Fl_Text_Display)(t.ptr()), C.int(pos), &x, &y)
+	return int(x), int(y)
+}
+
 func (t *TextDisplay) Buffer() *TextBuffer {
 	ptr := C.go_fltk_TextDisplay_buffer((*C.Fl_Text_Display)(t.ptr()))
-	return &TextBuffer{ptr}
+	return &TextBuffer{cPtr: ptr}
 }
 
 // MoveRight moves the current insert position right one character.
@@ -225,37 +310,42 @@ func (t *TextDisplay) ShowInsertPosition() {
 	C.go_fltk_TextDisplay_show_insert_position((*C.Fl_Text_Display)(t.ptr()))
 }
 
-// TextColor gets the default color of text in the widget
+// HideCursor hides the text cursor.
+func (t *TextDisplay) HideCursor() {
+	C.go_fltk_TextDisplay_hide_cursor((*C.Fl_Text_Display)(t.ptr()))
+}
+
+// TextColor gets the default color of text in the widget.
 func (t *TextDisplay) TextColor() Color {
 	return Color(C.go_fltk_TextDisplay_text_color((*C.Fl_Text_Display)(t.ptr())))
 }
 
-// SetTextColor sets the default color of text in the widget
+// SetTextColor sets the default color of text in the widget.
 func (t *TextDisplay) SetTextColor(color Color) {
 	C.go_fltk_TextDisplay_set_text_color((*C.Fl_Text_Display)(t.ptr()), C.uint(color))
 }
 
-// TextSize gets the default size of text in the widget
+// TextSize gets the default size of text in the widget.
 func (t *TextDisplay) TextSize() int {
 	return (int)(C.go_fltk_TextDisplay_text_size((*C.Fl_Text_Display)(t.ptr())))
 }
 
-// SetTextSize sets the default size of text in the widget
+// SetTextSize sets the default size of text in the widget.
 func (t *TextDisplay) SetTextSize(size int) {
 	C.go_fltk_TextDisplay_set_text_size((*C.Fl_Text_Display)(t.ptr()), C.int(size))
 }
 
-// SetInsertPosition set the insert position to a new position
+// SetInsertPosition set the insert position to a new position.
 func (t *TextDisplay) SetInsertPosition(newPos int) {
 	C.go_fltk_TextDisplay_insert_position((*C.Fl_Text_Display)(t.ptr()), C.int(newPos))
 }
 
-// GetInsertPosition - return the current insert position
+// GetInsertPosition - return the current insert position.
 func (t *TextDisplay) GetInsertPosition() int {
 	return (int)(C.go_fltk_TextDisplay_get_insert_position((*C.Fl_Text_Display)(t.ptr())))
 }
 
-// InsertText - Insert text at the cursor position
+// InsertText - Insert text at the cursor position.
 func (t *TextDisplay) InsertText(txt string) {
 	txtstr := C.CString(txt)
 	defer C.free(unsafe.Pointer(txtstr))
@@ -289,12 +379,12 @@ type TextEditor struct {
 	TextDisplay
 }
 
-// Copy copy of selected text or the current character in the current buffer of editor 'e'. (kf_copy)
+// Copy copy of selected text or the current character in the current buffer of the editor (kf_copy)
 func (t *TextEditor) Copy() {
 	C.go_fltk_TextEditor_copy((*C.Fl_Text_Editor)(t.ptr()))
 }
 
-// Insert - Togglesthe insert mode (kf_insert)
+// Insert toggles the insert mode (kf_insert)
 func (t *TextEditor) Insert() {
 	C.go_fltk_TextEditor_insert((*C.Fl_Text_Editor)(t.ptr()))
 }
@@ -318,11 +408,11 @@ func (t *TextEditor) SelectAll() {
 // NewTextEditor returns a TextEditor.
 //
 // Example:
-//		textBuffer := fltk.NewTextBuffer()
-//		textEditor := fltk.NewTextEditor(x, y, width, height)
-//		textEditor.SetBuffer(textBuffer)
-//		textBuffer.SetText("Initial Text")
-//		fmt.Println(textBuffer.Text()) // Prints: Initial Text
+//	textBuffer := fltk.NewTextBuffer()
+//	textEditor := fltk.NewTextEditor(x, y, width, height)
+//	textEditor.SetBuffer(textBuffer)
+//	textBuffer.SetText("Initial Text")
+//	fmt.Println(textBuffer.Text()) // Prints: Initial Text
 //
 // Note that the text buffer pointer must be kept around for as long as the
 // text editor is in use.

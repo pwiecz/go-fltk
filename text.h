@@ -1,5 +1,8 @@
 #pragma once
 
+#include <stdint.h>
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -20,11 +23,14 @@ extern "C" {
   extern GText_Display *go_fltk_new_TextDisplay(int x, int y, int w, int h, const char *text);
   extern void go_fltk_TextDisplay_set_buffer(Fl_Text_Display *d, Fl_Text_Buffer *buf);
   extern void go_fltk_TextDisplay_set_wrap_mode(Fl_Text_Display *d, int wrap, int wrapMargin);
+  extern int go_fltk_TextDisplay_xy_to_position(Fl_Text_Display *d, int x, int y);
+  extern int go_fltk_TextDisplay_position_to_xy(Fl_Text_Display *d, int pos, int *x, int *y);
   extern int go_fltk_TextDisplay_move_right(Fl_Text_Display *d);
   extern int go_fltk_TextDisplay_move_left(Fl_Text_Display *d);
   extern int go_fltk_TextDisplay_move_up(Fl_Text_Display *d);
   extern int go_fltk_TextDisplay_move_down(Fl_Text_Display *d);
   extern void go_fltk_TextDisplay_show_insert_position(Fl_Text_Display *d);
+  extern void go_fltk_TextDisplay_hide_cursor(Fl_Text_Display *d);  
   extern unsigned int go_fltk_TextDisplay_text_color(Fl_Text_Display *d);
   extern void go_fltk_TextDisplay_set_text_color(Fl_Text_Display* d, unsigned int color);
   extern int go_fltk_TextDisplay_text_size(Fl_Text_Display *d);
@@ -36,9 +42,14 @@ extern "C" {
   extern void go_fltk_TextDisplay_overstrike(Fl_Text_Display *d, const char* text);
 
   extern Fl_Text_Buffer *go_fltk_new_TextBuffer(void);
+  extern void go_fltk_TextBuffer_add_modify_callback(Fl_Text_Buffer *b, uintptr_t handlerId);
   extern void go_fltk_TextBuffer_delete(Fl_Text_Buffer* b);
   extern void go_fltk_TextBuffer_set_text(Fl_Text_Buffer *b, const char *txt);
   extern void go_fltk_TextBuffer_append(Fl_Text_Buffer *b, const char *txt);
+  extern unsigned int go_fltk_TextBuffer_char_at(Fl_Text_Buffer *b, int pos);
+  extern int go_fltk_TextBuffer_next_char(Fl_Text_Buffer *b, int ix);
+  extern int go_fltk_TextBuffer_prev_char(Fl_Text_Buffer *b, int ix);
+  extern int go_fltk_TextBuffer_length(Fl_Text_Buffer *b);
   extern const char *go_fltk_TextBuffer_text(Fl_Text_Buffer *b);
   extern const char *go_fltk_TextBuffer_text_range(Fl_Text_Buffer *b, int start, int end);
   extern void go_fltk_TextBuffer_highlight(Fl_Text_Buffer *b, int start, int end);

@@ -7,12 +7,20 @@
 #include <FL/Fl_Text_Buffer.H>
 
 #include "event_handler.h"
+#include "_cgo_export.h"
 
+
+// --- Text Display ---
 
 class GText_Display : public EventHandler<Fl_Text_Display> {
 public:
-  GText_Display(int x, int y, int w, int h, const char* label)
-    : EventHandler<Fl_Text_Display>(x, y, w, h, label) {}
+  GText_Display(int x, int y, int w, int h, const char *label)
+      : EventHandler<Fl_Text_Display>(x, y, w, h, label) {}
+
+  // make xy_to_position() public
+  int xy_to_position(int x, int y) {
+    return EventHandler<Fl_Text_Display>::xy_to_position(x, y);
+  }  
 };
 
 GText_Display *go_fltk_new_TextDisplay(int x, int y, int w, int h, const char *text) {
@@ -25,6 +33,14 @@ void go_fltk_TextDisplay_set_buffer(Fl_Text_Display *d, Fl_Text_Buffer *buf) {
 
 void go_fltk_TextDisplay_set_wrap_mode(Fl_Text_Display *d, int wrap, int wrapMargin) {
   d->wrap_mode(wrap, wrapMargin);
+}
+
+int go_fltk_TextDisplay_xy_to_position(Fl_Text_Display *d, int x, int y) {
+  return ((GText_Display*) d)->xy_to_position(x, y);
+}
+
+int go_fltk_TextDisplay_position_to_xy(Fl_Text_Display *d, int pos, int *x, int *y) {
+  return d->position_to_xy(pos, x, y);
 }
 
 int go_fltk_TextDisplay_move_right(Fl_Text_Display *d) {
@@ -45,6 +61,10 @@ int go_fltk_TextDisplay_move_down(Fl_Text_Display *d) {
 
 void go_fltk_TextDisplay_show_insert_position(Fl_Text_Display *d) {
   d->show_insert_position();
+}
+
+void go_fltk_TextDisplay_hide_cursor(Fl_Text_Display *d) {
+  d->hide_cursor();
 }
 
 unsigned int go_fltk_TextDisplay_text_color(Fl_Text_Display *d) {
@@ -83,6 +103,8 @@ void go_fltk_TextDisplay_overstrike(Fl_Text_Display *d, const char* text) {
   d->overstrike(text);
 }
 
+// --- Text Editor ---
+
 class GText_Editor : public EventHandler<Fl_Text_Editor> {
 public:
   GText_Editor(int x, int y, int w, int h, const char* label)
@@ -117,6 +139,13 @@ void go_fltk_TextEditor_select_all(Fl_Text_Editor *e) {
   Fl_Text_Editor::kf_select_all(0, e);
 }
 
+// --- Text Buffer ---
+
+void modify_callback_handler(int pos, int nInserted, int nDeleted, int nRestyled, const char *deletedText, void *cbArg) {
+  uintptr_t id = (uintptr_t)cbArg;
+  _go_modifyCallbackHandler(id, pos, nInserted, nDeleted, nRestyled, (char*)deletedText);
+}
+
 Fl_Text_Buffer *go_fltk_new_TextBuffer(void) {
   return new Fl_Text_Buffer;
 }
@@ -125,12 +154,32 @@ void go_fltk_TextBuffer_delete(Fl_Text_Buffer* b) {
   delete b;
 }
 
+void go_fltk_TextBuffer_add_modify_callback(Fl_Text_Buffer *b, uintptr_t handlerId) {
+	b->add_modify_callback(modify_callback_handler, (void*)handlerId);
+}
+
 void go_fltk_TextBuffer_set_text(Fl_Text_Buffer *b, const char *txt) {
   b->text(txt);
 }
 
 void go_fltk_TextBuffer_append(Fl_Text_Buffer *b, const char *txt) {
   b->append(txt);
+}
+
+unsigned int go_fltk_TextBuffer_char_at(Fl_Text_Buffer *b, int pos) {
+  return b->char_at(pos);
+}
+
+int go_fltk_TextBuffer_next_char(Fl_Text_Buffer *b, int ix) {
+  return b->next_char(ix);
+}
+
+int go_fltk_TextBuffer_prev_char(Fl_Text_Buffer *b, int ix) {
+  return b->prev_char(ix);
+}
+
+int go_fltk_TextBuffer_length(Fl_Text_Buffer *b) {
+  return b->length();
 }
 
 const char *go_fltk_TextBuffer_text(Fl_Text_Buffer *b) {
