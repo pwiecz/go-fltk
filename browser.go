@@ -19,7 +19,7 @@ type Browser struct {
 }
 
 var (
-	InvalidLine = errors.New("line doesn't exist")
+	ErrInvalidLine = errors.New("line doesn't exist")
 )
 
 func NewBrowser(x, y, w, h int, text ...string) *Browser {
@@ -54,7 +54,7 @@ func (b *Browser) TopLine() int {
 
 func (b *Browser) SetBottomLine(line int) error {
 	if line < 1 || line > b.Size() {
-		return InvalidLine
+		return ErrInvalidLine
 	}
 
 	C.go_fltk_Browser_set_bottomline((*C.Fl_Browser)(b.ptr()), C.int(line))
@@ -63,7 +63,7 @@ func (b *Browser) SetBottomLine(line int) error {
 
 func (b *Browser) SetMiddleLine(line int) error {
 	if line < 1 || line > b.Size() {
-		return InvalidLine
+		return ErrInvalidLine
 	}
 
 	C.go_fltk_Browser_set_middleline((*C.Fl_Browser)(b.ptr()), C.int(line))
@@ -72,7 +72,7 @@ func (b *Browser) SetMiddleLine(line int) error {
 
 func (b *Browser) SetTopLine(line int) error {
 	if line < 1 || line > b.Size() {
-		return InvalidLine
+		return ErrInvalidLine
 	}
 
 	C.go_fltk_Browser_set_topline((*C.Fl_Browser)(b.ptr()), C.int(line))
@@ -89,7 +89,7 @@ func (b *Browser) Clear() {
 
 func (b *Browser) Remove(line int) error {
 	if line < 1 || line > b.Size() {
-		return InvalidLine
+		return ErrInvalidLine
 	}
 	delete(b.icons, line)
 
@@ -114,7 +114,7 @@ func (b *Browser) SetColumnChar(r rune) {
 
 func (b *Browser) HideLine(line int) error {
 	if line < 1 || line > b.Size() {
-		return InvalidLine
+		return ErrInvalidLine
 	}
 
 	C.go_fltk_Browser_hide_line((*C.Fl_Browser)(b.ptr()), C.int(line))
@@ -152,22 +152,16 @@ func (b *Browser) SetFormatChar(r rune) {
 }
 
 func (b *Browser) Displayed(line int) bool {
-	if C.go_fltk_Browser_displayed((*C.Fl_Browser)(b.ptr()), C.int(line)) == 1 {
-		return true
-	}
-
-	return false
+	return C.go_fltk_Browser_displayed((*C.Fl_Browser)(b.ptr()), C.int(line)) == 1
 }
 
 func (b *Browser) Text(line int) string {
 	cStr := C.go_fltk_Browser_text((*C.Fl_Browser)(b.ptr()), C.int(line))
-	//defer C.free(unsafe.Pointer(cStr))
-
 	return C.GoString(cStr)
 }
 
 func (b *Browser) SetColumnWidths(widths ...int) {
-	cArr := make([]C.int, len(widths), len(widths))
+	cArr := make([]C.int, len(widths))
 	for i, v := range widths {
 		cArr[i] = C.int(v)
 	}

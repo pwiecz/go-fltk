@@ -139,11 +139,7 @@ func (b *TextBuffer) Select(start, end int) {
 
 // Selected Check if any text is selected
 func (b *TextBuffer) IsSelected(start, end int) bool {
-	selected := C.go_fltk_TextBuffer_selected(b.ptr())
-	if int(selected) == 0 {
-		return false
-	}
-	return true
+	return C.go_fltk_TextBuffer_selected(b.ptr()) != 0
 }
 
 // GetSelectionPosition - Get position (start, end) of the currently selected text
