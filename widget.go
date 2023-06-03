@@ -11,14 +11,15 @@ import (
 )
 
 type widget struct {
-	tracker           *C.Fl_Widget_Tracker
-	callbackId        uintptr
-	deletionHandlerId uintptr
-	resizeHandlerId   uintptr
-	drawHandlerId     uintptr
-	eventHandlerId    int
-	image             Image
-	deimage           Image
+	tracker               *C.Fl_Widget_Tracker
+	callbackId            uintptr
+	deletionHandlerId     uintptr
+	resizeHandlerId       uintptr
+	drawHandlerId         uintptr
+	overrideDrawHandlerId uintptr
+	eventHandlerId        int
+	image                 Image
+	deimage               Image
 }
 
 type Widget interface {
@@ -87,6 +88,7 @@ func (w *widget) SetResizeHandler(handler func()) {
 		panic("this widget does not support resize handling")
 	}
 }
+// Get's called BEFORE the widget is drawn.
 func (w *widget) SetDrawHandler(handler func()) {
 	if w.drawHandlerId > 0 {
 		globalCallbackMap.unregister(w.drawHandlerId)
@@ -96,7 +98,23 @@ func (w *widget) SetDrawHandler(handler func()) {
 		panic("this widget does not support custom drawing")
 	}
 }
-
+// Replaces the draw-method of the widget with this handler.
+// The overwritten method can still be called with DrawBaseWidget().
+func (w *widget) SetOverrideDrawHandler(handler func()) {
+	if w.overrideDrawHandlerId > 0 {
+		globalCallbackMap.unregister(w.overrideDrawHandlerId)
+	}
+	w.overrideDrawHandlerId = globalCallbackMap.register(handler)
+	if C.go_fltk_Widget_set_override_draw_handler(w.ptr(), C.uintptr_t(w.overrideDrawHandlerId)) == 0 {
+		panic("this widget does not support custom drawing")
+	}
+}
+// Calls the overwritten Draw-Method. See SetOverrideDrawHandler().
+func (w *widget) DrawBaseWidget() {
+	if C.go_fltk_Widget_draw_base_widget(w.ptr()) == 0 {
+		panic("this widget does not support custom drawing")
+	}
+}
 func (w *widget) onDelete() {
 	if w.deletionHandlerId > 0 {
 		globalCallbackMap.unregister(w.deletionHandlerId)

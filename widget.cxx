@@ -64,6 +64,22 @@ int go_fltk_Widget_set_draw_handler(Fl_Widget* w, uintptr_t id) {
   wh->set_draw_handler(id);
   return 1;
 }
+int go_fltk_Widget_set_override_draw_handler(Fl_Widget* w, uintptr_t id) {
+  WidgetWithDrawHandler* wh = dynamic_cast<WidgetWithDrawHandler*>(w);
+  if (wh == nullptr) {
+    return 0;
+  }
+  wh->set_override_draw_handler(id);
+  return 1;
+}
+int go_fltk_Widget_draw_base_widget(Fl_Widget* w) {
+  WidgetWithDrawHandler* wh = dynamic_cast<WidgetWithDrawHandler*>(w);
+  if (wh == nullptr) {
+    return 0;
+  }
+  wh->draw_base_widget();
+  return 1;
+}
 void go_fltk_Widget_set_labelfont(Fl_Widget *w, int font) {
   w->labelfont((Fl_Font)font);
 }
