@@ -11,6 +11,6 @@ public:
     : EventHandler<Fl_Tile>(x, y, w, h, label) {}
 };
 
-GTile *go_fltk_new_Pack(int x, int y, int w, int h, const char *label) {
+GTile *go_fltk_new_Tile(int x, int y, int w, int h, const char *label) {
   return new GTile(x, y, w, h, label);
 }
