@@ -33,6 +33,8 @@ extern "C" {
   extern void go_fltk_TextDisplay_hide_cursor(Fl_Text_Display *d);  
   extern unsigned int go_fltk_TextDisplay_text_color(Fl_Text_Display *d);
   extern void go_fltk_TextDisplay_set_text_color(Fl_Text_Display* d, unsigned int color);
+  extern int go_fltk_TextDisplay_text_font(Fl_Text_Display *d);
+  extern void go_fltk_TextDisplay_set_text_font(Fl_Text_Display* d, int font);
   extern int go_fltk_TextDisplay_text_size(Fl_Text_Display *d);
   extern void go_fltk_TextDisplay_set_text_size(Fl_Text_Display *d, int size);
   extern Fl_Text_Buffer *go_fltk_TextDisplay_buffer(Fl_Text_Display *d);
@@ -40,6 +42,12 @@ extern "C" {
   extern int go_fltk_TextDisplay_get_insert_position(Fl_Text_Display *d);
   extern void go_fltk_TextDisplay_insert_text(Fl_Text_Display *d, const char *text);
   extern void go_fltk_TextDisplay_overstrike(Fl_Text_Display *d, const char* text);
+  extern void go_fltk_TextDisplay_set_linenumber_width(Fl_Text_Display *d, int width);
+  extern void go_fltk_TextDisplay_set_linenumber_font(Fl_Text_Display *d, int val);
+  extern void go_fltk_TextDisplay_set_linenumber_size(Fl_Text_Display *d, int val);
+  extern void go_fltk_TextDisplay_set_linenumber_fgcolor(Fl_Text_Display *d, unsigned int val);
+  extern void go_fltk_TextDisplay_set_linenumber_bgcolor(Fl_Text_Display *d, unsigned int val);
+  extern void go_fltk_TextDisplay_set_linenumber_align(Fl_Text_Display *d, int val);
 
   extern Fl_Text_Buffer *go_fltk_new_TextBuffer(void);
   extern void go_fltk_TextBuffer_add_modify_callback(Fl_Text_Buffer *b, uintptr_t handlerId);
@@ -66,7 +74,7 @@ extern "C" {
   extern int go_fltk_TextBuffer_tab_distance(Fl_Text_Buffer *b);
   extern void go_fltk_TextBuffer_set_tab_distance(Fl_Text_Buffer *b, int tabDist);
   extern void go_fltk_TextDisplay_set_highlight_data(
-      Fl_Text_Display *self, Fl_Text_Buffer *sbuff, unsigned int *color,
+      Fl_Text_Display *d, Fl_Text_Buffer *sbuff, unsigned int *color,
       int *font, int *fontsz, unsigned *attr, unsigned int *bgcolor, int sz);
   
 #ifdef __cplusplus

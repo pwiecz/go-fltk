@@ -29,11 +29,12 @@ func (app *EditorApp) BuildGUI() {
 	app.Win.SetLabel("TextEditor")
 	app.Win.Resizable(app.Win)
 
-	hpack := fltk.NewPack(WIDGET_PADDING, WIDGET_PADDING, app.Win.W(), WIDGET_HEIGHT)
-	hpack.SetType(fltk.VERTICAL)
-	hpack.SetSpacing(WIDGET_PADDING)
+	col := fltk.NewFlex(WIDGET_PADDING, WIDGET_PADDING, app.Win.W(), WIDGET_HEIGHT)
+	col.SetType(fltk.COLUMN)
+	col.SetSpacing(WIDGET_PADDING)
 
-	menuBar := fltk.NewMenuBar(0, 0, app.Win.W(), 20)
+	menuBar := fltk.NewMenuBar(0, 0, 0, 0)
+	col.Fixed(menuBar, 20)
 	menuBar.SetType(uint8(fltk.FLAT_BOX))
 	menuBar.Activate()
 	menuBar.AddEx("File", fltk.ALT+'f', nil, fltk.SUBMENU)
@@ -44,7 +45,7 @@ func (app *EditorApp) BuildGUI() {
 	menuBar.Add("Help/&About", app.callbackMenuHelpAbout)
 
 	app.TextBuffer = fltk.NewTextBuffer()
-	app.TextEditor = fltk.NewTextEditor(0, 0, app.Win.W(), app.Win.H()-20)
+	app.TextEditor = fltk.NewTextEditor(0, 0, 0, 0)
 	app.TextEditor.SetBuffer(app.TextBuffer)
 
 	app.TextEditor.SetCallbackCondition(fltk.WhenChanged)
@@ -52,7 +53,7 @@ func (app *EditorApp) BuildGUI() {
 		app.IsChanged = true
 	})
 	app.TextEditor.Parent().Resizable(app.TextEditor)
-
+	col.End()
 	app.Win.End()
 	app.IsChanged = false
 }

@@ -325,6 +325,16 @@ func (t *TextDisplay) SetTextColor(color Color) {
 	C.go_fltk_TextDisplay_set_text_color((*C.Fl_Text_Display)(t.ptr()), C.uint(color))
 }
 
+// TextColor gets the default color of text in the widget.
+func (t *TextDisplay) TextFont() Font {
+	return Font(C.go_fltk_TextDisplay_text_font((*C.Fl_Text_Display)(t.ptr())))
+}
+
+// SetTextColor sets the default color of text in the widget.
+func (t *TextDisplay) SetTextFont(font Font) {
+	C.go_fltk_TextDisplay_set_text_font((*C.Fl_Text_Display)(t.ptr()), C.int(font))
+}
+
 // TextSize gets the default size of text in the widget.
 func (t *TextDisplay) TextSize() int {
 	return (int)(C.go_fltk_TextDisplay_text_size((*C.Fl_Text_Display)(t.ptr())))
@@ -373,6 +383,30 @@ func (t *TextDisplay) SetHighlightData(buf *TextBuffer, entries []StyleTableEntr
 		bgcolors = append(bgcolors, 0)
 	}
 	C.go_fltk_TextDisplay_set_highlight_data((*C.Fl_Text_Display)(t.ptr()), buf.ptr(), &colors[0], &fonts[0], &sizes[0], &attrs[0], &bgcolors[0], C.int(len(entries)))
+}
+
+func (t *TextDisplay) SetLinenumberWidth(w int) {
+	C.go_fltk_TextDisplay_set_linenumber_width((*C.Fl_Text_Display)(t.ptr()), C.int(w))
+}
+
+func (t *TextDisplay) SetLinenumberSize(s int) {
+	C.go_fltk_TextDisplay_set_linenumber_size((*C.Fl_Text_Display)(t.ptr()), C.int(s))
+}
+
+func (t *TextDisplay) SetLinenumberFgcolor(color Color) {
+	C.go_fltk_TextDisplay_set_linenumber_fgcolor((*C.Fl_Text_Display)(t.ptr()), C.uint(color))
+}
+
+func (t *TextDisplay) SetLinenumberBgcolor(color Color) {
+	C.go_fltk_TextDisplay_set_linenumber_bgcolor((*C.Fl_Text_Display)(t.ptr()), C.uint(color))
+}
+
+func (t *TextDisplay) SetLinenumberFont(font Font) {
+	C.go_fltk_TextDisplay_set_linenumber_font((*C.Fl_Text_Display)(t.ptr()), C.int(font))
+}
+
+func (t *TextDisplay) SetLinenumberAlign(align Align) {
+	C.go_fltk_TextDisplay_set_linenumber_align((*C.Fl_Text_Display)(t.ptr()), C.int(align))
 }
 
 type TextEditor struct {

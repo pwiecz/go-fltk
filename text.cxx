@@ -74,6 +74,14 @@ unsigned int go_fltk_TextDisplay_text_color(Fl_Text_Display *d) {
 void go_fltk_TextDisplay_set_text_color(Fl_Text_Display *d, unsigned int color) {
   d->textcolor(color);
 }
+
+int go_fltk_TextDisplay_text_font(Fl_Text_Display *d) {
+  return d->textfont();
+}
+
+void go_fltk_TextDisplay_set_text_font(Fl_Text_Display *d, int font) {
+  d->textfont(font);
+}
   
 int go_fltk_TextDisplay_text_size(Fl_Text_Display *d) {
   return d->textsize();
@@ -101,6 +109,30 @@ void go_fltk_TextDisplay_insert_text(Fl_Text_Display *d, const char *text) {
 
 void go_fltk_TextDisplay_overstrike(Fl_Text_Display *d, const char* text) {
   d->overstrike(text);
+}
+
+void go_fltk_TextDisplay_set_linenumber_width(Fl_Text_Display *d, int width) {
+  d->linenumber_width(width);
+}
+
+void go_fltk_TextDisplay_set_linenumber_font(Fl_Text_Display *d, int val) {
+  d->linenumber_font(val);
+}
+
+void go_fltk_TextDisplay_set_linenumber_size(Fl_Text_Display *d, int val) {
+  d->linenumber_size(val);
+}
+
+void go_fltk_TextDisplay_set_linenumber_fgcolor(Fl_Text_Display *d, unsigned int val) {
+  d->linenumber_fgcolor(val);
+}
+
+void go_fltk_TextDisplay_set_linenumber_bgcolor(Fl_Text_Display *d, unsigned int val) {
+  d->linenumber_bgcolor(val);
+}
+
+void go_fltk_TextDisplay_set_linenumber_align(Fl_Text_Display *d, int val) {
+  d->linenumber_align(val);
 }
 
 // --- Text Editor ---
