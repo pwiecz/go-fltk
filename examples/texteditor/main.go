@@ -29,12 +29,12 @@ func (app *EditorApp) BuildGUI() {
 	app.Win.SetLabel("TextEditor")
 	app.Win.Resizable(app.Win)
 
-	hpack := fltk.NewFlex(WIDGET_PADDING, WIDGET_PADDING, app.Win.W(), WIDGET_HEIGHT)
-	hpack.SetType(fltk.COLUMN)
-	hpack.SetSpacing(WIDGET_PADDING)
+	col := fltk.NewFlex(WIDGET_PADDING, WIDGET_PADDING, app.Win.W(), WIDGET_HEIGHT)
+	col.SetType(fltk.COLUMN)
+	col.SetSpacing(WIDGET_PADDING)
 
 	menuBar := fltk.NewMenuBar(0, 0, 0, 0)
-	hpack.Fixed(menuBar, 20)
+	col.Fixed(menuBar, 20)
 	menuBar.SetType(uint8(fltk.FLAT_BOX))
 	menuBar.Activate()
 	menuBar.AddEx("File", fltk.ALT+'f', nil, fltk.SUBMENU)
@@ -53,7 +53,7 @@ func (app *EditorApp) BuildGUI() {
 		app.IsChanged = true
 	})
 	app.TextEditor.Parent().Resizable(app.TextEditor)
-	hpack.End()
+	col.End()
 	app.Win.End()
 	app.IsChanged = false
 }
