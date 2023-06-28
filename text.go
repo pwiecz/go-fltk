@@ -325,12 +325,12 @@ func (t *TextDisplay) SetTextColor(color Color) {
 	C.go_fltk_TextDisplay_set_text_color((*C.Fl_Text_Display)(t.ptr()), C.uint(color))
 }
 
-// TextFont gets the default color of text in the widget.
+// TextFont gets the default font used when drawing text in the widget.
 func (t *TextDisplay) TextFont() Font {
 	return Font(C.go_fltk_TextDisplay_text_font((*C.Fl_Text_Display)(t.ptr())))
 }
 
-// SetTextFont sets the default color of text in the widget.
+// SetTextFont sets the default font used when drawing text in the widget.
 func (t *TextDisplay) SetTextFont(font Font) {
 	C.go_fltk_TextDisplay_set_text_font((*C.Fl_Text_Display)(t.ptr()), C.int(font))
 }
