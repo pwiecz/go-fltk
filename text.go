@@ -325,12 +325,12 @@ func (t *TextDisplay) SetTextColor(color Color) {
 	C.go_fltk_TextDisplay_set_text_color((*C.Fl_Text_Display)(t.ptr()), C.uint(color))
 }
 
-// TextColor gets the default color of text in the widget.
+// TextFont gets the default color of text in the widget.
 func (t *TextDisplay) TextFont() Font {
 	return Font(C.go_fltk_TextDisplay_text_font((*C.Fl_Text_Display)(t.ptr())))
 }
 
-// SetTextColor sets the default color of text in the widget.
+// SetTextFont sets the default color of text in the widget.
 func (t *TextDisplay) SetTextFont(font Font) {
 	C.go_fltk_TextDisplay_set_text_font((*C.Fl_Text_Display)(t.ptr()), C.int(font))
 }
@@ -385,26 +385,35 @@ func (t *TextDisplay) SetHighlightData(buf *TextBuffer, entries []StyleTableEntr
 	C.go_fltk_TextDisplay_set_highlight_data((*C.Fl_Text_Display)(t.ptr()), buf.ptr(), &colors[0], &fonts[0], &sizes[0], &attrs[0], &bgcolors[0], C.int(len(entries)))
 }
 
+// SetLinenumberWidth enabled/disables and sets the width used by line numbers.
+//
+// A width of 0 pixels disables line numbers. A width > 0 enables line
+// numbers and sets that as the width to be used.
 func (t *TextDisplay) SetLinenumberWidth(w int) {
 	C.go_fltk_TextDisplay_set_linenumber_width((*C.Fl_Text_Display)(t.ptr()), C.int(w))
 }
 
+// SetLinenumberSize sets the font size used for line numbers (if enabled; see SetLinenumberWidth). 
 func (t *TextDisplay) SetLinenumberSize(s int) {
 	C.go_fltk_TextDisplay_set_linenumber_size((*C.Fl_Text_Display)(t.ptr()), C.int(s))
 }
 
+// SetLinenumberFgcolor sets the foreground color used for line numbers (if enabled; see SetLinenumberWidth). 
 func (t *TextDisplay) SetLinenumberFgcolor(color Color) {
 	C.go_fltk_TextDisplay_set_linenumber_fgcolor((*C.Fl_Text_Display)(t.ptr()), C.uint(color))
 }
 
+// SetLinenumberBgcolor sets the background color used for line numbers (if enabled; see SetLinenumberWidth). 
 func (t *TextDisplay) SetLinenumberBgcolor(color Color) {
 	C.go_fltk_TextDisplay_set_linenumber_bgcolor((*C.Fl_Text_Display)(t.ptr()), C.uint(color))
 }
 
+// SetLinenumberFont sets the font used for line numbers (if enabled; see SetLinenumberWidth).
 func (t *TextDisplay) SetLinenumberFont(font Font) {
 	C.go_fltk_TextDisplay_set_linenumber_font((*C.Fl_Text_Display)(t.ptr()), C.int(font))
 }
 
+// SetLinenumberAlign sets the alignment used for line numbers (if enabled; see SetLinenumberWidth).
 func (t *TextDisplay) SetLinenumberAlign(align Align) {
 	C.go_fltk_TextDisplay_set_linenumber_align((*C.Fl_Text_Display)(t.ptr()), C.int(align))
 }
