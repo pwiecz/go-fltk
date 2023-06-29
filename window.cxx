@@ -8,12 +8,18 @@
 
 class GWindow : public EventHandler<Fl_Double_Window> {
 public:
-  GWindow(int w, int h)
-    : EventHandler<Fl_Double_Window>(w, h) {}
+  GWindow(int w, int h, const char* title)
+    : EventHandler<Fl_Double_Window>(w, h, title) {}
+  GWindow(int x, int y, int w, int h, const char* title)
+    : EventHandler<Fl_Double_Window>(x, y, w, h, title) {}
 };
 
-GWindow *go_fltk_new_Window(int w, int h) {
-  return new GWindow(w, h);
+GWindow *go_fltk_new_Window(int w, int h, const char* title) {
+  return new GWindow(w, h, title);
+}
+
+GWindow *go_fltk_new_Window_with_position(int x, int y, int w, int h, const char* title) {
+  return new GWindow(x, y, w, h, title);
 }
 
 int go_fltk_Window_shown(Fl_Window *w) {

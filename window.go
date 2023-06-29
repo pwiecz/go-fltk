@@ -12,9 +12,14 @@ type Window struct {
 	icons []*RgbImage
 }
 
-func NewWindow(w, h int) *Window {
+func NewWindow(w, h int, title ...string) *Window {
 	win := &Window{}
-	initWidget(win, unsafe.Pointer(C.go_fltk_new_Window(C.int(w), C.int(h))))
+	initWidget(win, unsafe.Pointer(C.go_fltk_new_Window(C.int(w), C.int(h), cStringOpt(title))))
+	return win
+}
+func NewWindowWithPosition(x, y, w, h int, title ...string) *Window {
+	win := &Window{}
+	initWidget(win, unsafe.Pointer(C.go_fltk_new_Window_with_position(C.int(x), C.int(y), C.int(w), C.int(h), cStringOpt(title))))
 	return win
 }
 func (w *Window) IsShown() bool {
@@ -70,7 +75,7 @@ func (w *Window) SetSizeRange(minW, minH, maxW, maxH, deltaX, deltaY int, aspect
 	if aspectRatio {
 		ratio = 1
 	}
-	C.go_fltk_Window_size_range((*C.Fl_Window)(w.ptr()), C.int(minW), C.int(minH), C.int(maxW), C.int(maxH), C.int(deltaX), C.int(deltaY), C.int(ratio));
+	C.go_fltk_Window_size_range((*C.Fl_Window)(w.ptr()), C.int(minW), C.int(minH), C.int(maxW), C.int(maxH), C.int(deltaX), C.int(deltaY), C.int(ratio))
 }
 
 type Cursor int

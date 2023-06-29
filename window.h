@@ -8,7 +8,8 @@ extern "C" {
   typedef struct GWindow GWindow;
   typedef struct Fl_RGB_Image Fl_RGB_Image;
 
-  extern GWindow *go_fltk_new_Window(int w, int h);
+  extern GWindow *go_fltk_new_Window(int w, int h, const char* title);
+  extern GWindow *go_fltk_new_Window_with_position(int x, int y, int w, int h, const char* title);
 
   extern int go_fltk_Window_shown(Fl_Window* w);
   extern void go_fltk_Window_show(Fl_Window *w);
