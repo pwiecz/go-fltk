@@ -2,10 +2,11 @@
 
 #include <FL/Fl_Button.H>
 #include <FL/Fl_Check_Button.H>
-#include <FL/Fl_Toggle_Button.H>
+#include <FL/Fl_Light_Button.H>
 #include <FL/Fl_Radio_Button.H>
-#include <FL/Fl_Return_Button.H>
 #include <FL/Fl_Radio_Round_Button.H>
+#include <FL/Fl_Return_Button.H>
+#include <FL/Fl_Toggle_Button.H>
 
 #include "event_handler.h"
 
@@ -50,6 +51,12 @@ class GToggle_Button : public EventHandler<Fl_Toggle_Button> {
 public:
   GToggle_Button(int x, int y, int w, int h, const char *label)
     : EventHandler<Fl_Toggle_Button>(x, y, w, h, label) {}
+};
+
+class GLight_Button : public EventHandler<Fl_Light_Button> {
+public:
+  GLight_Button(int x, int y, int w, int h, const char *label)
+    : EventHandler<Fl_Light_Button>(x, y, w, h, label) {}
 };
 
 GToggle_Button *go_fltk_new_Toggle_Button(int x, int y, int w, int h, const char *label) {

@@ -41,9 +41,9 @@ type CheckButton struct {
 }
 
 func NewCheckButton(x, y, w, h int, text ...string) *CheckButton {
-	i := &CheckButton{}
-	initWidget(i, unsafe.Pointer(C.go_fltk_new_Check_Button(C.int(x), C.int(y), C.int(w), C.int(h), cStringOpt(text))))
-	return i
+	b := &CheckButton{}
+	initWidget(b, unsafe.Pointer(C.go_fltk_new_Check_Button(C.int(x), C.int(y), C.int(w), C.int(h), cStringOpt(text))))
+	return b
 }
 
 type RadioButton struct {
@@ -51,9 +51,9 @@ type RadioButton struct {
 }
 
 func NewRadioButton(x, y, w, h int, text ...string) *RadioButton {
-	i := &RadioButton{}
-	initWidget(i, unsafe.Pointer(C.go_fltk_new_Radio_Button(C.int(x), C.int(y), C.int(w), C.int(h), cStringOpt(text))))
-	return i
+	b := &RadioButton{}
+	initWidget(b, unsafe.Pointer(C.go_fltk_new_Radio_Button(C.int(x), C.int(y), C.int(w), C.int(h), cStringOpt(text))))
+	return b
 }
 
 type RadioRoundButton struct {
@@ -61,9 +61,9 @@ type RadioRoundButton struct {
 }
 
 func NewRadioRoundButton(x, y, w, h int, text ...string) *RadioRoundButton {
-	i := &RadioRoundButton{}
-	initWidget(i, unsafe.Pointer(C.go_fltk_new_Radio_Round_Button(C.int(x), C.int(y), C.int(w), C.int(h), cStringOpt(text))))
-	return i
+	b := &RadioRoundButton{}
+	initWidget(b, unsafe.Pointer(C.go_fltk_new_Radio_Round_Button(C.int(x), C.int(y), C.int(w), C.int(h), cStringOpt(text))))
+	return b
 }
 
 type ReturnButton struct {
@@ -71,9 +71,9 @@ type ReturnButton struct {
 }
 
 func NewReturnButton(x, y, w, h int, text ...string) *ReturnButton {
-	i := &ReturnButton{}
-	initWidget(i, unsafe.Pointer(C.go_fltk_new_Return_Button(C.int(x), C.int(y), C.int(w), C.int(h), cStringOpt(text))))
-	return i
+	b := &ReturnButton{}
+	initWidget(b, unsafe.Pointer(C.go_fltk_new_Return_Button(C.int(x), C.int(y), C.int(w), C.int(h), cStringOpt(text))))
+	return b
 }
 
 type ToggleButton struct {
@@ -81,7 +81,17 @@ type ToggleButton struct {
 }
 
 func NewToggleButton(x, y, w, h int, text ...string) *ToggleButton {
-	i := &ToggleButton{}
-	initWidget(i, unsafe.Pointer(C.go_fltk_new_Toggle_Button(C.int(x), C.int(y), C.int(w), C.int(h), cStringOpt(text))))
-	return i
+	b := &ToggleButton{}
+	initWidget(b, unsafe.Pointer(C.go_fltk_new_Toggle_Button(C.int(x), C.int(y), C.int(w), C.int(h), cStringOpt(text))))
+	return b
+}
+
+type LightButton struct {
+	Button
+}
+
+func NewLightButton(x, y, w, h int, text ...string) *LightButton {
+	b := &LightButton{}
+	initWidget(b, unsafe.Pointer(C.go_fltk_new_Light_Button(C.int(x), C.int(y), C.int(w), C.int(h), cStringOpt(text))))
+	return b
 }

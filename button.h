@@ -9,6 +9,7 @@ extern "C" {
   typedef struct GCheck_Button GCheck_Button;
   typedef struct GRadio_Button GRadio_Button;
   typedef struct GToggle_Button GToggle_Button;
+  typedef struct GLight_Button GLight_Button;
   typedef struct GReturn_Button GReturn_Button;
   typedef struct GRadio_Round_Button GRadio_Round_Button;
 
@@ -22,6 +23,7 @@ extern "C" {
   extern GCheck_Button *go_fltk_new_Check_Button(int x, int y, int w, int h, const char *label);
   extern GRadio_Button *go_fltk_new_Radio_Button(int x, int y, int w, int h, const char *label);
   extern GToggle_Button *go_fltk_new_Toggle_Button(int x, int y, int w, int h, const char *label);
+  extern GLight_Button *go_fltk_new_Light_Button(int x, int y, int w, int h, const char *label);
   extern GReturn_Button *go_fltk_new_Return_Button(int x, int y, int w, int h, const char *label);
   extern GRadio_Round_Button *go_fltk_new_Radio_Round_Button(int x, int y, int w, int h, const char *label);
 
