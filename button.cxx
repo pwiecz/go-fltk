@@ -53,14 +53,18 @@ public:
     : EventHandler<Fl_Toggle_Button>(x, y, w, h, label) {}
 };
 
+GToggle_Button *go_fltk_new_Toggle_Button(int x, int y, int w, int h, const char *label) {
+  return new GToggle_Button(x, y, w, h, label);
+}
+
 class GLight_Button : public EventHandler<Fl_Light_Button> {
 public:
   GLight_Button(int x, int y, int w, int h, const char *label)
     : EventHandler<Fl_Light_Button>(x, y, w, h, label) {}
 };
 
-GToggle_Button *go_fltk_new_Toggle_Button(int x, int y, int w, int h, const char *label) {
-  return new GToggle_Button(x, y, w, h, label);
+GLight_Button *go_fltk_new_Light_Button(int x, int y, int w, int h, const char *label) {
+  return new GLight_Button(x, y, w, h, label);
 }
 
 class GRadio_Button : public EventHandler<Fl_Radio_Button> {
