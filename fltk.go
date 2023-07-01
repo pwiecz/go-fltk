@@ -247,25 +247,42 @@ func CopyToSelectionBuffer(text string) {
 func DragAndDrop() {
 	C.go_fltk_dnd()
 }
+
+// ScreenNum gets the screen number of a screen that contains the specified screen position x, y.
+func ScreenNum(x, y int) int {
+	return int(C.go_fltk_screen_num(C.int(x), C.int(y)))
+}
+
+// ScreenWorkArea gets the bounding box of the work area of the given screen.
 func ScreenWorkArea(screenNum int) (int, int, int, int) {
 	var x, y, w, h C.int
 	C.go_fltk_screen_work_area(&x, &y, &w, &h, C.int(screenNum))
 	return int(x), int(y), int(w), int(h)
 }
+
+// ScreenDPI gets the screen resolution in dots-per-inch for the given screen.
 func ScreenDPI(screenNum int) (float32, float32) {
 	var w, h C.float
 	C.go_fltk_screen_dpi(&w, &h, C.int(screenNum))
 	return float32(w), float32(h)
 }
+
+// ScreenCount gets the total count of available screens.
 func ScreenCount() int {
 	return int(C.go_fltk_screen_count())
 }
+
+// ScreenScale gets current value of the GUI scaling factor for the given screen.
 func ScreenScale(screenNum int) float32 {
 	return float32(C.go_fltk_screen_scale(C.int(screenNum)))
 }
+
+// SetScreenScale sets the value of the GUI scaling factor for the given screen.
 func SetScreenScale(screenNum int, scale float32) {
 	C.go_fltk_set_screen_scale(C.int(screenNum), C.float(scale))
 }
+
+// SetKeyboardScreenScaling controls the possibility to scale all windows by ctrl/+/-/0/ or cmd/+/-/0/
 func SetKeyboardScreenScaling(value bool) {
 	if value {
 		C.go_fltk_set_keyboard_screen_scaling(1)
@@ -288,6 +305,7 @@ func SetMenuLinespacing(size int) {
 func TestShortcut(shortcut int) bool {
 	return C.go_fltk_test_shortcut(C.int(shortcut)) != 0
 }
+
 // Couldn't figure out how to export a func array...
 // For now, just gonna hide it at the bottom of the file and pretend it
 // doesn't exist

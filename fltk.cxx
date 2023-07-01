@@ -142,6 +142,9 @@ void go_fltk_dnd() {
   Fl::dnd();
 }
 
+int go_fltk_screen_num(int x, int y) {
+  return Fl::screen_num(x, y);
+}  
 void go_fltk_screen_work_area(int *x, int *y, int *w, int *h, int n) {
   Fl::screen_work_area(*x, *y, *w, *h, n);
 }
