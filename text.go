@@ -432,20 +432,35 @@ func (t *TextEditor) Insert() {
 	C.go_fltk_TextEditor_insert((*C.Fl_Text_Editor)(t.ptr()))
 }
 
+// Cut cuts the selected text from the editor's buffer into the clipboard.
 func (t *TextEditor) Cut() {
 	C.go_fltk_TextEditor_cut((*C.Fl_Text_Editor)(t.ptr()))
 }
 
+// Delete deletes the selected text from the editor's buffer.
 func (t *TextEditor) Delete() {
 	C.go_fltk_TextEditor_delete((*C.Fl_Text_Editor)(t.ptr()))
 }
 
+// Paste pastes the clipboard's text into the editor's buffer at the
+// insertion point.
 func (t *TextEditor) Paste() {
 	C.go_fltk_TextEditor_paste((*C.Fl_Text_Editor)(t.ptr()))
 }
 
+// Redo redoes the last undone edit.
+func (t *TextEditor) Redo() {
+	C.go_fltk_TextEditor_redo((*C.Fl_Text_Editor)(t.ptr()))
+}
+
+// SelectAll selects all the editor's text.
 func (t *TextEditor) SelectAll() {
 	C.go_fltk_TextEditor_select_all((*C.Fl_Text_Editor)(t.ptr()))
+}
+
+// Undo undoes the last edit.
+func (t *TextEditor) Undo() {
+	C.go_fltk_TextEditor_undo((*C.Fl_Text_Editor)(t.ptr()))
 }
 
 // NewTextEditor returns a TextEditor.
