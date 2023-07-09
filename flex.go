@@ -51,3 +51,8 @@ func (f *Flex) SetMargin(margin int, gap ...int) {
 	}
 	C.go_fltk_Flex_set_margin((*C.Fl_Flex)(f.ptr()), C.int(margin), C.int(g))
 }
+
+// Layout calculates the layout of the widget and redraws it.
+func (f *Flex) Layout() {
+	C.go_fltk_Flex_layout((*C.Fl_Flex)(f.ptr()))
+}

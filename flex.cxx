@@ -32,5 +32,7 @@ int go_fltk_Flex_margin(Fl_Flex* flex) { return flex->margin(); }
 
 void go_fltk_Flex_set_margin(Fl_Flex* flex, int margin, int gap) { flex->margin(margin, gap); }
 
+void go_fltk_Flex_layout(Fl_Flex* flex) { flex->layout(); }
+
 const unsigned char go_FL_FLEX_COLUMN = Fl_Flex::COLUMN;
 const unsigned char go_FL_FLEX_ROW = Fl_Flex::ROW;

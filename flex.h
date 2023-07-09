@@ -24,6 +24,8 @@ extern "C" {
 
   extern void go_fltk_Flex_set_margin(Fl_Flex* flex, int margin, int gap);
 
+  extern void go_fltk_Flex_layout(Fl_Flex *flex);
+ 
   extern const unsigned char go_FL_FLEX_COLUMN;
   extern const unsigned char go_FL_FLEX_ROW;
 
