@@ -18,9 +18,9 @@ extern "C" {
   extern void go_fltk_TextEditor_cut(Fl_Text_Editor *e);
   extern void go_fltk_TextEditor_delete(Fl_Text_Editor *e);
   extern void go_fltk_TextEditor_paste(Fl_Text_Editor *e);
-  extern void go_fltk_TextEditor_redo(Fl_Text_Editor *e);
   extern void go_fltk_TextEditor_select_all(Fl_Text_Editor *e);
-  extern void go_fltk_TextEditor_undo(Fl_Text_Editor *e);
+  extern int go_fltk_TextEditor_undo(Fl_Text_Editor *e);
+  extern int go_fltk_TextEditor_redo(Fl_Text_Editor *e);
 
   extern GText_Display *go_fltk_new_TextDisplay(int x, int y, int w, int h, const char *text);
   extern void go_fltk_TextDisplay_set_buffer(Fl_Text_Display *d, Fl_Text_Buffer *buf);

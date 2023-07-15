@@ -67,6 +67,7 @@ type TextBuffer struct {
 }
 
 var ErrTextBufferDestroyed = errors.New("text buffer is destroyed")
+var ErrNoTextBufferAssociated = errors.New("there is no text buffer associated")
 
 func NewTextBuffer() *TextBuffer {
 	ptr := C.go_fltk_new_TextBuffer()
@@ -281,22 +282,34 @@ func (t *TextDisplay) PositionToXY(pos int) (int, int) {
 
 func (t *TextDisplay) Buffer() *TextBuffer {
 	ptr := C.go_fltk_TextDisplay_buffer((*C.Fl_Text_Display)(t.ptr()))
+	if ptr == nil {
+		return nil
+	}
 	return &TextBuffer{cPtr: ptr}
 }
 
 // MoveRight moves the current insert position right one character.
 // Returns true if the cursor moved, false if the end of the text was reached
 func (t *TextDisplay) MoveRight() bool {
+	if t.Buffer() == nil {
+		panic(ErrNoTextBufferAssociated)
+	}
 	return (int)(C.go_fltk_TextDisplay_move_right((*C.Fl_Text_Display)(t.ptr()))) != 0
 }
 
 // MoveLeft moves the current insert position left one character.
 func (t *TextDisplay) MoveLeft() bool {
+	if t.Buffer() == nil {
+		panic(ErrNoTextBufferAssociated)
+	}
 	return (int)(C.go_fltk_TextDisplay_move_left((*C.Fl_Text_Display)(t.ptr()))) != 0
 }
 
 // MoveUp moves the current insert position up one line.
 func (t *TextDisplay) MoveUp() bool {
+	if t.Buffer() == nil {
+		panic(ErrNoTextBufferAssociated)
+	}
 	return (int)(C.go_fltk_TextDisplay_move_up((*C.Fl_Text_Display)(t.ptr()))) != 0
 }
 
@@ -307,6 +320,9 @@ func (t *TextDisplay) MoveDown() bool {
 
 // ShowInsertPosition scrolls the text buffer to show the current insert position.
 func (t *TextDisplay) ShowInsertPosition() {
+	if t.Buffer() == nil {
+		panic(ErrNoTextBufferAssociated)
+	}
 	C.go_fltk_TextDisplay_show_insert_position((*C.Fl_Text_Display)(t.ptr()))
 }
 
@@ -347,16 +363,25 @@ func (t *TextDisplay) SetTextSize(size int) {
 
 // SetInsertPosition set the insert position to a new position.
 func (t *TextDisplay) SetInsertPosition(newPos int) {
+	if t.Buffer() == nil {
+		panic(ErrNoTextBufferAssociated)
+	}
 	C.go_fltk_TextDisplay_insert_position((*C.Fl_Text_Display)(t.ptr()), C.int(newPos))
 }
 
 // GetInsertPosition - return the current insert position.
 func (t *TextDisplay) GetInsertPosition() int {
+	if t.Buffer() == nil {
+		panic(ErrNoTextBufferAssociated)
+	}
 	return (int)(C.go_fltk_TextDisplay_get_insert_position((*C.Fl_Text_Display)(t.ptr())))
 }
 
 // InsertText - Insert text at the cursor position.
 func (t *TextDisplay) InsertText(txt string) {
+	if t.Buffer() == nil {
+		panic(ErrNoTextBufferAssociated)
+	}
 	txtstr := C.CString(txt)
 	defer C.free(unsafe.Pointer(txtstr))
 	C.go_fltk_TextDisplay_insert_text((*C.Fl_Text_Display)(t.ptr()), txtstr)
@@ -364,6 +389,9 @@ func (t *TextDisplay) InsertText(txt string) {
 
 // Overstrike - Not sure what it does, the fltk doc does not match with the name meaning
 func (t *TextDisplay) Overstrike(txt string) {
+	if t.Buffer() == nil {
+		panic(ErrNoTextBufferAssociated)
+	}
 	txtstr := C.CString(txt)
 	defer C.free(unsafe.Pointer(txtstr))
 	C.go_fltk_TextDisplay_overstrike((*C.Fl_Text_Display)(t.ptr()), txtstr)
@@ -393,17 +421,17 @@ func (t *TextDisplay) SetLinenumberWidth(w int) {
 	C.go_fltk_TextDisplay_set_linenumber_width((*C.Fl_Text_Display)(t.ptr()), C.int(w))
 }
 
-// SetLinenumberSize sets the font size used for line numbers (if enabled; see SetLinenumberWidth). 
+// SetLinenumberSize sets the font size used for line numbers (if enabled; see SetLinenumberWidth).
 func (t *TextDisplay) SetLinenumberSize(s int) {
 	C.go_fltk_TextDisplay_set_linenumber_size((*C.Fl_Text_Display)(t.ptr()), C.int(s))
 }
 
-// SetLinenumberFgcolor sets the foreground color used for line numbers (if enabled; see SetLinenumberWidth). 
+// SetLinenumberFgcolor sets the foreground color used for line numbers (if enabled; see SetLinenumberWidth).
 func (t *TextDisplay) SetLinenumberFgcolor(color Color) {
 	C.go_fltk_TextDisplay_set_linenumber_fgcolor((*C.Fl_Text_Display)(t.ptr()), C.uint(color))
 }
 
-// SetLinenumberBgcolor sets the background color used for line numbers (if enabled; see SetLinenumberWidth). 
+// SetLinenumberBgcolor sets the background color used for line numbers (if enabled; see SetLinenumberWidth).
 func (t *TextDisplay) SetLinenumberBgcolor(color Color) {
 	C.go_fltk_TextDisplay_set_linenumber_bgcolor((*C.Fl_Text_Display)(t.ptr()), C.uint(color))
 }
@@ -424,43 +452,67 @@ type TextEditor struct {
 
 // Copy copy of selected text or the current character in the current buffer of the editor (kf_copy)
 func (t *TextEditor) Copy() {
+	if t.Buffer() == nil {
+		panic(ErrNoTextBufferAssociated)
+	}
 	C.go_fltk_TextEditor_copy((*C.Fl_Text_Editor)(t.ptr()))
 }
 
 // Insert toggles the insert mode (kf_insert)
 func (t *TextEditor) Insert() {
+	if t.Buffer() == nil {
+		panic(ErrNoTextBufferAssociated)
+	}
 	C.go_fltk_TextEditor_insert((*C.Fl_Text_Editor)(t.ptr()))
 }
 
 // Cut cuts the selected text from the editor's buffer into the clipboard.
 func (t *TextEditor) Cut() {
+	if t.Buffer() == nil {
+		panic(ErrNoTextBufferAssociated)
+	}
 	C.go_fltk_TextEditor_cut((*C.Fl_Text_Editor)(t.ptr()))
 }
 
 // Delete deletes the selected text from the editor's buffer.
 func (t *TextEditor) Delete() {
+	if t.Buffer() == nil {
+		panic(ErrNoTextBufferAssociated)
+	}
 	C.go_fltk_TextEditor_delete((*C.Fl_Text_Editor)(t.ptr()))
 }
 
 // Paste pastes the clipboard's text into the editor's buffer at the
 // insertion point.
 func (t *TextEditor) Paste() {
+	if t.Buffer() == nil {
+		panic(ErrNoTextBufferAssociated)
+	}
 	C.go_fltk_TextEditor_paste((*C.Fl_Text_Editor)(t.ptr()))
-}
-
-// Redo redoes the last undone edit.
-func (t *TextEditor) Redo() {
-	C.go_fltk_TextEditor_redo((*C.Fl_Text_Editor)(t.ptr()))
 }
 
 // SelectAll selects all the editor's text.
 func (t *TextEditor) SelectAll() {
+	if t.Buffer() == nil {
+		panic(ErrNoTextBufferAssociated)
+	}
 	C.go_fltk_TextEditor_select_all((*C.Fl_Text_Editor)(t.ptr()))
 }
 
 // Undo undoes the last edit.
 func (t *TextEditor) Undo() {
+	if t.Buffer() == nil {
+		panic(ErrNoTextBufferAssociated)
+	}
 	C.go_fltk_TextEditor_undo((*C.Fl_Text_Editor)(t.ptr()))
+}
+
+// Redo redoes the last undone edit.
+func (t *TextEditor) Redo() {
+	if t.Buffer() == nil {
+		panic(ErrNoTextBufferAssociated)
+	}
+	C.go_fltk_TextEditor_redo((*C.Fl_Text_Editor)(t.ptr()))
 }
 
 // NewTextEditor returns a TextEditor.

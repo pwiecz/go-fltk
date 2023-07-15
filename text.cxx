@@ -167,16 +167,16 @@ void go_fltk_TextEditor_paste(Fl_Text_Editor *e) {
   Fl_Text_Editor::kf_paste(0, e);
 }
 
-void go_fltk_TextEditor_redo(Fl_Text_Editor *e) {
-  Fl_Text_Editor::kf_redo(0, e);
-}
-
 void go_fltk_TextEditor_select_all(Fl_Text_Editor *e) {
   Fl_Text_Editor::kf_select_all(0, e);
 }
 
-void go_fltk_TextEditor_undo(Fl_Text_Editor *e) {
-  Fl_Text_Editor::kf_undo(0, e);
+int go_fltk_TextEditor_undo(Fl_Text_Editor *e) {
+  return Fl_Text_Editor::kf_undo(0, e);
+}
+
+int go_fltk_TextEditor_redo(Fl_Text_Editor *e) {
+  return Fl_Text_Editor::kf_redo(0, e);
 }
 
 // --- Text Buffer ---
