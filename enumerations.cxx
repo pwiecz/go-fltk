@@ -1,11 +1,8 @@
 #include "enumerations.h"
 
-#include <cstdint>
-
 #include <FL/Enumerations.H>
 #include <FL/Fl_Tabs.H>
 
-#include "_cgo_export.h"
 
 const unsigned int go_FL_ALIGN_CENTER = (unsigned int)FL_ALIGN_CENTER;
 const unsigned int go_FL_ALIGN_TOP = (unsigned int)FL_ALIGN_TOP;
@@ -175,7 +172,3 @@ const unsigned int go_FL_DARK_BLUE = FL_DARK_BLUE;
 const unsigned int go_FL_DARK_MAGENTA = FL_DARK_MAGENTA;
 const unsigned int go_FL_DARK_CYAN = FL_DARK_CYAN;
 const unsigned int go_FL_WHITE = FL_WHITE;
-
-void callback_handler(Fl_Widget *w, void* data) {
-  _go_callbackHandler((uintptr_t)data);
-}

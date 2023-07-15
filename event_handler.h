@@ -16,6 +16,7 @@ public:
 class WidgetWithDrawHandler {
 public:
   virtual void set_draw_handler(uintptr_t handlerId) = 0;
+  virtual void basedraw() = 0;  
 };
 class WidgetWithDeletionHandler {
 public:
@@ -47,11 +48,16 @@ public:
 
   void draw() override {
     if (m_drawHandlerId != 0) {
-      _go_callbackHandler(m_drawHandlerId);
+      _go_drawHandler(m_drawHandlerId, this);
+    } else {
+      BaseWidget::draw();
     }
-    return BaseWidget::draw();
   }
 
+  void basedraw() final {
+    BaseWidget::draw();
+  }    
+    
   void resize(int x, int y, int w, int h) final {
     BaseWidget::resize(x, y, w, h);
     if (m_resizeHandlerId != 0) {

@@ -175,8 +175,6 @@ extern "C" {
   extern const unsigned int go_FL_DARK_CYAN;
   extern const unsigned int go_FL_WHITE;
 
-  extern void callback_handler(Fl_Widget *w, void* data);
-
 #ifdef __cplusplus
 }
 #endif

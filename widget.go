@@ -17,8 +17,6 @@ type widget struct {
 	resizeHandlerId   uintptr
 	drawHandlerId     uintptr
 	eventHandlerId    int
-	image             Image
-	deimage           Image
 }
 
 type Widget interface {
@@ -87,11 +85,14 @@ func (w *widget) SetResizeHandler(handler func()) {
 		panic("this widget does not support resize handling")
 	}
 }
-func (w *widget) SetDrawHandler(handler func()) {
+// SetDrawHandler specifies the function that will be used to draw the widget.
+// The parameter to this function is another function which, when called draws
+// this widget as if not draw handler was specified.
+func (w *widget) SetDrawHandler(handler func(func())) {
 	if w.drawHandlerId > 0 {
-		globalCallbackMap.unregister(w.drawHandlerId)
+		globalDrawHandlerMap.unregister(w.drawHandlerId)
 	}
-	w.drawHandlerId = globalCallbackMap.register(handler)
+	w.drawHandlerId = globalDrawHandlerMap.register(handler)
 	if C.go_fltk_Widget_set_draw_handler(w.ptr(), C.uintptr_t(w.drawHandlerId)) == 0 {
 		panic("this widget does not support custom drawing")
 	}
@@ -118,8 +119,6 @@ func (w *widget) onDelete() {
 		globalEventHandlerMap.unregister(w.eventHandlerId)
 	}
 	w.eventHandlerId = 0
-	w.image = nil
-	w.deimage = nil
 	C.go_fltk_Widget_Tracker_delete(w.tracker)
 	w.tracker = nil
 }
@@ -133,15 +132,13 @@ func (w *widget) Destroy() {
 	}
 	w.resizeHandlerId = 0
 	if w.drawHandlerId > 0 {
-		globalCallbackMap.unregister(w.drawHandlerId)
+		globalDrawHandlerMap.unregister(w.drawHandlerId)
 	}
 	w.drawHandlerId = 0
 	if w.eventHandlerId > 0 {
 		globalEventHandlerMap.unregister(w.eventHandlerId)
 	}
 	w.eventHandlerId = 0
-	w.image = nil
-	w.deimage = nil
 	C.go_fltk_delete_widget(w.ptr())
 }
 
@@ -185,11 +182,9 @@ func (w *widget) SetLabel(label string) {
 }
 func (w *widget) SetImage(i Image) {
 	C.go_fltk_Widget_set_image(w.ptr(), i.getImage().ptr())
-	w.image = i
 }
 func (w *widget) SetDeimage(i Image) {
 	C.go_fltk_Widget_set_deimage(w.ptr(), i.getImage().ptr())
-	w.deimage = i
 }
 func (w *widget) Box() BoxType         { return BoxType(C.go_fltk_Widget_box(w.ptr())) }
 func (w *widget) LabelColor() Color    { return Color(C.go_fltk_Widget_labelcolor(w.ptr())) }

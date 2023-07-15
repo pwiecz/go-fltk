@@ -23,7 +23,7 @@ func NewMyDial(x, y, w, h int, label string) *MyDial {
 	value_box.SetLabelSize(26)
 	main_wid.End()
 
-	main_wid.SetDrawHandler(func() {
+	main_wid.SetDrawHandler(func(func()) {
 		fltk.SetDrawColor(fltk.ColorFromRgb(230, 230, 230))
 		fltk.DrawPie(main_wid.X(), main_wid.Y(), main_wid.W(), main_wid.H(), 0., 180.)
 		fltk.SetDrawColor(0xb0bf1a00)

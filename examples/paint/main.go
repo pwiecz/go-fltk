@@ -18,7 +18,7 @@ func main() {
 	fltk.DrawRectf(0, 0, box.W(), box.H())
 	offs.End()
 
-	box.SetDrawHandler(func() {
+	box.SetDrawHandler(func(func()) {
 		offs.Copy(3, 3, box.W(), box.H(), 0, 0)
 	})
 

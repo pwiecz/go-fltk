@@ -3,6 +3,7 @@
 #include <FL/Fl.H>
 #include <FL/Fl_Widget.H>
 
+#include "callbacks.h"
 #include "enumerations.h"
 #include "event_handler.h"
 
@@ -64,6 +65,15 @@ int go_fltk_Widget_set_draw_handler(Fl_Widget* w, uintptr_t id) {
   wh->set_draw_handler(id);
   return 1;
 }
+void go_fltk_Widget_draw(Fl_Widget *w) { w->draw(); }
+void go_fltk_Widget_basedraw(Fl_Widget *w) {
+  WidgetWithDrawHandler* wh = dynamic_cast<WidgetWithDrawHandler*>(w);
+  if (wh == nullptr) {
+    w->draw();
+  } else {
+    wh->basedraw();    
+  }    
+}  
 void go_fltk_Widget_set_labelfont(Fl_Widget *w, int font) {
   w->labelfont((Fl_Font)font);
 }

@@ -90,7 +90,7 @@ func (p *Panel) Bind(ctx *Context) {
 		}
 	})
 
-	p.drawBox.SetDrawHandler(func() {
+	p.drawBox.SetDrawHandler(func(func()) {
 		fltk.DrawRectfWithColor(p.drawBox.X(), p.drawBox.Y(), p.drawBox.W(), p.drawBox.H(), fltk.WHITE)
 
 		for _, c := range ctx.Circles() {

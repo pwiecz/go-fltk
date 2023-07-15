@@ -22,8 +22,9 @@ func main() {
 	win.SetLabel("Flutter-like")
 	win.SetColor(fltk.WHITE)
 	bar := fltk.NewBox(fltk.FLAT_BOX, 0, 0, WIDTH, 60, "    FLTK App!")
-	bar.SetDrawHandler(func() { // Shadow under the bar
+	bar.SetDrawHandler(func(baseDraw func()) { // Shadow under the bar
 		fltk.DrawBox(fltk.FLAT_BOX, 0, 0, WIDTH, 63, LIGHT_GRAY)
+		baseDraw()
 	})
 	bar.SetAlign(fltk.ALIGN_INSIDE | fltk.ALIGN_LEFT)
 	bar.SetLabelColor(255) // this uses the index into the color map, here it's white
