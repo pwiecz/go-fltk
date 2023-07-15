@@ -500,19 +500,21 @@ func (t *TextEditor) SelectAll() {
 }
 
 // Undo undoes the last edit.
-func (t *TextEditor) Undo() {
+// Returns true iff any change was made.
+func (t *TextEditor) Undo() bool {
 	if t.Buffer() == nil {
 		panic(ErrNoTextBufferAssociated)
 	}
-	C.go_fltk_TextEditor_undo((*C.Fl_Text_Editor)(t.ptr()))
+	return C.go_fltk_TextEditor_undo((*C.Fl_Text_Editor)(t.ptr())) != 0
 }
 
 // Redo redoes the last undone edit.
-func (t *TextEditor) Redo() {
+// Returns true iff any change was made.
+func (t *TextEditor) Redo() bool {
 	if t.Buffer() == nil {
 		panic(ErrNoTextBufferAssociated)
 	}
-	C.go_fltk_TextEditor_redo((*C.Fl_Text_Editor)(t.ptr()))
+	return C.go_fltk_TextEditor_redo((*C.Fl_Text_Editor)(t.ptr())) != 0
 }
 
 // NewTextEditor returns a TextEditor.
