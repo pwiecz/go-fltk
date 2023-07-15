@@ -25,15 +25,15 @@ func testGlobalMapsEmpty(t *testing.T) {
 	// actually in our tests we do not destroy the main windows, so the callback map should
 	// contain their deletion handlers.
 	if globalCallbackMap.size() != 1 {
-		t.Errorf("global callback map is not empty: %d", globalCallbackMap.size())
+		t.Errorf("Global callback map is not empty: %d", globalCallbackMap.size())
 	}
 	globalCallbackMap.clear()
 	if !globalEventHandlerMap.isEmpty() {
-		t.Errorf("global event handler map is not empty: %d", globalEventHandlerMap.size())
+		t.Errorf("Global event handler map is not empty: %d", globalEventHandlerMap.size())
 	}
 	globalEventHandlerMap.clear()
 	if !globalTableCallbackMap.isEmpty() {
-		t.Errorf("global table callback map is not empty: %d", globalTableCallbackMap.size())
+		t.Errorf("Global table callback map is not empty: %d", globalTableCallbackMap.size())
 	}
 	globalTableCallbackMap.clear()
 }

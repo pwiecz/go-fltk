@@ -1,8 +1,8 @@
 package fltk
 
 import (
-"errors"
-"testing"
+	"errors"
+	"testing"
 )
 
 func TestPanicWhenTestBufferIsMissing(t *testing.T) {
@@ -17,7 +17,10 @@ func TestPanicWhenTestBufferIsMissing(t *testing.T) {
 		} else if !errors.Is(err, ErrNoTextBufferAssociated) {
 			t.Errorf("Unexpected error: %v", err)
 		}
+		textEditor.Destroy()
 		Unlock()
+		// clean up after outselves as other tests check if this map is empty
+		globalCallbackMap.clear()
 	}()
 	textEditor.SetEventHandler(func(event Event) bool {
 		if event != SHOW {
