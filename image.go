@@ -7,6 +7,7 @@ package fltk
 import "C"
 import (
 	"errors"
+	"fmt"
 	goimage "image"
 	"unsafe"
 )
@@ -62,8 +63,8 @@ func (i *image) Scale(width int, height int, proportional bool, can_expand bool)
 	}
 	C.go_fltk_image_scale(i.ptr(), C.int(width), C.int(height), C.int(prop), C.int(expand))
 }
-func (i *image) fail() int {
-	return int(C.go_fltk_image_fail(i.ptr()))
+func (i *image) fail() C.int {
+	return C.go_fltk_image_fail(i.ptr())
 }
 func (i *image) DataW() int {
 	return int(C.go_fltk_image_data_w(i.ptr()))
@@ -81,15 +82,24 @@ func (i *image) Inactive() {
 	C.go_fltk_image_inactive(i.ptr())
 }
 
-func image_error(val int) error {
-	if val == -1 {
-		return errors.New("no Image was found")
-	} else if val == -2 {
-		return errors.New("file access error")
-	} else if val == -3 {
-		return errors.New("image format error")
-	} else {
+var ErrNoImage = errors.New("no image was found")
+var ErrImageFileAccess = errors.New("image file access error")
+var ErrImageDecodingFailed = errors.New("image decoding failed")
+var ErrImageMemoryAccess = errors.New("invalid memory access by image decoder")
+
+func image_error(val C.int) error {
+	if val == 0 {
 		return nil
+	} else if val == C.go_Fl_Image_ERR_NO_IMAGE {
+		return ErrNoImage
+	} else if val == C.go_Fl_Image_ERR_FILE_ACCESS {
+		return ErrImageFileAccess
+	} else if val == C.go_Fl_Image_ERR_FORMAT {
+		return ErrImageDecodingFailed
+	} else if val == C.go_Fl_Image_ERR_MEMORY_ACCESS {
+		return ErrImageMemoryAccess
+	} else {
+		return fmt.Errorf("unknown image error: %d", int(val))
 	}
 }
 
@@ -102,7 +112,11 @@ func NewSvgImageLoad(path string) (*SvgImage, error) {
 	defer C.free(unsafe.Pointer(fileStr))
 	img := &SvgImage{}
 	initImage(img, unsafe.Pointer(C.go_fltk_svg_image_load(fileStr)))
-	return img, image_error(img.fail())
+	if err := image_error(img.fail()); err != nil {
+		img.Destroy()
+		return nil, err
+	}
+	return img, nil
 }
 
 func NewSvgImageFromString(str string) (*SvgImage, error) {
@@ -110,7 +124,11 @@ func NewSvgImageFromString(str string) (*SvgImage, error) {
 	defer C.free(unsafe.Pointer(imagestr))
 	img := &SvgImage{}
 	initImage(img, unsafe.Pointer(C.go_fltk_svg_image_data(imagestr)))
-	return img, image_error(img.fail())
+	if err := image_error(img.fail()); err != nil {
+		img.Destroy()
+		return nil, err
+	}
+	return img, nil
 }
 
 type PngImage struct {
@@ -122,16 +140,22 @@ func NewPngImageLoad(path string) (*PngImage, error) {
 	defer C.free(unsafe.Pointer(fileStr))
 	img := &PngImage{}
 	initImage(img, unsafe.Pointer(C.go_fltk_png_image_load(fileStr)))
-	return img, image_error(img.fail())
+	if err := image_error(img.fail()); err != nil {
+		img.Destroy()
+		return nil, err
+	}
+	return img, nil
 }
 
 func NewPngImageFromData(data []uint8) (*PngImage, error) {
 	buf := (*C.uchar)(unsafe.Pointer(&data[0]))
-
 	img := &PngImage{}
-
 	initImage(img, unsafe.Pointer(C.go_fltk_png_image_data(buf, C.int(len(data)))))
-	return img, image_error(img.fail())
+	if err := image_error(img.fail()); err != nil {
+		img.Destroy()
+		return nil, err
+	}
+	return img, nil
 }
 
 type JpegImage struct {
@@ -143,17 +167,22 @@ func NewJpegImageLoad(path string) (*JpegImage, error) {
 	defer C.free(unsafe.Pointer(fileStr))
 	img := &JpegImage{}
 	initImage(img, unsafe.Pointer(C.go_fltk_jpg_image_load(fileStr)))
-	return img, image_error(img.fail())
+	if err := image_error(img.fail()); err != nil {
+		img.Destroy()
+		return nil, err
+	}
+	return img, nil
 }
 
 func NewJpegImageFromData(data []uint8) (*JpegImage, error) {
 	buf := (*C.uchar)(unsafe.Pointer(&data[0]))
-	len := len(data)
-
 	img := &JpegImage{}
-
-	initImage(img, unsafe.Pointer(C.go_fltk_jpg_image_data(buf, C.int(len))))
-	return img, image_error(img.fail())
+	initImage(img, unsafe.Pointer(C.go_fltk_jpg_image_data(buf, C.int(len(data)))))
+	if err := image_error(img.fail()); err != nil {
+		img.Destroy()
+		return nil, err
+	}
+	return img, nil
 }
 
 type BmpImage struct {
@@ -165,16 +194,22 @@ func NewBmpImageLoad(path string) (*BmpImage, error) {
 	defer C.free(unsafe.Pointer(fileStr))
 	img := &BmpImage{}
 	initImage(img, unsafe.Pointer(C.go_fltk_bmp_image_load(fileStr)))
-	return img, image_error(img.fail())
+	if err := image_error(img.fail()); err != nil {
+		img.Destroy()
+		return nil, err
+	}
+	return img, nil
 }
 
 func NewBmpImageFromData(data []uint8) (*BmpImage, error) {
 	buf := (*C.uchar)(unsafe.Pointer(&data[0]))
-
 	img := &BmpImage{}
-
 	initImage(img, unsafe.Pointer(C.go_fltk_bmp_image_data(buf, C.long(len(data)))))
-	return img, image_error(img.fail())
+	if err := image_error(img.fail()); err != nil {
+		img.Destroy()
+		return nil, err
+	}
+	return img, nil
 }
 
 type RgbImage struct {
@@ -182,35 +217,42 @@ type RgbImage struct {
 	data []uint8
 }
 
+var ErrImageDataTooShort = errors.New("image data too short")
+
 func NewRgbImage(data []uint8, w, h, depth int) (*RgbImage, error) {
+	if len(data) < w*h*depth {
+		return nil, ErrImageDataTooShort
+	}
 	img := &RgbImage{}
 	img.data = append(make([]uint8, 0, len(data)), data...)
-
 	buf := (*C.uchar)(unsafe.Pointer(&img.data[0]))
-
 	initImage(img, unsafe.Pointer(C.go_fltk_rgb_image_data(buf, C.int(w), C.int(h), C.int(depth), C.int(0))))
-	return img, image_error(img.fail())
+	if err := image_error(img.fail()); err != nil {
+		img.Destroy()
+		return nil, err
+	}
+	return img, nil
 }
 
-func NewRgbImageFromSvg(img *SvgImage) (*RgbImage) {
+func NewRgbImageFromSvg(img *SvgImage) *RgbImage {
 	rgbImage := &RgbImage{}
 	rgbImage.image = img.image
 	return rgbImage
 }
 
-func NewRgbImageFromPng(img *PngImage) (*RgbImage) {
+func NewRgbImageFromPng(img *PngImage) *RgbImage {
 	rgbImage := &RgbImage{}
 	rgbImage.image = img.image
 	return rgbImage
 }
 
-func NewRgbImageFromBmp(img *BmpImage) (*RgbImage) {
+func NewRgbImageFromBmp(img *BmpImage) *RgbImage {
 	rgbImage := &RgbImage{}
 	rgbImage.image = img.image
 	return rgbImage
 }
 
-func NewRgbImageFromJpeg(img *JpegImage) (*RgbImage) {
+func NewRgbImageFromJpeg(img *JpegImage) *RgbImage {
 	rgbImage := &RgbImage{}
 	rgbImage.image = img.image
 	return rgbImage
@@ -243,7 +285,11 @@ func NewRgbImageFromImage(image goimage.Image) (*RgbImage, error) {
 	}
 	buf := (*C.uchar)(unsafe.Pointer(&rgbImage.data[0]))
 	initImage(rgbImage, unsafe.Pointer(C.go_fltk_rgb_image_data(buf, C.int(w), C.int(h), C.int(depth), C.int(stride))))
-	return rgbImage, image_error(rgbImage.fail())
+	if err := image_error(rgbImage.fail()); err != nil {
+		rgbImage.Destroy()
+		return nil, err
+	}
+	return rgbImage, nil
 }
 
 type SharedImage struct {
@@ -268,5 +314,9 @@ func NewSharedImageLoad(path string) (*SharedImage, error) {
 	if img.iPtr == nil {
 		return nil, errors.New("shared Image initialization error")
 	}
-	return img, image_error(img.fail())
+	if err := image_error(img.fail()); err != nil {
+		img.Destroy()
+		return nil, err
+	}
+	return img, nil
 }

@@ -44,6 +44,11 @@ extern "C" {
 
     extern void go_fltk_register_images(void);
 
+    extern const int go_Fl_Image_ERR_NO_IMAGE;
+    extern const int go_Fl_Image_ERR_FILE_ACCESS;
+    extern const int go_Fl_Image_ERR_FORMAT;
+    extern const int go_Fl_Image_ERR_MEMORY_ACCESS;
+  
 #ifdef __cplusplus
 }
 #endif

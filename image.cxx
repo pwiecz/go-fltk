@@ -21,7 +21,7 @@ int go_fltk_image_h(Fl_Image *i) {
     return i->h();
 }                                                                
 void go_fltk_image_delete(Fl_Image *i) {
-    delete i;
+    i->release();
 }                                                               
 int go_fltk_image_count(Fl_Image *i) {
     return i->count();
@@ -51,7 +51,7 @@ int go_fltk_image_ld(const Fl_Image *i) {
     return i->ld();
 }                                                          
 void go_fltk_image_inactive(Fl_Image *i) {
-        return i->inactive();
+    return i->inactive();
 }
   
 Fl_SVG_Image *go_fltk_svg_image_load(const char *file) {
@@ -96,7 +96,11 @@ void go_fltk_register_images(void) {
 
 Fl_RGB_Image *go_fltk_rgb_image_data(const unsigned char *bits, int W, int H, int depth, int ld) {
     Fl_RGB_Image *img = new Fl_RGB_Image(bits, W, H, depth, ld); 
-    if (!img) return NULL;
     img->alloc_array = 0;
     return img;
 }
+
+const int go_Fl_Image_ERR_NO_IMAGE = Fl_Image::ERR_NO_IMAGE;
+const int go_Fl_Image_ERR_FILE_ACCESS = Fl_Image::ERR_FILE_ACCESS;
+const int go_Fl_Image_ERR_FORMAT = Fl_Image::ERR_FORMAT;
+const int go_Fl_Image_ERR_MEMORY_ACCESS = Fl_Image::ERR_MEMORY_ACCESS;
