@@ -40,7 +40,7 @@ extern "C" {
     extern Fl_BMP_Image *go_fltk_bmp_image_load(const char *file);
     extern Fl_BMP_Image *go_fltk_bmp_image_data(const unsigned char *data, long size);
     extern Fl_Shared_Image *go_fltk_shared_image_load(const char *file);
-    extern Fl_RGB_Image *go_fltk_rgb_image_data(const unsigned char *bits, int W, int H, int depth, int ld);
+    extern Fl_RGB_Image *go_fltk_rgb_image_data(const unsigned char *bits, int bitsLen, int W, int H, int depth, int ld);
 
     extern void go_fltk_register_images(void);
 

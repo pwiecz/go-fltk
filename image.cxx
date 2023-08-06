@@ -1,5 +1,7 @@
 #include "image.h"
 
+#include <cstring>
+
 #include <FL/Fl_Image.H>
 #include <FL/Fl_BMP_Image.H>
 #include <FL/Fl_SVG_Image.H>  
@@ -94,9 +96,13 @@ void go_fltk_register_images(void) {
   fl_register_images();
 }
 
-Fl_RGB_Image *go_fltk_rgb_image_data(const unsigned char *bits, int W, int H, int depth, int ld) {
-    Fl_RGB_Image *img = new Fl_RGB_Image(bits, W, H, depth, ld); 
-    img->alloc_array = 0;
+Fl_RGB_Image *go_fltk_rgb_image_data(const unsigned char *bits, int bitsLen, int W, int H,
+                                     int depth, int ld) {
+    // Create copy of bits and pass its ownership to the image object
+    unsigned char *const buf = new unsigned char[bitsLen];
+    std::memcpy(buf, bits, bitsLen);
+    Fl_RGB_Image *img = new Fl_RGB_Image(buf, W, H, depth, ld); 
+    img->alloc_array = 1;
     return img;
 }
 

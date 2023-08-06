@@ -103,8 +103,68 @@ func image_error(val C.int) error {
 	}
 }
 
-type SvgImage struct {
+type RgbImage struct {
 	image
+}
+
+var ErrImageDataTooShort = errors.New("image data too short")
+
+func NewRgbImage(data []uint8, w, h, depth int) (*RgbImage, error) {
+	if len(data) < w*h*depth {
+		return nil, ErrImageDataTooShort
+	}
+	img := &RgbImage{}
+	cData := (*C.uchar)(unsafe.Pointer(&data[0]))
+	initImage(img, unsafe.Pointer(C.go_fltk_rgb_image_data(cData, C.int(len(data)), C.int(w), C.int(h), C.int(depth), 0)))
+	if err := image_error(img.fail()); err != nil {
+		img.Destroy()
+		return nil, err
+	}
+	return img, nil
+}
+
+func NewRgbImageFromImage(image goimage.Image) (*RgbImage, error) {
+	rgbImage := &RgbImage{}
+	var w, h, stride, depth int
+	var data []uint8
+	var dataLen int
+	var cData *C.uchar
+	if grayImage, ok := image.(*goimage.Gray); ok {
+		cData = (*C.uchar)(unsafe.Pointer(&grayImage.Pix[0]))
+		dataLen = len(grayImage.Pix)
+		w, h, stride = grayImage.Rect.Dx(), grayImage.Rect.Dy(), grayImage.Stride
+		depth = 1
+	} else if rgbaImage, ok := image.(*goimage.RGBA); ok {
+		cData = (*C.uchar)(unsafe.Pointer(&rgbaImage.Pix[0]))
+		dataLen = len(rgbaImage.Pix)
+		w, h, stride = rgbaImage.Rect.Dx(), rgbaImage.Rect.Dy(), rgbaImage.Stride
+		depth = 4
+	} else {
+		w, h = image.Bounds().Dx(), image.Bounds().Dy()
+		depth = 4
+		data = make([]uint8, 0, w*h*4)
+		for dy := 0; dy < h; dy++ {
+			y := image.Bounds().Min.Y + dy
+			for dx := 0; dx < w; dx++ {
+				x := image.Bounds().Min.X + dx
+				r, g, b, a := image.At(x, y).RGBA()
+				r8, g8, b8, a8 := uint8(r>>8), uint8(g>>8), uint8(b>>8), uint8(a>>8)
+				data = append(data, r8, g8, b8, a8)
+			}
+		}
+		cData = (*C.uchar)(unsafe.Pointer(&data[0]))
+		dataLen = len(data)
+	}
+	initImage(rgbImage, unsafe.Pointer(C.go_fltk_rgb_image_data(cData, C.int(dataLen), C.int(w), C.int(h), C.int(depth), C.int(stride))))
+	if err := image_error(rgbImage.fail()); err != nil {
+		rgbImage.Destroy()
+		return nil, err
+	}
+	return rgbImage, nil
+}
+
+type SvgImage struct {
+	RgbImage
 }
 
 func NewSvgImageLoad(path string) (*SvgImage, error) {
@@ -132,7 +192,7 @@ func NewSvgImageFromString(str string) (*SvgImage, error) {
 }
 
 type PngImage struct {
-	image
+	RgbImage
 }
 
 func NewPngImageLoad(path string) (*PngImage, error) {
@@ -148,9 +208,9 @@ func NewPngImageLoad(path string) (*PngImage, error) {
 }
 
 func NewPngImageFromData(data []uint8) (*PngImage, error) {
-	buf := (*C.uchar)(unsafe.Pointer(&data[0]))
+	cData := (*C.uchar)(unsafe.Pointer(&data[0]))
 	img := &PngImage{}
-	initImage(img, unsafe.Pointer(C.go_fltk_png_image_data(buf, C.int(len(data)))))
+	initImage(img, unsafe.Pointer(C.go_fltk_png_image_data(cData, C.int(len(data)))))
 	if err := image_error(img.fail()); err != nil {
 		img.Destroy()
 		return nil, err
@@ -159,7 +219,7 @@ func NewPngImageFromData(data []uint8) (*PngImage, error) {
 }
 
 type JpegImage struct {
-	image
+	RgbImage
 }
 
 func NewJpegImageLoad(path string) (*JpegImage, error) {
@@ -175,9 +235,9 @@ func NewJpegImageLoad(path string) (*JpegImage, error) {
 }
 
 func NewJpegImageFromData(data []uint8) (*JpegImage, error) {
-	buf := (*C.uchar)(unsafe.Pointer(&data[0]))
+	cData := (*C.uchar)(unsafe.Pointer(&data[0]))
 	img := &JpegImage{}
-	initImage(img, unsafe.Pointer(C.go_fltk_jpg_image_data(buf, C.int(len(data)))))
+	initImage(img, unsafe.Pointer(C.go_fltk_jpg_image_data(cData, C.int(len(data)))))
 	if err := image_error(img.fail()); err != nil {
 		img.Destroy()
 		return nil, err
@@ -186,7 +246,7 @@ func NewJpegImageFromData(data []uint8) (*JpegImage, error) {
 }
 
 type BmpImage struct {
-	image
+	RgbImage
 }
 
 func NewBmpImageLoad(path string) (*BmpImage, error) {
@@ -202,94 +262,14 @@ func NewBmpImageLoad(path string) (*BmpImage, error) {
 }
 
 func NewBmpImageFromData(data []uint8) (*BmpImage, error) {
-	buf := (*C.uchar)(unsafe.Pointer(&data[0]))
+	cData := (*C.uchar)(unsafe.Pointer(&data[0]))
 	img := &BmpImage{}
-	initImage(img, unsafe.Pointer(C.go_fltk_bmp_image_data(buf, C.long(len(data)))))
+	initImage(img, unsafe.Pointer(C.go_fltk_bmp_image_data(cData, C.long(len(data)))))
 	if err := image_error(img.fail()); err != nil {
 		img.Destroy()
 		return nil, err
 	}
 	return img, nil
-}
-
-type RgbImage struct {
-	image
-	data []uint8
-}
-
-var ErrImageDataTooShort = errors.New("image data too short")
-
-func NewRgbImage(data []uint8, w, h, depth int) (*RgbImage, error) {
-	if len(data) < w*h*depth {
-		return nil, ErrImageDataTooShort
-	}
-	img := &RgbImage{}
-	img.data = append(make([]uint8, 0, len(data)), data...)
-	buf := (*C.uchar)(unsafe.Pointer(&img.data[0]))
-	initImage(img, unsafe.Pointer(C.go_fltk_rgb_image_data(buf, C.int(w), C.int(h), C.int(depth), C.int(0))))
-	if err := image_error(img.fail()); err != nil {
-		img.Destroy()
-		return nil, err
-	}
-	return img, nil
-}
-
-func NewRgbImageFromSvg(img *SvgImage) *RgbImage {
-	rgbImage := &RgbImage{}
-	rgbImage.image = img.image
-	return rgbImage
-}
-
-func NewRgbImageFromPng(img *PngImage) *RgbImage {
-	rgbImage := &RgbImage{}
-	rgbImage.image = img.image
-	return rgbImage
-}
-
-func NewRgbImageFromBmp(img *BmpImage) *RgbImage {
-	rgbImage := &RgbImage{}
-	rgbImage.image = img.image
-	return rgbImage
-}
-
-func NewRgbImageFromJpeg(img *JpegImage) *RgbImage {
-	rgbImage := &RgbImage{}
-	rgbImage.image = img.image
-	return rgbImage
-}
-
-func NewRgbImageFromImage(image goimage.Image) (*RgbImage, error) {
-	rgbImage := &RgbImage{}
-	var w, h, stride, depth int
-	if grayImage, ok := image.(*goimage.Gray); ok {
-		rgbImage.data = append(make([]uint8, 0, len(grayImage.Pix)), grayImage.Pix...)
-		w, h, stride = grayImage.Rect.Dx(), grayImage.Rect.Dy(), grayImage.Stride
-		depth = 1
-	} else if rgbaImage, ok := image.(*goimage.RGBA); ok {
-		rgbImage.data = append(make([]uint8, 0, len(rgbaImage.Pix)), rgbaImage.Pix...)
-		w, h, stride = rgbaImage.Rect.Dx(), rgbaImage.Rect.Dy(), rgbaImage.Stride
-		depth = 4
-	} else {
-		w, h, stride = image.Bounds().Dx(), image.Bounds().Dy(), 0
-		depth = 4
-		rgbImage.data = make([]uint8, 0, w*h*4)
-		for dy := 0; dy < h; dy++ {
-			y := image.Bounds().Min.Y + dy
-			for dx := 0; dx < w; dx++ {
-				x := image.Bounds().Min.X + dx
-				r, g, b, a := image.At(x, y).RGBA()
-				r8, g8, b8, a8 := uint8(r>>8), uint8(g>>8), uint8(b>>8), uint8(a>>8)
-				rgbImage.data = append(rgbImage.data, r8, g8, b8, a8)
-			}
-		}
-	}
-	buf := (*C.uchar)(unsafe.Pointer(&rgbImage.data[0]))
-	initImage(rgbImage, unsafe.Pointer(C.go_fltk_rgb_image_data(buf, C.int(w), C.int(h), C.int(depth), C.int(stride))))
-	if err := image_error(rgbImage.fail()); err != nil {
-		rgbImage.Destroy()
-		return nil, err
-	}
-	return rgbImage, nil
 }
 
 type SharedImage struct {
