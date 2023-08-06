@@ -85,6 +85,7 @@ func (w *widget) SetResizeHandler(handler func()) {
 		panic("this widget does not support resize handling")
 	}
 }
+
 // SetDrawHandler specifies the function that will be used to draw the widget.
 // The parameter to this function is another function which, when called draws
 // this widget as if not draw handler was specified.
