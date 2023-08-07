@@ -18,8 +18,7 @@ func main() {
 		svgImage.Scale(100, 100, true, true)
 		box.SetImage(svgImage)
 	}
-	rgbIconSvg := fltk.NewRgbImageFromSvg(svgImage)
-	win.SetIcons([]*fltk.RgbImage{rgbIconSvg})
+	win.SetIcons([]*fltk.RgbImage{&svgImage.RgbImage})
 	win.End()
 	win.Show()
 	fltk.Run()
