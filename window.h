@@ -15,6 +15,7 @@ extern "C" {
   extern void go_fltk_Window_show(Fl_Window *w);
   extern int go_fltk_Window_x_root(Fl_Window* w);
   extern int go_fltk_Window_y_root(Fl_Window* w);
+  extern void go_fltk_Window_set_xclass(Fl_Window* w, const char *wmclass);
   extern void go_fltk_Window_set_label(Fl_Window *w, const char *label);
   extern void go_fltk_Window_set_cursor(Fl_Window *w, int cursor);
   extern void go_fltk_Window_set_fullscreen(Fl_Window *w, int flag);

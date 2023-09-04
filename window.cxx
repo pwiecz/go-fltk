@@ -38,6 +38,10 @@ int go_fltk_Window_y_root(Fl_Window* w) {
   return w->y_root();
 }
 
+void go_fltk_Window_set_xclass(Fl_Window *w, const char *wmclass) {
+  w->xclass(wmclass);
+}
+
 void go_fltk_Window_set_label(Fl_Window *w, const char *label) {
   w->copy_label(label);
 }
