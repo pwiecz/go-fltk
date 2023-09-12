@@ -206,6 +206,14 @@ void go_fltk_TextBuffer_append(Fl_Text_Buffer *b, const char *txt) {
   b->append(txt);
 }
 
+void go_fltk_TextBuffer_insert(Fl_Text_Buffer *b, int pos, const char *txt) {
+  b->insert(pos, txt);
+}
+
+void go_fltk_TextBuffer_remove(Fl_Text_Buffer *b, int start, int end) {
+  b->remove(start, end);
+}
+
 unsigned int go_fltk_TextBuffer_char_at(Fl_Text_Buffer *b, int pos) {
   return b->char_at(pos);
 }
@@ -216,6 +224,30 @@ int go_fltk_TextBuffer_next_char(Fl_Text_Buffer *b, int ix) {
 
 int go_fltk_TextBuffer_prev_char(Fl_Text_Buffer *b, int ix) {
   return b->prev_char(ix);
+}
+
+int go_fltk_TextBuffer_line_start(Fl_Text_Buffer *b, int ix) {
+  return b->line_start(ix);
+}
+
+int go_fltk_TextBuffer_line_end(Fl_Text_Buffer *b, int ix) {
+  return b->line_end(ix);
+}
+
+const char *go_fltk_TextBuffer_line_text(Fl_Text_Buffer *b, int ix) {
+  return b->line_text(ix);
+}
+
+int go_fltk_TextBuffer_count_lines(Fl_Text_Buffer *b, int start, int end) {
+  return b->count_lines(start, end);
+}
+
+int go_fltk_TextBuffer_skip_lines(Fl_Text_Buffer *b, int start, int nlines) {
+  return b->skip_lines(start, nlines);
+}
+
+int go_fltk_TextBuffer_rewind_lines(Fl_Text_Buffer *b, int start, int nlines) {
+  return b->rewind_lines(start, nlines);
 }
 
 int go_fltk_TextBuffer_length(Fl_Text_Buffer *b) {

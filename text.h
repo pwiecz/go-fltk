@@ -56,9 +56,17 @@ extern "C" {
   extern void go_fltk_TextBuffer_delete(Fl_Text_Buffer* b);
   extern void go_fltk_TextBuffer_set_text(Fl_Text_Buffer *b, const char *txt);
   extern void go_fltk_TextBuffer_append(Fl_Text_Buffer *b, const char *txt);
+  extern void go_fltk_TextBuffer_insert(Fl_Text_Buffer *b, int pos, const char *txt);
+  extern void go_fltk_TextBuffer_remove(Fl_Text_Buffer *b, int start, int end);  
   extern unsigned int go_fltk_TextBuffer_char_at(Fl_Text_Buffer *b, int pos);
   extern int go_fltk_TextBuffer_next_char(Fl_Text_Buffer *b, int ix);
   extern int go_fltk_TextBuffer_prev_char(Fl_Text_Buffer *b, int ix);
+  extern int go_fltk_TextBuffer_line_start(Fl_Text_Buffer *b, int ix);
+  extern int go_fltk_TextBuffer_line_end(Fl_Text_Buffer *b, int ix);
+  extern const char *go_fltk_TextBuffer_line_text(Fl_Text_Buffer *b, int ix);
+  extern int go_fltk_TextBuffer_count_lines(Fl_Text_Buffer *b, int start, int end);
+  extern int go_fltk_TextBuffer_skip_lines(Fl_Text_Buffer *b, int start, int nlines);
+  extern int go_fltk_TextBuffer_rewind_lines(Fl_Text_Buffer *b, int start, int nlines);  
   extern int go_fltk_TextBuffer_length(Fl_Text_Buffer *b);
   extern const char *go_fltk_TextBuffer_text(Fl_Text_Buffer *b);
   extern const char *go_fltk_TextBuffer_text_range(Fl_Text_Buffer *b, int start, int end);

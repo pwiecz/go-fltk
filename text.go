@@ -102,6 +102,16 @@ func (b *TextBuffer) Append(txt string) {
 	C.go_fltk_TextBuffer_append(b.ptr(), txtstr)
 }
 
+func (b *TextBuffer) Insert(pos int, txt string) {
+	txtstr := C.CString(txt)
+	defer C.free(unsafe.Pointer(txtstr))
+	C.go_fltk_TextBuffer_insert(b.ptr(), C.int(pos), txtstr)
+}
+
+func (b *TextBuffer) Remove(start, end int) {
+	C.go_fltk_TextBuffer_remove(b.ptr(), C.int(start), C.int(end))
+}
+
 func (b *TextBuffer) CharAt(pos int) rune {
 	return rune(C.go_fltk_TextBuffer_char_at(b.ptr(), C.int(pos)))
 }
@@ -112,6 +122,32 @@ func (b *TextBuffer) NextChar(pos int) int {
 
 func (b *TextBuffer) PrevChar(pos int) int {
 	return int(C.go_fltk_TextBuffer_prev_char(b.ptr(), C.int(pos)))
+}
+
+func (b *TextBuffer) LineStart(pos int) int {
+	return int(C.go_fltk_TextBuffer_line_start(b.ptr(), C.int(pos)))
+}
+
+func (b *TextBuffer) LineEnd(pos int) int {
+	return int(C.go_fltk_TextBuffer_line_end(b.ptr(), C.int(pos)))
+}
+
+func (b *TextBuffer) LineText(pos int) string {
+	cStr := C.go_fltk_TextBuffer_line_text(b.ptr(), C.int(pos))
+	defer C.free(unsafe.Pointer(cStr))
+	return C.GoString(cStr)
+}
+
+func (b *TextBuffer) CountLines(start, end int) int {
+	return int(C.go_fltk_TextBuffer_count_lines(b.ptr(), C.int(start), C.int(end)))
+}
+
+func (b *TextBuffer) SkipLines(start, nLines int) int {
+	return int(C.go_fltk_TextBuffer_skip_lines(b.ptr(), C.int(start), C.int(nLines)))
+}
+
+func (b *TextBuffer) RewindLines(start, nLines int) int {
+	return int(C.go_fltk_TextBuffer_rewind_lines(b.ptr(), C.int(start), C.int(nLines)))
 }
 
 func (b *TextBuffer) Length() int {
@@ -211,31 +247,31 @@ func (b *TextBuffer) Select(start, end int) {
 	C.go_fltk_TextBuffer_select(b.ptr(), C.int(start), C.int(end))
 }
 
-// Selected Check if any text is selected
-func (b *TextBuffer) IsSelected(start, end int) bool {
+// IsSelected checks if any text is selected
+func (b *TextBuffer) IsSelected() bool {
 	return C.go_fltk_TextBuffer_selected(b.ptr()) != 0
 }
 
-// GetSelectionPosition - Get position (start, end) of the currently selected text
+// GetSelectionPosition gets position (start, end) of the currently selected text
 func (b *TextBuffer) GetSelectionPosition() (int, int) {
 	var _start, _end C.int
 	C.go_fltk_TextBuffer_selection_position(b.ptr(), &_start, &_end)
 	return int(_start), int(_end)
 }
 
-// GetSelectionText return the text within the current selection
+// GetSelectionText returns the text within the current selection
 func (b *TextBuffer) GetSelectionText() string {
 	cStr := C.go_fltk_TextBuffer_selection_text(b.ptr())
 	defer C.free(unsafe.Pointer(cStr))
 	return C.GoString(cStr)
 }
 
-// UnSelect - unselect any selections in the buffer
+// UnSelect unselects any selections in the buffer
 func (b *TextBuffer) UnSelect() {
 	C.go_fltk_TextBuffer_unselect(b.ptr())
 }
 
-// SetTabWidth - set the TAB distance (width)
+// SetTabWidth sets the TAB distance (width)
 func (b *TextBuffer) SetTabWidth(tabWidth int) {
 	C.go_fltk_TextBuffer_set_tab_distance(b.ptr(), C.int(tabWidth))
 }
