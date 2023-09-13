@@ -252,26 +252,26 @@ func (b *TextBuffer) IsSelected() bool {
 	return C.go_fltk_TextBuffer_selected(b.ptr()) != 0
 }
 
-// GetSelectionPosition - Get position (start, end) of the currently selected text
+// GetSelectionPosition gets position (start, end) of the currently selected text
 func (b *TextBuffer) GetSelectionPosition() (int, int) {
 	var _start, _end C.int
 	C.go_fltk_TextBuffer_selection_position(b.ptr(), &_start, &_end)
 	return int(_start), int(_end)
 }
 
-// GetSelectionText return the text within the current selection
+// GetSelectionText returns the text within the current selection
 func (b *TextBuffer) GetSelectionText() string {
 	cStr := C.go_fltk_TextBuffer_selection_text(b.ptr())
 	defer C.free(unsafe.Pointer(cStr))
 	return C.GoString(cStr)
 }
 
-// UnSelect - unselect any selections in the buffer
+// UnSelect unselects any selections in the buffer
 func (b *TextBuffer) UnSelect() {
 	C.go_fltk_TextBuffer_unselect(b.ptr())
 }
 
-// SetTabWidth - set the TAB distance (width)
+// SetTabWidth sets the TAB distance (width)
 func (b *TextBuffer) SetTabWidth(tabWidth int) {
 	C.go_fltk_TextBuffer_set_tab_distance(b.ptr(), C.int(tabWidth))
 }
