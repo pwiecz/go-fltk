@@ -1,3 +1,3 @@
-module github.com/pwiecz/go-fltk
+module github.com/tomet/go-fltk
 
 go 1.16
