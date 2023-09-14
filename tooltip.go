@@ -25,3 +25,7 @@ func TooltipDelay() float32 {
 func SetTooltipDelay(delay float32) {
 	C.go_fltk_set_tooltip_delay(C.float(delay))
 }
+
+func TooltipEnterArea(wi Widget, x, y, w, h int, tip string) {
+	C.go_fltk_tooltip_enter_area(wi.getWidget().ptr(), C.int(x), C.int(y), C.int(w), C.int(h), C.CString(tip))
+}

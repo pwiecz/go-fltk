@@ -22,3 +22,7 @@ float go_fltk_tooltip_delay() {
 void go_fltk_set_tooltip_delay(float delay) {
   Fl_Tooltip::delay(delay);  
 }
+
+void go_fltk_tooltip_enter_area(Fl_Widget *wi, int x, int y, int w, int h, const char *tip) {
+	Fl_Tooltip::enter_area(wi, x, y, w, h, tip);
+}
