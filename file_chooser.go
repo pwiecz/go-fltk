@@ -112,3 +112,180 @@ func ChooseFile(message, pattern, initialFilename string, relative bool) (string
 	}
 	return C.GoString(res), true
 }
+
+type NativeFileChooser struct {
+	ptr *C.Fl_Native_File_Chooser
+}
+
+func NewNativeFileChooser() *NativeFileChooser {
+	return &NativeFileChooser{
+		C.go_fltk_new_NativeFileChooser(),
+	}
+}
+
+var ErrNativeFileChooserDestroyed = errors.New("native file chooser is destroyed")
+
+func (c *NativeFileChooser) Destroy() {
+	if c.ptr == nil {
+		panic(ErrNativeFileChooserDestroyed)
+	}
+	C.go_fltk_NativeFileChooser_destroy(c.ptr)
+	c.ptr = nil
+}
+func (c *NativeFileChooser) Count() int {
+	if c.ptr == nil {
+		panic(ErrNativeFileChooserDestroyed)
+	}
+	return int(C.go_fltk_NativeFileChooser_count(c.ptr))
+}
+
+func (c *NativeFileChooser) Directory() string {
+	if c.ptr == nil {
+		panic(ErrNativeFileChooserDestroyed)
+	}
+	return C.GoString(C.go_fltk_NativeFileChooser_directory(c.ptr))
+}
+
+func (c *NativeFileChooser) SetDirectory(directory string) {
+	if c.ptr == nil {
+		panic(ErrNativeFileChooserDestroyed)
+	}
+	directoryStr := C.CString(directory)
+	defer C.free(unsafe.Pointer(directoryStr))
+	C.go_fltk_NativeFileChooser_set_directory(c.ptr, directoryStr)
+}
+
+func (c *NativeFileChooser) Filenames() []string {
+	if c.ptr == nil {
+		panic(ErrNativeFileChooserDestroyed)
+	}
+	count := c.Count()
+	var filenames []string
+	for i := 0; i < count; i++ {
+		filename := C.GoString(C.go_fltk_NativeFileChooser_nth_filename(c.ptr, C.int(i)))
+		filenames = append(filenames, filename)
+	}
+	return filenames
+}
+
+func (c *NativeFileChooser) Filter() string {
+	if c.ptr == nil {
+		panic(ErrNativeFileChooserDestroyed)
+	}
+	return C.GoString(C.go_fltk_NativeFileChooser_filter(c.ptr))
+}
+
+func (c *NativeFileChooser) SetFilter(filter string) {
+	if c.ptr == nil {
+		panic(ErrNativeFileChooserDestroyed)
+	}
+	filterStr := C.CString(filter)
+	defer C.free(unsafe.Pointer(filterStr))
+	C.go_fltk_NativeFileChooser_set_filter(c.ptr, filterStr)
+}
+
+func (c *NativeFileChooser) FilterValue() int {
+	if c.ptr == nil {
+		panic(ErrNativeFileChooserDestroyed)
+	}
+	return int(C.go_fltk_NativeFileChooser_filter_value(c.ptr))
+}
+
+func (c *NativeFileChooser) SetFilterValue(v int) {
+	if c.ptr == nil {
+		panic(ErrNativeFileChooserDestroyed)
+	}
+	C.go_fltk_NativeFileChooser_set_filter_value(c.ptr, C.int(v))
+}
+
+func (c *NativeFileChooser) FilterCount() int {
+	if c.ptr == nil {
+		panic(ErrNativeFileChooserDestroyed)
+	}
+	return int(C.go_fltk_NativeFileChooser_filters(c.ptr))
+}
+
+func (c *NativeFileChooser) Options() int {
+	if c.ptr == nil {
+		panic(ErrNativeFileChooserDestroyed)
+	}
+	return int(C.go_fltk_NativeFileChooser_options(c.ptr))
+}
+
+type NativeFileChooserType int
+
+var (
+	// NativeFileChooser options
+	NativeFileChooser_NO_OPTIONS     = int(C.go_FL_NativeFileChooser_NO_OPTIONS)
+	NativeFileChooser_SAVEAS_CONFIRM = int(C.go_FL_NativeFileChooser_SAVEAS_CONFIRM)
+	NativeFileChooser_NEW_FOLDER     = int(C.go_FL_NativeFileChooser_NEW_FOLDER)
+	NativeFileChooser_PREVIEW        = int(C.go_FL_NativeFileChooser_PREVIEW)
+	NativeFileChooser_USE_FILTER_EXT = int(C.go_FL_NativeFileChooser_USE_FILTER_EXT)
+
+	NativeFileChooser_BROWSE_FILE            = NativeFileChooserType(C.go_FL_NativeFileChooser_BROWSE_FILE)
+	NativeFileChooser_BROWSE_DIRECTORY       = NativeFileChooserType(C.go_FL_NativeFileChooser_BROWSE_DIRECTORY)
+	NativeFileChooser_BROWSE_MULTI_FILE      = NativeFileChooserType(C.go_FL_NativeFileChooser_BROWSE_MULTI_FILE)
+	NativeFileChooser_BROWSE_MULTI_DIRECTORY = NativeFileChooserType(C.go_FL_NativeFileChooser_BROWSE_MULTI_DIRECTORY)
+	NativeFileChooser_BROWSE_SAVE_FILE       = NativeFileChooserType(C.go_FL_NativeFileChooser_BROWSE_SAVE_FILE)
+	NativeFileChooser_BROWSE_SAVE_DIRECTORY  = NativeFileChooserType(C.go_FL_NativeFileChooser_BROWSE_SAVE_DIRECTORY)
+)
+
+func (c *NativeFileChooser) SetOptions(options int) {
+	if c.ptr == nil {
+		panic(ErrNativeFileChooserDestroyed)
+	}
+	C.go_fltk_NativeFileChooser_set_options(c.ptr, C.int(options))
+}
+
+func (c *NativeFileChooser) PresetFile() string {
+	if c.ptr == nil {
+		panic(ErrNativeFileChooserDestroyed)
+	}
+	return C.GoString(C.go_fltk_NativeFileChooser_preset_file(c.ptr))
+}
+
+func (c *NativeFileChooser) SetPresetFile(presetFile string) {
+	if c.ptr == nil {
+		panic(ErrNativeFileChooserDestroyed)
+	}
+	presetFileStr := C.CString(presetFile)
+	defer C.free(unsafe.Pointer(presetFileStr))
+	C.go_fltk_NativeFileChooser_set_preset_file(c.ptr, presetFileStr)
+}
+
+func (c *NativeFileChooser) Show() int {
+	if c.ptr == nil {
+		panic(ErrNativeFileChooserDestroyed)
+	}
+	return int(C.go_fltk_NativeFileChooser_show(c.ptr))
+}
+
+func (c *NativeFileChooser) Title() string {
+	if c.ptr == nil {
+		panic(ErrNativeFileChooserDestroyed)
+	}
+	return C.GoString(C.go_fltk_NativeFileChooser_title(c.ptr))
+}
+
+func (c *NativeFileChooser) SetTitle(title string) {
+	if c.ptr == nil {
+		panic(ErrNativeFileChooserDestroyed)
+	}
+	titleStr := C.CString(title)
+	defer C.free(unsafe.Pointer(titleStr))
+	C.go_fltk_NativeFileChooser_set_title(c.ptr, titleStr)
+}
+
+func (c *NativeFileChooser) Type() NativeFileChooserType {
+	if c.ptr == nil {
+		panic(ErrNativeFileChooserDestroyed)
+	}
+	return NativeFileChooserType(C.go_fltk_NativeFileChooser_type(c.ptr))
+}
+
+func (c *NativeFileChooser) SetType(typ NativeFileChooserType) {
+	if c.ptr == nil {
+		panic(ErrNativeFileChooserDestroyed)
+	}
+	C.go_fltk_NativeFileChooser_set_type(c.ptr, C.int(typ))
+}
