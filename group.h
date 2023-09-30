@@ -17,6 +17,7 @@ extern "C" {
   extern void go_fltk_Group_resizable(Fl_Group *g, Fl_Widget *w);
   extern void go_fltk_Group_draw_children(Fl_Group *g);
   extern Fl_Widget* go_fltk_Group_child(Fl_Group *g, int index);
+  extern int go_fltk_Group_child_count(Fl_Group* g);
 
 #ifdef __cplusplus
 }

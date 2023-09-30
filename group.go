@@ -48,3 +48,16 @@ func (g *Group) Child(index int) *widget {
 	initUnownedWidget(widget, unsafe.Pointer(child))
 	return widget
 }
+
+func (g *Group) ChildCount() int {
+	return int(C.go_fltk_Group_child_count((*C.Fl_Group)(g.ptr())))
+}
+
+func (g *Group) Children() []*widget {
+	childCount := g.ChildCount()
+	children := make([]*widget, 0, childCount)
+	for i := 0; i < childCount; i++ {
+		children = append(children, g.Child(i))
+	}
+	return children
+}

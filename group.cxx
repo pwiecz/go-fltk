@@ -44,4 +44,8 @@ Fl_Widget* go_fltk_Group_child(Fl_Group *g, int index) {
     return nullptr;
   }
   return g->child(index);
-}  
+}
+
+int go_fltk_Group_child_count(Fl_Group *g) {
+  return g->children();
+}
