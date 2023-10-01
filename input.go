@@ -57,3 +57,9 @@ func NewFloatInput(x, y, w, h int, text ...string) *FloatInput {
 	initWidget(i, unsafe.Pointer(C.go_fltk_new_Float_Input(C.int(x), C.int(y), C.int(w), C.int(h), cStringOpt(text))))
 	return i
 }
+
+func NewIntInput(x, y, w, h int, text ...string) *FloatInput {
+	i := &FloatInput{}
+	initWidget(i, unsafe.Pointer(C.go_fltk_new_Int_Input(C.int(x), C.int(y), C.int(w), C.int(h), cStringOpt(text))))
+	return i
+}

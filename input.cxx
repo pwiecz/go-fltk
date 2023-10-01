@@ -3,6 +3,7 @@
 #include <FL/Fl_Input.H>
 #include <FL/Fl_Output.H>
 #include <FL/Fl_Float_Input.H>
+#include <FL/Fl_Int_Input.H>
 
 #include "event_handler.h"
 
@@ -57,5 +58,15 @@ public:
 
 GFloat_Input *go_fltk_new_Float_Input(int x, int y, int w, int h, const char *text) {
   return new GFloat_Input(x, y, w, h, text);
+}
+
+class GInt_Input : public EventHandler<Fl_Int_Input> {
+public:
+  GInt_Input(int x, int y, int w, int h, const char *label)
+    : EventHandler<Fl_Int_Input>(x, y, w, h, label) {}
+};
+
+GInt_Input *go_fltk_new_Int_Input(int x, int y, int w, int h, const char *text) {
+  return new GInt_Input(x, y, w, h, text);
 }
 

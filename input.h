@@ -11,6 +11,7 @@ extern "C" {
   typedef struct GInput GInput;
   typedef struct GOutput GOutput;
   typedef struct GFloat_Input GFloat_Input;
+  typedef struct GInt_Input GInt_Input;
 
   extern GInput *go_fltk_new_Input(int x, int y, int w, int h, const char *text);
 
@@ -23,7 +24,7 @@ extern "C" {
 		
   extern GOutput *go_fltk_new_Output(int x, int y, int w, int h, const char *text);
   extern GFloat_Input *go_fltk_new_Float_Input(int x, int y, int w, int h, const char *text);
-
+  extern GInt_Input *go_fltk_new_Int_Input(int x, int y, int w, int h, const char *text);
 
 #ifdef __cplusplus
 }
