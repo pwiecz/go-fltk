@@ -276,6 +276,11 @@ func (b *CheckBrowser) Remove(item int) {
 func (b *CheckBrowser) Clear() {
 	C.go_fltk_Check_Browser_clear((*C.Fl_Check_Browser)(b.ptr()))
 }
+
 func (b *CheckBrowser) ItemCount() int {
 	return int(C.go_fltk_Check_Browser_nitems((*C.Fl_Check_Browser)(b.ptr())))
+}
+
+func (b *CheckBrowser) Text(item int) string {
+	return C.GoString(C.go_fltk_Check_Browser_text((*C.Fl_Check_Browser)(b.ptr()), C.int(item)))
 }

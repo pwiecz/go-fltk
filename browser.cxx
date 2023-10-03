@@ -195,3 +195,6 @@ void go_fltk_Check_Browser_clear(Fl_Check_Browser *b) {
 int go_fltk_Check_Browser_nitems(Fl_Check_Browser *b) {
   return b->nitems();
 }  
+const char* go_fltk_Check_Browser_text(Fl_Check_Browser *b, int item) {
+  return b->text(item);
+}  
