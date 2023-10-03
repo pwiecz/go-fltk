@@ -159,3 +159,12 @@ const char* go_fltk_Browser_text(Fl_Browser* b, int line) {
 void go_fltk_Browser_set_column_widths(Fl_Browser* b, const int *arr) {
 	b->column_widths(arr);
 }
+
+int go_fltk_Browser_select(Fl_Browser* b, int line, int val) {
+	return b->select(line, val);
+}
+
+int go_fltk_Browser_selected(Fl_Browser* b, int line) {
+	return b->selected(line);
+}
+

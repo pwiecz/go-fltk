@@ -40,6 +40,10 @@ extern "C" {
 	extern const char* go_fltk_Browser_text(Fl_Browser* b, int line);
 	extern void        go_fltk_Browser_set_column_widths(Fl_Browser* b, const int *arr);
 
+	extern int         go_fltk_Browser_select(Fl_Browser* b, int line, int val);
+	extern int         go_fltk_Browser_selected(Fl_Browser* b, int line);
+
+
 	extern GSelectBrowser  *go_fltk_new_Select_Browser(int x, int y, int w, int h, const char *text);
 	extern GHoldBrowser    *go_fltk_new_Hold_Browser(int x, int y, int w, int h, const char *text);
 	extern GMultiBrowser   *go_fltk_new_Multi_Browser(int x, int y, int w, int h, const char *text);
