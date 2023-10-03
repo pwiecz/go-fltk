@@ -135,7 +135,6 @@ func (b *Browser) SetIcon(line int, i Image) {
 		C.go_fltk_Browser_set_icon((*C.Fl_Browser)(b.ptr()), C.int(line), nil)
 		return
 	}
-
 	b.icons[line] = i
 	C.go_fltk_Browser_set_icon((*C.Fl_Browser)(b.ptr()), C.int(line), b.icons[line].getImage().ptr())
 }
@@ -232,4 +231,51 @@ func NewMultiBrowser(x, y, w, h int, text ...string) *MultiBrowser {
 	b.dataMap = make(map[uintptr]interface{})
 	initWidget(b, unsafe.Pointer(C.go_fltk_new_Multi_Browser(C.int(x), C.int(y), C.int(w), C.int(h), cStringOpt(text))))
 	return b
+}
+
+type CheckBrowser struct {
+	Group
+}
+
+func NewCheckBrowser(x, y, w, h int, text ...string) *CheckBrowser {
+	b := &CheckBrowser{}
+	initWidget(b, unsafe.Pointer(C.go_fltk_new_Check_Browser(C.int(x), C.int(y), C.int(w), C.int(h), cStringOpt(text))))
+	return b
+}
+
+func (b *CheckBrowser) Add(s string, checked bool) {
+	str := C.CString(s)
+	defer C.free(unsafe.Pointer(str))
+	if checked {
+		C.go_fltk_Check_Browser_add((*C.Fl_Check_Browser)(b.ptr()), str, 1)
+	} else {
+		C.go_fltk_Check_Browser_add((*C.Fl_Check_Browser)(b.ptr()), str, 0)
+	}
+}
+
+func (b *CheckBrowser) SetChecked(item int, checked bool) {
+	if checked {
+		C.go_fltk_Check_Browser_set_checked((*C.Fl_Check_Browser)(b.ptr()), C.int(item), 1)
+	} else {
+		C.go_fltk_Check_Browser_set_checked((*C.Fl_Check_Browser)(b.ptr()), C.int(item), 0)
+	}
+}
+
+func (b *CheckBrowser) IsChecked(item int) bool {
+	return C.go_fltk_Check_Browser_is_checked((*C.Fl_Check_Browser)(b.ptr()), C.int(item)) != 0
+}
+
+func (b *CheckBrowser) CheckedCount() int {
+	return int(C.go_fltk_Check_Browser_nchecked((*C.Fl_Check_Browser)(b.ptr())))
+}
+
+func (b *CheckBrowser) Remove(item int) {
+	C.go_fltk_Check_Browser_remove((*C.Fl_Check_Browser)(b.ptr()), C.int(item))
+}
+
+func (b *CheckBrowser) Clear() {
+	C.go_fltk_Check_Browser_clear((*C.Fl_Check_Browser)(b.ptr()))
+}
+func (b *CheckBrowser) ItemCount() int {
+	return int(C.go_fltk_Check_Browser_nitems((*C.Fl_Check_Browser)(b.ptr())))
 }

@@ -1,9 +1,10 @@
 #include "browser.h"
 
 #include <FL/Fl_Browser.H>
-#include <FL/Fl_Select_Browser.H>
+#include <FL/Fl_Check_Browser.H>
 #include <FL/Fl_Hold_Browser.H>
 #include <FL/Fl_Multi_Browser.H>
+#include <FL/Fl_Select_Browser.H>
 
 #include "event_handler.h"
 
@@ -29,7 +30,6 @@
 //  insert()
 //  lineposition()
 //  load()
-
 
 
 class GBrowser : public EventHandler<Fl_Browser> {
@@ -62,16 +62,13 @@ void go_fltk_Browser_set_topline(Fl_Browser* b, int i) {
 	b->topline(i);
 }
 
-void go_fltk_Browser_clear(Fl_Browser* b) {
-	b->clear();
-}
+void go_fltk_Browser_clear(Fl_Browser *b) {
+        b->clear();
+}  
 
 uintptr_t go_fltk_Browser_data(Fl_Browser* b, int line) {
 	return (uintptr_t)b->data(line);
 }
-
-
-
 
 class GSelectBrowser : public EventHandler<Fl_Select_Browser> {
 public:
@@ -102,7 +99,6 @@ public:
 GMultiBrowser *go_fltk_new_Multi_Browser(int x, int y, int w, int h, const char *text) {
 	return new GMultiBrowser(x, y, w, h, text);
 }
-
 
 void go_fltk_Browser_remove(Fl_Browser* b, int i) {
 	b->remove(i);
@@ -168,3 +164,34 @@ int go_fltk_Browser_selected(Fl_Browser* b, int line) {
 	return b->selected(line);
 }
 
+class GCheckBrowser : public EventHandler<Fl_Check_Browser> {
+public:
+  GCheckBrowser(int x, int y, int w, int h, const char *label)
+    : EventHandler<Fl_Check_Browser>(x, y, w, h, label) {}
+};
+
+GCheckBrowser *go_fltk_new_Check_Browser(int x, int y, int w, int h, const char *text) {
+  return new GCheckBrowser(x, y, w, h, text);
+}
+void go_fltk_Check_Browser_add(Fl_Check_Browser *b, const char *s, int checked) {
+  b->add(s, checked);
+}
+void go_fltk_Check_Browser_set_checked(Fl_Check_Browser *b, int item,
+                                       int checked) {
+  b->checked(item, checked);
+}
+int go_fltk_Check_Browser_is_checked(Fl_Check_Browser *b, int item) {
+  return b->checked(item);
+}
+int go_fltk_Check_Browser_nchecked(Fl_Check_Browser *b) {
+  return b->nchecked();
+}
+void go_fltk_Check_Browser_remove(Fl_Check_Browser *b, int item) {
+  b->remove(item);
+}
+void go_fltk_Check_Browser_clear(Fl_Check_Browser *b) {
+  b->clear();  
+}
+int go_fltk_Check_Browser_nitems(Fl_Check_Browser *b) {
+  return b->nitems();
+}  
