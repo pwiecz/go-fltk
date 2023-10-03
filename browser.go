@@ -189,6 +189,18 @@ func (b *Browser) SetValue(line int) {
 	C.go_fltk_Browser_set_value((*C.Fl_Browser)(b.ptr()), C.int(line))
 }
 
+func (b *Browser) SetSelected(line int, val bool) bool {
+	if val {
+		return C.go_fltk_Browser_select((*C.Fl_Browser)(b.ptr()), C.int(line), 1) != 0
+	} else {
+		return C.go_fltk_Browser_select((*C.Fl_Browser)(b.ptr()), C.int(line), 0) != 0
+	}
+}
+
+func (b *Browser) IsSelected(line int) bool {
+	return C.go_fltk_Browser_selected((*C.Fl_Browser)(b.ptr()), C.int(line)) != 0
+}
+
 type SelectBrowser struct {
 	Browser
 }
