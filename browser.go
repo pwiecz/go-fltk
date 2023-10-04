@@ -14,8 +14,35 @@ type Browser struct {
 	Group
 	icons        map[int]Image
 	columnWidths []int
-	dataMap      map[uintptr]interface{}
-	lastDataID   uintptr
+	dataMap      *browserDataMap
+}
+
+type browserDataMap struct {
+	dataMap map[uintptr]interface{}
+	id      uintptr
+}
+
+func newBrowserDataMap() *browserDataMap {
+	return &browserDataMap{
+		dataMap: make(map[uintptr]interface{}),
+	}
+}
+func (m *browserDataMap) register(data interface{}) uintptr {
+	m.id++
+	m.dataMap[m.id] = data
+	return m.id
+}
+func (m *browserDataMap) unregister(id uintptr) {
+	delete(m.dataMap, id)
+}
+func (m *browserDataMap) data(id uintptr) interface{} {
+	if id == 0 {
+		return nil
+	}
+	if data, ok := m.dataMap[id]; ok {
+		return data
+	}
+	return nil
 }
 
 var (
@@ -24,7 +51,7 @@ var (
 
 func NewBrowser(x, y, w, h int, text ...string) *Browser {
 	b := &Browser{}
-	b.dataMap = make(map[uintptr]interface{})
+	b.dataMap = newBrowserDataMap()
 	b.icons = make(map[int]Image)
 	initWidget(b, unsafe.Pointer(C.go_fltk_new_Browser(C.int(x), C.int(y), C.int(w), C.int(h), cStringOpt(text))))
 	return b
@@ -41,9 +68,7 @@ func (b *Browser) AddWithData(str string, data interface{}) {
 	cStr := C.CString(str)
 	defer C.free(unsafe.Pointer(cStr))
 
-	b.lastDataID++
-	id := b.lastDataID
-	b.dataMap[id] = data
+	id := b.dataMap.register(data)
 
 	C.go_fltk_Browser_add((*C.Fl_Browser)(b.ptr()), cStr, C.uintptr_t(id))
 }
@@ -83,7 +108,7 @@ func (b *Browser) Clear() {
 	for k := range b.icons {
 		delete(b.icons, k)
 	}
-	b.dataMap = make(map[uintptr]interface{})
+	b.dataMap = newBrowserDataMap()
 	C.go_fltk_Browser_clear((*C.Fl_Browser)(b.ptr()))
 }
 
@@ -95,7 +120,7 @@ func (b *Browser) Remove(line int) error {
 
 	// TODO: got the id from C++ is expensive, need a better way to delete go reference
 	id := uintptr(C.go_fltk_Browser_data((*C.Fl_Browser)(b.ptr()), C.int(line)))
-	delete(b.dataMap, id)
+	b.dataMap.unregister(id)
 
 	C.go_fltk_Browser_remove((*C.Fl_Browser)(b.ptr()), C.int(line))
 	return nil
@@ -177,7 +202,7 @@ func (b *Browser) ColumnWidths() []int {
 
 func (b *Browser) Data(line int) interface{} {
 	id := uintptr(C.go_fltk_Browser_data((*C.Fl_Browser)(b.ptr()), C.int(line)))
-	return b.dataMap[id]
+	return b.dataMap.data(id)
 }
 
 func (b *Browser) Value() int {
@@ -206,7 +231,7 @@ type SelectBrowser struct {
 
 func NewSelectBrowser(x, y, w, h int, text ...string) *SelectBrowser {
 	b := &SelectBrowser{}
-	b.dataMap = make(map[uintptr]interface{})
+	b.dataMap = newBrowserDataMap()
 	initWidget(b, unsafe.Pointer(C.go_fltk_new_Select_Browser(C.int(x), C.int(y), C.int(w), C.int(h), cStringOpt(text))))
 	return b
 }
@@ -217,7 +242,7 @@ type HoldBrowser struct {
 
 func NewHoldBrowser(x, y, w, h int, text ...string) *HoldBrowser {
 	b := &HoldBrowser{}
-	b.dataMap = make(map[uintptr]interface{})
+	b.dataMap = newBrowserDataMap()
 	initWidget(b, unsafe.Pointer(C.go_fltk_new_Hold_Browser(C.int(x), C.int(y), C.int(w), C.int(h), cStringOpt(text))))
 	return b
 }
@@ -228,17 +253,19 @@ type MultiBrowser struct {
 
 func NewMultiBrowser(x, y, w, h int, text ...string) *MultiBrowser {
 	b := &MultiBrowser{}
-	b.dataMap = make(map[uintptr]interface{})
+	b.dataMap = newBrowserDataMap()
 	initWidget(b, unsafe.Pointer(C.go_fltk_new_Multi_Browser(C.int(x), C.int(y), C.int(w), C.int(h), cStringOpt(text))))
 	return b
 }
 
 type CheckBrowser struct {
 	Group
+	dataMap *browserDataMap
 }
 
 func NewCheckBrowser(x, y, w, h int, text ...string) *CheckBrowser {
 	b := &CheckBrowser{}
+	b.dataMap = newBrowserDataMap()
 	initWidget(b, unsafe.Pointer(C.go_fltk_new_Check_Browser(C.int(x), C.int(y), C.int(w), C.int(h), cStringOpt(text))))
 	return b
 }
