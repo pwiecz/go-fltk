@@ -6,7 +6,7 @@
 A simple wrapper around FLTK 1.4 library, which is a lightweight GUI library which allows creating small, self-contained and fast gui applications.
 
 ## Requirements
-In addition to Go, you will also need a C++11 compiler. The FLTK libraries are bundled with the repo for x86_64 Linux, MacOS and Windows (mingw64).
+In addition to Go, you will also need a C++11 compiler. The FLTK libraries are bundled with the repo for Linux (x86_64), MacOS (x86_64 and arm64) and Windows (mingw64).
 You also need some system libs which are normally available on operating systems with a graphical user interfaces:
 - Windows: No external dependencies (for mingw64)
 - MacOS: No external dependencies
