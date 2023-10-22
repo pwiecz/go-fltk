@@ -1,5 +1,7 @@
 #!/bin/sh
 
+git submodules update --init --recursive
+
 cd fltk
 
 platform=""
