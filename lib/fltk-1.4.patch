@@ -1,0 +1,29 @@
+--- a/src/Fl_win32.cxx	2021-06-10 12:32:19.000000000 +0200
++++ b/src/Fl_win32.cxx	2021-06-14 20:49:32.297449100 +0200
+@@ -603,18 +603,18 @@
+ public:
+   Fl_Win32_At_Exit() {}
+   ~Fl_Win32_At_Exit() {
+-    fl_free_fonts(); // do some Windows cleanup
+-    fl_cleanup_pens();
+-    OleUninitialize();
+-    if (fl_graphics_driver) fl_brush_action(1);
+-    fl_cleanup_dc_list();
++    //fl_free_fonts(); // do some Windows cleanup
++    //fl_cleanup_pens();
++    //OleUninitialize();
++    //if (fl_graphics_driver) fl_brush_action(1);
++    //fl_cleanup_dc_list();
+     // This is actually too late in the cleanup process to remove the
+     // clipboard notifications, but we have no earlier hook so we try
+     // to work around it anyway.
+-    if (clipboard_wnd != NULL)
+-      fl_clipboard_notify_untarget(clipboard_wnd);
++    //if (clipboard_wnd != NULL)
++    //  fl_clipboard_notify_untarget(clipboard_wnd);
+ #if USE_GDIPLUS
+-    Fl_GDIplus_Graphics_Driver::shutdown();
++    //Fl_GDIplus_Graphics_Driver::shutdown();
+ #endif
+   }
+ };
