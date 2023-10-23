@@ -1,6 +1,6 @@
 #!/bin/sh
 
-git submodules update --init --recursive
+git submodule update --init --recursive
 
 cd fltk
 
@@ -23,8 +23,13 @@ CMAKE_FLAGS="-DFLTK_BUILD_TEST=OFF
 case "$platform" in 
     "macos")
         CMAKE_FLAGS="$CMAKE_FLAGS -DCMAKE_OSX_ARCHITECTURES=x86_64"
+        ;;
+    "linux")
+        CMAKE_FLAGS="$CMAKE_FLAGS -DOPTION_USE_WAYLAND=OFF -DOPTION_USE_CAIRO=ON -DOPTION_USE_PANGO=ON"
+        ;;
+
 esac
 
 cmake -B . $CMAKE_FLAGS
-cmake --build .
+cmake --build . --parallel
 

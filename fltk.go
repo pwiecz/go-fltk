@@ -3,9 +3,9 @@ package fltk
 //go:generate sh fltk_build.sh
 
 /*
-#cgo CPPFLAGS: -I${SRCDIR}/include
+#cgo CPPFLAGS: -I${SRCDIR}/fltk
 #cgo CXXFLAGS: -std=c++11
-#cgo LDFLAGS: ${SRCDIR}/fltk/lib/linux/x64/libfltk.a ${SRCDIR}/fltk/lib/linux/x64/libfltk_images.a ${SRCDIR}/fltk/lib/linux/x64/libfltk_z.a ${SRCDIR}/fltk/lib/linux/x64/libfltk_jpeg.a ${SRCDIR}/fltk/lib/linux/x64/libfltk_png.a ${SRCDIR}/fltk/lib/linux/x64/libfltk_gl.a -lGLU -lGL -lXrender -lXcursor -lXfixes -lXext -lXft -lfontconfig -lXinerama -lpthread -ldl -lm -lX11 -lcairo -lpango-1.0 -lpangoxft-1.0 -lgobject-2.0 -lpangocairo-1.0
+#cgo LDFLAGS: ${SRCDIR}/fltk/lib/libfltk.a ${SRCDIR}/fltk/lib/libfltk_images.a ${SRCDIR}/fltk/lib/libfltk_z.a ${SRCDIR}/fltk/lib/libfltk_jpeg.a ${SRCDIR}/fltk/lib/libfltk_png.a ${SRCDIR}/fltk/lib/libfltk_gl.a -lGLU -lGL -lXrender -lXcursor -lXfixes -lXext -lXft -lfontconfig -lXinerama -lpthread -ldl -lm -lX11 -lcairo -lpango-1.0 -lpangoxft-1.0 -lgobject-2.0 -lpangocairo-1.0
 #include <stdlib.h>
 #include "fltk.h"
 */
