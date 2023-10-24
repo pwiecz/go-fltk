@@ -1,9 +1,13 @@
 #!/bin/sh
 
-git submodule update --init --recursive
+commit="master"
+fltk_url="https://github.com/fltk/fltk/archive/refs/heads/$commit.tar.gz"
+
+wget -O - "$fltk_url" | tar -xz
 
 platform=""
 arch="$(uname -i)"
+
 case "$(uname)" in
     Linux*) 
         platform="linux" 
@@ -35,6 +39,6 @@ case "$platform" in
         ;;
 esac
 
-cmake -S fltk -B fltk_bin $CMAKE_FLAGS
+cmake -S "fltk-$commit" -B fltk_bin $CMAKE_FLAGS
 cmake --build fltk_bin --parallel
 
