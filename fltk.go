@@ -5,7 +5,10 @@ package fltk
 /*
 #cgo CPPFLAGS: -I${SRCDIR}/fltk
 #cgo CXXFLAGS: -std=c++11
-#cgo LDFLAGS: ${SRCDIR}/fltk/lib/libfltk.a ${SRCDIR}/fltk/lib/libfltk_images.a ${SRCDIR}/fltk/lib/libfltk_z.a ${SRCDIR}/fltk/lib/libfltk_jpeg.a ${SRCDIR}/fltk/lib/libfltk_png.a ${SRCDIR}/fltk/lib/libfltk_gl.a -lGLU -lGL -lXrender -lXcursor -lXfixes -lXext -lXft -lfontconfig -lXinerama -lpthread -ldl -lm -lX11 -lcairo -lpango-1.0 -lpangoxft-1.0 -lgobject-2.0 -lpangocairo-1.0
+#cgo linux LDFLAGS: ${SRCDIR}/fltk_bin/lib/libfltk.a ${SRCDIR}/fltk_bin/lib/libfltk_images.a ${SRCDIR}/fltk_bin/lib/libfltk_z.a ${SRCDIR}/fltk_bin/lib/libfltk_jpeg.a ${SRCDIR}/fltk_bin/lib/libfltk_png.a ${SRCDIR}/fltk_bin/lib/libfltk_gl.a -lGLU -lGL -lXrender -lXcursor -lXfixes -lXext -lXft -lfontconfig -lXinerama -lpthread -ldl -lm -lX11 -lcairo -lpango-1.0 -lpangoxft-1.0 -lgobject-2.0 -lpangocairo-1.0
+#cgo darwin LDFLAGS: ${SRCDIR}/fltk_bin/lib/libfltk.a ${SRCDIR}/fltk_bin/lib/libfltk_images.a ${SRCDIR}/fltk_bin/lib/libfltk_z.a ${SRCDIR}/fltk_bin/lib/libfltk_jpeg.a ${SRCDIR}/fltk_bin/lib/libfltk_png.a ${SRCDIR}/fltk_bin/lib/libfltk_gl.a -framework Cocoa -framework OpenGL -framework ApplicationServices -framework Carbon
+#cgo windows LDFLAGS: -L${SRCDIR}/fltk_bin/lib -lfltk -lfltk_images -lfltk_z -lfltk_png -lfltk_jpeg -lfltk_gl -lglu32 -lopengl32 -lgdiplus -lgdi32 -luser32 -lole32 -lcomctl32 -luuid -lws2_32 -lcomdlg32
+
 #include <stdlib.h>
 #include "fltk.h"
 */

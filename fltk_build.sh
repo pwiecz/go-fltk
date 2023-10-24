@@ -2,16 +2,19 @@
 
 git submodule update --init --recursive
 
-cd fltk
-
 platform=""
+arch="$(uname -i)"
 case "$(uname)" in
-    Linux*) platform="linux" ;;
-    Darwin*) platform="macos" ;;
-    MINGW*|MSYS_NT*|CYGWIN*) platform="windows";;
+    Linux*) 
+        platform="linux" 
+        ;;
+    Darwin*) 
+        platform="macos" 
+        ;;
+    MINGW*|MSYS_NT*|CYGWIN*) 
+        platform="windows"
+        ;;
 esac
-
-patch -Np1 -i ../lib/fltk-1.4.patch
 
 CMAKE_FLAGS="-DFLTK_BUILD_TEST=OFF
              -DCMAKE_BUILD_TYPE=Release
@@ -22,14 +25,16 @@ CMAKE_FLAGS="-DFLTK_BUILD_TEST=OFF
 
 case "$platform" in 
     "macos")
-        CMAKE_FLAGS="$CMAKE_FLAGS -DCMAKE_OSX_ARCHITECTURES=x86_64"
+        CMAKE_FLAGS="$CMAKE_FLAGS -DCMAKE_OSX_ARCHITECTURES=$arch"
         ;;
     "linux")
         CMAKE_FLAGS="$CMAKE_FLAGS -DOPTION_USE_WAYLAND=OFF -DOPTION_USE_CAIRO=ON -DOPTION_USE_PANGO=ON"
         ;;
-
+    "windows")
+        patch -Np1 -i ../lib/fltk-1.4.patch
+        ;;
 esac
 
-cmake -B . $CMAKE_FLAGS
-cmake --build . --parallel
+cmake -S fltk -B fltk_bin $CMAKE_FLAGS
+cmake --build fltk_bin --parallel
 
