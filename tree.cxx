@@ -23,6 +23,18 @@ Fl_Tree_Item* go_fltk_Tree_add(Fl_Tree *tree, const char *path) {
   return tree->add(path);
 }
 
+int go_fltk_Tree_remove(Fl_Tree *tree, Fl_Tree_Item *item) {
+  return tree->remove(item);
+}
+
+void go_fltk_Tree_clear(Fl_Tree *tree) {
+  tree->clear();
+}
+
+void go_fltk_Tree_clear_children(Fl_Tree *tree, Fl_Tree_Item *item) {
+  tree->clear_children(item);
+}  
+
 void go_fltk_Tree_Item_set_widget(Fl_Tree_Item *item, Fl_Widget *widget) {
   item->widget(widget);
 }
@@ -41,3 +53,12 @@ const int go_FL_TREE_CONNECTOR_SOLID = (int)FL_TREE_CONNECTOR_SOLID;
 void go_fltk_Tree_set_connector_style(Fl_Tree *tree, int style) {
   tree->connectorstyle((Fl_Tree_Connector)style);
 }
+
+const int go_FL_TREE_SELECT_NONE = (int)FL_TREE_SELECT_NONE;
+const int go_FL_TREE_SELECT_SINGLE = (int)FL_TREE_SELECT_SINGLE;
+const int go_FL_TREE_SELECT_MULTI = (int)FL_TREE_SELECT_MULTI;
+const int go_FL_TREE_SELECT_SINGLE_DRAGGABLE = (int)FL_TREE_SELECT_SINGLE_DRAGGABLE;
+
+void go_fltk_Tree_set_select_mode(Fl_Tree *tree, int selectMode) {
+  tree->selectmode((Fl_Tree_Select)selectMode);
+}  
