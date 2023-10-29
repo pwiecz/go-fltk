@@ -35,7 +35,7 @@ func (w *Window) YRoot() int {
 func (w *Window) SetXClass(wmclass string) {
 	wmclassStr := C.CString(wmclass)
 	defer C.free(unsafe.Pointer(wmclassStr))
-  C.go_fltk_Window_set_xclass((*C.Fl_Window)(w.ptr()), wmclassStr)
+	C.go_fltk_Window_set_xclass((*C.Fl_Window)(w.ptr()), wmclassStr)
 }
 func (w *Window) SetLabel(label string) {
 	labelStr := C.CString(label)

@@ -15,7 +15,7 @@ func main() {
 	menu.Add("Insert item at start", func() { menu.Insert(0, "Inserted item", func() { fmt.Println("Inserted item selected") }) })
 	menu.Add("Remove first item", func() { menu.Remove(0) })
 	menu.Add("Replace first label", func() { menu.Replace(0, "New label") })
-	
+
 	win.End()
 	win.Show()
 	fltk.Run()

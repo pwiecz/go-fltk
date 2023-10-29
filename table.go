@@ -17,7 +17,7 @@ func (t *table) SetRowCount(rowCount int) {
 	C.go_fltk_Table_set_row_count((*C.Fl_Table)(t.ptr()), C.int(rowCount))
 }
 func (t *table) RowCount() int {
-	return int(C.go_fltk_Table_row_count((*C.Fl_Table)(t.ptr())));
+	return int(C.go_fltk_Table_row_count((*C.Fl_Table)(t.ptr())))
 }
 func (t *table) SetRowHeight(row, height int) {
 	C.go_fltk_Table_set_row_height((*C.Fl_Table)(t.ptr()), C.int(row), C.int(height))
