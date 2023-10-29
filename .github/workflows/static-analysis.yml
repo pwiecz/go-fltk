@@ -1,4 +1,4 @@
-name: Check
+name: Static analysis
 
 on:
   push:
