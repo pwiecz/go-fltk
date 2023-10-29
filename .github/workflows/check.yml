@@ -16,11 +16,16 @@ jobs:
     
     steps:
     - uses: actions/checkout@v3
-
+    
+    - name: Downgrate MinGW
+      if: matrix.os == 'windows-latest'
+      run: choco install mingw --version 11.2.0.07112021 --allow-downgrade
+    
     - name: Set up Go
       uses: actions/setup-go@v3
       with:
         go-version: 1.18
+    
     - name: Download deps
       run: |
          if [ "$RUNNER_OS" == "Linux" ]; then
