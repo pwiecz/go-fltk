@@ -2,24 +2,23 @@ package main
 
 import (
 	"strings"
+
 	"github.com/pwiecz/go-fltk"
 )
-
-
 
 func main() {
 	fltk.SetScheme("oxy")
 
-	entries := []fltk.StyleTableEntry {
+	entries := []fltk.StyleTableEntry{
 		fltk.StyleTableEntry{
-			fltk.RED,
-			fltk.HELVETICA,
-			14,
+			Color: fltk.RED,
+			Font:  fltk.HELVETICA,
+			Size:  14,
 		},
 		fltk.StyleTableEntry{
-			fltk.BLUE,
-			fltk.HELVETICA,
-			14,
+			Color: fltk.BLUE,
+			Font:  fltk.HELVETICA,
+			Size:  14,
 		},
 	}
 

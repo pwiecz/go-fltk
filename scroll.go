@@ -26,7 +26,6 @@ func (s *Scroll) YPosition() int {
 	return int(C.go_fltk_Scroll_y_position((*C.Fl_Scroll)(s.ptr())))
 }
 
-
 type ScrollType uint8
 
 var (

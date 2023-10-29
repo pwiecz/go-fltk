@@ -51,7 +51,7 @@ func EventIsClick() bool {
 func EventClicks() int {
 	return int(C.go_fltk_event_clicks())
 }
-func SetEventClicks(i int){
+func SetEventClicks(i int) {
 	C.go_fltk_event_set_clicks(C.int(i))
 }
 func EventText() string {
