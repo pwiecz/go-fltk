@@ -556,6 +556,7 @@ func (t *TextEditor) Redo() bool {
 // NewTextEditor returns a TextEditor.
 //
 // Example:
+//
 //	textBuffer := fltk.NewTextBuffer()
 //	textEditor := fltk.NewTextEditor(x, y, width, height)
 //	textEditor.SetBuffer(textBuffer)
