@@ -66,9 +66,6 @@ case "$GOOS" in
 		 exit 1
 	esac
         ;;
-    "windows")
-        patch -Np1 -i ../lib/fltk-1.4.patch || exit 1
-        ;;
     *)
 	;;
 esac
@@ -81,19 +78,14 @@ cd .. || exit 1
 
 CGO_FILENAME=cgo_${GOOS}_${GOARCH}.go
 
-echo -n "//go:build $GOOS && $GOARCH
-
-package fltk
-
-// #cgo $GOOS,$GOARCH CXXFLAGS: -std=c++11
-// #cgo $GOOS,$GOARCH CPPFLAGS: " > $CGO_FILENAME || exit 1
+printf "//go:build $GOOS && $GOARCH\n\npackage fltk\n\n// #cgo $GOOS,$GOARCH CXXFLAGS: -std=c++11\n// #cgo $GOOS,$GOARCH CPPFLAGS: " > $CGO_FILENAME || exit 1
 
 FLTK_CONFIG_FLAGS="--use-gl --use-images --use-forms"
 
 sh fltk_build/build/bin/fltk-config $FLTK_CONFIG_FLAGS --cxxflags | sed s^${CMAKE_INSTALL_PREFIX}^'\$\{SRCDIR\}'^g >> $CGO_FILENAME || exit 1
 
-echo -n "// #cgo $GOOS,$GOARCH LDFLAGS: " >> $CGO_FILENAME || exit 1
+printf "// #cgo $GOOS,$GOARCH LDFLAGS: " >> $CGO_FILENAME || exit 1
 
 sh fltk_build/build/bin/fltk-config $FLTK_CONFIG_FLAGS --ldstaticflags | sed s^${CMAKE_INSTALL_PREFIX}^'\$\{SRCDIR\}'^g >> $CGO_FILENAME || exit 1
 
-echo 'import "C"' >> $CGO_FILENAME || exit 1
+printf 'import "C"\n' >> $CGO_FILENAME || exit 1
