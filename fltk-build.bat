@@ -15,7 +15,7 @@ IF "%GOARCH%" == "" (
 )
 
 ECHO "Building FLTK for OS: %GOOS%, architecture: %GOARCH%"
-ECHO "Current dir: %CD%"
+
 SET CMAKE_INSTALL_PREFIX="%CD%"
 SET CMAKE_INSTALL_LIBDIR="lib/%GOOS%/%GOARCH%"
 SET CMAKE_INSTALL_INCLUDEDIR="include"
@@ -43,7 +43,8 @@ IF EXIST fltk (
 git apply ../../lib/fltk-1.4.patch
 IF %ERRORLEVEL% NEQ 0 EXIT /B 1
 
-SET COMMIT="master"
+REM SET COMMIT="master"
+SET COMMIT="eb759cb118fbf09da51938c04978e609822dbb48"
 git checkout "%COMMIT%"
 IF %ERRORLEVEL% NEQ 0 EXIT /B 1
 

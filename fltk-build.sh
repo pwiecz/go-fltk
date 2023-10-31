@@ -34,7 +34,8 @@ else
     cd fltk || exit 1
 fi
 
-COMMIT="master"
+#COMMIT="master"
+COMMIT="eb759cb118fbf09da51938c04978e609822dbb48"
 git checkout "$COMMIT" || exit 1
 
 cd ..
