@@ -77,9 +77,12 @@ cmake --install build || exit 1
 
 cd .. || exit 1
 
+mkdir -p "${CMAKE_INSTALL_LIBDIR}/FL" || exit 1
+mv "${CMAKE_INSTALL_INCLUDEDIR}/FL/fl_config.h" "${CMAKE_INSTALL_LIBDIR}/FL/" || exit 1
+
 CGO_FILENAME=cgo_${GOOS}_${GOARCH}.go
 
-printf "//go:build $GOOS && $GOARCH\n\npackage fltk\n\n// #cgo $GOOS,$GOARCH CXXFLAGS: -std=c++11\n// #cgo $GOOS,$GOARCH CPPFLAGS: " > $CGO_FILENAME || exit 1
+printf "//go:build $GOOS && $GOARCH\n\npackage fltk\n\n// #cgo $GOOS,$GOARCH CXXFLAGS: -std=c++11\n// #cgo $GOOS,$GOARCH CPPFLAGS: -I\${SRCDIR}/$CMAKE_INSTALL_LIBDIR " > $CGO_FILENAME || exit 1
 
 FLTK_CONFIG_FLAGS="--use-gl --use-images --use-forms"
 

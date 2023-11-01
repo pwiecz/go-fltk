@@ -59,6 +59,10 @@ IF %ERRORLEVEL% NEQ 0 EXIT /B 1
 
 CD ..
 
+IF NOT EXIST %CMAKE_INSTALL_LIBDIR%/FL MKDIR %CMAKE_INSTALL_LIBDIR%/FL
+MOVE /Y %CMAKE_INSTALL_INCLUDEDIR%/FL/fl_config.h %CMAKE_INSTALL_LIBDIR%/FL/
+IF %ERRORLEVEL% NEQ 0 EXIT /B 1
+
 SET CGO_FILENAME=cgo_%GOOS%_%GOARCH%.go
 
 REM Hardcoding contents of cgo directive for windows, as we cannot extract it from fltk-config if we're not using bash.
@@ -67,8 +71,8 @@ ECHO: >>  %CGO_FILENAME%
 ECHO package fltk >> %CGO_FILENAME%
 ECHO: >> %CGO_FILENAME%
 ECHO // #cgo %GOOS%,%GOARCH% CXXFLAGS: -std=c++11 >> %CGO_FILENAME%
-ECHO // #cgo %GOOS%,%GOARCH% CPPFLAGS: -I${SRCDIR}/include -I${SRCDIR}/include/FL/images -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 >> %CGO_FILENAME%
-ECHO // #cgo %GOOS%,%GOARCH% LDFLAGS: -mwindows ${SRCDIR}/lib/windows/amd64/libfltk_images.a ${SRCDIR}/lib/windows/amd64/libfltk_jpeg.a ${SRCDIR}/lib/windows/amd64/libfltk_png.a ${SRCDIR}/lib/windows/amd64/libfltk_z.a ${SRCDIR}/lib/windows/amd64/libfltk_gl.a -lglu32 -lopengl32 ${SRCDIR}/lib/windows/amd64/libfltk_forms.a ${SRCDIR}/lib/windows/amd64/libfltk.a -lgdiplus -lole32 -luuid -lcomctl32 -lws2_32 >> %CGO_FILENAME%
+ECHO // #cgo %GOOS%,%GOARCH% CPPFLAGS: -I${SRCDIR}/%CMAKE_INSTALL_LIBDIR% -I${SRCDIR}/include -I${SRCDIR}/include/FL/images -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 >> %CGO_FILENAME%
+ECHO // #cgo %GOOS%,%GOARCH% LDFLAGS: -mwindows ${SRCDIR}/%CMAKE_INSTALL_LIBDIR%/libfltk_images.a ${SRCDIR}/%CMAKE_INSTALL_LIBDIR%/libfltk_jpeg.a ${SRCDIR}/%CMAKE_INSTALL_LIBDIR%/libfltk_png.a ${SRCDIR}/%CMAKE_INSTALL_LIBDIR%/libfltk_z.a ${SRCDIR}/%CMAKE_INSTALL_LIBDIR%/libfltk_gl.a -lglu32 -lopengl32 ${SRCDIR}/%CMAKE_INSTALL_LIBDIR%/libfltk_forms.a ${SRCDIR}/%CMAKE_INSTALL_LIBDIR%/libfltk.a -lgdiplus -lole32 -luuid -lcomctl32 -lws2_32 >> %CGO_FILENAME%
 ECHO import "C" >> %CGO_FILENAME%
 
 COLOR 07
