@@ -32,7 +32,7 @@ jobs:
         elif [[ "$RUNNER_OS" == "macOS" ]]; then
           OS="darwin"
         else
-	  echo "Unknown RUNNER_OS: $RUNNER_OS"
+          echo "Unknown RUNNER_OS: $RUNNER_OS"
           exit 1
         fi
         if [[ "$RUNNER_ARCH" == "X86" ]]; then
