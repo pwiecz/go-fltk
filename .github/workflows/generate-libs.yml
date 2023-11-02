@@ -11,19 +11,9 @@ jobs:
         os: [macos-latest, ubuntu-latest, windows-latest]
     
     steps:
-    - name: Check out code
-      uses: actions/checkout@v4
-    
-    - name: Set up Go
-      uses: actions/setup-go@v4
-      with:
-        go-version: "1.20.x"
-    
-    - name: Run go generate
-      run: go generate
-    
     - name: Determine library paths
       id: lib-paths
+      shell: bash
       run: |
         if [[ "$RUNNER_OS" == "Windows" ]]; then
           OS="windows"
@@ -47,7 +37,18 @@ jobs:
           echo "Unknown RUNNER_ARCH: $RUNNER_ARCH"
           exit 1
         fi
-        echo "::set-output name=lib_path::lib/$OS/$ARCH"
+        echo "lib_path=lib/$OS/$ARCH" >> $GITHUB_OUTPUT
+
+    - name: Check out code
+      uses: actions/checkout@v4
+    
+    - name: Set up Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: "1.20.x"
+    
+    - name: Run go generate
+      run: go generate
 
     - name: Archive generated files
       uses: actions/upload-artifact@v3
