@@ -37,8 +37,8 @@ jobs:
           echo "Unknown RUNNER_ARCH: $RUNNER_ARCH"
           exit 1
         fi
-        echo "cgo_path=cgo_$OS_$ARCH.go" >> $GITHUB_OUTPUT
-        echo "lib_path=lib/$OS/$ARCH" >> $GITHUB_OUTPUT
+        echo "cgo_path=cgo_${OS}_${ARCH}.go" >> $GITHUB_OUTPUT
+        echo "lib_path=lib/${OS}/${ARCH}" >> $GITHUB_OUTPUT
 
     - name: Check out code
       uses: actions/checkout@v4
