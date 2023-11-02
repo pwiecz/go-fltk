@@ -76,5 +76,8 @@ ECHO // #cgo %GOOS%,%GOARCH% CPPFLAGS: -I${SRCDIR}/%CMAKE_INSTALL_LIBDIR% -I${SR
 ECHO // #cgo %GOOS%,%GOARCH% LDFLAGS: -mwindows ${SRCDIR}/%CMAKE_INSTALL_LIBDIR%/libfltk_images.a ${SRCDIR}/%CMAKE_INSTALL_LIBDIR%/libfltk_jpeg.a ${SRCDIR}/%CMAKE_INSTALL_LIBDIR%/libfltk_png.a ${SRCDIR}/%CMAKE_INSTALL_LIBDIR%/libfltk_z.a ${SRCDIR}/%CMAKE_INSTALL_LIBDIR%/libfltk_gl.a -lglu32 -lopengl32 ${SRCDIR}/%CMAKE_INSTALL_LIBDIR%/libfltk_forms.a ${SRCDIR}/%CMAKE_INSTALL_LIBDIR%/libfltk.a -lgdiplus -lole32 -luuid -lcomctl32 -lws2_32 >> %CGO_FILENAME%
 ECHO import "C" >> %CGO_FILENAME%
 
+REM Call go fmt to fix newline characters
+go fmt
+
 REM Running cmake in command prompt messes up with terminal colors. Calling COLOR 07 seems to fix it, but it doesn't seem to work, when it's invoked from bash.
 REM COLOR 07
