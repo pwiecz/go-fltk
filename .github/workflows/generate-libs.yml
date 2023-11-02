@@ -1,0 +1,57 @@
+name: Generate libraries
+
+on:
+  workflow_dispatch:
+
+jobs:
+  generate:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+    
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+    
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: 1.17
+    
+    - name: Run go generate
+      run: go generate ./...
+    
+    - name: Determine library paths
+      id: lib-paths
+      run: |
+        if [[ "$RUNNER_OS" == "Windows" ]]; then
+          OS="windows"
+        elif [[ "$RUNNER_OS" == "Linux" ]]; then
+          OS="linux"
+        elif [[ "$RUNNER_OS" == "macos-latest" ]]; then
+          OS="maxOS"
+        else
+          exit 1
+        fi
+        if [[ "$RUNNER_ARCH" == "X86" ]]; then
+          ARCH="386"
+        elif [[ "$RUNNER_ARCH" == "X64" ]]; then
+          ARCH="amd64"
+        elif [[ "$RUNNER_ARCH" == "ARM" ]]; then
+          ARCH="arm"
+        elif [[ "$RUNNER_ARCH" == "ARM64" ]]; then
+          ARCH="arm64
+        else
+          exit 1
+        fi
+        echo "::set-output name=lib_path::lib/$OS/$ARCH"
+
+    - name: Archive generated files
+      uses: actions/upload-artifact@v2
+      with:
+        name: libs
+        path: |
+          ${{ steps.lib-paths.outputs.lib_path }}/*.a
+          ${{ steps.lib-paths.outputs.lib_path }}/FL/fl_config.h
+          include

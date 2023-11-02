@@ -193,6 +193,9 @@ protected:
   /* Draw the text in the passed bounding box. */
   void drawtext(int, int, int, int);
 
+  /* Draw the text in the passed bounding box. */
+  void drawtext(int, int, int, int, bool draw_active);
+
   /* Move the cursor to the column given by up_down_pos. */
   int up_down_position(int, int keepmark=0);
 
@@ -384,8 +387,14 @@ public:
   /* Undo previous changes to the text buffer. */
   int undo();
 
+  /* Return true if the last operation can be undone. */
+  bool can_undo() const;
+
   /* Redo previous undo operations. */
   int redo();
+
+  /* Return true if there is a redo action in the list. */
+  bool can_redo() const;
 
   /* Copy the yank buffer to the clipboard. */
   int copy_cuts();

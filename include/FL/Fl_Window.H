@@ -160,7 +160,21 @@ public:
     Fl_Window(int w, int h, const char *title = 0);
   /** Creates a window from the given position (x, y), size (w, h) and title.
 
+   On a multi-screen system, the values computed by
+   Fl::screen_xywh(int &X, int &Y, int &W, int &H, int n) can be used to
+   discover the coordinates of the area of screen \#n.
+   When these screens have various scale factor
+   values, an \p (x, y) pair may not be enough to specify the targeted screen
+   for the window, because the same \p (x,y) pair can belong to several screens.
+   In that situation, a call to Fl_Window::screen_num(int) is to be used to identify
+   unambiguously the targeted screen.
+
     \see Fl_Window(int w, int h, const char *title)
+    \see Fl::screen_xywh(int &X, int &Y, int &W, int &H, int n)
+
+   \note Under Wayland, it's generally not possible for the client app to control
+   the position of a window in the system. It's only possible to specify on what screen
+   should the compositor place a fullscreen window.
   */
     Fl_Window(int x, int y, int w, int h, const char *title = 0);
   /**
@@ -560,6 +574,7 @@ public:
 
   // Note: Doxygen docs in Fl_Widget.H to avoid redundancy.
   Fl_Window* as_window() FL_OVERRIDE { return this; }
+  Fl_Window const* as_window() const FL_OVERRIDE { return this; }
 
   /**
    Return non-null if this is an Fl_Overlay_Window object.
@@ -572,8 +587,9 @@ public:
   virtual class Fl_Double_Window *as_double_window() {return 0L;}
 
   void shape(const Fl_Image* img);
-  void shape(const Fl_Image& b) ;
+  void shape(const Fl_Image& b);
   const Fl_Image *shape();
+  void draw_backdrop();
   int screen_num();
   void screen_num(int screen_num);
   static bool is_a_rescale();

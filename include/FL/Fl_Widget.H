@@ -14,13 +14,14 @@
 //     https://www.fltk.org/bugs.php
 //
 
-/** \file
-   Fl_Widget, Fl_Label classes . */
+/**
+  \file FL/Fl_Widget.H
+  \brief Fl_Widget and Fl_Label classes.
+*/
 
 #ifndef Fl_Widget_H
 #define Fl_Widget_H
 
-#include "Enumerations.H"
 #include "Fl.H"
 
 class Fl_Widget;
@@ -69,6 +70,24 @@ struct FL_EXPORT Fl_Label {
 };
 
 
+/** A class prototype that allows for additional data in callbacks.
+
+ Users can extend this class and pass it to widget callbacks. Widgets can
+ take ownership of the callback data, deleting the data when the widget
+ itself is deleted.
+
+ The destructor of this class is virtual, allowing for additional code to
+ deallocate resources when the user data is deleted.
+
+ \see FL_FUNCTION_CALLBACK_3, FL_METHOD_CALLBACK_1, FL_INLINE_CALLBACK_2
+ \see Fl_Widget::callback(Fl_Callback*, Fl_Callback_User_Data*, bool)
+ \see Fl_Widget::user_data(Fl_Callback_User_Data*, bool)
+ */
+class Fl_Callback_User_Data {
+public:
+  virtual ~Fl_Callback_User_Data() { }
+};
+
 
 /** Fl_Widget is the base class for all widgets in FLTK.
 
@@ -84,7 +103,6 @@ struct FL_EXPORT Fl_Label {
  */
 class FL_EXPORT Fl_Widget {
   friend class Fl_Group;
-  friend void Fl::focus(Fl_Widget*);
 
   Fl_Group* parent_;
   Fl_Callback* callback_;
@@ -152,16 +170,21 @@ protected:
         CLIP_CHILDREN   = 1<<11,  ///< all drawing within this widget will be clipped (Fl_Group)
         MENU_WINDOW     = 1<<12,  ///< a temporary popup window, dismissed by clicking outside (Fl_Window)
         TOOLTIP_WINDOW  = 1<<13,  ///< a temporary popup, transparent to events, and dismissed easily (Fl_Window)
-        MODAL           = 1<<14,  ///< a window blocking input to all other winows (Fl_Window)
+        MODAL           = 1<<14,  ///< a window blocking input to all other windows (Fl_Window)
         NO_OVERLAY      = 1<<15,  ///< window not using a hardware overlay plane (Fl_Menu_Window)
         GROUP_RELATIVE  = 1<<16,  ///< Reserved, not implemented. DO NOT USE.
         COPIED_TOOLTIP  = 1<<17,  ///< the widget tooltip is internally copied, its destruction is handled by the widget
         FULLSCREEN      = 1<<18,  ///< a fullscreen window (Fl_Window)
-        MAC_USE_ACCENTS_MENU = 1<<19, ///< On the Mac OS platform, pressing and holding a key on the keyboard opens an accented-character menu window (Fl_Input_, Fl_Text_Editor)
-        NEEDS_KEYBOARD  = 1<<20,  ///< set this on touch screen devices if a widget needs a keyboard when it gets Focus. @see Fl_Screen_Driver::request_keyboard()
+        MAC_USE_ACCENTS_MENU = 1<<19, ///< On the macOS platform, pressing and holding a key on the keyboard opens an accented-character menu window (Fl_Input_, Fl_Text_Editor)
+        NEEDS_KEYBOARD  = 1<<20,  ///< set on touch screen devices if a widget needs a keyboard when it gets the focus. Reserved, not yet used in 1.4.0. \see Fl_Widget::needs_keyboard()
         IMAGE_BOUND     = 1<<21,  ///< binding the image to the widget will transfer ownership, so that the widget will delete the image when it is no longer needed
-        DEIMAGE_BOUND   = 1<<22,  ///< bind the inactive image to the widget, so the widget deletes the image when it no longer needed
-        // a tiny bit more space for new flags...
+        DEIMAGE_BOUND   = 1<<22,  ///< bind the inactive image to the widget, so the widget deletes the image when it is no longer needed
+        AUTO_DELETE_USER_DATA = 1<<23, ///< automatically call `delete` on the user_data pointer when destroying this widget; if set, user_data must point to a class derived from the class Fl_Callback_User_Data
+
+        // Note to devs: add new FLTK core flags above this line (up to 1<<28).
+
+        // Three more flags, reserved for user code
+
         USERFLAG3       = 1<<29,  ///< reserved for 3rd party extensions
         USERFLAG2       = 1<<30,  ///< reserved for 3rd party extensions
         USERFLAG1       = 1<<31   ///< reserved for 3rd party extensions
@@ -252,6 +275,34 @@ public:
       \retval 1 current label was assigned with copy_label().
   */
   int is_label_copied() const {return ((flags_ & COPIED_LABEL) ? 1 : 0);}
+
+  /**
+    Sets whether this widget needs a keyboard.
+
+    Set this on touch screen devices if a widget needs a keyboard when it gets the focus.
+
+    \note This flag can be set but is not yet \b used in FLTK 1.4.0. It is intended to be
+      used in the future on real touch devices.
+
+    \param[in]  needs   Set this to true or false
+
+    \internal Needs implementations in screen driver methods:
+      \see Fl::screen_driver()->request_keyboard();
+      \see Fl::screen_driver()->release_keyboard();
+  */
+  void needs_keyboard(bool needs) {
+    if (needs) set_flag(NEEDS_KEYBOARD);
+    else clear_flag(NEEDS_KEYBOARD);
+  }
+
+  /**
+    Returns whether this widget needs a keyboard.
+    \return  true or false
+    \see needs_keyboard(bool)
+  */
+  bool needs_keyboard() const {
+    return (flags_ & NEEDS_KEYBOARD);
+  }
 
   /** Returns a pointer to the parent widget.
       Usually this is a Fl_Group or Fl_Window.
@@ -635,12 +686,27 @@ public:
    */
   Fl_Callback_p callback() const {return callback_;}
 
-  /** Sets the current callback function for the widget.
+  /** Sets the current callback function and data for the widget.
       Each widget has a single callback.
       \param[in] cb new callback
       \param[in] p user data
    */
-  void callback(Fl_Callback* cb, void* p) {callback_ = cb; user_data_ = p;}
+  void callback(Fl_Callback* cb, void* p) {
+    callback_ = cb;
+    user_data(p);
+  }
+
+  /** Sets the current callback function and managed user data for the widget.
+   Setting auto_free will transfer ownership of the callback user data to the
+   widget. Deleting the widget will then also delete the user data.
+   \param[in] cb new callback
+   \param[in] p user data
+   \param[in] auto_free if set, the widget will free user data when destroyed
+   */
+  void callback(Fl_Callback* cb, Fl_Callback_User_Data* p, bool auto_free) {
+    callback_ = cb;
+    user_data(p, auto_free);
+  }
 
   /** Sets the current callback function for the widget.
       Each widget has a single callback.
@@ -652,7 +718,9 @@ public:
       Each widget has a single callback.
       \param[in] cb new callback
    */
-  void callback(Fl_Callback0* cb) {callback_ = (Fl_Callback*)cb;}
+  void callback(Fl_Callback0* cb) {
+    callback_ = (Fl_Callback*)(fl_intptr_t)(cb);
+  }
 
   /** Sets the current callback function for the widget.
       Each widget has a single callback.
@@ -660,8 +728,8 @@ public:
       \param[in] p user data
    */
   void callback(Fl_Callback1* cb, long p = 0) {
-    callback_ = (Fl_Callback*)cb;
-    user_data_ = (void*)(fl_intptr_t)p;
+    callback_ = (Fl_Callback*)(fl_intptr_t)(cb);
+    user_data((void*)(fl_intptr_t)p);
   }
 
   /** Gets the user data for this widget.
@@ -670,11 +738,11 @@ public:
    */
   void* user_data() const {return user_data_;}
 
-  /** Sets the user data for this widget.
-      Sets the new user data (void *) argument that is passed to the callback function.
-      \param[in] v new user data
-   */
-  void user_data(void* v) {user_data_ = v;}
+  /** \brief Sets the user data for this widget. */
+  void user_data(void* v);
+
+  /** \brief Sets the user data for this widget. */
+  void user_data(Fl_Callback_User_Data* v, bool auto_free);
 
   /** Gets the current user data (long) argument that is passed to the callback function.
 
@@ -693,7 +761,7 @@ public:
 
     \see argument()
    */
-  void argument(long v) {user_data_ = (void*)(fl_intptr_t)v;}
+  void argument(long v) {user_data((void*)(fl_intptr_t)v);}
 
   /** Returns the conditions under which the callback is called.
 
@@ -1091,7 +1159,8 @@ public:
       \note This method is provided to avoid dynamic_cast.
       \see Fl_Widget::as_window(), Fl_Widget::as_gl_window()
    */
-  virtual Fl_Group* as_group() {return 0;}
+  virtual Fl_Group* as_group() { return NULL; }
+  virtual Fl_Group const* as_group() const { return NULL; }
 
   /** Returns an Fl_Window pointer if this widget is an Fl_Window.
 
@@ -1105,7 +1174,8 @@ public:
       \note This method is provided to avoid dynamic_cast.
       \see Fl_Widget::as_group(), Fl_Widget::as_gl_window()
    */
-  virtual Fl_Window* as_window() {return 0;}
+  virtual Fl_Window* as_window() { return 0; }
+  virtual Fl_Window const* as_window() const { return NULL; }
 
   /** Returns an Fl_Gl_Window pointer if this widget is an Fl_Gl_Window.
 
@@ -1117,7 +1187,8 @@ public:
       \note This method is provided to avoid dynamic_cast.
       \see Fl_Widget::as_group(), Fl_Widget::as_window()
    */
-  virtual class Fl_Gl_Window* as_gl_window() {return 0;}
+  virtual class Fl_Gl_Window* as_gl_window() { return NULL; }
+  virtual class Fl_Gl_Window const* as_gl_window() const { return NULL; }
 
   /** Returns non zero if MAC_USE_ACCENTS_MENU flag is set, 0 otherwise.
    */

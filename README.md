@@ -6,12 +6,19 @@
 A simple wrapper around FLTK 1.4 library, which is a lightweight GUI library which allows creating small, self-contained and fast gui applications.
 
 ## Requirements
-In addition to Go, you will also need a C++11 compiler. The FLTK libraries are bundled with the repo for Linux (x86_64), MacOS (x86_64 and arm64) and Windows (mingw64).
-You also need some system libs which are normally available on operating systems with a graphical user interfaces:
-- Windows: No external dependencies (for mingw64)
+For building go-fltk, besides Golang compiler, you will also need a C++11 compiler, such as GCC or Clang on Linux, MinGW on Windows and XCode on MacOS.
+
+go-fltk comes with prebuilt FLTK libraries for some architectures (linux/amd64, windows/amd64), but you can easily rebuild them yourself 
+or build them for other architectures.
+To build FLTK libraries for your platform it should be enough to call `go generate` from the root of the go-fltk source tree.
+
+If the build procedure doesn't work for you, you can modify `fltk-build.sh` or `fltk-build.bat` yourself or ask a question on `https://github.com/pwiecz/go-fltk/discussions`.
+
+For running programs built using go-fltk you will need some system libs which are normally available on operating systems with a graphical user interfaces:
+- Windows: No external dependencies, besides a (for mingw64)
 - MacOS: No external dependencies
-- Linux: You need:
-    - x11
+- Linux (and other Unix systems - not tested): You need:
+    - X11
     - Xrender
     - Xcursor
     - Xfixes
