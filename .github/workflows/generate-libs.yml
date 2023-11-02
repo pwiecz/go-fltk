@@ -29,8 +29,8 @@ jobs:
           OS="windows"
         elif [[ "$RUNNER_OS" == "Linux" ]]; then
           OS="linux"
-        elif [[ "$RUNNER_OS" == "macos-latest" ]]; then
-          OS="maxOS"
+        elif [[ "$RUNNER_OS" == "macOS" ]]; then
+          OS="darwin"
         else
           exit 1
         fi
@@ -41,7 +41,7 @@ jobs:
         elif [[ "$RUNNER_ARCH" == "ARM" ]]; then
           ARCH="arm"
         elif [[ "$RUNNER_ARCH" == "ARM64" ]]; then
-          ARCH="arm64
+          ARCH="arm64"
         else
           exit 1
         fi
