@@ -31,8 +31,8 @@ func (c *Chart) Clear() {
 	C.go_fltk_Chart_clear((*C.Fl_Chart)(c.ptr()))
 }
 
-//Add the data value val with optional label text and color col to the chart.
-//When color not needed just pass zero
+// Add the data value val with optional label text and color col to the chart.
+// When color not needed just pass zero
 func (c *Chart) Add(val float64, col Color, text ...string) {
 	labelStr := cStringOpt(text)
 	defer C.free(unsafe.Pointer(labelStr))
@@ -42,7 +42,7 @@ func (c *Chart) Add(val float64, col Color, text ...string) {
 
 // Insert inserts a data value val at the given position ind.
 //
-//Position 1 is the first data value.
+// Position 1 is the first data value.
 func (c *Chart) Insert(index int, val float64, col Color, text ...string) {
 	labelStr := cStringOpt(text)
 	defer C.free(unsafe.Pointer(labelStr))
@@ -52,7 +52,7 @@ func (c *Chart) Insert(index int, val float64, col Color, text ...string) {
 
 // Replace replace a data value val at the given position index.
 //
-//Position 1 is the first data value.
+// Position 1 is the first data value.
 func (c *Chart) Replace(index int, val float64, col Color, text ...string) {
 	labelStr := cStringOpt(text)
 	defer C.free(unsafe.Pointer(labelStr))
@@ -89,7 +89,7 @@ func (c *Chart) MaxSize() int {
 
 // SetMaxSize sets the maximum number of data values for a chart.
 //
-//If you do not call this method then the chart will be allowed to grow to any size depending on available memory.
+// If you do not call this method then the chart will be allowed to grow to any size depending on available memory.
 func (c *Chart) SetMaxSize(m int) {
 	C.go_fltk_Chart_set_maxsize((*C.Fl_Chart)(c.ptr()), C.int(m))
 }
