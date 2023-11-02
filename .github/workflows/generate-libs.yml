@@ -37,6 +37,7 @@ jobs:
           echo "Unknown RUNNER_ARCH: $RUNNER_ARCH"
           exit 1
         fi
+        echo "cgo_path=cgo_$OS_$ARCH.go" >> $GITHUB_OUTPUT
         echo "lib_path=lib/$OS/$ARCH" >> $GITHUB_OUTPUT
 
     - name: Check out code
@@ -58,3 +59,4 @@ jobs:
           ${{ steps.lib-paths.outputs.lib_path }}/*.a
           ${{ steps.lib-paths.outputs.lib_path }}/FL/fl_config.h
           include
+          ${{ steps.lib-paths.outputs.cgo_path }}
