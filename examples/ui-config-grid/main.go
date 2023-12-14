@@ -1,6 +1,7 @@
 package main
 
 import (
+	"os"
 	"strings"
 
 	"github.com/pwiecz/go-fltk"
@@ -13,28 +14,34 @@ const (
 )
 
 func main() {
-	window := makeWindow()
+	debug := false
+	if len(os.Args) > 1 {
+		debug = true
+	}
+	window := makeWindow(debug)
 	window.Show()
 	fltk.Run()
 }
 
-func makeWindow() *fltk.Window {
+func makeWindow(debug bool) *fltk.Window {
 	width := 200
 	height := 115
 	window := fltk.NewWindow(width, height)
-	window.SetLabel("UI Config")
-	makeWidgets(width, height)
+	window.SetLabel("UI Config (grid)")
+	makeWidgets(width, height, debug)
 	window.End()
 	return window
 }
 
-func makeWidgets(width, height int) {
+func makeWidgets(width, height int, debug bool) {
 	grid := fltk.NewGrid(0, 0, width, height)
 	grid.SetLayout(3, 2, pad, pad)
 	makeScaleRow(grid, 0)
 	makeThemeRow(grid, 1)
 	makeTooltipRow(grid, 2)
-	// grid.SetShowGrid(true) // DEBUG
+	if debug {
+		grid.SetShowGrid(true)
+	}
 	grid.End()
 }
 

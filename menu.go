@@ -38,6 +38,9 @@ func (m *menu) Destroy() {
 	m.itemCallbacks = m.itemCallbacks[:0]
 	m.widget.Destroy()
 }
+
+// Add adds a new menu item with the given label that when chosen will execute
+// the given callback. Returns the new item's index.
 func (m *menu) Add(label string, callback func()) int {
 	callbackId := globalCallbackMap.register(callback)
 	m.itemCallbacks = append(m.itemCallbacks, callbackId)
@@ -45,6 +48,11 @@ func (m *menu) Add(label string, callback func()) int {
 	defer C.free(unsafe.Pointer(labelStr))
 	return int(C.go_fltk_Menu_add((*C.Fl_Menu_)(m.ptr()), labelStr, 0, C.int(callbackId), 0))
 }
+
+// Add adds a new menu item with the given label and shortcut that when
+// chosen (or when the shortcut is pressed) will execute the given callback.
+// Set flags to fltk.MENU_DIVIDER to create a separator after this menu
+// item. Returns the new item's index.
 func (m *menu) AddEx(label string, shortcut int, callback func(), flags int) int {
 	callbackId := globalCallbackMap.register(callback)
 	m.itemCallbacks = append(m.itemCallbacks, callbackId)
@@ -52,6 +60,7 @@ func (m *menu) AddEx(label string, shortcut int, callback func(), flags int) int
 	defer C.free(unsafe.Pointer(labelStr))
 	return int(C.go_fltk_Menu_add((*C.Fl_Menu_)(m.ptr()), labelStr, C.int(shortcut), C.int(callbackId), C.int(flags)))
 }
+
 func (m *menu) AddExWithIcon(label string, shortcut int, callback func(), flags int, img Image) int {
 	callbackId := globalCallbackMap.register(callback)
 	m.itemCallbacks = append(m.itemCallbacks, callbackId)
@@ -73,9 +82,17 @@ func (m *menu) InsertEx(index int, label string, shortcut int, callback func(), 
 	defer C.free(unsafe.Pointer(labelStr))
 	return int(C.go_fltk_Menu_insert((*C.Fl_Menu_)(m.ptr()), C.int(index), labelStr, C.int(shortcut), C.int(callbackId), C.int(flags)))
 }
+
+// Removes removes the menu item at the given index position.
 func (m *menu) Remove(index int) {
 	C.go_fltk_Menu_remove((*C.Fl_Menu_)(m.ptr()), C.int(index))
 }
+
+// Clear removes all the menu's items.
+func (m *menu) Clear() {
+	C.go_fltk_Menu_clear((*C.Fl_Menu_)(m.ptr()))
+}
+
 func (m *menu) Replace(index int, label string) {
 	labelStr := C.CString(label)
 	defer C.free(unsafe.Pointer(labelStr))

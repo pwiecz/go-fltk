@@ -34,6 +34,8 @@ int go_fltk_Menu_insert(Fl_Menu_ *m, int index, char *label, int shortcut, int c
 
 void go_fltk_Menu_remove(Fl_Menu_ *m, int index) { m->remove(index); }
 
+void go_fltk_Menu_clear(Fl_Menu_ *m) { m->clear(); }
+
 void go_fltk_Menu_replace(Fl_Menu_ *m, int index, const char *label) {
   m->replace(index, label);
 }
