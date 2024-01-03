@@ -150,6 +150,9 @@ func main() {
 	fltk.Run()
 }
 ```
+## Showcase
+- [Gviz](https://github.com/mark-summerfield/gviz) - editor for GraphViz diagrams by [Mark Summerfield](https://github.com/mark-summerfield)
+- [PlayTrack](https://github.com/mark-summerfield/playtrack) - OGG track player for Unix by [Mark Summerfield](https://github.com/mark-summerfield)
 
 ## Resources
 - [Link](https://www.fltk.org/doc-1.4/index.html) to the official FLTK 1.4 documentation.
