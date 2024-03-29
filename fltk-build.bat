@@ -40,12 +40,12 @@ IF EXIST fltk (
     IF %ERRORLEVEL% NEQ 0 EXIT /B 1
 )
 
-git apply ../../lib/fltk-1.4.patch
-IF %ERRORLEVEL% NEQ 0 EXIT /B 1
-
 REM SET COMMIT=master
 SET COMMIT=eb759cb118fbf09da51938c04978e609822dbb48
 git checkout %COMMIT%
+IF %ERRORLEVEL% NEQ 0 EXIT /B 1
+
+git apply ../../lib/fltk-1.4.patch
 IF %ERRORLEVEL% NEQ 0 EXIT /B 1
 
 CD ..
