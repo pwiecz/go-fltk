@@ -44,17 +44,6 @@ jobs:
       if: matrix.os == 'ubuntu-latest'
       run: sudo apt-get update && sudo apt-get install -y libx11-dev libxext-dev libxft-dev libxinerama-dev libxcursor-dev libxrender-dev libxfixes-dev libgl1-mesa-dev libglu1-mesa-dev
 
-    - name: Install MSYS2
-      if: matrix.os == 'windows-latest'
-      uses: msys2/setup-msys2@v2
-      with:
-        update: true
-        msystem: ucrt64
-        pacboy: >-
-          toolchain:p
-          cmake:p
-          ninja:p
-
     - name: Check out code
       uses: actions/checkout@v4
     
