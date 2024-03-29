@@ -50,7 +50,7 @@ jobs:
       with:
         update: true
         msystem: ucrt64
-        packboy: >-
+        pacboy: >-
           toolchain:p
           cmake:p
           ninja:p
