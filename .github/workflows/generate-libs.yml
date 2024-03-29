@@ -49,11 +49,11 @@ jobs:
       uses: msys2/setup-msys2@v2
       with:
         update: true
-	msystem: ucrt64
-	packboy: >-
-	  toolchain:p
-	  cmake:p
-	  ninja:p
+        msystem: ucrt64
+        packboy: >-
+          toolchain:p
+          cmake:p
+          ninja:p
 
     - name: Check out code
       uses: actions/checkout@v4
