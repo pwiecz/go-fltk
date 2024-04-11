@@ -55,9 +55,8 @@ func main() {
 	}
 
 	fltkSourceDir := filepath.Join("fltk_build", "fltk")
-	currentDirFS := os.DirFS(".")
 
-	fltkStat, err := fs.Stat(currentDirFS, fltkSourceDir)
+	fltkStat, err := os.Stat(fltkSourceDir)
 	if errors.Is(err, fs.ErrNotExist) {
 		fmt.Println("Cloning FLTK repository")
 
@@ -238,6 +237,8 @@ func main() {
 		}
 
 	} else {
+		// Switching to slashes in paths in cgo directives as backslashes are cause problems when being passed to gcc.
+		libdir := filepath.ToSlash(libdir)
 		// Hardcoding contents of cgo directive for windows,
 		// as we cannot extract it from fltk-config if we're not using a UNIX shell.
 		fmt.Fprintf(cgoFile, "// #cgo %s,%s CPPFLAGS: -I${SRCDIR}/%s -I${SRCDIR}/include -I${SRCDIR}/include/FL/images -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64\n", runtime.GOOS, runtime.GOARCH, libdir)
