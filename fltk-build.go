@@ -95,6 +95,15 @@ func main() {
 		os.Exit(1)
 	}
 
+	checkoutCmd := exec.Command("git", "checkout", commit)
+	checkoutCmd.Dir = fltkSourceDir
+	checkoutCmd.Stdout = os.Stdout
+	checkoutCmd.Stderr = os.Stderr
+	if err := checkoutCmd.Run(); err != nil {
+		fmt.Printf("Error checking out FLTK source")
+		os.Exit(1)
+	}
+
 	if runtime.GOOS == "windows" {
 		applyCmd := exec.Command("git", "apply", "../../lib/fltk-1.4.patch")
 		applyCmd.Dir = fltkSourceDir
@@ -104,15 +113,6 @@ func main() {
 			fmt.Printf("Error applying patch, %v\n", err)
 			os.Exit(1)
 		}
-	}
-
-	checkoutCmd := exec.Command("git", "checkout", commit)
-	checkoutCmd.Dir = fltkSourceDir
-	checkoutCmd.Stdout = os.Stdout
-	checkoutCmd.Stderr = os.Stderr
-	if err := checkoutCmd.Run(); err != nil {
-		fmt.Printf("Error checking out FLTK source")
-		os.Exit(1)
 	}
 
 	var cmakeGenerator string
@@ -143,7 +143,7 @@ func main() {
 		if runtime.GOARCH == "amd64" {
 			cmakeCmd.Args = append(cmakeCmd.Args, "-DCMAKE_OSX_ARCHITECTURES=x86_64")
 		} else if runtime.GOARCH == "arm64" {
-			cmakeCmd.Args = append(cmakeCmd.Args, "-DCMAKE_OSX_ARCHITECTURES=x86_64")
+			cmakeCmd.Args = append(cmakeCmd.Args, "-DCMAKE_OSX_ARCHITECTURES=arm64")
 		} else {
 			fmt.Printf("Unsupported MacOS architecture, %s\n", runtime.GOARCH)
 			os.Exit(1)
