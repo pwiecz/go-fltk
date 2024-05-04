@@ -145,7 +145,7 @@ func reverse(s []byte) {
 func (col CellCol) String() string {
 	//  'A', ... 'Z', 'AA', 'AB', ... 'AZ', 'BA', ... 'BZ', ... 'ZZ', 'AAA', ...
 	var stringBytes []byte
-	for true {
+	for {
 		stringBytes = append(stringBytes, 'A'+byte(col%26))
 		col /= 26
 		if col <= 0 {
