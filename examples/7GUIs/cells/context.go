@@ -136,8 +136,25 @@ func (row CellRow) String() string {
 
 type CellCol int
 
+func reverse(s []byte) {
+	for i, j := 0, len(s)-1; i < j; i, j = i+1, j-1 {
+		s[i], s[j] = s[j], s[i]
+	}
+}
+
 func (col CellCol) String() string {
-	return string('A' + byte(col))
+	//  'A', ... 'Z', 'AA', 'AB', ... 'AZ', 'BA', ... 'BZ', ... 'ZZ', 'AAA', ...
+	var stringBytes []byte
+	for true {
+		stringBytes = append(stringBytes, 'A'+byte(col%26))
+		col /= 26
+		if col <= 0 {
+			break
+		}
+		col -= 1
+	}
+	reverse(stringBytes)
+	return string(stringBytes)
 }
 
 type CellLoc struct {
