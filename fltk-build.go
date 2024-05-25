@@ -157,7 +157,12 @@ func main() {
 		os.Exit(1)
 	}
 
-	cmakeBuildCmd := exec.Command("cmake", "--build", "build", "--parallel")
+	cmakeBuildArgs := []string{"--build", "build", "--parallel"}
+	if runtime.GOOS == "openbsd" {
+		cmakeBuildArgs = []string{"--build", "build"}
+	}
+
+	cmakeBuildCmd := exec.Command("cmake", cmakeBuildArgs...)
 	cmakeBuildCmd.Dir = "fltk_build"
 	cmakeBuildCmd.Stdout = os.Stdout
 	cmakeBuildCmd.Stderr = os.Stderr
@@ -219,6 +224,9 @@ func main() {
 			os.Exit(1)
 		}
 		fltkConfigCxxFlags := strings.ReplaceAll(string(cxxOutput), currentDir, "${SRCDIR}")
+		if runtime.GOOS == "openbsd" {
+			fltkConfigCxxFlags = "-I/usr/X11R6/include " + fltkConfigCxxFlags
+		}
 		fmt.Fprintf(cgoFile, "// #cgo %s,%s CPPFLAGS: -I${SRCDIR}/%s %s", runtime.GOOS, runtime.GOARCH, libdir, fltkConfigCxxFlags)
 		if fltkConfigCxxFlags[len(fltkConfigCxxFlags)-1] != '\n' {
 			fmt.Fprintln(cgoFile, "")
@@ -231,6 +239,9 @@ func main() {
 			os.Exit(1)
 		}
 		fltkConfigLdFlags := strings.ReplaceAll(string(ldOutput), currentDir, "${SRCDIR}")
+		if runtime.GOOS == "openbsd" {
+			fltkConfigLdFlags = "-L/usr/X11R6/lib " + fltkConfigLdFlags
+		}
 		fmt.Fprintf(cgoFile, "// #cgo %s,%s LDFLAGS: %s", runtime.GOOS, runtime.GOARCH, fltkConfigLdFlags)
 		if fltkConfigLdFlags[len(fltkConfigLdFlags)-1] != '\n' {
 			fmt.Fprintln(cgoFile, "")
