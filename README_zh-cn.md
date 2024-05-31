@@ -1,4 +1,15 @@
-# go-fltk
+<!-- TOC -->
+
+- [1. go-fltk](#1-go-fltk)
+	- [1.1. 依赖](#11-依赖)
+	- [1.2. 使用](#12-使用)
+	- [1.3. 样式](#13-样式)
+	- [1.4. 图像支持](#14-图像支持)
+	- [1.5. 资源](#15-资源)
+
+<!-- /TOC -->
+
+# 1. go-fltk
 
 ---
 [![GoDoc](https://img.shields.io/static/v1?label=godoc&message=reference&color=blue)](https://pkg.go.dev/github.com/pwiecz/go-fltk)
@@ -6,21 +17,21 @@
 * [Document](./README.md)
 * [中文文档](./README_zh-cn.md)
 
-A simple wrapper around FLTK 1.4 library, which is a lightweight GUI library which allows creating small, self-contained and fast gui applications.
+一个围绕 FLTK 1.4 库的简单封装，FLTK 是一个轻量级 GUI 库，允许创建小型、独立且快速的 GUI 应用程序。
 
-## Requirements
-For building go-fltk, besides Golang compiler, you will also need a C++11 compiler, such as GCC or Clang on Linux, MinGW on Windows and XCode on MacOS.
+## 1.1. 依赖
+要构建 go-fltk，除了 Golang 编译器，你还需要一个 C++11 编译器，例如 Linux 上的 GCC 或 Clang，Windows 上的 MinGW 和 MacOS 上的 XCode。
 
-go-fltk comes with prebuilt FLTK libraries for some architectures (linux/amd64, windows/amd64), but you can easily rebuild them yourself 
-or build them for other architectures.
-To build FLTK libraries for your platform it should be enough to call `go generate` from the root of the go-fltk source tree.
+go-fltk 带有一些架构的预构建 FLTK 库（linux/amd64, windows/amd64），但你也可以轻松地自己重建它们，或者为其他架构构建它们。
+要为你的平台构建 FLTK 库，只需从 go-fltk 源代码树的根目录运行 go generate。
 
-If the build procedure doesn't work for you, you can modify `fltk-build.sh` or `fltk-build.bat` yourself or ask a question on `https://github.com/pwiecz/go-fltk/discussions`.
+如果构建过程对你不起作用，你可以自行修改 fltk-build.sh 或 fltk-build.bat，或者在 https://github.com/pwiecz/go-fltk/discussions 提出问题。
 
-For running programs built using go-fltk you will need some system libs which are normally available on operating systems with a graphical user interfaces:
-- Windows: No external dependencies, besides a (for mingw64)
-- MacOS: No external dependencies
-- Linux (and other Unix systems - not tested): You need:
+要运行使用 go-fltk 构建的程序，你将需要一些系统库，这些库通常在带有图形用户界面的操作系统上是可用的：
+
+- Windows: 除了 mingw64 没有外部依赖
+- MacOS: 没有外部依赖
+- Linux（和其他未测试的 Unix 系统）: 你需要：
     - X11
     - Xrender
     - Xcursor
@@ -30,7 +41,7 @@ For running programs built using go-fltk you will need some system libs which ar
     - Xinerama
     - OpenGL
 
-## Usage
+## 1.2. 使用
 ```go
 package main
 
@@ -49,19 +60,19 @@ func main() {
 }
 ```
 
-Widgets are created using the `fltk.New<WidgetType>` functions, modified for whatever widget you're instantiating.
-Function and method names resemble the original C++ names, while however, following the Golang convention of PascalCase. 
-Setter methods are also preceded by a `Set` prefix.
+可以使用 `fltk.New<WidgetType>` 函数创建小部件，并对你正在实例化的小部件进行修改。
+函数和方法名与原始 C++ 名称相似，但遵循 Go 语言的 PascalCase 命名习惯。
+设置器方法前缀为 `Set`。
 
-## Styling
-FLTk offers 4 builtin schemes:
-- base (default)
+## 1.3. 样式
+FLTK 提供了 4 种内置样式：
+- base (默认)
 - gtk+
 - gleam
 - plastic
-These can be set using `fltk.SetScheme("gtk+")` for example.
+例如：可以使用 `fltk.SetScheme("gtk+")` 来设置这些样式.
 
-FLTK also allows custom styling of your widgets:
+FLTK 还允许自定义小部件的样式：
 ```go
 package main
 
@@ -71,8 +82,8 @@ import (
 	"github.com/pwiecz/go-fltk"
 )
 
-// FLTK uses an RGBI color representation, the I is an index into FLTK's color map
-// Passing 00 as I will use the RGB part of the value
+// FLTK 使用 RGBI 颜色表示法，其中 I 是 FLTK 颜色表的索引
+// 传递 00 作为 I 将使用 RGB 值
 const GRAY = 0x75757500
 const LIGHT_GRAY = 0xeeeeee00
 const BLUE = 0x42A5F500
@@ -100,7 +111,7 @@ func main() {
 	count := fltk.NewBox(fltk.NO_BOX, 250, 180+40, 100, 40, "0")
 	count.SetLabelSize(36)
 	count.SetLabelColor(GRAY)
-	btn := fltk.NewButton(WIDTH-100, HEIGHT-100, 60, 60, "@+6plus") // this translates into a plus sign
+	btn := fltk.NewButton(WIDTH-100, HEIGHT-100, 60, 60, "@+6plus") // 这翻译成一个加号
 	btn.SetColor(BLUE)
 	btn.SetSelectionColor(SEL_BLUE)
 	btn.SetLabelColor(255)
@@ -118,10 +129,10 @@ func main() {
 
 ![image](https://user-images.githubusercontent.com/37966791/147374840-2d993522-fc86-46fc-9e95-2b3391d31013.png)
 
-Label attributes can be seen [here](https://www.fltk.org/doc-1.3/common.html#common_labels)
+标签属性可以在[这里](https://www.fltk.org/doc-1.3/common.html#common_labels)查看
 
-## Image support
-FLTK supports vector and raster graphics, via several image types:
+## 1.4. 图像支持
+FLTK 支持矢量和光栅图形，通过几种图像类型：
 - SvgImage
 - RgbImage
 - JpegImage
@@ -129,7 +140,7 @@ FLTK supports vector and raster graphics, via several image types:
 - BmpImage
 - SharedImage
 
-Some of these can be instantiated from an image file or from data:
+其中一些可以从图像文件或数据中实例化：
 ```go
 package main
 
@@ -154,6 +165,6 @@ func main() {
 }
 ```
 
-## Resources
-- [Link](https://www.fltk.org/doc-1.4/index.html) to the official FLTK 1.4 documentation.
-- [Link](https://pkg.go.dev/github.com/pwiecz/go-fltk) to go-fltk documentation.
+## 1.5. 资源
+- [官方 FLTK 1.4 文档](https://www.fltk.org/doc-1.4/index.html)
+- [go-fltk 文档](https://pkg.go.dev/github.com/pwiecz/go-fltk) 
