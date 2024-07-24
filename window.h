@@ -24,6 +24,9 @@ extern "C" {
   extern void go_fltk_Window_set_non_modal(Fl_Window *w);
   extern void go_fltk_Window_set_icons(Fl_Window* w, const Fl_RGB_Image* images[], int length);
   extern void go_fltk_Window_size_range(Fl_Window* w, int minW, int minH, int maxW, int maxH, int deltaX, int deltaY, int aspectRatio);
+#ifdef _WIN32
+  extern void* go_fltk_Window_win32_xid(Fl_Window* w);
+#endif
 		
   extern const int go_FL_CURSOR_DEFAULT;
   extern const int go_FL_CURSOR_ARROW;

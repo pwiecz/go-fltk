@@ -2,6 +2,7 @@
 
 #include <FL/Fl_Window.H>
 #include <FL/Fl_Double_Window.H>
+#include <FL/platform.H>
 
 #include "event_handler.h"
 
@@ -71,8 +72,14 @@ void go_fltk_Window_set_icons(Fl_Window* w, const Fl_RGB_Image *images[], int le
 }
 
 void go_fltk_Window_size_range(Fl_Window* w, int minW, int minH, int maxW, int maxH, int deltaX, int deltaY, int aspectRatio) {
-	w->size_range(minW, minH, maxW, maxH, deltaX, deltaY, aspectRatio);
+  w->size_range(minW, minH, maxW, maxH, deltaX, deltaY, aspectRatio);
 }
+
+#ifdef _WIN32
+void* go_fltk_Window_win32_xid(Fl_Window* w) {
+  return fl_win32_xid(w);
+}
+#endif
 
 const int go_FL_CURSOR_DEFAULT = (int)FL_CURSOR_DEFAULT;
 const int go_FL_CURSOR_ARROW = (int)FL_CURSOR_ARROW;
