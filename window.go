@@ -83,6 +83,10 @@ func (w *Window) SetSizeRange(minW, minH, maxW, maxH, deltaX, deltaY int, aspect
 	C.go_fltk_Window_size_range((*C.Fl_Window)(w.ptr()), C.int(minW), C.int(minH), C.int(maxW), C.int(maxH), C.int(deltaX), C.int(deltaY), C.int(ratio))
 }
 
+func (w *Window) RawHandle() uintptr {
+	return uintptr(C.go_fltk_Window_xid((*C.Fl_Window)(w.ptr())))
+}
+
 type Cursor int
 
 var (

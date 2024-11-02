@@ -75,11 +75,20 @@ void go_fltk_Window_size_range(Fl_Window* w, int minW, int minH, int maxW, int m
   w->size_range(minW, minH, maxW, maxH, deltaX, deltaY, aspectRatio);
 }
 
-#ifdef _WIN32
-void* go_fltk_Window_win32_xid(Fl_Window* w) {
+void *go_fltk_Window_xid(Fl_Window *w) {
+#if defined(_WIN32)
   return fl_win32_xid(w);
-}
+#elif defined(__APPLE__)
+  return fl_xid(w);
+#elif defined(__unix__)
+// TODO: Recognize in runtime if we're using Wayland or X11
+#if FLTK_USE_X11
+  return (void*)(uintptr_t)fl_xid(w);
+#elif FLTK_USE_WAYLAND
+  return fl_wl_xid(w);
 #endif
+#endif
+}
 
 const int go_FL_CURSOR_DEFAULT = (int)FL_CURSOR_DEFAULT;
 const int go_FL_CURSOR_ARROW = (int)FL_CURSOR_ARROW;
