@@ -24,7 +24,7 @@ jobs:
     
     - name: Install dependencies
       if: matrix.os == 'ubuntu-latest'
-      run: sudo apt-get update && sudo apt-get install -y libpango1.0-dev libx11-dev libxext-dev libxft-dev libxinerama-dev libxcursor-dev libxrender-dev libxfixes-dev libpng-dev libgl1-mesa-dev libglu1-mesa-dev libwayland-dev libwayland-egl-backend-dev libdecor-0-dev libdbus-1-dev
+      run: sudo apt-get update && sudo apt-get install -y libpango1.0-dev libx11-dev libxext-dev libxft-dev libxinerama-dev libxcursor-dev libxrender-dev libxfixes-dev libxkbcommon-dev libpng-dev libgl1-mesa-dev libglu1-mesa-dev libwayland-dev libwayland-egl-backend-dev libdecor-0-dev libdbus-1-dev
 
     - name: Set up Go
       uses: actions/setup-go@v4
