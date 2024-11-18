@@ -49,7 +49,6 @@ func main() {
 		os.Exit(1)
 	}
 
-
 	if err := os.MkdirAll("fltk_build", 0750); err != nil {
 		fmt.Printf("Could not create directory fltk_build, %v\n", err)
 		os.Exit(1)
@@ -141,7 +140,7 @@ func main() {
 		"-DOPTION_USE_SYSTEM_LIBPNG=OFF",
 		"-DOPTION_USE_SYSTEM_ZLIB=OFF",
 		"-DCMAKE_INSTALL_PREFIX="+currentDir,
-		"-DCMAKE_INSTALL_INCLUDEDIR=" + includeDir,
+		"-DCMAKE_INSTALL_INCLUDEDIR="+includeDir,
 		"-DCMAKE_INSTALL_LIBDIR="+libDir,
 		"-DFLTK_INCLUDEDIR="+filepath.Join(currentDir, "include", runtime.GOOS, runtime.GOARCH),
 		"-DFLTK_LIBDIR="+filepath.Join(currentDir, "lib", runtime.GOOS, runtime.GOARCH))
