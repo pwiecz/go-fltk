@@ -13,14 +13,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [windows-latest, macos-latest, ubuntu-latest]
+        os: [windows-latest, macos-13, macos-13-xlarge, ubuntu-latest]
     
     steps:
     - uses: actions/checkout@v4
     
-    - name: Downgrade MinGW
-      if: matrix.os == 'windows-latest'
-      run: choco install mingw --version 11.2.0.07112021 --allow-downgrade
+#    - name: Downgrade MinGW
+#      if: matrix.os == 'windows-latest'
+#      run: choco install mingw --version 11.2.0.07112021 --allow-downgrade
     
     - name: Install dependencies
       if: matrix.os == 'ubuntu-latest'
