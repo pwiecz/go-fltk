@@ -4,12 +4,16 @@
 #include <FL/Fl_Output.H>
 #include <FL/Fl_Float_Input.H>
 #include <FL/Fl_Int_Input.H>
+#include <FL/Fl_Secret_Input.H>
 
 #include "event_handler.h"
 
 
+const unsigned char go_FL_NORMAL_INPUT = 0;
 const unsigned char go_FL_FLOAT_INPUT = 1;
 const unsigned char go_FL_INT_INPUT = 2;
+const unsigned char go_FL_SECRET_INPUT = 5;
+const unsigned char go_FL_NORMAL_OUTPUT = 8;
 
 class GInput : public EventHandler<Fl_Input> {
 public:
@@ -68,5 +72,15 @@ public:
 
 GInt_Input *go_fltk_new_Int_Input(int x, int y, int w, int h, const char *text) {
   return new GInt_Input(x, y, w, h, text);
+}
+
+class GSecret_Input : public EventHandler<Fl_Secret_Input> {
+public:
+  GSecret_Input(int x, int y, int w, int h, const char *label)
+    : EventHandler<Fl_Secret_Input>(x, y, w, h, label) {}
+};
+
+GSecret_Input *go_fltk_new_Secret_Input(int x, int y, int w, int h, const char *text) {
+  return new GSecret_Input(x, y, w, h, text);
 }
 

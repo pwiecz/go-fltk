@@ -58,8 +58,22 @@ func NewFloatInput(x, y, w, h int, text ...string) *FloatInput {
 	return i
 }
 
-func NewIntInput(x, y, w, h int, text ...string) *FloatInput {
-	i := &FloatInput{}
+type IntInput struct {
+	Input
+}
+
+func NewIntInput(x, y, w, h int, text ...string) *IntInput {
+	i := &IntInput{}
 	initWidget(i, unsafe.Pointer(C.go_fltk_new_Int_Input(C.int(x), C.int(y), C.int(w), C.int(h), cStringOpt(text))))
+	return i
+}
+
+type SecretInput struct {
+	Input
+}
+
+func NewSecretInput(x, y, w, h int, text ...string) *SecretInput {
+	i := &SecretInput{}
+	initWidget(i, unsafe.Pointer(C.go_fltk_new_Secret_Input(C.int(x), C.int(y), C.int(w), C.int(h), cStringOpt(text))))
 	return i
 }
