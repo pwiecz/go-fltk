@@ -5,33 +5,34 @@ package fltk
 */
 import "C"
 
+// Align en: Alignment enums, zh-cn: 对齐方式枚举
 type Align uint
 
 var (
-	ALIGN_CENTER             = Align(C.go_FL_ALIGN_CENTER)
-	ALIGN_TOP                = Align(C.go_FL_ALIGN_TOP)
-	ALIGN_BOTTOM             = Align(C.go_FL_ALIGN_BOTTOM)
-	ALIGN_LEFT               = Align(C.go_FL_ALIGN_LEFT)
-	ALIGN_RIGHT              = Align(C.go_FL_ALIGN_RIGHT)
-	ALIGN_INSIDE             = Align(C.go_FL_ALIGN_INSIDE)
-	ALIGN_TEXT_OVER_IMAGE    = Align(C.go_FL_ALIGN_TEXT_OVER_IMAGE)
-	ALIGN_IMAGE_OVER_TEXT    = Align(C.go_FL_ALIGN_IMAGE_OVER_TEXT)
-	ALIGN_CLIP               = Align(C.go_FL_ALIGN_CLIP)
-	ALIGN_WRAP               = Align(C.go_FL_ALIGN_WRAP)
-	ALIGN_IMAGE_NEXT_TO_TEXT = Align(C.go_FL_ALIGN_IMAGE_NEXT_TO_TEXT)
-	ALIGN_TEXT_NEXT_TO_IMAGE = Align(C.go_FL_ALIGN_TEXT_NEXT_TO_IMAGE)
-	ALIGN_IMAGE_BACKDROP     = Align(C.go_FL_ALIGN_IMAGE_BACKDROP)
-	ALIGN_TOP_LEFT           = Align(C.go_FL_ALIGN_TOP_LEFT)
-	ALIGN_TOP_RIGHT          = Align(C.go_FL_ALIGN_TOP_RIGHT)
-	ALIGN_BOTTOM_LEFT        = Align(C.go_FL_ALIGN_BOTTOM_LEFT)
-	ALIGN_BOTTOM_RIGHT       = Align(C.go_FL_ALIGN_BOTTOM_RIGHT)
-	ALIGN_LEFT_TOP           = Align(C.go_FL_ALIGN_LEFT_TOP)
-	ALIGN_RIGHT_TOP          = Align(C.go_FL_ALIGN_RIGHT_TOP)
-	ALIGN_LEFT_BOTTOM        = Align(C.go_FL_ALIGN_LEFT_BOTTOM)
-	ALIGN_RIGHT_BOTTOM       = Align(C.go_FL_ALIGN_RIGHT_BOTTOM)
-	ALIGN_NOWRAP             = Align(C.go_FL_ALIGN_NOWRAP)
-	ALIGN_POSITION_MASK      = Align(C.go_FL_ALIGN_POSITION_MASK)
-	ALIGN_IMAGE_MASK         = Align(C.go_FL_ALIGN_IMAGE_MASK)
+	ALIGN_CENTER             = Align(C.go_FL_ALIGN_CENTER)             // en: Center alignment, zh-cn: 中心对齐
+	ALIGN_TOP                = Align(C.go_FL_ALIGN_TOP)                // en: Top alignment, zh-cn: 顶部对齐
+	ALIGN_BOTTOM             = Align(C.go_FL_ALIGN_BOTTOM)             // en: Bottom alignment, zh-cn: 底部对齐
+	ALIGN_LEFT               = Align(C.go_FL_ALIGN_LEFT)               // en: Left alignment, zh-cn: 左对齐
+	ALIGN_RIGHT              = Align(C.go_FL_ALIGN_RIGHT)              // en: Right alignment, zh-cn: 右对齐
+	ALIGN_INSIDE             = Align(C.go_FL_ALIGN_INSIDE)             // en: Align inside, zh-cn: 内部对齐
+	ALIGN_TEXT_OVER_IMAGE    = Align(C.go_FL_ALIGN_TEXT_OVER_IMAGE)    // en: Text over image, zh-cn: 文本在图像上
+	ALIGN_IMAGE_OVER_TEXT    = Align(C.go_FL_ALIGN_IMAGE_OVER_TEXT)    // en: Image over text, zh-cn: 图像在文本上
+	ALIGN_CLIP               = Align(C.go_FL_ALIGN_CLIP)               // en: Clip alignment, zh-cn: 裁剪对齐
+	ALIGN_WRAP               = Align(C.go_FL_ALIGN_WRAP)               // en: Wrap alignment, zh-cn: 自动换行对齐
+	ALIGN_IMAGE_NEXT_TO_TEXT = Align(C.go_FL_ALIGN_IMAGE_NEXT_TO_TEXT) // en: Image next to text, zh-cn: 图像在文本旁
+	ALIGN_TEXT_NEXT_TO_IMAGE = Align(C.go_FL_ALIGN_TEXT_NEXT_TO_IMAGE) // en: Text next to image, zh-cn: 文本在图像旁
+	ALIGN_IMAGE_BACKDROP     = Align(C.go_FL_ALIGN_IMAGE_BACKDROP)     // en: Image backdrop, zh-cn: 图像背景
+	ALIGN_TOP_LEFT           = Align(C.go_FL_ALIGN_TOP_LEFT)           // en: Top-left alignment, zh-cn: 左上对齐
+	ALIGN_TOP_RIGHT          = Align(C.go_FL_ALIGN_TOP_RIGHT)          // en: Top-right alignment, zh-cn: 右上对齐
+	ALIGN_BOTTOM_LEFT        = Align(C.go_FL_ALIGN_BOTTOM_LEFT)        // en: Bottom-left alignment, zh-cn: 左下对齐
+	ALIGN_BOTTOM_RIGHT       = Align(C.go_FL_ALIGN_BOTTOM_RIGHT)       // en: Bottom-right alignment, zh-cn: 右下对齐
+	ALIGN_LEFT_TOP           = Align(C.go_FL_ALIGN_LEFT_TOP)           // en: Left-top alignment, zh-cn: 左上角对齐
+	ALIGN_RIGHT_TOP          = Align(C.go_FL_ALIGN_RIGHT_TOP)          // en: Right-top alignment, zh-cn: 右上角对齐
+	ALIGN_LEFT_BOTTOM        = Align(C.go_FL_ALIGN_LEFT_BOTTOM)        // en: Left-bottom alignment, zh-cn: 左下角对齐
+	ALIGN_RIGHT_BOTTOM       = Align(C.go_FL_ALIGN_RIGHT_BOTTOM)       // en: Right-bottom alignment, zh-cn: 右下角对齐
+	ALIGN_NOWRAP             = Align(C.go_FL_ALIGN_NOWRAP)             // en: No-wrap alignment, zh-cn: 不换行对齐
+	ALIGN_POSITION_MASK      = Align(C.go_FL_ALIGN_POSITION_MASK)      // en: Position mask alignment, zh-cn: 位置掩码对齐
+	ALIGN_IMAGE_MASK         = Align(C.go_FL_ALIGN_IMAGE_MASK)         // en: Image mask alignment, zh-cn: 图像掩码对齐
 )
 
 type ArrowType int
@@ -119,29 +120,30 @@ const (
 	FREE_BOXTYPE           = BoxType(56)
 )
 
+// Font en: Font enums, zh-cn: 字体枚举
 type Font int
 
 var (
-	HELVETICA             = Font(C.go_FL_HELVETICA)
-	HELVETICA_BOLD        = Font(C.go_FL_HELVETICA_BOLD)
-	HELVETICA_ITALIC      = Font(C.go_FL_HELVETICA_ITALIC)
-	HELVETICA_BOLD_ITALIC = Font(C.go_FL_HELVETICA_BOLD_ITALIC)
-	COURIER               = Font(C.go_FL_COURIER)
-	COURIER_BOLD          = Font(C.go_FL_COURIER_BOLD)
-	COURIER_ITALIC        = Font(C.go_FL_COURIER_ITALIC)
-	COURIER_BOLD_ITALIC   = Font(C.go_FL_COURIER_BOLD_ITALIC)
-	TIMES                 = Font(C.go_FL_TIMES)
-	TIMES_BOLD            = Font(C.go_FL_TIMES_BOLD)
-	TIMES_ITALIC          = Font(C.go_FL_TIMES_ITALIC)
-	TIMES_BOLD_ITALIC     = Font(C.go_FL_TIMES_BOLD_ITALIC)
-	SYMBOL                = Font(C.go_FL_SYMBOL)
-	SCREEN                = Font(C.go_FL_SCREEN)
-	SCREEN_BOLD           = Font(C.go_FL_SCREEN_BOLD)
-	ZAPF_DINGBATS         = Font(C.go_FL_ZAPF_DINGBATS)
-	FREE_FONT             = Font(C.go_FL_FREE_FONT)
-	BOLD                  = Font(C.go_FL_BOLD)
-	ITALIC                = Font(C.go_FL_ITALIC)
-	BOLD_ITALIC           = Font(C.go_FL_BOLD_ITALIC)
+	HELVETICA             = Font(C.go_FL_HELVETICA)             // en: Helvetica, zh-cn: 黑体
+	HELVETICA_BOLD        = Font(C.go_FL_HELVETICA_BOLD)        // en: Helvetica Bold, zh-cn: 黑体粗体
+	HELVETICA_ITALIC      = Font(C.go_FL_HELVETICA_ITALIC)      // en: Helvetica Italic, zh-cn: 黑体斜体
+	HELVETICA_BOLD_ITALIC = Font(C.go_FL_HELVETICA_BOLD_ITALIC) // en: Helvetica Bold Italic, zh-cn: 黑体粗斜体
+	COURIER               = Font(C.go_FL_COURIER)               // en: Courier, zh-cn: 宋体
+	COURIER_BOLD          = Font(C.go_FL_COURIER_BOLD)          // en: Courier Bold, zh-cn: 宋体粗体
+	COURIER_ITALIC        = Font(C.go_FL_COURIER_ITALIC)        // en: Courier Italic, zh-cn: 宋体斜体
+	COURIER_BOLD_ITALIC   = Font(C.go_FL_COURIER_BOLD_ITALIC)   // en: Courier Bold Italic, zh-cn: 宋体粗斜体
+	TIMES                 = Font(C.go_FL_TIMES)                 // en: Times, zh-cn: Times 字体
+	TIMES_BOLD            = Font(C.go_FL_TIMES_BOLD)            // en: Times Bold, zh-cn: Times 粗体
+	TIMES_ITALIC          = Font(C.go_FL_TIMES_ITALIC)          // en: Times Italic, zh-cn: Times 斜体
+	TIMES_BOLD_ITALIC     = Font(C.go_FL_TIMES_BOLD_ITALIC)     // en: Times Bold Italic, zh-cn: Times 粗斜体
+	SYMBOL                = Font(C.go_FL_SYMBOL)                // en: Symbol, zh-cn: 符号
+	SCREEN                = Font(C.go_FL_SCREEN)                // en: Screen, zh-cn: 屏幕字体
+	SCREEN_BOLD           = Font(C.go_FL_SCREEN_BOLD)           // en: Screen Bold, zh-cn: 屏幕粗体
+	ZAPF_DINGBATS         = Font(C.go_FL_ZAPF_DINGBATS)         // en: Zapf Dingbats, zh-cn: Zapf Dingbats 字体
+	FREE_FONT             = Font(C.go_FL_FREE_FONT)             // en: Free font, zh-cn: 自由字体
+	BOLD                  = Font(C.go_FL_BOLD)                  // en: Bold, zh-cn: 粗体
+	ITALIC                = Font(C.go_FL_ITALIC)                // en: Italic, zh-cn: 斜体
+	BOLD_ITALIC           = Font(C.go_FL_BOLD_ITALIC)           // en: Bold Italic, zh-cn: 粗斜体
 )
 
 type LabelType int
@@ -219,35 +221,36 @@ var (
 	OPENGL3     = int(C.go_FL_OPENGL3)
 )
 
+// Color en: Color enums, zh-cn: 颜色枚举
 type Color uint
 
 var (
-	FOREGROUND_COLOR  = Color(C.go_FL_FOREGROUND_COLOR)
-	BACKGROUND2_COLOR = Color(C.go_FL_BACKGROUND2_COLOR)
-	INACTIVE_COLOR    = Color(C.go_FL_INACTIVE_COLOR)
-	SELECTION_COLOR   = Color(C.go_FL_SELECTION_COLOR)
-	GRAY0             = Color(C.go_FL_GRAY0)
-	DARK3             = Color(C.go_FL_DARK3)
-	DARK2             = Color(C.go_FL_DARK2)
-	DARK1             = Color(C.go_FL_DARK1)
-	BACKGROUND_COLOR  = Color(C.go_FL_BACKGROUND_COLOR)
-	LIGHT1            = Color(C.go_FL_LIGHT1)
-	LIGHT2            = Color(C.go_FL_LIGHT2)
-	LIGHT3            = Color(C.go_FL_LIGHT3)
-	BLACK             = Color(C.go_FL_BLACK)
-	RED               = Color(C.go_FL_RED)
-	GREEN             = Color(C.go_FL_GREEN)
-	YELLOW            = Color(C.go_FL_YELLOW)
-	BLUE              = Color(C.go_FL_BLUE)
-	MAGENTA           = Color(C.go_FL_MAGENTA)
-	CYAN              = Color(C.go_FL_CYAN)
-	DARK_RED          = Color(C.go_FL_DARK_RED)
-	DARK_GREEN        = Color(C.go_FL_DARK_GREEN)
-	DARK_YELLOW       = Color(C.go_FL_DARK_YELLOW)
-	DARK_BLUE         = Color(C.go_FL_DARK_BLUE)
-	DARK_MAGENTA      = Color(C.go_FL_DARK_MAGENTA)
-	DARK_CYAN         = Color(C.go_FL_DARK_CYAN)
-	WHITE             = Color(C.go_FL_WHITE)
+	FOREGROUND_COLOR  = Color(C.go_FL_FOREGROUND_COLOR)  // en: Foreground color, zh-cn: 前景色
+	BACKGROUND2_COLOR = Color(C.go_FL_BACKGROUND2_COLOR) // en: Background2 color, zh-cn: 背景色2
+	INACTIVE_COLOR    = Color(C.go_FL_INACTIVE_COLOR)    // en: Inactive color, zh-cn: 非活动色
+	SELECTION_COLOR   = Color(C.go_FL_SELECTION_COLOR)   // en: Selection color, zh-cn: 选择色
+	GRAY0             = Color(C.go_FL_GRAY0)             // en: Gray0, zh-cn: 灰色0
+	DARK3             = Color(C.go_FL_DARK3)             // en: Dark3, zh-cn: 深色3
+	DARK2             = Color(C.go_FL_DARK2)             // en: Dark2, zh-cn: 深色2
+	DARK1             = Color(C.go_FL_DARK1)             // en: Dark1, zh-cn: 深色1
+	BACKGROUND_COLOR  = Color(C.go_FL_BACKGROUND_COLOR)  // en: Background color, zh-cn: 背景色
+	LIGHT1            = Color(C.go_FL_LIGHT1)            // en: Light1, zh-cn: 浅色1
+	LIGHT2            = Color(C.go_FL_LIGHT2)            // en: Light2, zh-cn: 浅色2
+	LIGHT3            = Color(C.go_FL_LIGHT3)            // en: Light3, zh-cn: 浅色3
+	BLACK             = Color(C.go_FL_BLACK)             // en: Black, zh-cn: 黑色
+	RED               = Color(C.go_FL_RED)               // en: Red, zh-cn: 红色
+	GREEN             = Color(C.go_FL_GREEN)             // en: Green, zh-cn: 绿色
+	YELLOW            = Color(C.go_FL_YELLOW)            // en: Yellow, zh-cn: 黄色
+	BLUE              = Color(C.go_FL_BLUE)              // en: Blue, zh-cn: 蓝色
+	MAGENTA           = Color(C.go_FL_MAGENTA)           // en: Magenta, zh-cn: 洋红色
+	CYAN              = Color(C.go_FL_CYAN)              // en: Cyan, zh-cn: 青色
+	DARK_RED          = Color(C.go_FL_DARK_RED)          // en: Dark red, zh-cn: 深红色
+	DARK_GREEN        = Color(C.go_FL_DARK_GREEN)        // en: Dark green, zh-cn: 深绿色
+	DARK_YELLOW       = Color(C.go_FL_DARK_YELLOW)       // en: Dark yellow, zh-cn: 深黄色
+	DARK_BLUE         = Color(C.go_FL_DARK_BLUE)         // en: Dark blue, zh-cn: 深蓝色
+	DARK_MAGENTA      = Color(C.go_FL_DARK_MAGENTA)      // en: Dark magenta, zh-cn: 深洋红色
+	DARK_CYAN         = Color(C.go_FL_DARK_CYAN)         // en: Dark cyan, zh-cn: 深青色
+	WHITE             = Color(C.go_FL_WHITE)             // en: White, zh-cn: 白色
 )
 
 func ColorFromRgb(r, g, b uint8) Color {
