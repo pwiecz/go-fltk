@@ -1,9 +1,15 @@
 #include "helpview.h"
 
 #include <FL/Fl_Help_View.H>
-
+#include <cstddef>
+#include "_cgo_export.h"
 #include "event_handler.h"
 
+
+const char * help_view_handler(Fl_Widget *w, const char* uri){
+  _go_helpViewHandler((long)w, (char*)uri);
+  return NULL;
+}
 
 // Implemented:
 //  Create HelpView
@@ -90,4 +96,8 @@ void go_fltk_HelpView_set_textsize(Fl_Help_View *h, int size) {
 
 void go_fltk_HelpView_set_textfont(Fl_Help_View *h, int font) {
 	h->textfont(font);
+}
+
+void go_fltk_HelpView_link(Fl_Help_View *h) {
+	h->link(help_view_handler);
 }

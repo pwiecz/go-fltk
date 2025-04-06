@@ -9,6 +9,7 @@ import "unsafe"
 
 type HelpView struct {
 	widget
+	linkHandlerId uintptr
 }
 
 func NewHelpView(x, y, w, h int, text ...string) *HelpView {
@@ -83,4 +84,13 @@ func (h *HelpView) TextFont(font Font) {
 
 func (h *HelpView) TextColor(col Color) {
 	C.go_fltk_HelpView_set_textcolor((*C.Fl_Help_View)(h.ptr()), C.uint(col))
+}
+
+func (h *HelpView) Link(handler func(string)) {
+	if h.linkHandlerId > 0 {
+		globalHelpViewHandlerMap.unregister(h.linkHandlerId)
+	}
+	h.linkHandlerId = globalHelpViewHandlerMap.register(uintptr(unsafe.Pointer((*C.Fl_Help_View)(h.ptr()))), handler)
+
+	C.go_fltk_HelpView_link((*C.Fl_Help_View)(h.ptr()))
 }

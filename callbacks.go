@@ -145,3 +145,46 @@ func _go_drawHandler(handlerId uintptr, widget *C.Fl_Widget) {
 		C.go_fltk_Widget_basedraw(widget)
 	})
 }
+
+type helpViewHandlerMap struct {
+	helpHandlerMap map[uintptr]func(string)
+}
+
+func newHelpViewHandlerMap() *helpViewHandlerMap {
+	return &helpViewHandlerMap{
+		helpHandlerMap: make(map[uintptr]func(string)),
+	}
+}
+func (m *helpViewHandlerMap) register(id uintptr, fn func(string)) uintptr {
+	m.helpHandlerMap[id] = fn
+	return id
+}
+func (m *helpViewHandlerMap) unregister(id uintptr) {
+	if _, ok := m.helpHandlerMap[id]; !ok {
+		panic(fmt.Errorf("unknown draw handler id: %d", id))
+	}
+	delete(m.helpHandlerMap, id)
+}
+func (m *helpViewHandlerMap) invoke(id uintptr, str string) {
+	if handler, ok := m.helpHandlerMap[id]; ok && handler != nil {
+		handler(str)
+	}
+}
+func (m *helpViewHandlerMap) isEmpty() bool {
+	return len(m.helpHandlerMap) == 0
+}
+func (m *helpViewHandlerMap) size() int {
+	return len(m.helpHandlerMap)
+}
+func (m *helpViewHandlerMap) clear() {
+	for id := range m.helpHandlerMap {
+		delete(m.helpHandlerMap, id)
+	}
+}
+
+var globalHelpViewHandlerMap = newHelpViewHandlerMap()
+
+//export _go_helpViewHandler
+func _go_helpViewHandler(handlerId uintptr, str *C.char) {
+	globalHelpViewHandlerMap.invoke(handlerId, C.GoString(str))
+}
