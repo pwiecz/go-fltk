@@ -73,6 +73,10 @@ func NewTextBuffer() *TextBuffer {
 	ptr := C.go_fltk_new_TextBuffer()
 	return &TextBuffer{cPtr: ptr}
 }
+func NewTextBufferEx(requestedSize, preferredGapSize int) *TextBuffer {
+	ptr := C.go_fltk_new_TextBufferEx(C.int(requestedSize), C.int(preferredGapSize))
+	return &TextBuffer{cPtr: ptr}
+}
 
 func (b *TextBuffer) ptr() *C.Fl_Text_Buffer {
 	if b.cPtr == nil {

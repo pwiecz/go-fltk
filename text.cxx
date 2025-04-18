@@ -189,6 +189,9 @@ void modify_callback_handler(int pos, int nInserted, int nDeleted, int nRestyled
 Fl_Text_Buffer *go_fltk_new_TextBuffer(void) {
   return new Fl_Text_Buffer;
 }
+Fl_Text_Buffer *go_fltk_new_TextBufferEx(int textBufferSize, int preferredGapSize) {
+  return new Fl_Text_Buffer(textBufferSize, preferredGapSize);
+}
 
 void go_fltk_TextBuffer_delete(Fl_Text_Buffer* b) {
   delete b;
