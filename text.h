@@ -52,6 +52,7 @@ extern "C" {
   extern void go_fltk_TextDisplay_set_linenumber_align(Fl_Text_Display *d, int val);
 
   extern Fl_Text_Buffer *go_fltk_new_TextBuffer(void);
+  extern Fl_Text_Buffer *go_fltk_new_TextBufferEx(int textBufferSize, int preferredGapSize);
   extern void go_fltk_TextBuffer_add_modify_callback(Fl_Text_Buffer *b, uintptr_t handlerId);
   extern void go_fltk_TextBuffer_delete(Fl_Text_Buffer* b);
   extern void go_fltk_TextBuffer_set_text(Fl_Text_Buffer *b, const char *txt);
