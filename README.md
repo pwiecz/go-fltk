@@ -119,7 +119,7 @@ func main() {
 
 ![image](https://user-images.githubusercontent.com/37966791/147374840-2d993522-fc86-46fc-9e95-2b3391d31013.png)
 
-Label attributes can be seen [here](https://www.fltk.org/doc-1.3/common.html#common_labels)
+Label attributes can be seen [here](https://www.fltk.org/doc-1.4/common.html#common_labels)
 
 ## Image support
 FLTK supports vector and raster graphics, via several image types:
