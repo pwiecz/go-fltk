@@ -67,7 +67,7 @@ void go_fltk_Window_set_non_modal(Fl_Window* w) {
   w->set_non_modal();
 }
 
-void go_fltk_Window_border(Fl_Window *w, int n) {
+void go_fltk_Window_set_border(Fl_Window *w, int n) {
   w->border(n);
 }
 

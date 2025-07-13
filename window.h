@@ -22,7 +22,7 @@ extern "C" {
   extern int go_fltk_Window_fullscreen_active(Fl_Window *w);
   extern void go_fltk_Window_set_modal(Fl_Window *w);
   extern void go_fltk_Window_set_non_modal(Fl_Window *w);
-  extern void go_fltk_Window_border(Fl_Window *w, int n);
+  extern void go_fltk_Window_set_border(Fl_Window *w, int n);
   extern void go_fltk_Window_clear_border(Fl_Window *w);
   extern void go_fltk_Window_set_icons(Fl_Window* w, const Fl_RGB_Image* images[], int length);
   extern void go_fltk_Window_size_range(Fl_Window* w, int minW, int minH, int maxW, int maxH, int deltaX, int deltaY, int aspectRatio);
