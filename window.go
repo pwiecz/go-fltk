@@ -66,6 +66,18 @@ func (w *Window) SetNonModal() {
 	C.go_fltk_Window_set_non_modal((*C.Fl_Window)(w.ptr()))
 }
 
+func (w *Window) SetBorder(flag bool) {
+	if flag {
+		C.go_fltk_Window_set_border((*C.Fl_Window)(w.ptr()), 1)
+	} else {
+		C.go_fltk_Window_set_border((*C.Fl_Window)(w.ptr()), 0)
+	}
+}
+
+func (w *Window) ClearBorder() {
+	C.go_fltk_Window_clear_border((*C.Fl_Window)(w.ptr()))
+}
+
 func (w *Window) SetIcons(icons []*RgbImage) {
 	images := make([]*C.Fl_RGB_Image, 0, len(icons))
 	for _, icon := range icons {

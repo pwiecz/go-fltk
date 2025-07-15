@@ -67,6 +67,14 @@ void go_fltk_Window_set_non_modal(Fl_Window* w) {
   w->set_non_modal();
 }
 
+void go_fltk_Window_set_border(Fl_Window *w, int n) {
+  w->border(n);
+}
+
+void go_fltk_Window_clear_border(Fl_Window *w) {
+  w->clear_border();
+}
+
 void go_fltk_Window_set_icons(Fl_Window* w, const Fl_RGB_Image *images[], int length) {
   w->icons(images, length);
 }
