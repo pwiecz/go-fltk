@@ -25,6 +25,7 @@ extern "C" {
   extern void go_fltk_FileChooser_preview(Fl_File_Chooser* fileChooser, int enable);
   extern int go_fltk_FileChooser_count(Fl_File_Chooser* fileChooser);
   extern const char* go_fltk_FileChooser_value(Fl_File_Chooser* fileChooser, int position);
+  extern void go_fltk_FileChooser_set_value(Fl_File_Chooser* fileChooser, const char* filename);
 
   extern char* go_fltk_file_chooser(const char* message, const char* pattern, const char* initialFilename, int relative);
 

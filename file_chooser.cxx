@@ -59,6 +59,9 @@ int go_fltk_FileChooser_count(Fl_File_Chooser* fileChooser) {
 const char* go_fltk_FileChooser_value(Fl_File_Chooser* fileChooser, int position) {
   return fileChooser->value(position);
 }
+void go_fltk_FileChooser_set_value(Fl_File_Chooser *fileChooser, const char *filename) {
+  fileChooser->value(filename);
+}  
 
 char* go_fltk_file_chooser(const char* message, const char* pattern, const char* initialFilename, int relative) {
   return fl_file_chooser(message, pattern, initialFilename, relative);

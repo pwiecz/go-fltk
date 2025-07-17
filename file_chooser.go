@@ -94,6 +94,11 @@ func (c *FileChooser) Selection() []string {
 	}
 	return selection
 }
+func (c *FileChooser) SetValue(filename string) {
+	filenameStr := C.CString(filename)
+	defer C.free(unsafe.Pointer(filenameStr))
+	C.go_fltk_FileChooser_set_value(c.ptr(), filenameStr)
+}
 
 func ChooseFile(message, pattern, initialFilename string, relative bool) (string, bool) {
 	var rel int
