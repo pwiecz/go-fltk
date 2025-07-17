@@ -55,6 +55,11 @@ const char* go_fltk_Menu_text(Fl_Menu_* m, int index) { return m->text(index); }
 
 int go_fltk_Menu_size(Fl_Menu_ *m) { return m->size(); }
 
+void go_fltk_Menu_set_global(Fl_Menu_ *m) { m->global(); }
+
+int go_fltk_Menu_mode(Fl_Menu_ *m, int id) { return m->mode(id); }  
+void go_fltk_Menu_set_mode(Fl_Menu_ *m, int id, int flags) { m->mode(id, flags); }
+
 
 class GMenu_Button : public EventHandler<Fl_Menu_Button> {
 public:
