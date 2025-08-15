@@ -20,6 +20,10 @@ func (g *Grid) SetLayout(rows, columns, margin, gap int) {
 	C.go_fltk_Grid_set_layout((*C.Fl_Grid)(g.ptr()), C.int(rows), C.int(columns), C.int(margin), C.int(gap))
 }
 
+func (g *Grid) ClearLayout() {
+	C.go_fltk_Grid_clear_layout((*C.Fl_Grid)(g.ptr()))
+}
+
 func (g *Grid) SetShowGrid(show bool) {
 	if show {
 		C.go_fltk_Grid_set_show_grid((*C.Fl_Grid)(g.ptr()), 1)

@@ -20,6 +20,10 @@ void go_fltk_Grid_set_layout(Fl_Grid* grid, int rows, int columns, int margin,
   grid->layout(rows, columns, margin, gap);
 }
 
+void go_fltk_Grid_clear_layout(Fl_Grid* grid) {
+  grid->clear_layout();
+}
+
 void go_fltk_Grid_set_show_grid(Fl_Grid *grid, int show) {
   grid->show_grid(show);
 }
