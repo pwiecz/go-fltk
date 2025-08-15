@@ -20,6 +20,11 @@ func (g *Grid) SetLayout(rows, columns, margin, gap int) {
 	C.go_fltk_Grid_set_layout((*C.Fl_Grid)(g.ptr()), C.int(rows), C.int(columns), C.int(margin), C.int(gap))
 }
 
+// ClearLayout reset the layout without removing it's children.
+// First removes all rows and columns from the grid setting them to 'zero',
+// then hides all the children on the Grid. 
+// These can be displayed again by defining a new layout, 
+// showing each child and then adding them again
 func (g *Grid) ClearLayout() {
 	C.go_fltk_Grid_clear_layout((*C.Fl_Grid)(g.ptr()))
 }
