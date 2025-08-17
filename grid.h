@@ -12,6 +12,7 @@ extern "C" {
 
   extern void go_fltk_Grid_set_layout(Fl_Grid* grid, int rows, int columns, int margin,
                                       int gap);
+  extern void go_fltk_Grid_clear_layout(Fl_Grid* grid);
 
   extern void go_fltk_Grid_set_show_grid(Fl_Grid *grid, int show);
   extern void go_fltk_Grid_set_show_grid_and_color(Fl_Grid *grid, int show,
