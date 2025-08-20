@@ -82,6 +82,21 @@ func (i *image) Inactive() {
 	C.go_fltk_image_inactive(i.ptr())
 }
 
+// The ColorAverage() method averages the colors in the image with the provided FLTK color value.
+// The second argument specifies the amount of the original image to combine with the color, 
+// so a value of 1.0 results in no color blend, and a value of 0.0 results in a constant image of the specified color.
+
+
+func (i *image) ColorAverage(color Color, blend float32) {
+	if blend > 1.0 {
+		blend = 1.0
+	} else if blend < 0 {
+		blend = 0
+	}
+
+	C.go_fltk_image_color_average(i.ptr(), C.uint(color), C.float(blend))
+}
+
 var ErrNoImage = errors.New("no image was found")
 var ErrImageFileAccess = errors.New("image file access error")
 var ErrImageDecodingFailed = errors.New("image decoding failed")

@@ -55,6 +55,9 @@ int go_fltk_image_ld(const Fl_Image *i) {
 void go_fltk_image_inactive(Fl_Image *i) {
     return i->inactive();
 }
+void go_fltk_image_color_average(Fl_Image *i, unsigned int color, float blend) {
+    return i->color_average(color, blend);
+}
   
 Fl_SVG_Image *go_fltk_svg_image_load(const char *file) {
     return new Fl_SVG_Image(file);
