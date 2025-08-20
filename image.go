@@ -83,9 +83,8 @@ func (i *image) Inactive() {
 }
 
 // The ColorAverage() method averages the colors in the image with the provided FLTK color value.
-// The second argument specifies the amount of the original image to combine with the color, 
+// The second argument specifies the amount of the original image to combine with the color,
 // so a value of 1.0 results in no color blend, and a value of 0.0 results in a constant image of the specified color.
-
 
 func (i *image) ColorAverage(color Color, blend float32) {
 	if blend > 1.0 {
