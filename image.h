@@ -30,6 +30,7 @@ extern "C" {
     extern int go_fltk_image_d(const Fl_Image *self);                                                              
     extern int go_fltk_image_ld(const Fl_Image *self);                                                             
     extern void go_fltk_image_inactive(Fl_Image *self);
+    extern void go_fltk_image_color_average(Fl_Image *i, unsigned int color, float blend);
 
     extern Fl_SVG_Image *go_fltk_svg_image_load(const char *file);
     extern Fl_SVG_Image *go_fltk_svg_image_data(const char *data);
