@@ -1,10 +1,13 @@
 package fltk
 
-/*
-#include "grid.h"
-*/
-import "C"
-import "unsafe"
+import (
+	/*
+	#include <stdlib.h>
+	#include "grid.h"
+	*/
+	"C"
+	"unsafe"
+)
 
 type Grid struct {
 	Group
@@ -64,6 +67,25 @@ func (g *Grid) SetRowGap(row, gap int) {
 }
 func (g *Grid) RowGap(row int) int {
 	return int(C.go_fltk_Grid_row_gap((*C.Fl_Grid)(g.ptr()), C.int(row)))
+}
+
+func (g *Grid) Margin() (all_equal int, margins [4]int) {
+	result_arr_ptr := unsafe.Pointer(C.go_fltk_Grid_margin((*C.Fl_Grid)(g.ptr())))
+	defer C.free(result_arr_ptr)
+
+	// Casting of the C Array to a Go slice
+	result_arr := (*[5]C.int)(result_arr_ptr)[:5:5]
+	all_equal = int(result_arr[0])
+
+	for i := 1; i < 5; i++ {
+		margins[i - 1] = int(result_arr[i])
+	}
+
+	return all_equal, margins
+}
+
+func (g *Grid) SetMargin(left, top, right, bottom int) {
+	C.go_fltk_Grid_set_margin((*C.Fl_Grid)(g.ptr()), C.int(left), C.int(top), C.int(right), C.int(bottom))
 }
 
 func (g *Grid) SetRowWeight(row, weight int) {

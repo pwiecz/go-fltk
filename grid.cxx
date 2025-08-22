@@ -1,5 +1,7 @@
 #include "grid.h"
 
+#include <stdlib.h>
+
 #include <FL/Fl_Grid.H>
 
 #include "event_handler.h"
@@ -37,6 +39,23 @@ void go_fltk_Grid_set_column_gap(Fl_Grid *grid, int column, int gap) {
 }
 int go_fltk_Grid_column_gap(Fl_Grid *grid, int column) {
   return grid->col_gap(column);
+}
+
+int* go_fltk_Grid_margin(Fl_Grid *grid) {
+    int* result_arr = (int *) malloc(sizeof(int) * 5);
+
+    result_arr[0] = grid->margin(
+            &result_arr[1], 
+            &result_arr[2], 
+            &result_arr[3],
+            &result_arr[4]
+    );
+
+    return result_arr;
+}
+
+void go_fltk_Grid_set_margin(Fl_Grid *grid, int left, int top, int right, int bottom) {
+    grid->margin(left, top, right, bottom);
 }
 
 void go_fltk_Grid_set_column_weight(Fl_Grid *grid, int column, int weight) {
