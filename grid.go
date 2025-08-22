@@ -2,8 +2,8 @@ package fltk
 
 import (
 	/*
-	#include <stdlib.h>
-	#include "grid.h"
+		#include <stdlib.h>
+		#include "grid.h"
 	*/
 	"C"
 	"unsafe"
@@ -69,6 +69,9 @@ func (g *Grid) RowGap(row int) int {
 	return int(C.go_fltk_Grid_row_gap((*C.Fl_Grid)(g.ptr()), C.int(row)))
 }
 
+// Gets the current margins of the Grid.
+// all_equal is 1 if all margins are equal, 0 otherwise
+// margins is an array of the Grid margins, in order, {left, top, right, bottom}.
 func (g *Grid) Margin() (all_equal int, margins [4]int) {
 	result_arr_ptr := unsafe.Pointer(C.go_fltk_Grid_margin((*C.Fl_Grid)(g.ptr())))
 	defer C.free(result_arr_ptr)
@@ -78,7 +81,7 @@ func (g *Grid) Margin() (all_equal int, margins [4]int) {
 	all_equal = int(result_arr[0])
 
 	for i := 1; i < 5; i++ {
-		margins[i - 1] = int(result_arr[i])
+		margins[i-1] = int(result_arr[i])
 	}
 
 	return all_equal, margins
