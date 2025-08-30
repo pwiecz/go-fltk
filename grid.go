@@ -2,7 +2,6 @@ package fltk
 
 import (
 	/*
-		#include <stdlib.h>
 		#include "grid.h"
 	*/
 	"C"
@@ -73,16 +72,14 @@ func (g *Grid) RowGap(row int) int {
 // all_equal is 1 if all margins are equal, 0 otherwise
 // margins is an array of the Grid margins, in order, {left, top, right, bottom}.
 func (g *Grid) Margin() (all_equal int, margins [4]int) {
-	result_arr_ptr := unsafe.Pointer(C.go_fltk_Grid_margin((*C.Fl_Grid)(g.ptr())))
-	defer C.free(result_arr_ptr)
+	var left, top, right, bottom C.int
 
-	// Casting of the C Array to a Go slice
-	result_arr := (*[5]C.int)(result_arr_ptr)[:5:5]
-	all_equal = int(result_arr[0])
+	all_equal = int(C.go_fltk_Grid_margin(
+		(*C.Fl_Grid)(g.ptr()),
+		&left, &top, &right, &bottom,
+	))
 
-	for i := 1; i < 5; i++ {
-		margins[i-1] = int(result_arr[i])
-	}
+	margins = [4]int{int(left), int(top), int(right), int(bottom)}
 
 	return all_equal, margins
 }
