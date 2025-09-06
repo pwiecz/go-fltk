@@ -69,15 +69,15 @@ func (g *Grid) RowGap(row int) int {
 }
 
 // Gets the current margins of the Grid.
-// all_equal is 1 if all margins are equal, 0 otherwise
+// all_equal is true if all margins are equal, false otherwise
 // margins is an array of the Grid margins, in order, {left, top, right, bottom}.
-func (g *Grid) Margin() (all_equal int, margins [4]int) {
+func (g *Grid) Margin() (all_equal bool, margins [4]int) {
 	var left, top, right, bottom C.int
 
-	all_equal = int(C.go_fltk_Grid_margin(
+	all_equal = (int(C.go_fltk_Grid_margin(
 		(*C.Fl_Grid)(g.ptr()),
 		&left, &top, &right, &bottom,
-	))
+	)) == 1)
 
 	margins = [4]int{int(left), int(top), int(right), int(bottom)}
 
