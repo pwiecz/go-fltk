@@ -1,8 +1,8 @@
 diff --git a/src/Fl_win32.cxx b/src/Fl_win32.cxx
-index 0895ca417..834d82677 100644
+index e7539737f..4332a3988 100644
 --- a/src/Fl_win32.cxx
 +++ b/src/Fl_win32.cxx
-@@ -551,18 +551,18 @@ class Fl_Win32_At_Exit {
+@@ -572,18 +572,18 @@ class Fl_Win32_At_Exit {
  public:
    Fl_Win32_At_Exit() {}
    ~Fl_Win32_At_Exit() {
