@@ -27,6 +27,9 @@ extern "C" {
   extern void go_fltk_Grid_set_row_gap(Fl_Grid *grid, int row, int gap);
   extern int go_fltk_Grid_row_gap(Fl_Grid *grid, int row);
 
+  extern int go_fltk_Grid_margin(Fl_Grid *grid, int *left, int *top, int *right, int *bottom);
+  extern void go_fltk_Grid_set_margin(Fl_Grid *grid, int left, int top, int right, int bottom);
+
   extern void go_fltk_Grid_set_row_weight(Fl_Grid *grid, int row, int weight);
   extern int go_fltk_Grid_row_weight(Fl_Grid *grid, int row);
 

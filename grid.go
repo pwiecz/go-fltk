@@ -1,10 +1,12 @@
 package fltk
 
-/*
-#include "grid.h"
-*/
-import "C"
-import "unsafe"
+import (
+	/*
+		#include "grid.h"
+	*/
+	"C"
+	"unsafe"
+)
 
 type Grid struct {
 	Group
@@ -64,6 +66,26 @@ func (g *Grid) SetRowGap(row, gap int) {
 }
 func (g *Grid) RowGap(row int) int {
 	return int(C.go_fltk_Grid_row_gap((*C.Fl_Grid)(g.ptr()), C.int(row)))
+}
+
+// Gets the current margins of the Grid.
+// all_equal is true if all margins are equal, false otherwise
+// margins is an array of the Grid margins, in order, {left, top, right, bottom}.
+func (g *Grid) Margin() (all_equal bool, margins [4]int) {
+	var left, top, right, bottom C.int
+
+	all_equal = (int(C.go_fltk_Grid_margin(
+		(*C.Fl_Grid)(g.ptr()),
+		&left, &top, &right, &bottom,
+	)) == 1)
+
+	margins = [4]int{int(left), int(top), int(right), int(bottom)}
+
+	return all_equal, margins
+}
+
+func (g *Grid) SetMargin(left, top, right, bottom int) {
+	C.go_fltk_Grid_set_margin((*C.Fl_Grid)(g.ptr()), C.int(left), C.int(top), C.int(right), C.int(bottom))
 }
 
 func (g *Grid) SetRowWeight(row, weight int) {

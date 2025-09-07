@@ -39,6 +39,18 @@ int go_fltk_Grid_column_gap(Fl_Grid *grid, int column) {
   return grid->col_gap(column);
 }
 
+int go_fltk_Grid_margin(Fl_Grid *grid, int *left, int *top, int *right, int *bottom) {
+    int all_equal;
+
+    all_equal = grid->margin(left, top, right, bottom);
+
+    return all_equal;
+}
+
+void go_fltk_Grid_set_margin(Fl_Grid *grid, int left, int top, int right, int bottom) {
+    grid->margin(left, top, right, bottom);
+}
+
 void go_fltk_Grid_set_column_weight(Fl_Grid *grid, int column, int weight) {
   grid->col_weight(column, weight);
 }
