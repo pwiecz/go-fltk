@@ -13,7 +13,7 @@ import (
 	"strings"
 )
 
-const commit = "tags/release-1.4.2"
+const commit = "tags/release-1.4.4"
 
 func main() {
 	if runtime.GOOS == "" {
